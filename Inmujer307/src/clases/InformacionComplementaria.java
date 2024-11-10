@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.border.CompoundBorder;
@@ -16,12 +18,16 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InformacionComplementaria extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JLabel lblNewLabel = new JLabel("");
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -74,10 +80,10 @@ public class InformacionComplementaria extends JFrame {
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1.add(lblNewLabel_2);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(new Color(243, 220, 220));
-		textArea.setBounds(24, 27, 422, 115);
-		panel_1.add(textArea);
+		JTextArea textObservaciones = new JTextArea();
+		textObservaciones.setBackground(new Color(243, 220, 220));
+		textObservaciones.setBounds(24, 27, 422, 115);
+		panel_1.add(textObservaciones);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 128, 128), new Color(255, 128, 128)));
@@ -86,43 +92,88 @@ public class InformacionComplementaria extends JFrame {
 		contentPane.add(panel_1_1);
 		panel_1_1.setLayout(null);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Autorizo");
-		chckbxNewCheckBox.setFont(new Font("Arial", Font.PLAIN, 11));
-		chckbxNewCheckBox.setBackground(new Color(243, 220, 220));
-		chckbxNewCheckBox.setBounds(89, 69, 97, 23);
-		panel_1_1.add(chckbxNewCheckBox);
+		JCheckBox checAutorizo = new JCheckBox("Autorizo");
+		buttonGroup.add(checAutorizo);
+		checAutorizo.setFont(new Font("Arial", Font.PLAIN, 11));
+		checAutorizo.setBackground(new Color(243, 220, 220));
+		checAutorizo.setBounds(89, 69, 97, 23);
+		panel_1_1.add(checAutorizo);
 		
 		JLabel lblNewLabel_3 = new JLabel("Autorización");
 		lblNewLabel_3.setBounds(200, 11, 71, 14);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1_1.add(lblNewLabel_3);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("No autorizo");
-		chckbxNewCheckBox_1.setFont(new Font("Arial", Font.PLAIN, 11));
-		chckbxNewCheckBox_1.setBackground(new Color(243, 220, 220));
-		chckbxNewCheckBox_1.setBounds(281, 69, 97, 23);
-		panel_1_1.add(chckbxNewCheckBox_1);
+		JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
+		buttonGroup.add(checNoAutorizo);
+		checNoAutorizo.setFont(new Font("Arial", Font.PLAIN, 11));
+		checNoAutorizo.setBackground(new Color(243, 220, 220));
+		checNoAutorizo.setBounds(281, 69, 97, 23);
+		panel_1_1.add(checNoAutorizo);
 		
-		JButton btnNewButton = new JButton("INICIO");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(128, 0, 255));
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnNewButton.setBounds(148, 529, 108, 23);
-		contentPane.add(btnNewButton);
+		JButton btnInicio = new JButton("INICIO");
+		btnInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatosGenerales Ir = new DatosGenerales();
+	            Ir.setVisible(true);
+	            dispose();
+			}
+		});
+		btnInicio.setForeground(new Color(255, 255, 255));
+		btnInicio.setBackground(new Color(128, 0, 255));
+		btnInicio.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnInicio.setBounds(148, 529, 108, 23);
+		contentPane.add(btnInicio);
 		
-		JButton btnNewButton_1 = new JButton("FINALIZAR");
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBackground(new Color(128, 0, 255));
-		btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnNewButton_1.setBounds(525, 529, 108, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnFinalizar = new JButton("FINALIZAR");
+		btnFinalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String autorizacion;
+
+				if (textObservaciones.getText().isEmpty()) {
+				    JOptionPane.showMessageDialog(null,
+				        "Por favor, no olvide escribir sus observaciones",
+				        "Error",
+				        JOptionPane.ERROR_MESSAGE);
+				    return; // Detiene la ejecución si el campo de observaciones está vacío
+				}
+
+				if (!checAutorizo.isSelected() && !checNoAutorizo.isSelected()) {
+				    JOptionPane.showMessageDialog(null,
+				        "Debe seleccionar una opción",
+				        "Error",
+				        JOptionPane.ERROR_MESSAGE);
+				    return; // Detiene la ejecución si no se ha seleccionado ninguna opción
+				}
+				// Mensaje de despedida y cierre del programa
+				JOptionPane.showMessageDialog(null,
+				    "Gracias por usar nuestro programa."
+				    + "\nSi tiene algún otro inconveniente, "
+				    + "\nno dude en consultar esta página.",
+				    "Hasta luego",
+				    JOptionPane.INFORMATION_MESSAGE);
+				System.exit(0);
+			}
+		});
+		btnFinalizar.setForeground(new Color(255, 255, 255));
+		btnFinalizar.setBackground(new Color(128, 0, 255));
+		btnFinalizar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnFinalizar.setBounds(525, 529, 108, 23);
+		contentPane.add(btnFinalizar);
 		
-		JButton btnNewButton_2 = new JButton("REGRESAR");
-		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBackground(new Color(128, 0, 255));
-		btnNewButton_2.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnNewButton_2.setBounds(346, 529, 108, 23);
-		contentPane.add(btnNewButton_2);
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RedesDeApoyo Atrasar = new RedesDeApoyo();
+	            Atrasar.setVisible(true);
+	            dispose();
+			}
+		});
+		btnRegresar.setForeground(new Color(255, 255, 255));
+		btnRegresar.setBackground(new Color(128, 0, 255));
+		btnRegresar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnRegresar.setBounds(346, 529, 108, 23);
+		contentPane.add(btnRegresar);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/IMG/butterfly_side_view_56.png")));
