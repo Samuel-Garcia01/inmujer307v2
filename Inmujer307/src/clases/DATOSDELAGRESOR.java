@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import ConexionBaseDeDatos.variables;
 
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -70,13 +71,9 @@ public class DATOSDELAGRESOR extends JFrame {
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				do {
-					
-				} while (rs.next());
-			} else {
-
+			int valor = pst.executeUpdate();
+			if (valor==1) {
+				System.out.println("Éxito");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -517,6 +514,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String [] opciones = {"Aceptar","Cancelar"};
 				int opcion = JOptionPane.showOptionDialog(null,
 						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
@@ -527,7 +525,20 @@ public class DATOSDELAGRESOR extends JFrame {
 						opciones,
 						opciones[0]);
 				if (opcion== JOptionPane.YES_OPTION) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
 					
+					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor==1) {
+							System.out.println("Éxito en eliminar expediente");
+						}
+					} catch (Exception e1) {
+						// TODO: handle exception
+					}
 				} else if (opcion == JOptionPane.NO_OPTION) {
 					
 				}
