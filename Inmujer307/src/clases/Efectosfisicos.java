@@ -13,9 +13,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import ConexionBaseDeDatos.ConexionInmujer;
 import ConexionBaseDeDatos.variables;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class Efectosfisicos extends JFrame {
@@ -23,11 +25,25 @@ public class Efectosfisicos extends JFrame {
 	private JPanel contentPane;
 	private JCheckBox checkBoxCicatrices;
 	
-	String [] fisicos = new String[8];
-	String [] psicologicos = new String[10];
-	String [] sexuales = new String[4];
-	String [] patrimoniales = new String[8];
-
+	//Efectos ficicos
+	String herida,fractura,amputaciones,enfermedad,cicatrices,quemaduras,otros,ninguno;
+	String Fisicos;
+	//Efectos psicologicos
+	String AngustiaOMiedo,EstresPostTraumatico,Ansiedad,ideaSuicida,TrastornoAlimenticio,
+	TrastornoSuenio,Deprecion,Aislamiento,IntentoSuicida,otrosPsicologico;
+	String Psicologicos;
+	//Efectos sexuales
+	String Infecciones,Embarazo,Aborto,NoAplica;
+	String Sexuales;
+	//Efectos Economicos y patrimoniales
+	String DejoDeEstudiar,NoRecibePensionAlimenticia,NoRecibeGastoPatrimonial,ChantajeParaAportar,
+	PérdidaDePropiedades,QuemaOPerdidaDeDocumentos,SalirDelDomicilioPatrimonial,NoAplicaPatrimonial;
+	String patrimoniales;
+	
+	public void insertarEfectos(String hr, String psq, String sx, String ecpm) {
+		
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +60,7 @@ public class Efectosfisicos extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -79,8 +95,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxHerida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxHerida.isSelected()) {
-					String herida = checkBoxHerida.getText();
-					fisicos [0] = herida;
+					herida = checkBoxHerida.getText().toLowerCase();
 				}
 			}
 		});
@@ -94,8 +109,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxFractura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxFractura.isSelected()) {
-					String fractura = checkBoxFractura.getText();
-					fisicos [1] = fractura;
+					fractura = checkBoxFractura.getText().toLowerCase();
 				}
 			}
 		});
@@ -109,8 +123,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxAmputaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxAmputaciones.isSelected()) {
-					String amputaciones = checkBoxAmputaciones.getText();
-					fisicos [2] = amputaciones;
+					amputaciones = checkBoxAmputaciones.getText().toLowerCase();
 				}
 			}
 		});
@@ -124,8 +137,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxEnfermedad.isSelected()) {
-					String enfermedad = checkBoxEnfermedad.getText();
-					fisicos [3] = enfermedad;
+					enfermedad = checkBoxEnfermedad.getText().toLowerCase();
 				}
 			}
 		});
@@ -139,8 +151,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxCicatrices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxCicatrices.isSelected()) {
-					String cicatrices = checkBoxCicatrices.getText();
-					fisicos [4] = cicatrices;
+					cicatrices = checkBoxCicatrices.getText().toLowerCase();
 				}
 			}
 		});
@@ -154,8 +165,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxQuemaduras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxQuemaduras.isSelected()) {
-					String quemaduras = checkBoxQuemaduras.getText();
-					fisicos [5] = quemaduras;
+					quemaduras = checkBoxQuemaduras.getText().toLowerCase();
 				}
 			}
 		});
@@ -169,8 +179,7 @@ public class Efectosfisicos extends JFrame {
 		checkboxOtrosFisicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkboxOtrosFisicos.isSelected()) {
-					String otros = checkboxOtrosFisicos.getText();
-					fisicos [6] = otros;
+					otros = checkboxOtrosFisicos.getText().toLowerCase();
 				}
 			}
 		});
@@ -184,8 +193,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxNinguno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxNinguno.isSelected()) {
-					String ninguno = checkBoxNinguno.getText();
-					fisicos [7] = ninguno;
+					ninguno = checkBoxNinguno.getText().toLowerCase();
 				}
 			}
 		});
@@ -211,8 +219,7 @@ public class Efectosfisicos extends JFrame {
 		checkboxAngustia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkboxAngustia.isSelected()) {
-					String angustia = checkboxAngustia.getText();
-					psicologicos [0] = angustia;
+					AngustiaOMiedo = checkboxAngustia.getText().toLowerCase();
 				}
 			}
 		});
@@ -225,8 +232,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxEstresPostraumatico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxEstresPostraumatico.isSelected()) {
-					String estresPostraumatico = checkBoxEstresPostraumatico.getText();
-					psicologicos [1] = estresPostraumatico;
+					EstresPostTraumatico = checkBoxEstresPostraumatico.getText().toLowerCase();
 				}
 			}
 		});
@@ -239,8 +245,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxAnsiedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxAnsiedad.isSelected()) {
-					String ansiedad = checkBoxAnsiedad.getText();
-					psicologicos [2] = ansiedad;
+					Ansiedad = checkBoxAnsiedad.getText().toLowerCase();
 				}
 			}
 		});
@@ -253,8 +258,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxIdeaSuicida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxIdeaSuicida.isSelected()) {
-					String ideaSuicida = checkBoxIdeaSuicida.getText();
-					psicologicos [3] = ideaSuicida;
+					ideaSuicida = checkBoxIdeaSuicida.getText().toLowerCase();
 				}
 			}
 		});
@@ -267,8 +271,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxTranstornoAlimenticio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxTranstornoAlimenticio.isSelected()) {
-					String TranstornoAlimenticio = checkBoxTranstornoAlimenticio.getText();
-					psicologicos [4] = TranstornoAlimenticio;
+					TrastornoAlimenticio = checkBoxTranstornoAlimenticio.getText().toLowerCase();
 				}
 			}
 		});
@@ -281,8 +284,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxTranstornoSuenio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxTranstornoSuenio.isSelected()) {
-					String transtornoSuenio = checkBoxTranstornoSuenio.getText();
-					psicologicos [5] = transtornoSuenio;
+					TrastornoSuenio = checkBoxTranstornoSuenio.getText().toLowerCase();
 				}
 			}
 		});
@@ -295,8 +297,7 @@ public class Efectosfisicos extends JFrame {
 		checkboxDepresion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkboxDepresion.isSelected()) {
-					String depresion = checkboxDepresion.getText(); 
-					psicologicos [6] = depresion;
+					Deprecion = checkboxDepresion.getText().toLowerCase();
 				}
 			}
 		});
@@ -309,8 +310,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxAislamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxAislamiento.isSelected()) {
-					String aislamiento = checkBoxAislamiento.getText();
-					psicologicos [7] = aislamiento;
+					Aislamiento = checkBoxAislamiento.getText().toLowerCase();
 				}
 			}
 		});
@@ -323,8 +323,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxIntentoSuicida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxIntentoSuicida.isSelected()) {
-					String intentoSuicida = checkBoxIntentoSuicida.getText();
-					psicologicos [8] = intentoSuicida;
+					IntentoSuicida = checkBoxIntentoSuicida.getText().toLowerCase();
 				}
 			}
 		});
@@ -337,8 +336,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxOtroPsicologico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxOtroPsicologico.isSelected()) {
-					String otro = checkBoxOtroPsicologico.getText();
-					psicologicos [9] = otro;
+					otrosPsicologico = checkBoxOtroPsicologico.getText().toLowerCase();
 				}
 			}
 		});
@@ -363,10 +361,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxInfecciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxInfecciones.isSelected()) {
-					String infecciones = checkBoxInfecciones.getText();
-					
-					sexuales [0] = infecciones;
-					
+					Infecciones = checkBoxInfecciones.getText().toLowerCase();
 				}
 			}
 		});
@@ -379,10 +374,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxEmbarazo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxEmbarazo.isSelected()) {
-					String embarazo = checkBoxEmbarazo.getText();
-					
-					sexuales [1] = embarazo;
-					
+					Embarazo = checkBoxEmbarazo.getText().toLowerCase();
 				}
 			}
 		});
@@ -395,10 +387,7 @@ public class Efectosfisicos extends JFrame {
 		chckBoxAborto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckBoxAborto.isSelected()) {
-					String aborto = chckBoxAborto.getText();
-					
-					sexuales [2] = aborto;
-					
+					Aborto = chckBoxAborto.getText().toLowerCase();
 				}
 			}
 		});
@@ -411,15 +400,10 @@ public class Efectosfisicos extends JFrame {
 		checkBoxNoAplicaSexuales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxNoAplicaSexuales.isSelected()) {
-					String noaplica = checkBoxNoAplicaSexuales.getText();
-					
-					sexuales [3] = noaplica;
-					
+					NoAplica = checkBoxNoAplicaSexuales.getText().toLowerCase();
 				}
 			}
 		});
-		
-		//Final
 		
 		checkBoxNoAplicaSexuales.setFont(new Font("Tahoma", Font.BOLD, 11));
 		checkBoxNoAplicaSexuales.setBackground(new Color(243, 220, 220));
@@ -444,10 +428,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxDejoEstudiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxDejoEstudiar.isSelected()) {
-					String estudiar = checkBoxDejoEstudiar.getText();
-					
-					patrimoniales [0] = estudiar;
-					
+					DejoDeEstudiar = checkBoxDejoEstudiar.getText().toLowerCase();
 				}
 			}
 		});
@@ -460,11 +441,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxNoRecibePensionAlimenticia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxNoRecibePensionAlimenticia.isSelected()) {
-					String alimenticia = checkBoxNoRecibePensionAlimenticia.getText();
-					
-					patrimoniales [1] = alimenticia;
-
-					
+					NoRecibePensionAlimenticia = checkBoxNoRecibePensionAlimenticia.getText().toLowerCase();
 				}
 			}
 		});
@@ -477,11 +454,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxNoRecibeGasto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxNoRecibeGasto.isSelected()) {
-					String gasto = checkBoxNoRecibeGasto.getText();
-					
-					patrimoniales [2] = gasto;
-
-					
+					NoRecibeGastoPatrimonial = checkBoxNoRecibeGasto.getText().toLowerCase();
 				}	
 			}
 		});
@@ -494,10 +467,7 @@ public class Efectosfisicos extends JFrame {
 		checkboxChantajeAportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkboxChantajeAportar.isSelected()) {
-					String aportar = checkboxChantajeAportar.getText();
-
-					patrimoniales [3] = aportar;
-
+					ChantajeParaAportar = checkboxChantajeAportar.getText().toLowerCase();
 				}
 			}
 		});
@@ -510,10 +480,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxPerdidaPropiedades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxPerdidaPropiedades.isSelected()) {
-					String propiedades = checkBoxPerdidaPropiedades.getText();
-					
-					patrimoniales [4] = propiedades;
-					
+					PérdidaDePropiedades = checkBoxPerdidaPropiedades.getText().toLowerCase();
 				}
 			}
 		});
@@ -526,10 +493,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxPerdidaDocumentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxPerdidaDocumentos.isSelected()) {
-					String documentos = checkBoxPerdidaDocumentos.getText();
-					
-					patrimoniales [5] = documentos;
-					
+					QuemaOPerdidaDeDocumentos = checkBoxPerdidaDocumentos.getText().toLowerCase();
 				}
 			}
 		});
@@ -542,10 +506,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxSalirDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxSalirDomicilio.isSelected()) {
-					String Domicilio = checkBoxSalirDomicilio.getText();
-					
-					patrimoniales [6] = Domicilio;
-					
+					SalirDelDomicilioPatrimonial = checkBoxSalirDomicilio.getText().toLowerCase();
 				}
 			}
 		});
@@ -558,10 +519,7 @@ public class Efectosfisicos extends JFrame {
 		checkBoxNoAplicaEconomico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxNoAplicaEconomico.isSelected()) {
-					String economico = checkBoxNoAplicaEconomico.getText();
-					
-					patrimoniales [7] = economico;
-					
+					NoAplicaPatrimonial = checkBoxNoAplicaEconomico.getText().toLowerCase();
 				}
 			}
 		});
@@ -594,9 +552,10 @@ public class Efectosfisicos extends JFrame {
 		JButton btnSiguiente = new JButton("SIGUIENTE");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar(); 
 				
-				
-				
+				String sql = "";
 			}
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
