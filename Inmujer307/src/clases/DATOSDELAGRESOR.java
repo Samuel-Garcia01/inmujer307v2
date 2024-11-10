@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -15,25 +17,33 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import ConexionBaseDeDatos.ConexionInmujer;
+
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
 
 public class DATOSDELAGRESOR extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_13;
+	private JTextField txtNombre;
+	private JTextField txtFechadeN;
+	private JTextField txtRelacion;
+	private JTextField txtDomicilio;
+	private JTextField txtOcupacion;
+	private JTextField txtTez;
+	private JTextField txtOjos;
+	private JTextField txtCara;
+	private JTextField txtLabios;
+	private JTextField txtNariz;
+	private JTextField txtCabello;
+	private JTextField txtCejas;
+	private JTextField txtComplexion;
+	private JTextField txtCuales;
 
 	/**
 	 * Launch the application.
@@ -49,6 +59,29 @@ public class DATOSDELAGRESOR extends JFrame {
 				}
 			}
 		});
+	}
+	
+	public void InsertarEnBase(String EstadoCivil, String Nombre, String Edad , String Fechadenacimiento, String GradoEscolar, String NivelDeRiesgo, String Relacion,String ServidorPublico, String Ocupacion, String Tez, String Nariz, String Ojos, String Cabello, String Cara, String Cejas, String Labios, String Complexion, String PortaArmas, String SelecArma, String PerteneceABanda, String ConsumeSustancia, String Señas, String Cual) {
+		
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "UPDATE datos SET  Estado_Civil = '',Edad = '',Fecha_de_nacimiento='', Grado_escolar = '',Nivel_de_Riesgo = '',Relacion_o_Vinculo = '', Servidor_Publico = '', Ocupacion = '', Porta_armas = '', Pertenece_a_alguna_banda_delictiva = '', Consume_algún_tipo_de_sustancia = '', Señas_particulares = '', Cual = '',Media_filiación_del_agresor = '' WHERE Nombre = ''";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				do {
+					
+				} while (rs.next());
+			} else {
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	/**
@@ -102,41 +135,41 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_3.setBounds(51, 11, 104, 14);
 		panel_1.add(lblNewLabel_3);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"selecciona una opcion", "Bajo", "Medio", "alto"}));
-		comboBox.setBounds(37, 36, 130, 22);
-		panel_1.add(comboBox);
+		JComboBox comboNivel = new JComboBox();
+		comboNivel.setModel(new DefaultComboBoxModel(new String[] {"selecciona una opcion", "Bajo", "Medio", "alto"}));
+		comboNivel.setBounds(37, 36, 130, 22);
+		panel_1.add(comboNivel);
 		
 		JLabel lblNewLabel_4 = new JLabel("NOMBRE COMPLETO");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_4.setBounds(210, 11, 118, 14);
 		panel_1.add(lblNewLabel_4);
 		
-		textField = new JTextField();
-		textField.setBounds(192, 37, 154, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(192, 37, 154, 20);
+		panel_1.add(txtNombre);
+		txtNombre.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("EDAD");
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_5.setBounds(406, 11, 46, 14);
 		panel_1.add(lblNewLabel_5);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"seleccione una opcion", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", ""}));
-		comboBox_1.setForeground(Color.BLACK);
-		comboBox_1.setBounds(371, 36, 130, 22);
-		panel_1.add(comboBox_1);
+		JComboBox comboEdad = new JComboBox();
+		comboEdad.setModel(new DefaultComboBoxModel(new String[] {"seleccione una opcion", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", ""}));
+		comboEdad.setForeground(Color.BLACK);
+		comboEdad.setBounds(371, 36, 130, 22);
+		panel_1.add(comboEdad);
 		
 		JLabel lblNewLabel_6 = new JLabel("FECHA DE NACIMIENTO");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_6.setBounds(530, 11, 135, 14);
 		panel_1.add(lblNewLabel_6);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(511, 37, 177, 20);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		txtFechadeN = new JTextField();
+		txtFechadeN.setBounds(511, 37, 177, 20);
+		panel_1.add(txtFechadeN);
+		txtFechadeN.setColumns(10);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -150,10 +183,10 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_7.setBounds(83, 11, 106, 14);
 		panel_1_1.add(lblNewLabel_7);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una opcion", "Primaria Trunca", "primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios"}));
-		comboBox_2.setBounds(68, 36, 131, 22);
-		panel_1_1.add(comboBox_2);
+		JComboBox comboGrado = new JComboBox();
+		comboGrado.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una opcion", "Primaria Trunca", "primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios"}));
+		comboGrado.setBounds(68, 36, 131, 22);
+		panel_1_1.add(comboGrado);
 		
 		JLabel lblNewLabel_8 = new JLabel("ESTADO");
 		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
@@ -165,30 +198,30 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_9.setBounds(236, 24, 46, 14);
 		panel_1_1.add(lblNewLabel_9);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("SOLTERO/A");
-		rdbtnNewRadioButton.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton.setBounds(281, 7, 83, 23);
-		panel_1_1.add(rdbtnNewRadioButton);
+		JRadioButton rdestSolt = new JRadioButton("SOLTERO/A");
+		rdestSolt.setBackground(new Color(243, 220, 220));
+		rdestSolt.setBounds(281, 7, 83, 23);
+		panel_1_1.add(rdestSolt);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("VIUDO/A");
-		rdbtnNewRadioButton_1.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_1.setBounds(281, 36, 83, 23);
-		panel_1_1.add(rdbtnNewRadioButton_1);
+		JRadioButton rdestViud = new JRadioButton("VIUDO/A");
+		rdestViud.setBackground(new Color(243, 220, 220));
+		rdestViud.setBounds(281, 36, 83, 23);
+		panel_1_1.add(rdestViud);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("CASADO/A");
-		rdbtnNewRadioButton_2.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_2.setBounds(377, 7, 109, 23);
-		panel_1_1.add(rdbtnNewRadioButton_2);
+		JRadioButton rdestCasad = new JRadioButton("CASADO/A");
+		rdestCasad.setBackground(new Color(243, 220, 220));
+		rdestCasad.setBounds(377, 7, 109, 23);
+		panel_1_1.add(rdestCasad);
 		
 		JLabel lblNewLabel_10 = new JLabel("RELACION O VINCULO");
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_10.setBounds(507, 11, 130, 14);
 		panel_1_1.add(lblNewLabel_10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(497, 37, 153, 20);
-		panel_1_1.add(textField_2);
-		textField_2.setColumns(10);
+		txtRelacion = new JTextField();
+		txtRelacion.setBounds(497, 37, 153, 20);
+		panel_1_1.add(txtRelacion);
+		txtRelacion.setColumns(10);
 		
 		JPanel panel_1_1_1 = new JPanel();
 		panel_1_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -207,10 +240,10 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_12.setBounds(84, 30, 80, 14);
 		panel_1_1_1.add(lblNewLabel_12);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(161, 27, 158, 20);
-		panel_1_1_1.add(textField_3);
-		textField_3.setColumns(10);
+		txtDomicilio = new JTextField();
+		txtDomicilio.setBounds(161, 27, 158, 20);
+		panel_1_1_1.add(txtDomicilio);
+		txtDomicilio.setColumns(10);
 		
 		JLabel lblNewLabel_13 = new JLabel("SERVIDOR");
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 12));
@@ -222,25 +255,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_14.setBounds(346, 30, 67, 14);
 		panel_1_1_1.add(lblNewLabel_14);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("SI");
-		rdbtnNewRadioButton_4.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_4.setBounds(413, 11, 41, 23);
-		panel_1_1_1.add(rdbtnNewRadioButton_4);
+		JRadioButton rdservidorSI = new JRadioButton("SI");
+		rdservidorSI.setBackground(new Color(243, 220, 220));
+		rdservidorSI.setBounds(413, 11, 41, 23);
+		panel_1_1_1.add(rdservidorSI);
 		
-		JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("NO");
-		rdbtnNewRadioButton_5.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_5.setBounds(413, 37, 41, 23);
-		panel_1_1_1.add(rdbtnNewRadioButton_5);
+		JRadioButton rdservidorNO = new JRadioButton("NO");
+		rdservidorNO.setBackground(new Color(243, 220, 220));
+		rdservidorNO.setBounds(413, 37, 41, 23);
+		panel_1_1_1.add(rdservidorNO);
 		
 		JLabel lblNewLabel_15 = new JLabel("OCUPACION");
 		lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_15.setBounds(529, 11, 80, 14);
 		panel_1_1_1.add(lblNewLabel_15);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(486, 30, 158, 20);
-		panel_1_1_1.add(textField_4);
-		textField_4.setColumns(10);
+		txtOcupacion = new JTextField();
+		txtOcupacion.setBounds(486, 30, 158, 20);
+		panel_1_1_1.add(txtOcupacion);
+		txtOcupacion.setColumns(10);
 		
 		JLabel lblNewLabel_16 = new JLabel("CARACTERISTICAS");
 		lblNewLabel_16.setFont(new Font("Arial", Font.BOLD, 16));
@@ -269,25 +302,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_19.setBounds(72, 75, 46, 14);
 		panel_1_1_1_1.add(lblNewLabel_19);
 		
-		textField_9 = new JTextField();
-		textField_9.setBounds(25, 36, 139, 20);
-		panel_1_1_1_1.add(textField_9);
-		textField_9.setColumns(10);
+		txtTez = new JTextField();
+		txtTez.setBounds(25, 36, 139, 20);
+		panel_1_1_1_1.add(txtTez);
+		txtTez.setColumns(10);
 		
-		textField_10 = new JTextField();
-		textField_10.setBounds(25, 94, 139, 20);
-		panel_1_1_1_1.add(textField_10);
-		textField_10.setColumns(10);
+		txtOjos = new JTextField();
+		txtOjos.setBounds(25, 94, 139, 20);
+		panel_1_1_1_1.add(txtOjos);
+		txtOjos.setColumns(10);
 		
-		textField_11 = new JTextField();
-		textField_11.setBounds(25, 143, 139, 20);
-		panel_1_1_1_1.add(textField_11);
-		textField_11.setColumns(10);
+		txtCara = new JTextField();
+		txtCara.setBounds(25, 143, 139, 20);
+		panel_1_1_1_1.add(txtCara);
+		txtCara.setColumns(10);
 		
-		textField_12 = new JTextField();
-		textField_12.setBounds(25, 197, 139, 20);
-		panel_1_1_1_1.add(textField_12);
-		textField_12.setColumns(10);
+		txtLabios = new JTextField();
+		txtLabios.setBounds(25, 197, 139, 20);
+		panel_1_1_1_1.add(txtLabios);
+		txtLabios.setColumns(10);
 		
 		JLabel lblNewLabel_20 = new JLabel("TEZ");
 		lblNewLabel_20.setFont(new Font("Arial", Font.BOLD, 12));
@@ -309,35 +342,35 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_20_1.setBounds(253, 12, 46, 14);
 		panel_1_1_1_1.add(lblNewLabel_20_1);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(206, 36, 139, 20);
-		panel_1_1_1_1.add(textField_5);
+		txtNariz = new JTextField();
+		txtNariz.setColumns(10);
+		txtNariz.setBounds(206, 36, 139, 20);
+		panel_1_1_1_1.add(txtNariz);
 		
 		JLabel lblNewLabel_19_1 = new JLabel("CABELLO");
 		lblNewLabel_19_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_19_1.setBounds(246, 75, 63, 14);
 		panel_1_1_1_1.add(lblNewLabel_19_1);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(206, 94, 139, 20);
-		panel_1_1_1_1.add(textField_6);
+		txtCabello = new JTextField();
+		txtCabello.setColumns(10);
+		txtCabello.setBounds(206, 94, 139, 20);
+		panel_1_1_1_1.add(txtCabello);
 		
 		JLabel lblNewLabel_21_1 = new JLabel("CEJAS");
 		lblNewLabel_21_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_21_1.setBounds(253, 126, 46, 14);
 		panel_1_1_1_1.add(lblNewLabel_21_1);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(206, 143, 139, 20);
-		panel_1_1_1_1.add(textField_7);
+		txtCejas = new JTextField();
+		txtCejas.setColumns(10);
+		txtCejas.setBounds(206, 143, 139, 20);
+		panel_1_1_1_1.add(txtCejas);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(206, 197, 139, 20);
-		panel_1_1_1_1.add(textField_8);
+		txtComplexion = new JTextField();
+		txtComplexion.setColumns(10);
+		txtComplexion.setBounds(206, 197, 139, 20);
+		panel_1_1_1_1.add(txtComplexion);
 		
 		JLabel lblNewLabel_22_1 = new JLabel("COMPLEXION");
 		lblNewLabel_22_1.setFont(new Font("Arial", Font.BOLD, 12));
@@ -356,25 +389,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_23.setBounds(43, 11, 85, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_23);
 		
-		JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("SI");
-		rdbtnNewRadioButton_6.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_6.setBounds(53, 32, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_6);
+		JRadioButton rdportaArmasSI = new JRadioButton("SI");
+		rdportaArmasSI.setBackground(new Color(243, 220, 220));
+		rdportaArmasSI.setBounds(53, 32, 50, 23);
+		panel_1_1_1_1_1.add(rdportaArmasSI);
 		
-		JRadioButton rdbtnNewRadioButton_7 = new JRadioButton("NO");
-		rdbtnNewRadioButton_7.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_7.setBounds(53, 58, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_7);
+		JRadioButton rdportaArmasNO = new JRadioButton("NO");
+		rdportaArmasNO.setBackground(new Color(243, 220, 220));
+		rdportaArmasNO.setBounds(53, 58, 50, 23);
+		panel_1_1_1_1_1.add(rdportaArmasNO);
 		
 		JLabel lblNewLabel_24 = new JLabel("SELECCIONE ARMAS");
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_24.setBounds(184, 11, 117, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_24);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"selecciona una opcion", "Pistola", "Punzocortante", "Contundente"}));
-		comboBox_3.setBounds(184, 32, 130, 22);
-		panel_1_1_1_1_1.add(comboBox_3);
+		JComboBox comboTArma = new JComboBox();
+		comboTArma.setModel(new DefaultComboBoxModel(new String[] {"selecciona una opcion", "Pistola", "Punzocortante", "Contundente"}));
+		comboTArma.setBounds(184, 32, 130, 22);
+		panel_1_1_1_1_1.add(comboTArma);
 		
 		JLabel lblNewLabel_25 = new JLabel("\u00BFPERTENECE A ALGUNA ");
 		lblNewLabel_25.setFont(new Font("Arial", Font.BOLD, 12));
@@ -396,25 +429,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_28.setBounds(179, 108, 117, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_28);
 		
-		JRadioButton rdbtnNewRadioButton_6_1 = new JRadioButton("SI");
-		rdbtnNewRadioButton_6_1.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_6_1.setBounds(53, 129, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_6_1);
+		JRadioButton rdBandaDelictivaSI = new JRadioButton("SI");
+		rdBandaDelictivaSI.setBackground(new Color(243, 220, 220));
+		rdBandaDelictivaSI.setBounds(53, 129, 50, 23);
+		panel_1_1_1_1_1.add(rdBandaDelictivaSI);
 		
-		JRadioButton rdbtnNewRadioButton_7_1 = new JRadioButton("NO");
-		rdbtnNewRadioButton_7_1.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_7_1.setBounds(53, 155, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_7_1);
+		JRadioButton rdBandaDelictivaNO = new JRadioButton("NO");
+		rdBandaDelictivaNO.setBackground(new Color(243, 220, 220));
+		rdBandaDelictivaNO.setBounds(53, 155, 50, 23);
+		panel_1_1_1_1_1.add(rdBandaDelictivaNO);
 		
-		JRadioButton rdbtnNewRadioButton_6_2 = new JRadioButton("SI");
-		rdbtnNewRadioButton_6_2.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_6_2.setBounds(211, 129, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_6_2);
+		JRadioButton rdConsumeSI = new JRadioButton("SI");
+		rdConsumeSI.setBackground(new Color(243, 220, 220));
+		rdConsumeSI.setBounds(211, 129, 50, 23);
+		panel_1_1_1_1_1.add(rdConsumeSI);
 		
-		JRadioButton rdbtnNewRadioButton_7_2 = new JRadioButton("NO");
-		rdbtnNewRadioButton_7_2.setBackground(new Color(243, 220, 220));
-		rdbtnNewRadioButton_7_2.setBounds(211, 155, 50, 23);
-		panel_1_1_1_1_1.add(rdbtnNewRadioButton_7_2);
+		JRadioButton rdConsumeNO = new JRadioButton("NO");
+		rdConsumeNO.setBackground(new Color(243, 220, 220));
+		rdConsumeNO.setBounds(211, 155, 50, 23);
+		panel_1_1_1_1_1.add(rdConsumeNO);
 		
 		JLabel lblNewLabel_23_1 = new JLabel("CUAL?");
 		lblNewLabel_23_1.setFont(new Font("Arial", Font.BOLD, 12));
@@ -426,18 +459,30 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_29.setBounds(10, 185, 137, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_29);
 		
-		textField_13 = new JTextField();
-		textField_13.setBounds(215, 201, 131, 20);
-		panel_1_1_1_1_1.add(textField_13);
-		textField_13.setColumns(10);
+		txtCuales = new JTextField();
+		txtCuales.setBounds(215, 201, 131, 20);
+		panel_1_1_1_1_1.add(txtCuales);
+		txtCuales.setColumns(10);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 210, 149, 61);
-		panel_1_1_1_1_1.add(textArea);
+		JTextArea txtSeñasP = new JTextArea();
+		txtSeñasP.setBounds(10, 210, 149, 61);
+		panel_1_1_1_1_1.add(txtSeñasP);
 		
-		JButton btnNewButton_2 = new JButton("CONTINUAR");
-		btnNewButton_2.setBounds(229, 248, 117, 23);
-		panel_1_1_1_1_1.add(btnNewButton_2);
+		JButton btnContinuar = new JButton("CONTINUAR");
+		btnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+				Efectosfisicos sigventana = new Efectosfisicos();
+				dispose();
+				sigventana.setVisible(true);
+			}
+		});
+		btnContinuar.setBounds(229, 248, 117, 23);
+		panel_1_1_1_1_1.add(btnContinuar);
 		
 		JLabel lblNewLabel_16_1 = new JLabel("PARTICULARIDADES");
 		lblNewLabel_16_1.setFont(new Font("Arial", Font.BOLD, 16));
@@ -454,12 +499,42 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_18_1.setBounds(577, 298, 81, 14);
 		contentPane.add(lblNewLabel_18_1);
 		
-		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.setBounds(10, 577, 89, 23);
-		contentPane.add(btnNewButton);
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				Violencia antventana = new Violencia();
+				dispose();
+				antventana.setVisible(true);
+			}
+		});
+		btnRegresar.setBounds(10, 577, 89, 23);
+		contentPane.add(btnRegresar);
 		
-		JButton btnNewButton_1 = new JButton("INICIO");
-		btnNewButton_1.setBounds(243, 577, 89, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnInicio = new JButton("INICIO");
+		btnInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String [] opciones = {"Aceptar","Cancelar"};
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
+						"Confirmación",
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						opciones,
+						opciones[0]);
+				if (opcion== JOptionPane.YES_OPTION) {
+					
+				} else if (opcion == JOptionPane.NO_OPTION) {
+					
+				}
+				
+			}
+		});
+		btnInicio.setBounds(243, 577, 89, 23);
+		contentPane.add(btnInicio);
 	}
 }
