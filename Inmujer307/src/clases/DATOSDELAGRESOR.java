@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
 
 public class DATOSDELAGRESOR extends JFrame {
 
@@ -45,6 +46,11 @@ public class DATOSDELAGRESOR extends JFrame {
 	private JTextField txtCejas;
 	private JTextField txtComplexion;
 	private JTextField txtCuales;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -62,12 +68,12 @@ public class DATOSDELAGRESOR extends JFrame {
 		});
 	}
 	
-	public void InsertarEnBase(String EstadoCivil, String Nombre, String Edad , String Fechadenacimiento, String GradoEscolar, String NivelDeRiesgo, String Relacion,String ServidorPublico, String Ocupacion, String Tez, String Nariz, String Ojos, String Cabello, String Cara, String Cejas, String Labios, String Complexion, String PortaArmas, String SelecArma, String PerteneceABanda, String ConsumeSustancia, String Señas, String Cual) {
+	public void InsertarEnBase(String Domicilio, String EstadoCivil, String Edad , String Fechadenacimiento, String GradoEscolar, String NivelDeRiesgo, String Relacion,String ServidorPublico, String Ocupacion, String Tez, String Nariz, String Ojos, String Cabello, String Cara, String Cejas, String Labios, String Complexion, String PortaArmas, String SelecArma, String PerteneceABanda, String ConsumeSustancia, String Señas, String Cual, String Media) {
 		
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET  Estado_Civil = '',Edad = '',Fecha_de_nacimiento='', Grado_escolar = '',Nivel_de_Riesgo = '',Relacion_o_Vinculo = '', Servidor_Publico = '', Ocupacion = '', Porta_armas = '', Pertenece_a_alguna_banda_delictiva = '', Consume_algún_tipo_de_sustancia = '', Señas_particulares = '', Cual = '',Media_filiación_del_agresor = '' WHERE Nombre = ''";
+		String sql = "UPDATE datos SET Domicilio = '"+Domicilio+"',Estado_Civil = '"+EstadoCivil+"',Edad = '"+Edad+"',Fecha_de_nacimiento='"+Fechadenacimiento+"', Grado_escolar = '"+GradoEscolar+"',Nivel_de_Riesgo = '"+NivelDeRiesgo+"',Relacion_o_Vinculo = '"+Relacion+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion = '"+Ocupacion+"', Porta_armas = '"+PortaArmas+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algún_tipo_de_sustancia = '"+ConsumeSustancia+"', Señas_particulares = '"+Señas+"', Cual = '"+Cual+"',Media_filiación_del_agresor = '"+Media+"' WHERE Nombre = '"+variables.Nombre+"'";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -196,16 +202,19 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1.add(lblNewLabel_9);
 		
 		JRadioButton rdestSolt = new JRadioButton("SOLTERO/A");
+		buttonGroup.add(rdestSolt);
 		rdestSolt.setBackground(new Color(243, 220, 220));
 		rdestSolt.setBounds(281, 7, 83, 23);
 		panel_1_1.add(rdestSolt);
 		
 		JRadioButton rdestViud = new JRadioButton("VIUDO/A");
+		buttonGroup.add(rdestViud);
 		rdestViud.setBackground(new Color(243, 220, 220));
 		rdestViud.setBounds(281, 36, 83, 23);
 		panel_1_1.add(rdestViud);
 		
 		JRadioButton rdestCasad = new JRadioButton("CASADO/A");
+		buttonGroup.add(rdestCasad);
 		rdestCasad.setBackground(new Color(243, 220, 220));
 		rdestCasad.setBounds(377, 7, 109, 23);
 		panel_1_1.add(rdestCasad);
@@ -253,11 +262,13 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1_1.add(lblNewLabel_14);
 		
 		JRadioButton rdservidorSI = new JRadioButton("SI");
+		buttonGroup_1.add(rdservidorSI);
 		rdservidorSI.setBackground(new Color(243, 220, 220));
 		rdservidorSI.setBounds(413, 11, 41, 23);
 		panel_1_1_1.add(rdservidorSI);
 		
 		JRadioButton rdservidorNO = new JRadioButton("NO");
+		buttonGroup_1.add(rdservidorNO);
 		rdservidorNO.setBackground(new Color(243, 220, 220));
 		rdservidorNO.setBounds(413, 37, 41, 23);
 		panel_1_1_1.add(rdservidorNO);
@@ -387,11 +398,13 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1_1_1_1.add(lblNewLabel_23);
 		
 		JRadioButton rdportaArmasSI = new JRadioButton("SI");
+		buttonGroup_2.add(rdportaArmasSI);
 		rdportaArmasSI.setBackground(new Color(243, 220, 220));
 		rdportaArmasSI.setBounds(53, 32, 50, 23);
 		panel_1_1_1_1_1.add(rdportaArmasSI);
 		
 		JRadioButton rdportaArmasNO = new JRadioButton("NO");
+		buttonGroup_2.add(rdportaArmasNO);
 		rdportaArmasNO.setBackground(new Color(243, 220, 220));
 		rdportaArmasNO.setBounds(53, 58, 50, 23);
 		panel_1_1_1_1_1.add(rdportaArmasNO);
@@ -427,21 +440,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1_1_1_1.add(lblNewLabel_28);
 		
 		JRadioButton rdBandaDelictivaSI = new JRadioButton("SI");
+		buttonGroup_3.add(rdBandaDelictivaSI);
 		rdBandaDelictivaSI.setBackground(new Color(243, 220, 220));
 		rdBandaDelictivaSI.setBounds(53, 129, 50, 23);
 		panel_1_1_1_1_1.add(rdBandaDelictivaSI);
 		
 		JRadioButton rdBandaDelictivaNO = new JRadioButton("NO");
+		buttonGroup_3.add(rdBandaDelictivaNO);
 		rdBandaDelictivaNO.setBackground(new Color(243, 220, 220));
 		rdBandaDelictivaNO.setBounds(53, 155, 50, 23);
 		panel_1_1_1_1_1.add(rdBandaDelictivaNO);
 		
 		JRadioButton rdConsumeSI = new JRadioButton("SI");
+		buttonGroup_4.add(rdConsumeSI);
 		rdConsumeSI.setBackground(new Color(243, 220, 220));
 		rdConsumeSI.setBounds(211, 129, 50, 23);
 		panel_1_1_1_1_1.add(rdConsumeSI);
 		
 		JRadioButton rdConsumeNO = new JRadioButton("NO");
+		buttonGroup_4.add(rdConsumeNO);
 		rdConsumeNO.setBackground(new Color(243, 220, 220));
 		rdConsumeNO.setBounds(211, 155, 50, 23);
 		panel_1_1_1_1_1.add(rdConsumeNO);
@@ -468,10 +485,51 @@ public class DATOSDELAGRESOR extends JFrame {
 		JButton btnContinuar = new JButton("CONTINUAR");
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String Domicilio = txtDomicilio.getText();
+				String EstadoCivil = "";
+				if (rdestSolt.isSelected()) {
+					EstadoCivil="Soltero";
+				} else if (rdestCasad.isSelected()) {
+					EstadoCivil="Casado/a";
+				}else if(rdestViud.isSelected()) {
+					EstadoCivil="Viudo/a";
+				}
+				String Edad = comboEdad.getSelectedItem().toString();
+				String Fechadenacimiento = txtFechadeN.getText();
+				String GradoEscolar = comboGrado.getSelectedItem().toString();
+				String NivelDeRiesgo = comboNivel.getSelectedItem().toString();
+				String Relacion = txtRelacion.getText();
+				String ServidorPublico="";
+				if (rdservidorSI.isSelected()) {
+					ServidorPublico="Si";
+				} else if (rdservidorNO.isSelected()) {
+					ServidorPublico="No";
+				}
+				String Ocupacion = txtOcupacion.getText();
+				String PortaArmas="";
+				if (rdportaArmasSI.isSelected()) {
+					PortaArmas="Si";
+				} else if (rdportaArmasNO.isSelected()) {
+					PortaArmas="No";
+				}
+				String SelecArma =  comboTArma.getSelectedItem().toString();
+				String PerteneceABanda="";
+				if (rdBandaDelictivaSI.isSelected()) {
+					PerteneceABanda="Si";
+				} else if (rdBandaDelictivaSI.isSelected()) {
+					PerteneceABanda="No";
+				}
+				String ConsumeSustancia="";
+				if (rdConsumeSI.isSelected()) {
+					ConsumeSustancia="Si";
+				} else if (rdConsumeNO.isSelected()) {
+					ConsumeSustancia="No";
+				}
+				String Señas = txtSeñasP.getText();
+				String Cual = txtCuales.getText();
+				String Media = txtTez.getText() + "," + txtNariz.getText() + "," + txtOjos.getText() + "," + txtCabello.getText()+ "," + txtCara.getText() + "," + txtCejas.getText() + "," + txtLabios.getText() + "," + txtComplexion.getText();
 				
-				
-				
-				
+				InsertarEnBase(Domicilio,EstadoCivil, Edad, Fechadenacimiento, GradoEscolar, NivelDeRiesgo, Relacion, ServidorPublico, Ocupacion, PerteneceABanda, Fechadenacimiento, GradoEscolar, NivelDeRiesgo, SelecArma, Relacion, ServidorPublico, Ocupacion, PortaArmas, SelecArma, PerteneceABanda, ConsumeSustancia, Señas, Cual, Media);
 				
 				Efectosfisicos sigventana = new Efectosfisicos();
 				dispose();
