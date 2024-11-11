@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,30 +19,193 @@ import ConexionBaseDeDatos.variables;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Efectosfisicos extends JFrame {
 
 	private JPanel contentPane;
-	private JCheckBox checkBoxCicatrices;
 	
-	//Efectos ficicos
-	String herida,fractura,amputaciones,enfermedad,cicatrices,quemaduras,otros,ninguno;
-	String Fisicos;
-	//Efectos psicologicos
-	String AngustiaOMiedo,EstresPostTraumatico,Ansiedad,ideaSuicida,TrastornoAlimenticio,
-	TrastornoSuenio,Deprecion,Aislamiento,IntentoSuicida,otrosPsicologico;
-	String Psicologicos;
-	//Efectos sexuales
-	String Infecciones,Embarazo,Aborto,NoAplica;
-	String Sexuales;
-	//Efectos Economicos y patrimoniales
-	String DejoDeEstudiar,NoRecibePensionAlimenticia,NoRecibeGastoPatrimonial,ChantajeParaAportar,
-	PérdidaDePropiedades,QuemaOPerdidaDeDocumentos,SalirDelDomicilioPatrimonial,NoAplicaPatrimonial;
-	String patrimoniales;
+	String Fisicos="";
+	String Psicologicos="";
+	String Sexuales="";
+	String patrimoniales="";
 	
-	public void insertarEfectos(String hr, String psq, String sx, String ecpm) {
+	JCheckBox chkHerida = new JCheckBox("HERIDA");
+	JCheckBox chkFractura = new JCheckBox("FRACTURA");
+	JCheckBox chkAmputaciones = new JCheckBox("AMPUTACIONES");
+	JCheckBox chkEnfermedad = new JCheckBox("ENFERMEDAD");
+	JCheckBox chkCicatrices = new JCheckBox("CICATRICES");
+	JCheckBox chkQuemaduras = new JCheckBox("QUEMADURAS");
+	JCheckBox chkOtrosFisicos = new JCheckBox("OTROS");
+	JCheckBox chkNinguno = new JCheckBox("NINGUNO");
+	
+	JCheckBox chkAngustia = new JCheckBox("ANGUSTIA/MIEDO");
+	JCheckBox chkEstresPostraumatico = new JCheckBox("ESTRES POSTRAUMATICO");
+	JCheckBox chkAnsiedad = new JCheckBox("ANSIEDAD");
+	JCheckBox chkIdeaSuicida = new JCheckBox("IDEACION SUICIDA");
+	JCheckBox chkTranstornoAlimenticio = new JCheckBox("TRANSTORNO ALIMENTICIO");
+	JCheckBox chkTranstornoSuenio = new JCheckBox("TRANSTORNO DEL SUEÑO");
+	JCheckBox chkDepresion = new JCheckBox("DEPRESION");
+	JCheckBox chkAislamiento = new JCheckBox("AISLAMIENTO");
+	JCheckBox chkIntentoSuicida = new JCheckBox("INTENTO SUICIDA");
+	JCheckBox chkOtroPsicologico = new JCheckBox("OTRO");
+	
+	JCheckBox chkInfecciones = new JCheckBox("INFECCIONES");
+	JCheckBox chkEmbarazo = new JCheckBox("EMBARAZO");
+	JCheckBox chkAborto = new JCheckBox("ABORTO");
+	JCheckBox chkNoAplicaSexuales = new JCheckBox("NO APLICA");
+	
+	JCheckBox chkDejoEstudiar = new JCheckBox("DEJO DE ESTUDIAR");
+	JCheckBox chkNoRecibePensionAlimenticia = new JCheckBox("NO RECIBE PENSION ALIMENTICIA");
+	JCheckBox chkChantajeAportar = new JCheckBox("CHANTAJE PARA APORTAR");
+	JCheckBox chkNoRecibeGasto = new JCheckBox("NO RECIBE GASTO");
+	JCheckBox chkPerdidaPropiedades = new JCheckBox("PERDIDA DE PROPIEDADES");
+	JCheckBox chkPerdidaDocumentos = new JCheckBox("QUEMA/PERDIDA DE DOCUMENTOS");
+	JCheckBox chkSalirDomicilio = new JCheckBox("SALIR DEL DOMICILIO");
+	JCheckBox chkNoAplicaEconomico = new JCheckBox("NO APLICA");
+	
+	public void insertarDatosEfectos() {
+		boolean [] condFisicos = new boolean[8];
+		boolean [] condPsicologicos = new boolean[10];
+		boolean [] condSexuales = new boolean[4];
+		boolean [] condPatrimoniales = new boolean[8];
 		
+		for (int i = 0; i < 8; i++) {
+			if (chkHerida.isSelected() && !condFisicos[0]) {
+				Fisicos += (i+1)+". "+chkHerida.getText().toLowerCase()+"\n";
+				condFisicos[0] = true;
+			} else if (chkFractura.isSelected() && !condFisicos[1]) {
+				Fisicos += (i+1)+". "+chkFractura.getText().toLowerCase()+"\n";
+				condFisicos[1] = true;
+			} else if (chkAmputaciones.isSelected() && !condFisicos[2]) {
+				Fisicos += (i+1)+". "+chkFractura.getText().toLowerCase()+"\n";
+				condFisicos[2] = true;
+			} else if (chkEnfermedad.isSelected() && !condFisicos[3]) {
+				Fisicos += (i+1)+". "+chkEnfermedad.getText().toLowerCase()+"\n";
+				condFisicos[3] = true;
+			} else if (chkCicatrices.isSelected() && !condFisicos[4]) {
+				Fisicos += (i+1)+". "+chkCicatrices.getText().toLowerCase()+"\n";
+				condFisicos[4] = true;
+			} else if (chkQuemaduras.isSelected() && !condFisicos[5]) {
+				Fisicos += (i+1)+". "+chkQuemaduras.getText().toLowerCase()+"\n";
+				condFisicos[5] = true;
+			} else if (chkOtrosFisicos.isSelected() && !condFisicos[6]) {
+				Fisicos += (i+1)+". "+chkOtrosFisicos.getText().toLowerCase()+"\n";
+				condFisicos[6] = true;
+			} else if (chkNinguno.isSelected() && !condFisicos[7]) {
+				Fisicos += (i+1)+". "+chkNinguno.getText().toLowerCase()+"\n";
+				condFisicos[7] = true;
+			} else {
+				break;
+			}
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			if (chkAngustia.isSelected() && !condPsicologicos[0]) {
+				Psicologicos += (i+1)+". "+chkAngustia.getText().toLowerCase()+"\n";
+				condPsicologicos[0] = true;
+			} else if (chkEstresPostraumatico.isSelected() && !condPsicologicos[1]) {
+				Psicologicos += (i+1)+". "+chkEstresPostraumatico.getText().toLowerCase()+"\n";
+				condPsicologicos[1] = true;
+			} else if (chkAnsiedad.isSelected() && !condPsicologicos[2]) {
+				Psicologicos += (i+1)+". "+chkAnsiedad.getText().toLowerCase()+"\n";
+				condPsicologicos[2] = true;
+			} else if (chkIdeaSuicida.isSelected() && !condPsicologicos[3]) {
+				Psicologicos += (i+1)+". "+chkIdeaSuicida.getText().toLowerCase()+"\n";
+				condPsicologicos[3] = true;
+			} else if (chkTranstornoAlimenticio.isSelected() && !condPsicologicos[4]) {
+				Psicologicos += (i+1)+". "+chkTranstornoAlimenticio.getText().toLowerCase()+"\n";
+				condPsicologicos[4] = true;
+			} else if (chkTranstornoSuenio.isSelected() && !condPsicologicos[5]) {
+				Psicologicos += (i+1)+". "+chkTranstornoSuenio.getText().toLowerCase()+"\n";
+				condPsicologicos[5] = true;
+			} else if (chkDepresion.isSelected() && !condPsicologicos[6]) {
+				Psicologicos += (i+1)+". "+chkDepresion.getText().toLowerCase()+"\n";
+				condPsicologicos[6] = true;
+			} else if (chkAislamiento.isSelected() && !condPsicologicos[7]) {
+				Psicologicos += (i+1)+". "+chkAislamiento.getText().toLowerCase()+"\n";
+				condPsicologicos[7] = true;
+			} else if (chkIntentoSuicida.isSelected() && !condPsicologicos[8]) {
+				Psicologicos += (i+1)+". "+chkIntentoSuicida.getText().toLowerCase()+"\n";
+				condPsicologicos[8] = true;
+			} else if (chkOtroPsicologico.isSelected() && !condPsicologicos[9]) {
+				Psicologicos += (i+1)+". "+chkOtroPsicologico.getText().toLowerCase()+"\n";
+				condPsicologicos[9] = true;
+			} else {
+				break;
+			}
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			if (chkInfecciones.isSelected() && !condSexuales[0]) {
+				Sexuales += (i+1)+". "+chkInfecciones.getText().toLowerCase()+"\n";
+				condSexuales [0] = true;
+			} else if (chkEmbarazo.isSelected() && !condSexuales[1]) {
+				Sexuales += (i+1)+". "+chkEmbarazo.getText().toLowerCase()+"\n";
+				condSexuales [1] = true;
+			} else if (chkAborto.isSelected() && !condSexuales[2]) {
+				Sexuales += (i+1)+". "+chkAborto.getText().toLowerCase()+"\n";
+				condSexuales [2] = true;
+			} else if (chkNoAplicaSexuales.isSelected() && !condSexuales[3]) {
+				Sexuales += (i+1)+". "+chkNoAplicaSexuales.getText().toLowerCase()+"\n";
+				condSexuales [3] = true;
+			} else {
+				break;
+			}
+		}
+		
+		for (int i = 0; i < 8; i++) {
+			if (chkDejoEstudiar.isSelected() && !condPatrimoniales[0]) {
+				patrimoniales += (i+1)+". "+chkDejoEstudiar.getText().toLowerCase()+"\n";
+				condPatrimoniales [0]= true;
+			} else if (chkNoRecibePensionAlimenticia.isSelected() && !condPatrimoniales[1]) {
+				patrimoniales += (i+1)+". "+chkNoRecibePensionAlimenticia.getText().toLowerCase()+"\n";
+				condPatrimoniales [1]= true;
+			} else if (chkNoRecibeGasto.isSelected() && !condPatrimoniales[2]) {
+				patrimoniales += (i+1)+". "+chkNoRecibeGasto.getText().toLowerCase()+"\n";
+				condPatrimoniales [2]= true;
+			} else if (chkChantajeAportar.isSelected() && !condPatrimoniales[3]) {
+				patrimoniales += (i+1)+". "+chkChantajeAportar.getText().toLowerCase()+"\n";
+				condPatrimoniales [3]= true;
+			} else if (chkPerdidaPropiedades.isSelected() && !condPatrimoniales[4]) {
+				patrimoniales += (i+1)+". "+chkPerdidaPropiedades.getText().toLowerCase()+"\n";
+				condPatrimoniales [4]= true;
+			} else if (chkPerdidaDocumentos.isSelected() && !condPatrimoniales[5]) {
+				patrimoniales += (i+1)+". "+chkPerdidaDocumentos.getText().toLowerCase()+"\n";
+				condPatrimoniales [5]= true;
+			} else if (chkSalirDomicilio.isSelected() && !condPatrimoniales[6]) {
+				patrimoniales += (i+1)+". "+chkSalirDomicilio.getText().toLowerCase()+"\n";
+				condPatrimoniales [6]= true;
+			} else if (chkNoAplicaEconomico.isSelected() && !condPatrimoniales[7]) {
+				patrimoniales += (i+1)+". "+chkNoAplicaEconomico.getText().toLowerCase()+"\n";
+				condPatrimoniales [7]= true;
+			} else {
+				break;
+			}
+		}
+	}
+	
+	public void insertarEfectos(String fs, String psq, String sx, String ecpm) {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE Nombre = '"+variables.Nombre+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			
+			int valor = pst.executeUpdate();
+			if (valor == 1) {
+				System.out.println("Datos incertados");
+			} else {
+				System.out.println("Datos no incertados");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -91,117 +255,53 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_1.setBounds(325, 11, 97, 16);
 		panelEfectosFisicos.add(lblNewLabel_1);
 		
-		JCheckBox checkBoxHerida = new JCheckBox("HERIDA");
-		checkBoxHerida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxHerida.isSelected()) {
-					herida = checkBoxHerida.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxHerida.setForeground(Color.BLACK);
-		checkBoxHerida.setBackground(new Color(243, 220, 220));
-		checkBoxHerida.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxHerida.setBounds(6, 27, 97, 23);
-		panelEfectosFisicos.add(checkBoxHerida);
+		chkHerida.setForeground(Color.BLACK);
+		chkHerida.setBackground(new Color(243, 220, 220));
+		chkHerida.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkHerida.setBounds(6, 27, 97, 23);
+		panelEfectosFisicos.add(chkHerida);
 		
-		JCheckBox checkBoxFractura = new JCheckBox("FRACTURA");
-		checkBoxFractura.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxFractura.isSelected()) {
-					fractura = checkBoxFractura.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxFractura.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxFractura.setBackground(new Color(243, 220, 220));
-		checkBoxFractura.setForeground(Color.BLACK);
-		checkBoxFractura.setBounds(6, 60, 97, 23);
-		panelEfectosFisicos.add(checkBoxFractura);
+		chkFractura.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkFractura.setBackground(new Color(243, 220, 220));
+		chkFractura.setForeground(Color.BLACK);
+		chkFractura.setBounds(6, 60, 97, 23);
+		panelEfectosFisicos.add(chkFractura);
 		
-		JCheckBox checkBoxAmputaciones = new JCheckBox("AMPUTACIONES");
-		checkBoxAmputaciones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxAmputaciones.isSelected()) {
-					amputaciones = checkBoxAmputaciones.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxAmputaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxAmputaciones.setBackground(new Color(243, 220, 220));
-		checkBoxAmputaciones.setForeground(Color.BLACK);
-		checkBoxAmputaciones.setBounds(189, 27, 118, 23);
-		panelEfectosFisicos.add(checkBoxAmputaciones);
+		chkAmputaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkAmputaciones.setBackground(new Color(243, 220, 220));
+		chkAmputaciones.setForeground(Color.BLACK);
+		chkAmputaciones.setBounds(189, 27, 118, 23);
+		panelEfectosFisicos.add(chkAmputaciones);
 		
-		JCheckBox checkBoxEnfermedad = new JCheckBox("ENFERMEDAD");
-		checkBoxEnfermedad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxEnfermedad.isSelected()) {
-					enfermedad = checkBoxEnfermedad.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxEnfermedad.setBackground(new Color(243, 220, 220));
-		checkBoxEnfermedad.setForeground(Color.BLACK);
-		checkBoxEnfermedad.setBounds(189, 60, 118, 23);
-		panelEfectosFisicos.add(checkBoxEnfermedad);
+		chkEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkEnfermedad.setBackground(new Color(243, 220, 220));
+		chkEnfermedad.setForeground(Color.BLACK);
+		chkEnfermedad.setBounds(189, 60, 118, 23);
+		panelEfectosFisicos.add(chkEnfermedad);
 		
-		checkBoxCicatrices = new JCheckBox("CICATRICES");
-		checkBoxCicatrices.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxCicatrices.isSelected()) {
-					cicatrices = checkBoxCicatrices.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxCicatrices.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxCicatrices.setBackground(new Color(243, 220, 220));
-		checkBoxCicatrices.setForeground(Color.BLACK);
-		checkBoxCicatrices.setBounds(384, 34, 97, 23);
-		panelEfectosFisicos.add(checkBoxCicatrices);
+		chkCicatrices.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkCicatrices.setBackground(new Color(243, 220, 220));
+		chkCicatrices.setForeground(Color.BLACK);
+		chkCicatrices.setBounds(384, 34, 97, 23);
+		panelEfectosFisicos.add(chkCicatrices);
 		
-		JCheckBox checkBoxQuemaduras = new JCheckBox("QUEMADURAS");
-		checkBoxQuemaduras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxQuemaduras.isSelected()) {
-					quemaduras = checkBoxQuemaduras.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxQuemaduras.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxQuemaduras.setBackground(new Color(243, 220, 220));
-		checkBoxQuemaduras.setForeground(Color.BLACK);
-		checkBoxQuemaduras.setBounds(384, 60, 135, 23);
-		panelEfectosFisicos.add(checkBoxQuemaduras);
+		chkQuemaduras.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkQuemaduras.setBackground(new Color(243, 220, 220));
+		chkQuemaduras.setForeground(Color.BLACK);
+		chkQuemaduras.setBounds(384, 60, 135, 23);
+		panelEfectosFisicos.add(chkQuemaduras);
 		
-		JCheckBox checkboxOtrosFisicos = new JCheckBox("OTROS");
-		checkboxOtrosFisicos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkboxOtrosFisicos.isSelected()) {
-					otros = checkboxOtrosFisicos.getText().toLowerCase();
-				}
-			}
-		});
-		checkboxOtrosFisicos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkboxOtrosFisicos.setBackground(new Color(243, 220, 220));
-		checkboxOtrosFisicos.setForeground(Color.BLACK);
-		checkboxOtrosFisicos.setBounds(621, 34, 97, 23);
-		panelEfectosFisicos.add(checkboxOtrosFisicos);
+		chkOtrosFisicos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkOtrosFisicos.setBackground(new Color(243, 220, 220));
+		chkOtrosFisicos.setForeground(Color.BLACK);
+		chkOtrosFisicos.setBounds(621, 34, 97, 23);
+		panelEfectosFisicos.add(chkOtrosFisicos);
 		
-		JCheckBox checkBoxNinguno = new JCheckBox("NINGUNO");
-		checkBoxNinguno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxNinguno.isSelected()) {
-					ninguno = checkBoxNinguno.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxNinguno.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxNinguno.setBackground(new Color(243, 220, 220));
-		checkBoxNinguno.setForeground(Color.BLACK);
-		checkBoxNinguno.setBounds(621, 60, 97, 23);
-		panelEfectosFisicos.add(checkBoxNinguno);
+		chkNinguno.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkNinguno.setBackground(new Color(243, 220, 220));
+		chkNinguno.setForeground(Color.BLACK);
+		chkNinguno.setBounds(621, 60, 97, 23);
+		panelEfectosFisicos.add(chkNinguno);
 		
 		JPanel panelEfectosPsicologicos = new JPanel();
 		panelEfectosPsicologicos.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -215,135 +315,55 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_2.setBounds(139, 11, 129, 14);
 		panelEfectosPsicologicos.add(lblNewLabel_2);
 		
-		JCheckBox checkboxAngustia = new JCheckBox("ANGUSTIA/MIEDO");
-		checkboxAngustia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkboxAngustia.isSelected()) {
-					AngustiaOMiedo = checkboxAngustia.getText().toLowerCase();
-				}
-			}
-		});
-		checkboxAngustia.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkboxAngustia.setBackground(new Color(243, 220, 220));
-		checkboxAngustia.setBounds(6, 47, 178, 23);
-		panelEfectosPsicologicos.add(checkboxAngustia);
+		chkAngustia.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkAngustia.setBackground(new Color(243, 220, 220));
+		chkAngustia.setBounds(6, 47, 178, 23);
+		panelEfectosPsicologicos.add(chkAngustia);
 		
-		JCheckBox checkBoxEstresPostraumatico = new JCheckBox("ESTRES POSTRAUMATICO");
-		checkBoxEstresPostraumatico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxEstresPostraumatico.isSelected()) {
-					EstresPostTraumatico = checkBoxEstresPostraumatico.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxEstresPostraumatico.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxEstresPostraumatico.setBackground(new Color(243, 220, 220));
-		checkBoxEstresPostraumatico.setBounds(6, 85, 178, 23);
-		panelEfectosPsicologicos.add(checkBoxEstresPostraumatico);
+		chkEstresPostraumatico.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkEstresPostraumatico.setBackground(new Color(243, 220, 220));
+		chkEstresPostraumatico.setBounds(6, 85, 178, 23);
+		panelEfectosPsicologicos.add(chkEstresPostraumatico);
 		
-		JCheckBox checkBoxAnsiedad = new JCheckBox("ANSIEDAD");
-		checkBoxAnsiedad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxAnsiedad.isSelected()) {
-					Ansiedad = checkBoxAnsiedad.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxAnsiedad.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxAnsiedad.setBackground(new Color(243, 220, 220));
-		checkBoxAnsiedad.setBounds(6, 121, 178, 23);
-		panelEfectosPsicologicos.add(checkBoxAnsiedad);
+		chkAnsiedad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkAnsiedad.setBackground(new Color(243, 220, 220));
+		chkAnsiedad.setBounds(6, 121, 178, 23);
+		panelEfectosPsicologicos.add(chkAnsiedad);
 		
-		JCheckBox checkBoxIdeaSuicida = new JCheckBox("IDEACION SUICIDA ");
-		checkBoxIdeaSuicida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxIdeaSuicida.isSelected()) {
-					ideaSuicida = checkBoxIdeaSuicida.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxIdeaSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxIdeaSuicida.setBackground(new Color(243, 220, 220));
-		checkBoxIdeaSuicida.setBounds(6, 162, 178, 23);
-		panelEfectosPsicologicos.add(checkBoxIdeaSuicida);
+		chkIdeaSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkIdeaSuicida.setBackground(new Color(243, 220, 220));
+		chkIdeaSuicida.setBounds(6, 162, 178, 23);
+		panelEfectosPsicologicos.add(chkIdeaSuicida);
 		
-		JCheckBox checkBoxTranstornoAlimenticio = new JCheckBox("TRANSTORNO ALIMENTICIO");
-		checkBoxTranstornoAlimenticio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxTranstornoAlimenticio.isSelected()) {
-					TrastornoAlimenticio = checkBoxTranstornoAlimenticio.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxTranstornoAlimenticio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxTranstornoAlimenticio.setBackground(new Color(243, 220, 220));
-		checkBoxTranstornoAlimenticio.setBounds(6, 203, 196, 23);
-		panelEfectosPsicologicos.add(checkBoxTranstornoAlimenticio);
+		chkTranstornoAlimenticio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkTranstornoAlimenticio.setBackground(new Color(243, 220, 220));
+		chkTranstornoAlimenticio.setBounds(6, 203, 196, 23);
+		panelEfectosPsicologicos.add(chkTranstornoAlimenticio);
 		
-		JCheckBox checkBoxTranstornoSuenio = new JCheckBox("TRANSTORNO DEL SUEÑO");
-		checkBoxTranstornoSuenio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxTranstornoSuenio.isSelected()) {
-					TrastornoSuenio = checkBoxTranstornoSuenio.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxTranstornoSuenio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxTranstornoSuenio.setBackground(new Color(243, 220, 220));
-		checkBoxTranstornoSuenio.setBounds(204, 47, 185, 23);
-		panelEfectosPsicologicos.add(checkBoxTranstornoSuenio);
+		chkTranstornoSuenio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkTranstornoSuenio.setBackground(new Color(243, 220, 220));
+		chkTranstornoSuenio.setBounds(204, 47, 185, 23);
+		panelEfectosPsicologicos.add(chkTranstornoSuenio);
 		
-		JCheckBox checkboxDepresion = new JCheckBox("DEPRESION");
-		checkboxDepresion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkboxDepresion.isSelected()) {
-					Deprecion = checkboxDepresion.getText().toLowerCase();
-				}
-			}
-		});
-		checkboxDepresion.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkboxDepresion.setBackground(new Color(243, 220, 220));
-		checkboxDepresion.setBounds(204, 85, 167, 23);
-		panelEfectosPsicologicos.add(checkboxDepresion);
+		chkDepresion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkDepresion.setBackground(new Color(243, 220, 220));
+		chkDepresion.setBounds(204, 85, 167, 23);
+		panelEfectosPsicologicos.add(chkDepresion);
 		
-		JCheckBox checkBoxAislamiento = new JCheckBox("AISLAMIENTO");
-		checkBoxAislamiento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxAislamiento.isSelected()) {
-					Aislamiento = checkBoxAislamiento.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxAislamiento.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxAislamiento.setBackground(new Color(243, 220, 220));
-		checkBoxAislamiento.setBounds(204, 121, 167, 23);
-		panelEfectosPsicologicos.add(checkBoxAislamiento);
+		chkAislamiento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkAislamiento.setBackground(new Color(243, 220, 220));
+		chkAislamiento.setBounds(204, 121, 167, 23);
+		panelEfectosPsicologicos.add(chkAislamiento);
 		
-		JCheckBox checkBoxIntentoSuicida = new JCheckBox("INTENTO SUICIDA");
-		checkBoxIntentoSuicida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxIntentoSuicida.isSelected()) {
-					IntentoSuicida = checkBoxIntentoSuicida.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxIntentoSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxIntentoSuicida.setBackground(new Color(243, 220, 220));
-		checkBoxIntentoSuicida.setBounds(204, 162, 185, 23);
-		panelEfectosPsicologicos.add(checkBoxIntentoSuicida);
+		chkIntentoSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkIntentoSuicida.setBackground(new Color(243, 220, 220));
+		chkIntentoSuicida.setBounds(204, 162, 185, 23);
+		panelEfectosPsicologicos.add(chkIntentoSuicida);
 		
-		JCheckBox checkBoxOtroPsicologico = new JCheckBox("OTRO");
-		checkBoxOtroPsicologico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxOtroPsicologico.isSelected()) {
-					otrosPsicologico = checkBoxOtroPsicologico.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxOtroPsicologico.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxOtroPsicologico.setBackground(new Color(243, 220, 220));
-		checkBoxOtroPsicologico.setBounds(204, 203, 167, 23);
-		panelEfectosPsicologicos.add(checkBoxOtroPsicologico);
+		chkOtroPsicologico.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkOtroPsicologico.setBackground(new Color(243, 220, 220));
+		chkOtroPsicologico.setBounds(204, 203, 167, 23);
+		panelEfectosPsicologicos.add(chkOtroPsicologico);
 		
 		JPanel panelEfectosSexuales = new JPanel();
 		panelEfectosSexuales.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -357,58 +377,25 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_3.setBounds(141, 11, 101, 14);
 		panelEfectosSexuales.add(lblNewLabel_3);
 		
-		JCheckBox checkBoxInfecciones = new JCheckBox("INFECCIONES");
-		checkBoxInfecciones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxInfecciones.isSelected()) {
-					Infecciones = checkBoxInfecciones.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxInfecciones.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxInfecciones.setBackground(new Color(243, 220, 220));
-		checkBoxInfecciones.setBounds(52, 74, 113, 23);
-		panelEfectosSexuales.add(checkBoxInfecciones);
+		chkInfecciones.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkInfecciones.setBackground(new Color(243, 220, 220));
+		chkInfecciones.setBounds(52, 74, 113, 23);
+		panelEfectosSexuales.add(chkInfecciones);
 		
-		JCheckBox checkBoxEmbarazo = new JCheckBox("EMBARAZO");
-		checkBoxEmbarazo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxEmbarazo.isSelected()) {
-					Embarazo = checkBoxEmbarazo.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxEmbarazo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxEmbarazo.setBackground(new Color(243, 220, 220));
-		checkBoxEmbarazo.setBounds(215, 74, 97, 23);
-		panelEfectosSexuales.add(checkBoxEmbarazo);
+		chkEmbarazo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkEmbarazo.setBackground(new Color(243, 220, 220));
+		chkEmbarazo.setBounds(215, 74, 97, 23);
+		panelEfectosSexuales.add(chkEmbarazo);
 		
-		JCheckBox chckBoxAborto = new JCheckBox("ABORTO");
-		chckBoxAborto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (chckBoxAborto.isSelected()) {
-					Aborto = chckBoxAborto.getText().toLowerCase();
-				}
-			}
-		});
-		chckBoxAborto.setFont(new Font("Tahoma", Font.BOLD, 11));
-		chckBoxAborto.setBackground(new Color(243, 220, 220));
-		chckBoxAborto.setBounds(52, 150, 97, 23);
-		panelEfectosSexuales.add(chckBoxAborto);
+		chkAborto.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkAborto.setBackground(new Color(243, 220, 220));
+		chkAborto.setBounds(52, 150, 97, 23);
+		panelEfectosSexuales.add(chkAborto);
 		
-		JCheckBox checkBoxNoAplicaSexuales = new JCheckBox("NO APLICA");
-		checkBoxNoAplicaSexuales.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxNoAplicaSexuales.isSelected()) {
-					NoAplica = checkBoxNoAplicaSexuales.getText().toLowerCase();
-				}
-			}
-		});
-		
-		checkBoxNoAplicaSexuales.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxNoAplicaSexuales.setBackground(new Color(243, 220, 220));
-		checkBoxNoAplicaSexuales.setBounds(215, 150, 97, 23);
-		panelEfectosSexuales.add(checkBoxNoAplicaSexuales);
+		chkNoAplicaSexuales.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkNoAplicaSexuales.setBackground(new Color(243, 220, 220));
+		chkNoAplicaSexuales.setBounds(215, 150, 97, 23);
+		panelEfectosSexuales.add(chkNoAplicaSexuales);
 		
 		JPanel panelEfectosEconomicos = new JPanel();
 		panelEfectosEconomicos.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -424,109 +411,45 @@ public class Efectosfisicos extends JFrame {
 		
 		//Economicos
 		
-		JCheckBox checkBoxDejoEstudiar = new JCheckBox("DEJO DE ESTUDIAR");
-		checkBoxDejoEstudiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxDejoEstudiar.isSelected()) {
-					DejoDeEstudiar = checkBoxDejoEstudiar.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxDejoEstudiar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxDejoEstudiar.setBackground(new Color(243, 220, 220));
-		checkBoxDejoEstudiar.setBounds(6, 45, 215, 23);
-		panelEfectosEconomicos.add(checkBoxDejoEstudiar);
+		chkDejoEstudiar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkDejoEstudiar.setBackground(new Color(243, 220, 220));
+		chkDejoEstudiar.setBounds(6, 45, 215, 23);
+		panelEfectosEconomicos.add(chkDejoEstudiar);
 		
-		JCheckBox checkBoxNoRecibePensionAlimenticia = new JCheckBox("NO RECIBE PENSION ALIMENTICIA");
-		checkBoxNoRecibePensionAlimenticia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxNoRecibePensionAlimenticia.isSelected()) {
-					NoRecibePensionAlimenticia = checkBoxNoRecibePensionAlimenticia.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxNoRecibePensionAlimenticia.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxNoRecibePensionAlimenticia.setBackground(new Color(243, 220, 220));
-		checkBoxNoRecibePensionAlimenticia.setBounds(6, 93, 215, 23);
-		panelEfectosEconomicos.add(checkBoxNoRecibePensionAlimenticia);
+		chkNoRecibePensionAlimenticia.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkNoRecibePensionAlimenticia.setBackground(new Color(243, 220, 220));
+		chkNoRecibePensionAlimenticia.setBounds(6, 93, 215, 23);
+		panelEfectosEconomicos.add(chkNoRecibePensionAlimenticia);
 		
-		JCheckBox checkBoxNoRecibeGasto = new JCheckBox("NO RECIBE GASTO");
-		checkBoxNoRecibeGasto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxNoRecibeGasto.isSelected()) {
-					NoRecibeGastoPatrimonial = checkBoxNoRecibeGasto.getText().toLowerCase();
-				}	
-			}
-		});
-		checkBoxNoRecibeGasto.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxNoRecibeGasto.setBackground(new Color(243, 220, 220));
-		checkBoxNoRecibeGasto.setBounds(217, 93, 162, 23);
-		panelEfectosEconomicos.add(checkBoxNoRecibeGasto);
+		chkNoRecibeGasto.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkNoRecibeGasto.setBackground(new Color(243, 220, 220));
+		chkNoRecibeGasto.setBounds(217, 93, 162, 23);
+		panelEfectosEconomicos.add(chkNoRecibeGasto);
 		
-		JCheckBox checkboxChantajeAportar = new JCheckBox("CHANTAJE PARA APORTAR");
-		checkboxChantajeAportar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkboxChantajeAportar.isSelected()) {
-					ChantajeParaAportar = checkboxChantajeAportar.getText().toLowerCase();
-				}
-			}
-		});
-		checkboxChantajeAportar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkboxChantajeAportar.setBackground(new Color(243, 220, 220));
-		checkboxChantajeAportar.setBounds(217, 45, 184, 23);
-		panelEfectosEconomicos.add(checkboxChantajeAportar);
+		chkChantajeAportar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkChantajeAportar.setBackground(new Color(243, 220, 220));
+		chkChantajeAportar.setBounds(217, 45, 184, 23);
+		panelEfectosEconomicos.add(chkChantajeAportar);
 		
-		JCheckBox checkBoxPerdidaPropiedades = new JCheckBox("PERDIDA DE PROPIEDADES");
-		checkBoxPerdidaPropiedades.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxPerdidaPropiedades.isSelected()) {
-					PérdidaDePropiedades = checkBoxPerdidaPropiedades.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxPerdidaPropiedades.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxPerdidaPropiedades.setBackground(new Color(243, 220, 220));
-		checkBoxPerdidaPropiedades.setBounds(408, 45, 215, 23);
-		panelEfectosEconomicos.add(checkBoxPerdidaPropiedades);
+		chkPerdidaPropiedades.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkPerdidaPropiedades.setBackground(new Color(243, 220, 220));
+		chkPerdidaPropiedades.setBounds(408, 45, 215, 23);
+		panelEfectosEconomicos.add(chkPerdidaPropiedades);
 		
-		JCheckBox checkBoxPerdidaDocumentos = new JCheckBox("QUEMA/PERDIDA DE DOCUMENTOS");
-		checkBoxPerdidaDocumentos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxPerdidaDocumentos.isSelected()) {
-					QuemaOPerdidaDeDocumentos = checkBoxPerdidaDocumentos.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxPerdidaDocumentos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxPerdidaDocumentos.setBackground(new Color(243, 220, 220));
-		checkBoxPerdidaDocumentos.setBounds(412, 93, 226, 23);
-		panelEfectosEconomicos.add(checkBoxPerdidaDocumentos);
+		chkPerdidaDocumentos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkPerdidaDocumentos.setBackground(new Color(243, 220, 220));
+		chkPerdidaDocumentos.setBounds(412, 93, 226, 23);
+		panelEfectosEconomicos.add(chkPerdidaDocumentos);
 		
-		JCheckBox checkBoxSalirDomicilio = new JCheckBox("SALIR DEL DOMICILIO");
-		checkBoxSalirDomicilio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxSalirDomicilio.isSelected()) {
-					SalirDelDomicilioPatrimonial = checkBoxSalirDomicilio.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxSalirDomicilio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxSalirDomicilio.setBackground(new Color(243, 220, 220));
-		checkBoxSalirDomicilio.setBounds(634, 45, 147, 23);
-		panelEfectosEconomicos.add(checkBoxSalirDomicilio);
+		chkSalirDomicilio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkSalirDomicilio.setBackground(new Color(243, 220, 220));
+		chkSalirDomicilio.setBounds(634, 45, 147, 23);
+		panelEfectosEconomicos.add(chkSalirDomicilio);
 		
-		JCheckBox checkBoxNoAplicaEconomico = new JCheckBox("NO APLICA");
-		checkBoxNoAplicaEconomico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxNoAplicaEconomico.isSelected()) {
-					NoAplicaPatrimonial = checkBoxNoAplicaEconomico.getText().toLowerCase();
-				}
-			}
-		});
-		checkBoxNoAplicaEconomico.setFont(new Font("Tahoma", Font.BOLD, 11));
-		checkBoxNoAplicaEconomico.setBackground(new Color(243, 220, 220));
-		checkBoxNoAplicaEconomico.setBounds(640, 93, 141, 23);
-		panelEfectosEconomicos.add(checkBoxNoAplicaEconomico);
+		chkNoAplicaEconomico.setFont(new Font("Tahoma", Font.BOLD, 11));
+		chkNoAplicaEconomico.setBackground(new Color(243, 220, 220));
+		chkNoAplicaEconomico.setBounds(640, 93, 141, 23);
+		panelEfectosEconomicos.add(chkNoAplicaEconomico);
 		
 		JLabel lblNewLabel_5 = new JLabel("EFECTOS");
 		lblNewLabel_5.setForeground(Color.WHITE);
@@ -552,10 +475,16 @@ public class Efectosfisicos extends JFrame {
 		JButton btnSiguiente = new JButton("SIGUIENTE");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConexionInmujer conexion = new ConexionInmujer();
-				Connection con = conexion.conectar(); 
-				
-				String sql = "";
+				insertarDatosEfectos();
+				System.out.println(Fisicos);
+				System.out.println(Psicologicos);
+				System.out.println(Sexuales);
+				System.out.println(patrimoniales);
+				//insertarEfectos(Fisicos, Psicologicos, Sexuales, patrimoniales);
+				RedesDeApoyo ventana = new RedesDeApoyo();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				dispose();
 			}
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
@@ -580,7 +509,33 @@ public class Efectosfisicos extends JFrame {
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String [] opciones = {"Aceptar","Cancelar"};
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
+						"Confirmación",
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						opciones,
+						opciones[0]);
+				if (opcion== JOptionPane.YES_OPTION) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+					
+					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor==1) {
+							System.out.println("Éxito en eliminar expediente");
+						}
+					} catch (Exception e1) {
+						// TODO: handle exception
+					}
+				} else if (opcion == JOptionPane.NO_OPTION) {
+					
+				}
 			}
 		});
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 11));
