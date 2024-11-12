@@ -12,6 +12,12 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+
+import com.mysql.cj.xdevapi.PreparableStatement;
+
+import ConexionBaseDeDatos.ConexionInmujer;
+import ConexionBaseDeDatos.variables;
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
@@ -20,6 +26,9 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class InformacionComplementaria extends JFrame {
@@ -40,11 +49,11 @@ public class InformacionComplementaria extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}	
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -114,9 +123,34 @@ public class InformacionComplementaria extends JFrame {
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosGenerales Ir = new DatosGenerales();
-	            Ir.setVisible(true);
-	            dispose();
+				
+				String [] opciones = {"Aceptar","Cancelar"};
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
+						"Confirmación",
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						opciones,
+						opciones[0]);
+				if (opcion== JOptionPane.YES_OPTION) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+					
+					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor==1) {
+							System.out.println("Éxito en eliminar expediente");
+						}
+					} catch (Exception e1) {
+						// TODO: handle exception
+					}
+				} else if (opcion == JOptionPane.NO_OPTION) {
+					
+				}
 			}
 		});
 		btnInicio.setForeground(new Color(255, 255, 255));
@@ -128,15 +162,29 @@ public class InformacionComplementaria extends JFrame {
 		JButton btnFinalizar = new JButton("FINALIZAR");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String Obser = textObservaciones.getText();
+				String Auto = checNoAutorizo.getText();
+				
+				ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				
+				String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ? , Autorizacion = ? ";
+				
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					pst.setString(1, Obser);
+					pst.setString(2, Auto);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
 				String autorizacion;
 
-				if (textObservaciones.getText().isEmpty()) {
-				    JOptionPane.showMessageDialog(null,
-				        "Por favor, no olvide escribir sus observaciones",
-				        "Error",
-				        JOptionPane.ERROR_MESSAGE);
-				    return; // Detiene la ejecución si el campo de observaciones está vacío
-				}
+				
 
 				if (!checAutorizo.isSelected() && !checNoAutorizo.isSelected()) {
 				    JOptionPane.showMessageDialog(null,
