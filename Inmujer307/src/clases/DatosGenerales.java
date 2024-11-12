@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import clasesExternas.FechaHora;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -54,30 +55,7 @@ public class DatosGenerales extends JFrame {
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
 	JTextArea area = new JTextArea();
-	//Aqui definimos la variables en global para haorro de barras
-	String fecha = txtFecha.getText();
-	String Hora = txtHora.getText();
-	String apellidoPaterno = txtApellidopaterno.getText();
-	String apellidoMaterno = txtApellidoMaterno.getText();
-	String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-	String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-	String Ocupacion = txtOcupacion.getText();
-	String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
-	String IngresoFamiliar = txtIngresoFamiliar.getText();
-	String Domicilio = txtDomicilio.getText();
-	String CodigoPostal = txtCanalizadPor.getText();
-	String colonia = comboColonia.getSelectedItem().toString();
-	String Estado = txtEstado.getText();
-	String telefonoCelular = txtNumeroCelular.getText();
-	String telefnoCasa = txtnumeroDeCasa.getText();
-	String vivienda = comboBoxvivienda.getSelectedItem().toString();
-	String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-	String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
-	String canalizadaPor = txtCanalizadPor.getText();
-	String padecimiento = txtPadecimientoCronico.getText();
-	String denuncia = txtDenuncia.getText();
-	String dependientes = area.getText();
-	
+	FechaHora fech = new FechaHora();
 	/**
 	 * Launch the application.
 	 */
@@ -122,7 +100,29 @@ public class DatosGenerales extends JFrame {
 		txtApellidopaterno = new JTextField();
 		txtApellidopaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -159,7 +159,29 @@ public class DatosGenerales extends JFrame {
 		txtApellidoMaterno = new JTextField();
 		txtApellidoMaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -195,7 +217,29 @@ public class DatosGenerales extends JFrame {
 		txtNombres = new JTextField();
 		txtNombres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -789,6 +833,29 @@ public class DatosGenerales extends JFrame {
 		txtDomicilio = new JTextField();
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -823,7 +890,29 @@ public class DatosGenerales extends JFrame {
 		txtEstado = new JTextField();
 		txtEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -865,7 +954,29 @@ public class DatosGenerales extends JFrame {
 		txtOcupacion = new JTextField();
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -901,7 +1012,29 @@ public class DatosGenerales extends JFrame {
 		txtIngresoFamiliar = new JTextField();
 		txtIngresoFamiliar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -936,6 +1069,29 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular = new JTextField();
 		txtNumeroCelular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -970,6 +1126,29 @@ public class DatosGenerales extends JFrame {
 		txtnumeroDeCasa = new JTextField();
 		txtnumeroDeCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -1004,7 +1183,30 @@ public class DatosGenerales extends JFrame {
 		txtCanalizadPor = new JTextField();
 		txtCanalizadPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
+				
 				//Es la conexion ala base de datos con el programa
 				
 								ConexionInmujer conexion = new ConexionInmujer();
@@ -1038,7 +1240,29 @@ public class DatosGenerales extends JFrame {
 		txtPadecimientoCronico = new JTextField();
 		txtPadecimientoCronico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -1125,7 +1349,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_26.setBounds(464, 71, 49, 14);
 		contentPane.add(lblNewLabel_26);
 		
-		txtFecha = new JTextField();
+		txtFecha = new JTextField(fech.obtenerFechaCortaInversa());
 		txtFecha.setEditable(false);
 		txtFecha.setBounds(511, 66, 116, 20);
 		contentPane.add(txtFecha);
@@ -1136,7 +1360,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_27.setBounds(637, 71, 49, 14);
 		contentPane.add(lblNewLabel_27);
 		
-		txtHora = new JTextField();
+		txtHora = new JTextField(fech.obtenerHoraCompleta());
 		txtHora.setEditable(false);
 		txtHora.setBounds(684, 68, 96, 20);
 		contentPane.add(txtHora);
@@ -1158,6 +1382,14 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(lblNewLabel_29);
 		
 		JButton btnNewButton = new JButton("SIGUIENTE");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Violencia ventana = new Violencia();
+				dispose();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+			}
+		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
 		btnNewButton.setBounds(464, 594, 99, 23);
 		contentPane.add(btnNewButton);
