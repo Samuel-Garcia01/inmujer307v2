@@ -54,6 +54,30 @@ public class DatosGenerales extends JFrame {
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
 	JTextArea area = new JTextArea();
+	//Aqui definimos la variables en global para haorro de barras
+	String fecha = txtFecha.getText();
+	String Hora = txtHora.getText();
+	String apellidoPaterno = txtApellidopaterno.getText();
+	String apellidoMaterno = txtApellidoMaterno.getText();
+	String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+	String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+	String Ocupacion = txtOcupacion.getText();
+	String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+	String IngresoFamiliar = txtIngresoFamiliar.getText();
+	String Domicilio = txtDomicilio.getText();
+	String CodigoPostal = txtCanalizadPor.getText();
+	String colonia = comboColonia.getSelectedItem().toString();
+	String Estado = txtEstado.getText();
+	String telefonoCelular = txtNumeroCelular.getText();
+	String telefnoCasa = txtnumeroDeCasa.getText();
+	String vivienda = comboBoxvivienda.getSelectedItem().toString();
+	String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+	String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+	String canalizadaPor = txtCanalizadPor.getText();
+	String padecimiento = txtPadecimientoCronico.getText();
+	String denuncia = txtDenuncia.getText();
+	String dependientes = area.getText();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -98,29 +122,7 @@ public class DatosGenerales extends JFrame {
 		txtApellidopaterno = new JTextField();
 		txtApellidopaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String fecha = txtFecha.getText();
-				String Hora = txtHora.getText();
-				String apellidoPaterno = txtApellidopaterno.getText();
-				String apellidoMaterno = txtApellidoMaterno.getText();
-				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
-				String IngresoFamiliar = txtIngresoFamiliar.getText();
-				String Domicilio = txtDomicilio.getText();
-				String CodigoPostal = txtCanalizadPor.getText();
-				String colonia = comboColonia.getSelectedItem().toString();
-				String Estado = txtEstado.getText();
-				String telefonoCelular = txtNumeroCelular.getText();
-				String telefnoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboBoxvivienda.getSelectedItem().toString();
-				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
-				String canalizadaPor = txtCanalizadPor.getText();
-				String padecimiento = txtPadecimientoCronico.getText();
-				String denuncia = txtDenuncia.getText();
-				String dependientes = area.getText();
+				
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -157,29 +159,7 @@ public class DatosGenerales extends JFrame {
 		txtApellidoMaterno = new JTextField();
 		txtApellidoMaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String fecha = txtFecha.getText();
-				String Hora = txtHora.getText();
-				String apellidoPaterno = txtApellidopaterno.getText();
-				String apellidoMaterno = txtApellidoMaterno.getText();
-				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
-				String IngresoFamiliar = txtIngresoFamiliar.getText();
-				String Domicilio = txtDomicilio.getText();
-				String CodigoPostal = txtCanalizadPor.getText();
-				String colonia = comboColonia.getSelectedItem().toString();
-				String Estado = txtEstado.getText();
-				String telefonoCelular = txtNumeroCelular.getText();
-				String telefnoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboBoxvivienda.getSelectedItem().toString();
-				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
-				String canalizadaPor = txtCanalizadPor.getText();
-				String padecimiento = txtPadecimientoCronico.getText();
-				String denuncia = txtDenuncia.getText();
-				String dependientes = area.getText();
+			
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -215,29 +195,7 @@ public class DatosGenerales extends JFrame {
 		txtNombres = new JTextField();
 		txtNombres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String fecha = txtFecha.getText();
-				String Hora = txtHora.getText();
-				String apellidoPaterno = txtApellidopaterno.getText();
-				String apellidoMaterno = txtApellidoMaterno.getText();
-				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
-				String IngresoFamiliar = txtIngresoFamiliar.getText();
-				String Domicilio = txtDomicilio.getText();
-				String CodigoPostal = txtCanalizadPor.getText();
-				String colonia = comboColonia.getSelectedItem().toString();
-				String Estado = txtEstado.getText();
-				String telefonoCelular = txtNumeroCelular.getText();
-				String telefnoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboBoxvivienda.getSelectedItem().toString();
-				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
-				String canalizadaPor = txtCanalizadPor.getText();
-				String padecimiento = txtPadecimientoCronico.getText();
-				String denuncia = txtDenuncia.getText();
-				String dependientes = area.getText();
+				
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -831,29 +789,6 @@ public class DatosGenerales extends JFrame {
 		txtDomicilio = new JTextField();
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String fecha = txtFecha.getText();
-				String Hora = txtHora.getText();
-				String apellidoPaterno = txtApellidopaterno.getText();
-				String apellidoMaterno = txtApellidoMaterno.getText();
-				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
-				String IngresoFamiliar = txtIngresoFamiliar.getText();
-				String Domicilio = txtDomicilio.getText();
-				String CodigoPostal = txtCanalizadPor.getText();
-				String colonia = comboColonia.getSelectedItem().toString();
-				String Estado = txtEstado.getText();
-				String telefonoCelular = txtNumeroCelular.getText();
-				String telefnoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboBoxvivienda.getSelectedItem().toString();
-				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
-				String canalizadaPor = txtCanalizadPor.getText();
-				String padecimiento = txtPadecimientoCronico.getText();
-				String denuncia = txtDenuncia.getText();
-				String dependientes = area.getText();
 				
 				//Es la conexion ala base de datos con el programa
 				
@@ -888,9 +823,20 @@ public class DatosGenerales extends JFrame {
 		txtEstado = new JTextField();
 		txtEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String Estado = txtEstado.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+			
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtEstado.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -919,9 +865,20 @@ public class DatosGenerales extends JFrame {
 		txtOcupacion = new JTextField();
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String Ocupacion = txtOcupacion.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtOcupacion.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -944,9 +901,20 @@ public class DatosGenerales extends JFrame {
 		txtIngresoFamiliar = new JTextField();
 		txtIngresoFamiliar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String ingresoFamiliar = txtIngresoFamiliar.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtIngresoFamiliar.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -968,9 +936,19 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular = new JTextField();
 		txtNumeroCelular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String numeroCelular = txtNumeroCelular.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtNumeroCelular.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -992,9 +970,19 @@ public class DatosGenerales extends JFrame {
 		txtnumeroDeCasa = new JTextField();
 		txtnumeroDeCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String NumeroDeCasa = txtnumeroDeCasa.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtnumeroDeCasa.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -1016,9 +1004,19 @@ public class DatosGenerales extends JFrame {
 		txtCanalizadPor = new JTextField();
 		txtCanalizadPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String canalizadaPor = txtCanalizadPor.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+			
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtCanalizadPor.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -1040,9 +1038,20 @@ public class DatosGenerales extends JFrame {
 		txtPadecimientoCronico = new JTextField();
 		txtPadecimientoCronico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String padecimientosCronicos = txtPadecimientoCronico.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+			
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtPadecimientoCronico.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
@@ -1069,9 +1078,19 @@ public class DatosGenerales extends JFrame {
 		txtDenuncia = new JTextField();
 		txtDenuncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aqui definimos la variable
-				String Denuncia = txtDenuncia.getText();
-				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					if (txtDenuncia.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 					}else {
