@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,33 +14,46 @@ import javax.swing.JTextField;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+
+import ConexionBaseDeDatos.ConexionInmujer;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
 public class DatosGenerales extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
+	private JTextField txtApellidopaterno;
+	private JTextField txtApellidoMaterno;
+	private JTextField txtNombres;
+	private JTextField txtDomicilio;
+	private JTextField txtOcupacion;
+	private JTextField txtIngresoFamiliar;
+	private JTextField txtNumeroCelular;
+	private JTextField txtnumeroDeCasa;
+	private JTextField txtCanalizadPor;
+	private JTextField txtPadecimientoCronico;
+	private JTextField txtEstado;
+	private JTextField txtDenuncia;
 	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	JComboBox combodos = new JComboBox();
-
+	private JTextField txtFecha;
+	private JTextField txtHora;
+	JComboBox comboBoxcontribuyentealgasto = new JComboBox();
+	JComboBox comboBoxgradoestudios = new JComboBox();
+	JComboBox comboBoxNopersonas = new JComboBox();
+	JComboBox comboBoxanio = new JComboBox();
+	JComboBox comboBoxvivienda = new JComboBox();
+	JComboBox comboBoxserviciomedico = new JComboBox();
+	JComboBox ComboEstadOCivil = new JComboBox();
+	JComboBox comboColonia = new JComboBox();
+	JTextArea area = new JTextArea();
 	/**
 	 * Launch the application.
 	 */
@@ -81,37 +95,173 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_1.setBounds(33, 35, 132, 14);
 		panel_1.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBackground(new Color(243, 220, 220));
-		textField.setForeground(Color.BLACK);
-		textField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField.setBounds(23, 11, 138, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtApellidopaterno = new JTextField();
+		txtApellidopaterno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					if (txtApellidopaterno.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtApellidoMaterno.requestFocus();
+					}
+				
+			}
+		});
+		txtApellidopaterno.setBackground(new Color(243, 220, 220));
+		txtApellidopaterno.setForeground(Color.BLACK);
+		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtApellidopaterno.setBounds(23, 11, 138, 20);
+		panel_1.add(txtApellidopaterno);
+		txtApellidopaterno.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("APELLIDO MATERNO");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_2.setBounds(206, 35, 132, 14);
 		panel_1.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setBackground(new Color(243, 220, 220));
-		textField_1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_1.setBounds(192, 11, 138, 20);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		txtApellidoMaterno = new JTextField();
+		txtApellidoMaterno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtApellidoMaterno.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtNombres.requestFocus();
+					}
+			}
+		});
+		txtApellidoMaterno.setBackground(new Color(243, 220, 220));
+		txtApellidoMaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtApellidoMaterno.setBounds(206, 11, 138, 20);
+		panel_1.add(txtApellidoMaterno);
+		txtApellidoMaterno.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("NOMBRE/S");
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_3.setBounds(418, 35, 78, 14);
 		panel_1.add(lblNewLabel_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_2.setBackground(new Color(243, 220, 220));
-		textField_2.setBounds(386, 11, 122, 20);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
+		txtNombres = new JTextField();
+		txtNombres.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+				if (txtApellidoMaterno.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+				}
+			}
+		});
+		txtNombres.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtNombres.setBackground(new Color(243, 220, 220));
+		txtNombres.setBounds(386, 11, 122, 20);
+		panel_1.add(txtNombres);
+		txtNombres.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -120,11 +270,11 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JComboBox comboBoxestadocivil = new JComboBox();
-		comboBoxestadocivil.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Viuda"}));
-		comboBoxestadocivil.setBackground(new Color(243, 220, 220));
-		comboBoxestadocivil.setBounds(10, 11, 191, 22);
-		panel_2.add(comboBoxestadocivil);
+		
+		ComboEstadOCivil.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Viuda"}));
+		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
+		ComboEstadOCivil.setBounds(10, 11, 191, 22);
+		panel_2.add(ComboEstadOCivil);
 		
 		JLabel lblNewLabel_4 = new JLabel("ESTADO CIVIL");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
@@ -277,392 +427,392 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JComboBox combouno = new JComboBox();
-		combouno.addActionListener(new ActionListener() {
+		JComboBox comboCodigoPostal = new JComboBox();
+		comboCodigoPostal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (combouno.getSelectedItem().equals("54900")) {
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("selecciona una opcion");
-					combodos.addItem("Barrio Belém");
-					combodos.addItem("Barrio La Concepción");
-					combodos.addItem("Barrio Los Reyes");
-					combodos.addItem("Barrio Nativitas");
-					combodos.addItem("Barrio San Bartolo");
-					combodos.addItem("Barrio San Juan");
-					combodos.addItem("Barrio Santiaguito");
-					combodos.addItem("Colonia Tultitlán de Mariano Escobedo Centro");
-					combodos.addItem("Condominio Residencial los Reyes");
-				}else if (combouno.getSelectedItem().equals("54910")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Fuentes del Valle");
-					combodos.addItem("Fraccionamiento Villas de San José");
-					combodos.addItem("Colonia Villa Esmeralda");
-					combodos.addItem("Condominio Los Agaves Tultitlán");
-					combodos.addItem("Condominio Los Portales");
-					combodos.addItem("Colonia La Mariscala");
-					combodos.addItem("Ranchería La Ponderosa");
-					combodos.addItem("Condominio Jardines de Tultitlán");
-					combodos.addItem("Zona comercial Central de Abastos");
+				if (comboCodigoPostal.getSelectedItem().equals("54900")) {
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.addItem("Barrio Belém");
+					comboColonia.addItem("Barrio La Concepción");
+					comboColonia.addItem("Barrio Los Reyes");
+					comboColonia.addItem("Barrio Nativitas");
+					comboColonia.addItem("Barrio San Bartolo");
+					comboColonia.addItem("Barrio San Juan");
+					comboColonia.addItem("Barrio Santiaguito");
+					comboColonia.addItem("Colonia Tultitlán de Mariano Escobedo Centro");
+					comboColonia.addItem("Condominio Residencial los Reyes");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54910")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Fuentes del Valle");
+					comboColonia.addItem("Fraccionamiento Villas de San José");
+					comboColonia.addItem("Colonia Villa Esmeralda");
+					comboColonia.addItem("Condominio Los Agaves Tultitlán");
+					comboColonia.addItem("Condominio Los Portales");
+					comboColonia.addItem("Colonia La Mariscala");
+					comboColonia.addItem("Ranchería La Ponderosa");
+					comboColonia.addItem("Condominio Jardines de Tultitlán");
+					comboColonia.addItem("Zona comercial Central de Abastos");
 
 					
-				}else if (combouno.getSelectedItem().equals("54913")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento COCEM");
-					combodos.addItem("Condominio Sol de Tultitlán (Zona Oriente)");
-					combodos.addItem("Colonia Recursos Hidráulicos");
-					combodos.addItem("Condominio Villas Jardín");
-					combodos.addItem("Condominio Bosques de Tultitlán");
-					combodos.addItem("Unidad habitacional Quinta el Ángel");
-					combodos.addItem("Condominio Ampliación COCEM");
-					combodos.addItem("Fraccionamiento Residencial del Sol");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54913")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento COCEM");
+					comboColonia.addItem("Condominio Sol de Tultitlán (Zona Oriente)");
+					comboColonia.addItem("Colonia Recursos Hidráulicos");
+					comboColonia.addItem("Condominio Villas Jardín");
+					comboColonia.addItem("Condominio Bosques de Tultitlán");
+					comboColonia.addItem("Unidad habitacional Quinta el Ángel");
+					comboColonia.addItem("Condominio Ampliación COCEM");
+					comboColonia.addItem("Fraccionamiento Residencial del Sol");
 
 					
-				}else if (combouno.getSelectedItem().equals("54914")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Condominio Unidad Electricistas");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54914")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Condominio Unidad Electricistas");
 
-				}else if (combouno.getSelectedItem().equals("54915")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Independencia");
-					combodos.addItem("Condominio El Obelisco");
-					combodos.addItem("Zona industrial Independencia");
-					combodos.addItem("Colonia Los Reyes");
-					combodos.addItem("Condominio Porto Alegre");
-					combodos.addItem("Residencial Rincón Colonial");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54915")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Independencia");
+					comboColonia.addItem("Condominio El Obelisco");
+					comboColonia.addItem("Zona industrial Independencia");
+					comboColonia.addItem("Colonia Los Reyes");
+					comboColonia.addItem("Condominio Porto Alegre");
+					comboColonia.addItem("Residencial Rincón Colonial");
 	
-				}else if (combouno.getSelectedItem().equals("54916")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-				combodos.addItem("Colonia Lázaro Cárdenas (Zona Hornos)");	
+				}else if (comboCodigoPostal.getSelectedItem().equals("54916")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+				comboColonia.addItem("Colonia Lázaro Cárdenas (Zona Hornos)");	
 					
-				}else if (combouno.getSelectedItem().equals("54918")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Parque industrial Cartagena");
-					combodos.addItem("Parque industrial Tultitlán");
-					combodos.addItem("Colonia El Cueyamil");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54918")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Parque industrial Cartagena");
+					comboColonia.addItem("Parque industrial Tultitlán");
+					comboColonia.addItem("Colonia El Cueyamil");
 
-				}else if (combouno.getSelectedItem().equals("54920")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Condominio Hogares de Castera");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros III");
-					combodos.addItem("Fraccionamiento San Pablo Castera II");
-					combodos.addItem("Condominio Estrella de Tultitlán (Lote 55 Pte.)");
-
-					
-				}else if (combouno.getSelectedItem().equals("54924")){
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Llanuras");
-					combodos.addItem("Condominio El Kiosco");
-					combodos.addItem("Condominio Conjunto Cristal");
-					combodos.addItem("Condominio Lote 104 (Tehuantepec)");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54920")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Condominio Hogares de Castera");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros III");
+					comboColonia.addItem("Fraccionamiento San Pablo Castera II");
+					comboColonia.addItem("Condominio Estrella de Tultitlán (Lote 55 Pte.)");
 
 					
-				}else if (combouno.getSelectedItem().equals("54925")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Hacienda San Pablo");
-					combodos.addItem("Unidad habitacional Las Manzanas");
-					combodos.addItem("Condominio Prados B");
-
-				}else if (combouno.getSelectedItem().equals("54926")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Estepas");
-					combodos.addItem("Condominio Lote 55 (Los Tejados)");
-					combodos.addItem("Condominio Sustitución Arista");
-					combodos.addItem("Condominio Los Agaves (Lote 71)");
-					combodos.addItem("Fraccionamiento Galaxias Tultitlán");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54924")){
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Llanuras");
+					comboColonia.addItem("Condominio El Kiosco");
+					comboColonia.addItem("Condominio Conjunto Cristal");
+					comboColonia.addItem("Condominio Lote 104 (Tehuantepec)");
 
 					
-				}else if (combouno.getSelectedItem().equals("54927")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Las Tórtolas");
-					combodos.addItem("Unidad habitacional Mariano Escobedo (los Faroles)");
-					combodos.addItem("Colonia Hogares de Castera Lote 73");
-					combodos.addItem("Condominio Lote 41 (El Carmen)");
-					combodos.addItem("Colonia Emilio Chuayffet");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54925")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Hacienda San Pablo");
+					comboColonia.addItem("Unidad habitacional Las Manzanas");
+					comboColonia.addItem("Condominio Prados B");
+
+				}else if (comboCodigoPostal.getSelectedItem().equals("54926")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Estepas");
+					comboColonia.addItem("Condominio Lote 55 (Los Tejados)");
+					comboColonia.addItem("Condominio Sustitución Arista");
+					comboColonia.addItem("Condominio Los Agaves (Lote 71)");
+					comboColonia.addItem("Fraccionamiento Galaxias Tultitlán");
+
+					
+				}else if (comboCodigoPostal.getSelectedItem().equals("54927")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Las Tórtolas");
+					comboColonia.addItem("Unidad habitacional Mariano Escobedo (los Faroles)");
+					comboColonia.addItem("Colonia Hogares de Castera Lote 73");
+					comboColonia.addItem("Condominio Lote 41 (El Carmen)");
+					comboColonia.addItem("Colonia Emilio Chuayffet");
 	
-				}else if (combouno.getSelectedItem().equals("54929")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Alborada I");
-					combodos.addItem("Unidad habitacional La Alborada Vallas");
-					combodos.addItem("Unidad habitacional Nuevo INFONAVIT");
-					combodos.addItem("Fraccionamiento Unidad Morelos 3ra. Sección INFONAVIT");
-					combodos.addItem("Condominio Lote 12 (Crepúsculo)");
-					combodos.addItem("Condominio Villas Loreto");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros VI");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54929")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Alborada I");
+					comboColonia.addItem("Unidad habitacional La Alborada Vallas");
+					comboColonia.addItem("Unidad habitacional Nuevo INFONAVIT");
+					comboColonia.addItem("Fraccionamiento Unidad Morelos 3ra. Sección INFONAVIT");
+					comboColonia.addItem("Condominio Lote 12 (Crepúsculo)");
+					comboColonia.addItem("Condominio Villas Loreto");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros VI");
 
 					
-				}else if (combouno.getSelectedItem().equals("54930")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Granjas San Pablo");
-					combodos.addItem("Fraccionamiento Izcalli Rinconada");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros IV");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros V");
-					combodos.addItem("Unidad habitacional La Granja");
-					combodos.addItem("Condominio Llanura Verde");
-					combodos.addItem("Condominio Pensamientos");
-					combodos.addItem("Unidad habitacional San Pablo de las Salinas");
-					combodos.addItem("Pueblo San Pablo de las Salinas");
-					combodos.addItem("Fraccionamiento Solidaridad Social (Lote 105)");
-					combodos.addItem("Fraccionamiento Unidad Morelos 2da. Sección");
-					combodos.addItem("Condominio Lote 92 (Las Rosas)");
-					combodos.addItem("Condominio Las Granjas");
-					combodos.addItem("Condominio Privada los Prados");
-					combodos.addItem("Condominio Solar San Pablo");
-					combodos.addItem("Condominio Quintas San Pablo");
-					combodos.addItem("Colonia Lomas de San Pablo");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54930")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Granjas San Pablo");
+					comboColonia.addItem("Fraccionamiento Izcalli Rinconada");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros IV");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros V");
+					comboColonia.addItem("Unidad habitacional La Granja");
+					comboColonia.addItem("Condominio Llanura Verde");
+					comboColonia.addItem("Condominio Pensamientos");
+					comboColonia.addItem("Unidad habitacional San Pablo de las Salinas");
+					comboColonia.addItem("Pueblo San Pablo de las Salinas");
+					comboColonia.addItem("Fraccionamiento Solidaridad Social (Lote 105)");
+					comboColonia.addItem("Fraccionamiento Unidad Morelos 2da. Sección");
+					comboColonia.addItem("Condominio Lote 92 (Las Rosas)");
+					comboColonia.addItem("Condominio Las Granjas");
+					comboColonia.addItem("Condominio Privada los Prados");
+					comboColonia.addItem("Condominio Solar San Pablo");
+					comboColonia.addItem("Condominio Quintas San Pablo");
+					comboColonia.addItem("Colonia Lomas de San Pablo");
 
 					
-				}else if (combouno.getSelectedItem().equals("54932")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Magnolias");
-					combodos.addItem("Condominio Conjunto Fortuna");
-					combodos.addItem("Fraccionamiento IMMEX II");
-					combodos.addItem("Condominio Isidro Fabela");
-					combodos.addItem("Fraccionamiento Magnolias 2000");
-					combodos.addItem("Condominio Lote 105 (Ébano)");
-					combodos.addItem("Condominio Villas de San Pablo");
-					combodos.addItem("Fraccionamiento Residencial Magnolias");
-					combodos.addItem("Condominio San Pablo III-B");
-					combodos.addItem("Condominio San Pablo III-A");
-					combodos.addItem("Fraccionamiento Residencial San Pablo II");
-					combodos.addItem("Condominio Villas San Pablo (Lote 117 Sur)");	
-				}else if (combouno.getSelectedItem().equals("54933")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Condominio Azul Cielo");
-					combodos.addItem("Condominio Coyoli Martínez");
-					combodos.addItem("Fraccionamiento Izcalli San Pablo");
-					combodos.addItem("Condominio Jardines de San Pablo");
-					combodos.addItem("Condominio Parque de San Pablo");
-					combodos.addItem("Condominio Verde Claro");
-					combodos.addItem("Condominio Lote 93 (Amalia)");
-					combodos.addItem("Condominio El Campanario");
-					combodos.addItem("Fraccionamiento Plaza Jardines");
-					combodos.addItem("Condominio Residencial La Esperanza");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54932")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Magnolias");
+					comboColonia.addItem("Condominio Conjunto Fortuna");
+					comboColonia.addItem("Fraccionamiento IMMEX II");
+					comboColonia.addItem("Condominio Isidro Fabela");
+					comboColonia.addItem("Fraccionamiento Magnolias 2000");
+					comboColonia.addItem("Condominio Lote 105 (Ébano)");
+					comboColonia.addItem("Condominio Villas de San Pablo");
+					comboColonia.addItem("Fraccionamiento Residencial Magnolias");
+					comboColonia.addItem("Condominio San Pablo III-B");
+					comboColonia.addItem("Condominio San Pablo III-A");
+					comboColonia.addItem("Fraccionamiento Residencial San Pablo II");
+					comboColonia.addItem("Condominio Villas San Pablo (Lote 117 Sur)");	
+				}else if (comboCodigoPostal.getSelectedItem().equals("54933")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Condominio Azul Cielo");
+					comboColonia.addItem("Condominio Coyoli Martínez");
+					comboColonia.addItem("Fraccionamiento Izcalli San Pablo");
+					comboColonia.addItem("Condominio Jardines de San Pablo");
+					comboColonia.addItem("Condominio Parque de San Pablo");
+					comboColonia.addItem("Condominio Verde Claro");
+					comboColonia.addItem("Condominio Lote 93 (Amalia)");
+					comboColonia.addItem("Condominio El Campanario");
+					comboColonia.addItem("Fraccionamiento Plaza Jardines");
+					comboColonia.addItem("Condominio Residencial La Esperanza");
 
 					
-				}else if (combouno.getSelectedItem().equals("54934")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Condominio El Rocío");
-					combodos.addItem("Condominio Gustavo Baz");
-					combodos.addItem("Condominio Prados A");	
-				}else if (combouno.getSelectedItem().equals("54935")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Unidad habitacional Casas Alfa");
-					combodos.addItem("Condominio Casitas San Pablo");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros I");
-					combodos.addItem("Fraccionamiento Jardines de los Claustros II");
-					combodos.addItem("Fraccionamiento Alborada II");
-					combodos.addItem("Condominio La Isla");
-					combodos.addItem("Fraccionamiento Unidad Morelos 3ra. Sección");
-					combodos.addItem("Condominio Residencial Morelos");
-					combodos.addItem("Condominio Lote 84 (Las Adelas)");
-					combodos.addItem("Condominio Lote 82 (Guillermo González C.)");
-					combodos.addItem("Condominio El Faro (Lote 3 Pte.)");
-					combodos.addItem("Condominio Conjunto San Pablo");
-					combodos.addItem("Condominio Lote 52 (Torres Tultitlán)");
-					combodos.addItem("Colonia Las Calderas");
-					combodos.addItem("Condominio Portal San Pablo");
-					combodos.addItem("Condominio Portal San Pablo II");
-					combodos.addItem("Condominio Las Almenas");
-					combodos.addItem("Unidad habitacional Lava 46");
-					combodos.addItem("Condominio Las Fuentes");
-					combodos.addItem("Colonia Las Chinampas");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54934")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Condominio El Rocío");
+					comboColonia.addItem("Condominio Gustavo Baz");
+					comboColonia.addItem("Condominio Prados A");	
+				}else if (comboCodigoPostal.getSelectedItem().equals("54935")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Unidad habitacional Casas Alfa");
+					comboColonia.addItem("Condominio Casitas San Pablo");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros I");
+					comboColonia.addItem("Fraccionamiento Jardines de los Claustros II");
+					comboColonia.addItem("Fraccionamiento Alborada II");
+					comboColonia.addItem("Condominio La Isla");
+					comboColonia.addItem("Fraccionamiento Unidad Morelos 3ra. Sección");
+					comboColonia.addItem("Condominio Residencial Morelos");
+					comboColonia.addItem("Condominio Lote 84 (Las Adelas)");
+					comboColonia.addItem("Condominio Lote 82 (Guillermo González C.)");
+					comboColonia.addItem("Condominio El Faro (Lote 3 Pte.)");
+					comboColonia.addItem("Condominio Conjunto San Pablo");
+					comboColonia.addItem("Condominio Lote 52 (Torres Tultitlán)");
+					comboColonia.addItem("Colonia Las Calderas");
+					comboColonia.addItem("Condominio Portal San Pablo");
+					comboColonia.addItem("Condominio Portal San Pablo II");
+					comboColonia.addItem("Condominio Las Almenas");
+					comboColonia.addItem("Unidad habitacional Lava 46");
+					comboColonia.addItem("Condominio Las Fuentes");
+					comboColonia.addItem("Colonia Las Chinampas");
 	
-				}else if (combouno.getSelectedItem().equals("54938")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Ampliación San Pablo de las Salinas");
-					combodos.addItem("Condominio Lote 64 (Octavio Paz)");
-					combodos.addItem("Condominio Lote 47 (El Reloj Residencial)");
-					combodos.addItem("Condominio Lote 48 (El Reloj Cronos)");
-					combodos.addItem("Unidad habitacional Arboledas (lote 49)");
-					combodos.addItem("Condominio Lote 62 (Juan Rulfo)");
-					combodos.addItem("Condominio Arcos I");
-					combodos.addItem("Condominio Lote 50 B (Las Laderas)");
-					combodos.addItem("Condominio Lote 46 (El Reloj Villas)");
-					combodos.addItem("Condominio Lote 63 Conjunto Pilares");
-					combodos.addItem("Condominio Lote 50 A");
-					combodos.addItem("Condominio Lote 50 D");
-					combodos.addItem("Condominio Lote 50 C (Real De Tultitlán)");
-					combodos.addItem("Condominio Lote 59 (Torres del Reloj)");
-					combodos.addItem("Condominio Lote 76 (El Reloj)");
-					combodos.addItem("Condominio El Laurel");
-					combodos.addItem("Condominio Villas Tultitlán (Lote 65)");
-					combodos.addItem("Condominio Arcos V");
-					combodos.addItem("Condominio Arcos IV");
-					combodos.addItem("Condominio Arcos III");
-					combodos.addItem("Condominio Arcos II");
-					combodos.addItem("Condominio Villas Santa Teresita");
-					combodos.addItem("Condominio Bonito Tultitlán (lote 60)");
-					combodos.addItem("Condominio El Alcázar");
-					combodos.addItem("Condominio Arcos VI");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54938")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Ampliación San Pablo de las Salinas");
+					comboColonia.addItem("Condominio Lote 64 (Octavio Paz)");
+					comboColonia.addItem("Condominio Lote 47 (El Reloj Residencial)");
+					comboColonia.addItem("Condominio Lote 48 (El Reloj Cronos)");
+					comboColonia.addItem("Unidad habitacional Arboledas (lote 49)");
+					comboColonia.addItem("Condominio Lote 62 (Juan Rulfo)");
+					comboColonia.addItem("Condominio Arcos I");
+					comboColonia.addItem("Condominio Lote 50 B (Las Laderas)");
+					comboColonia.addItem("Condominio Lote 46 (El Reloj Villas)");
+					comboColonia.addItem("Condominio Lote 63 Conjunto Pilares");
+					comboColonia.addItem("Condominio Lote 50 A");
+					comboColonia.addItem("Condominio Lote 50 D");
+					comboColonia.addItem("Condominio Lote 50 C (Real De Tultitlán)");
+					comboColonia.addItem("Condominio Lote 59 (Torres del Reloj)");
+					comboColonia.addItem("Condominio Lote 76 (El Reloj)");
+					comboColonia.addItem("Condominio El Laurel");
+					comboColonia.addItem("Condominio Villas Tultitlán (Lote 65)");
+					comboColonia.addItem("Condominio Arcos V");
+					comboColonia.addItem("Condominio Arcos IV");
+					comboColonia.addItem("Condominio Arcos III");
+					comboColonia.addItem("Condominio Arcos II");
+					comboColonia.addItem("Condominio Villas Santa Teresita");
+					comboColonia.addItem("Condominio Bonito Tultitlán (lote 60)");
+					comboColonia.addItem("Condominio El Alcázar");
+					comboColonia.addItem("Condominio Arcos VI");
 
 					
-				}else if(combouno.getSelectedItem().equals("54939")){
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Paraje San Pablito");
+				}else if(comboCodigoPostal.getSelectedItem().equals("54939")){
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Paraje San Pablito");
 
 					
-				}else if (combouno.getSelectedItem().equals("54940")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Lechería");
-					combodos.addItem("Zona industrial Corredor Lechería-Cuautitlán");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54940")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Lechería");
+					comboColonia.addItem("Zona industrial Corredor Lechería-Cuautitlán");
 
 					
-				}else if (combouno.getSelectedItem().equals("54942")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Benito Juárez");
-					combodos.addItem("Colonia La Libertad");
-					combodos.addItem("Colonia Ampliación Las Torres Segunda Sección");
-					combodos.addItem("Colonia Las Torres I");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54942")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Benito Juárez");
+					comboColonia.addItem("Colonia La Libertad");
+					comboColonia.addItem("Colonia Ampliación Las Torres Segunda Sección");
+					comboColonia.addItem("Colonia Las Torres I");
 
 					
-				}else if (combouno.getSelectedItem().equals("54943")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Ciudad Labor");
-					combodos.addItem("Colonia Ojo de Agua Primera Sección");
-					combodos.addItem("Colonia Ojo de Agua Segunda Sección");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54943")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Ciudad Labor");
+					comboColonia.addItem("Colonia Ojo de Agua Primera Sección");
+					comboColonia.addItem("Colonia Ojo de Agua Segunda Sección");
 
-				}else if(combouno.getSelectedItem().equals("54944")){
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Pueblo San Francisco Chilpan");
-					combodos.addItem("Colonia Buenavista Parte Alta");
-					combodos.addItem("Colonia El Fresno");
-					combodos.addItem("Colonia La Joya");
-					combodos.addItem("Condominio La Loma I");
-					combodos.addItem("Fraccionamiento Villas de San Francisco Chilpan");
-					combodos.addItem("Colonia Santa Clara");
-					combodos.addItem("Colonia Buenavista Parte Baja");
-					combodos.addItem("Condominio El Golfo");
-					combodos.addItem("Condominio Arbolada la Loma");
-					combodos.addItem("Condominio La Loma II");
-					combodos.addItem("Condominio La Loma III");
-					combodos.addItem("Condominio Plaza Arbolada la Loma");
-					combodos.addItem("Colonia Ampliación El Fresno");
-					combodos.addItem("Condominio Conjunto Urbano La Loma");
-					combodos.addItem("Condominio Villas de San Francisco II");
-					combodos.addItem("Colonia Ejido Buenavista");
-
-					
-				}else if (combouno.getSelectedItem().equals("54945")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Izcalli del Valle");
-					combodos.addItem("Colonia Valle de Tules");
-					combodos.addItem("Colonia Nueva Tultitlán");
-					combodos.addItem("Colonia Valle Verde");
-					combodos.addItem("Zona industrial Estado de México");
-
-				}else if (combouno.getSelectedItem().equals("54946")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Ferrocarrilera");
-					combodos.addItem("Colonia Mariano Escobedo");
+				}else if(comboCodigoPostal.getSelectedItem().equals("54944")){
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Pueblo San Francisco Chilpan");
+					comboColonia.addItem("Colonia Buenavista Parte Alta");
+					comboColonia.addItem("Colonia El Fresno");
+					comboColonia.addItem("Colonia La Joya");
+					comboColonia.addItem("Condominio La Loma I");
+					comboColonia.addItem("Fraccionamiento Villas de San Francisco Chilpan");
+					comboColonia.addItem("Colonia Santa Clara");
+					comboColonia.addItem("Colonia Buenavista Parte Baja");
+					comboColonia.addItem("Condominio El Golfo");
+					comboColonia.addItem("Condominio Arbolada la Loma");
+					comboColonia.addItem("Condominio La Loma II");
+					comboColonia.addItem("Condominio La Loma III");
+					comboColonia.addItem("Condominio Plaza Arbolada la Loma");
+					comboColonia.addItem("Colonia Ampliación El Fresno");
+					comboColonia.addItem("Condominio Conjunto Urbano La Loma");
+					comboColonia.addItem("Condominio Villas de San Francisco II");
+					comboColonia.addItem("Colonia Ejido Buenavista");
 
 					
-				}else if (combouno.getSelectedItem().equals("54948")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Bello Horizonte");
-					combodos.addItem("Pueblo San Mateo Cuautepec");
-					combodos.addItem("Ejido San Mateo Cuautepec");
-					combodos.addItem("Colonia Solidaridad 1ra. Sección");
-					combodos.addItem("Condominio Real del Bosque");
-					combodos.addItem("Colonia Solidaridad 3ra. Sección");
-					combodos.addItem("Colonia Solidaridad 2da. Sección");
-					combodos.addItem("Colonia Ejido San Antonio Tultitán");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54945")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Izcalli del Valle");
+					comboColonia.addItem("Colonia Valle de Tules");
+					comboColonia.addItem("Colonia Nueva Tultitlán");
+					comboColonia.addItem("Colonia Valle Verde");
+					comboColonia.addItem("Zona industrial Estado de México");
+
+				}else if (comboCodigoPostal.getSelectedItem().equals("54946")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Ferrocarrilera");
+					comboColonia.addItem("Colonia Mariano Escobedo");
 
 					
-				}else if (combouno.getSelectedItem().equals("54949")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Las Terrazas");
-					combodos.addItem("Condominio Conjunto Brillante");
-					combodos.addItem("Pueblo Santa María Cuautepec");
-					combodos.addItem("Condominio Mayorazgo de Tultitlán");
-					combodos.addItem("Colonia Ejido Santa María Cuautepec");
-					combodos.addItem("Condominio Los Sauces");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54948")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Bello Horizonte");
+					comboColonia.addItem("Pueblo San Mateo Cuautepec");
+					comboColonia.addItem("Ejido San Mateo Cuautepec");
+					comboColonia.addItem("Colonia Solidaridad 1ra. Sección");
+					comboColonia.addItem("Condominio Real del Bosque");
+					comboColonia.addItem("Colonia Solidaridad 3ra. Sección");
+					comboColonia.addItem("Colonia Solidaridad 2da. Sección");
+					comboColonia.addItem("Colonia Ejido San Antonio Tultitán");
 
 					
-				}else if (combouno.getSelectedItem().equals("54950")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia La Sardaña");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54949")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Las Terrazas");
+					comboColonia.addItem("Condominio Conjunto Brillante");
+					comboColonia.addItem("Pueblo Santa María Cuautepec");
+					comboColonia.addItem("Condominio Mayorazgo de Tultitlán");
+					comboColonia.addItem("Colonia Ejido Santa María Cuautepec");
+					comboColonia.addItem("Condominio Los Sauces");
 
 					
-				}else if (combouno.getSelectedItem().equals("54954")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Rinconada San Marcos");
-					combodos.addItem("Colonia Ampliación San Marcos");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54950")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia La Sardaña");
 
 					
-				}else if (combouno.getSelectedItem().equals("54955")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia Ampliación Buenavista");
-					combodos.addItem("Colonia Ampliación Buenavista 2da. Sección");
-					combodos.addItem("Colonia Ampliación Buenavista 1ra. Sección");
-
-				}else if (combouno.getSelectedItem().equals("54957")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia El Tesoro");
-					combodos.addItem("Colonia Ampliación El Tesoro");
-					combodos.addItem("Colonia Sierra de Guadalupe");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54954")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Rinconada San Marcos");
+					comboColonia.addItem("Colonia Ampliación San Marcos");
 
 					
-				}else if (combouno.getSelectedItem().equals("54958")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Fraccionamiento Jardines de la Cañada");
-					combodos.addItem("Fraccionamiento Lomas de Cartagena");
-					combodos.addItem("Fraccionamiento Lomas del Parque I");
-					combodos.addItem("Colonia Ampliación La Sardaña");
-					combodos.addItem("Condominio Los Tulipanes");
-					combodos.addItem("Fraccionamiento Lomas del Parque III");
-					combodos.addItem("Fraccionamiento Lomas del Parque II");
-					combodos.addItem("Colonia FIMESA II (Ampliación la Sardaña)");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54955")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia Ampliación Buenavista");
+					comboColonia.addItem("Colonia Ampliación Buenavista 2da. Sección");
+					comboColonia.addItem("Colonia Ampliación Buenavista 1ra. Sección");
+
+				}else if (comboCodigoPostal.getSelectedItem().equals("54957")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia El Tesoro");
+					comboColonia.addItem("Colonia Ampliación El Tesoro");
+					comboColonia.addItem("Colonia Sierra de Guadalupe");
 
 					
-				}else if (combouno.getSelectedItem().equals("54959")) {
-					combodos.addItem("selecciona una opcion");
-					combodos.removeAllItems();//quita las opciones del combo 2
-					combodos.addItem("Colonia El Paraje");
-					combodos.addItem("Zona industrial Corredor López Portillo");
-					combodos.addItem("Colonia FIMESA I (El Paraje)");
+				}else if (comboCodigoPostal.getSelectedItem().equals("54958")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Fraccionamiento Jardines de la Cañada");
+					comboColonia.addItem("Fraccionamiento Lomas de Cartagena");
+					comboColonia.addItem("Fraccionamiento Lomas del Parque I");
+					comboColonia.addItem("Colonia Ampliación La Sardaña");
+					comboColonia.addItem("Condominio Los Tulipanes");
+					comboColonia.addItem("Fraccionamiento Lomas del Parque III");
+					comboColonia.addItem("Fraccionamiento Lomas del Parque II");
+					comboColonia.addItem("Colonia FIMESA II (Ampliación la Sardaña)");
+
+					
+				}else if (comboCodigoPostal.getSelectedItem().equals("54959")) {
+					comboColonia.addItem("selecciona una opcion");
+					comboColonia.removeAllItems();//quita las opciones del combo 2
+					comboColonia.addItem("Colonia El Paraje");
+					comboColonia.addItem("Zona industrial Corredor López Portillo");
+					comboColonia.addItem("Colonia FIMESA I (El Paraje)");
 
 				}else{
-					combodos.removeAllItems();
-					combouno.removeAllItems();
+					comboColonia.removeAllItems();
+					comboCodigoPostal.removeAllItems();
 				}
 				
 			}
 		});
-		combouno.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "54900", "54910", "54913", "54914", "54915", "54916", "54918", "54920", "54924", "54925", "54926", "54927", "54929", "54930", "54932", "54933", "54934", "54935", "54938", "54939", "54940", "54942", "54943", "54944", "54945", "54946", "54948", "54949", "54950", "54954", "54955", "54957", "54958", "54959"}));
-		combouno.setBounds(10, 11, 136, 22);
-		panel_3.add(combouno);
+		comboCodigoPostal.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "54900", "54910", "54913", "54914", "54915", "54916", "54918", "54920", "54924", "54925", "54926", "54927", "54929", "54930", "54932", "54933", "54934", "54935", "54938", "54939", "54940", "54942", "54943", "54944", "54945", "54946", "54948", "54949", "54950", "54954", "54955", "54957", "54958", "54959"}));
+		comboCodigoPostal.setBounds(10, 11, 136, 22);
+		panel_3.add(comboCodigoPostal);
 		
 		JLabel lblNewLabel_14 = new JLabel("CODIGO POSTAL");
 		lblNewLabel_14.setFont(new Font("Arial", Font.BOLD, 12));
@@ -670,32 +820,89 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(lblNewLabel_14);
 		
 		
-		combodos.setBounds(190, 11, 149, 22);
-		panel_3.add(combodos);
+		comboColonia.setBounds(190, 11, 149, 22);
+		panel_3.add(comboColonia);
 		
 		JLabel lblNewLabel_15 = new JLabel("COLONIA");
 		lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_15.setBounds(238, 36, 111, 14);
 		panel_3.add(lblNewLabel_15);
 		
-		textField_3 = new JTextField();
-		textField_3.setBackground(new Color(243, 220, 220));
-		textField_3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_3.setBounds(373, 12, 168, 20);
-		panel_3.add(textField_3);
-		textField_3.setColumns(10);
+		txtDomicilio = new JTextField();
+		txtDomicilio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String fecha = txtFecha.getText();
+				String Hora = txtHora.getText();
+				String apellidoPaterno = txtApellidopaterno.getText();
+				String apellidoMaterno = txtApellidoMaterno.getText();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				String Domicilio = txtDomicilio.getText();
+				String CodigoPostal = txtCanalizadPor.getText();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String Estado = txtEstado.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String telefnoCasa = txtnumeroDeCasa.getText();
+				String vivienda = comboBoxvivienda.getSelectedItem().toString();
+				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
+				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String canalizadaPor = txtCanalizadPor.getText();
+				String padecimiento = txtPadecimientoCronico.getText();
+				String denuncia = txtDenuncia.getText();
+				String dependientes = area.getText();
+				
+				//Es la conexion ala base de datos con el programa
+				
+								ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					if (txtDomicilio.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtEstado.requestFocus();
+					}
+			}
+		});
+		txtDomicilio.setBackground(new Color(243, 220, 220));
+		txtDomicilio.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtDomicilio.setBounds(373, 12, 168, 20);
+		panel_3.add(txtDomicilio);
+		txtDomicilio.setColumns(10);
 		
 		JLabel lblNewLabel_16 = new JLabel("DOMICILIO");
 		lblNewLabel_16.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_16.setBounds(430, 36, 97, 14);
 		panel_3.add(lblNewLabel_16);
 		
-		textField_10 = new JTextField();
-		textField_10.setBackground(new Color(243, 220, 220));
-		textField_10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_10.setBounds(10, 55, 136, 20);
-		panel_3.add(textField_10);
-		textField_10.setColumns(10);
+		txtEstado = new JTextField();
+		txtEstado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String Estado = txtEstado.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtEstado.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtOcupacion.requestFocus();
+					}
+			}
+		});
+		txtEstado.setBackground(new Color(243, 220, 220));
+		txtEstado.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtEstado.setBounds(10, 55, 136, 20);
+		panel_3.add(txtEstado);
+		txtEstado.setColumns(10);
 		
 		JLabel lblNewLabel_24 = new JLabel("ESTADO");
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
@@ -709,72 +916,145 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
-		textField_4 = new JTextField();
-		textField_4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_4.setBackground(new Color(243, 220, 220));
-		textField_4.setBounds(27, 11, 194, 20);
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
+		txtOcupacion = new JTextField();
+		txtOcupacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String Ocupacion = txtOcupacion.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtOcupacion.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtIngresoFamiliar.requestFocus();
+					}
+					
+			}
+		});
+		txtOcupacion.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtOcupacion.setBackground(new Color(243, 220, 220));
+		txtOcupacion.setBounds(27, 11, 194, 20);
+		panel_4.add(txtOcupacion);
+		txtOcupacion.setColumns(10);
 		
 		JLabel lblNewLabel_17 = new JLabel("OCUPACION");
 		lblNewLabel_17.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_17.setBounds(86, 32, 106, 14);
 		panel_4.add(lblNewLabel_17);
 		
-		textField_5 = new JTextField();
-		textField_5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_5.setBackground(new Color(243, 220, 220));
-		textField_5.setBounds(27, 51, 194, 20);
-		panel_4.add(textField_5);
-		textField_5.setColumns(10);
+		txtIngresoFamiliar = new JTextField();
+		txtIngresoFamiliar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String ingresoFamiliar = txtIngresoFamiliar.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtIngresoFamiliar.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtNumeroCelular.requestFocus();
+					}
+			}
+		});
+		txtIngresoFamiliar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtIngresoFamiliar.setBackground(new Color(243, 220, 220));
+		txtIngresoFamiliar.setBounds(27, 51, 194, 20);
+		panel_4.add(txtIngresoFamiliar);
+		txtIngresoFamiliar.setColumns(10);
 		
 		JLabel lblNewLabel_18 = new JLabel("INGRESO FAMILIAR");
 		lblNewLabel_18.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_18.setBounds(69, 73, 125, 14);
 		panel_4.add(lblNewLabel_18);
 		
-		textField_6 = new JTextField();
-		textField_6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_6.setBackground(new Color(243, 220, 220));
-		textField_6.setBounds(27, 93, 194, 20);
-		panel_4.add(textField_6);
-		textField_6.setColumns(10);
+		txtNumeroCelular = new JTextField();
+		txtNumeroCelular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String numeroCelular = txtNumeroCelular.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtNumeroCelular.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtnumeroDeCasa.requestFocus();
+					}
+			}
+		});
+		txtNumeroCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtNumeroCelular.setBackground(new Color(243, 220, 220));
+		txtNumeroCelular.setBounds(27, 93, 194, 20);
+		panel_4.add(txtNumeroCelular);
+		txtNumeroCelular.setColumns(10);
 		
 		JLabel lblNewLabel_19 = new JLabel("NUMERO CELULAR");
 		lblNewLabel_19.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_19.setBounds(69, 117, 125, 14);
 		panel_4.add(lblNewLabel_19);
 		
-		textField_7 = new JTextField();
-		textField_7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_7.setBackground(new Color(243, 220, 220));
-		textField_7.setBounds(27, 139, 194, 20);
-		panel_4.add(textField_7);
-		textField_7.setColumns(10);
+		txtnumeroDeCasa = new JTextField();
+		txtnumeroDeCasa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String NumeroDeCasa = txtnumeroDeCasa.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtnumeroDeCasa.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtCanalizadPor.requestFocus();
+					}
+			}
+		});
+		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtnumeroDeCasa.setBackground(new Color(243, 220, 220));
+		txtnumeroDeCasa.setBounds(27, 139, 194, 20);
+		panel_4.add(txtnumeroDeCasa);
+		txtnumeroDeCasa.setColumns(10);
 		
 		JLabel lblNewLabel_20 = new JLabel("NUMERO CASA");
 		lblNewLabel_20.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_20.setBounds(69, 162, 106, 14);
 		panel_4.add(lblNewLabel_20);
 		
-		textField_8 = new JTextField();
-		textField_8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_8.setBackground(new Color(243, 220, 220));
-		textField_8.setBounds(27, 185, 194, 20);
-		panel_4.add(textField_8);
-		textField_8.setColumns(10);
+		txtCanalizadPor = new JTextField();
+		txtCanalizadPor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String canalizadaPor = txtCanalizadPor.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtCanalizadPor.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						txtPadecimientoCronico.requestFocus();
+					}
+			}
+		});
+		txtCanalizadPor.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtCanalizadPor.setBackground(new Color(243, 220, 220));
+		txtCanalizadPor.setBounds(27, 185, 194, 20);
+		panel_4.add(txtCanalizadPor);
+		txtCanalizadPor.setColumns(10);
 		
 		JLabel lblNewLabel_21 = new JLabel("CANALIZADA POR:");
 		lblNewLabel_21.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_21.setBounds(69, 207, 122, 14);
 		panel_4.add(lblNewLabel_21);
 		
-		textField_9 = new JTextField();
-		textField_9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_9.setBackground(new Color(243, 220, 220));
-		textField_9.setBounds(27, 224, 194, 20);
-		panel_4.add(textField_9);
-		textField_9.setColumns(10);
+		txtPadecimientoCronico = new JTextField();
+		txtPadecimientoCronico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String padecimientosCronicos = txtPadecimientoCronico.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtPadecimientoCronico.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+					txtDenuncia.requestFocus();
+					}
+			}
+		});
+		txtPadecimientoCronico.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtPadecimientoCronico.setBackground(new Color(243, 220, 220));
+		txtPadecimientoCronico.setBounds(27, 224, 194, 20);
+		panel_4.add(txtPadecimientoCronico);
+		txtPadecimientoCronico.setColumns(10);
 		
 		JLabel lblNewLabel_22 = new JLabel("PADECIMIENTO CRONICO");
 		lblNewLabel_22.setFont(new Font("Arial", Font.BOLD, 12));
@@ -786,17 +1066,29 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_23.setBounds(86, 291, 95, 14);
 		panel_4.add(lblNewLabel_23);
 		
-		textField_11 = new JTextField();
-		textField_11.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		textField_11.setBackground(new Color(243, 220, 220));
-		textField_11.setBounds(27, 270, 194, 20);
-		panel_4.add(textField_11);
-		textField_11.setColumns(10);
+		txtDenuncia = new JTextField();
+		txtDenuncia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Aqui definimos la variable
+				String Denuncia = txtDenuncia.getText();
+				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
+					if (txtDenuncia.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+					}else {
+						area.requestFocus();
+					}
+			}
+		});
+		txtDenuncia.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtDenuncia.setBackground(new Color(243, 220, 220));
+		txtDenuncia.setBounds(27, 270, 194, 20);
+		panel_4.add(txtDenuncia);
+		txtDenuncia.setColumns(10);
 		
-		JTextArea txtrNombreEdadY = new JTextArea();
-		txtrNombreEdadY.setBackground(new Color(243, 220, 220));
-		txtrNombreEdadY.setBounds(272, 313, 303, 270);
-		contentPane.add(txtrNombreEdadY);
+		
+		area.setBackground(new Color(243, 220, 220));
+		area.setBounds(272, 313, 303, 270);
+		contentPane.add(area);
 		
 		JLabel lblNewLabel_25 = new JLabel("EXP");
 		lblNewLabel_25.setFont(new Font("Arial", Font.BOLD, 12));
@@ -814,22 +1106,22 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_26.setBounds(464, 71, 49, 14);
 		contentPane.add(lblNewLabel_26);
 		
-		textField_13 = new JTextField();
-		textField_13.setEditable(false);
-		textField_13.setBounds(511, 66, 116, 20);
-		contentPane.add(textField_13);
-		textField_13.setColumns(10);
+		txtFecha = new JTextField();
+		txtFecha.setEditable(false);
+		txtFecha.setBounds(511, 66, 116, 20);
+		contentPane.add(txtFecha);
+		txtFecha.setColumns(10);
 		
 		JLabel lblNewLabel_27 = new JLabel("HORA");
 		lblNewLabel_27.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_27.setBounds(637, 71, 49, 14);
 		contentPane.add(lblNewLabel_27);
 		
-		textField_14 = new JTextField();
-		textField_14.setEditable(false);
-		textField_14.setBounds(684, 68, 96, 20);
-		contentPane.add(textField_14);
-		textField_14.setColumns(10);
+		txtHora = new JTextField();
+		txtHora.setEditable(false);
+		txtHora.setBounds(684, 68, 96, 20);
+		contentPane.add(txtHora);
+		txtHora.setColumns(10);
 		
 		JLabel lblNewLabel_28 = new JLabel("New label");
 		lblNewLabel_28.setIcon(new ImageIcon(DatosGenerales.class.getResource("/img/butterfly_side_view_56.png")));
