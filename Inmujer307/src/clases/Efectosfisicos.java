@@ -191,7 +191,7 @@ public class Efectosfisicos extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE Nombre = '"+variables.Nombre+"'";
+		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE EXP = 1";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -480,7 +480,7 @@ public class Efectosfisicos extends JFrame {
 				System.out.println(Psicologicos);
 				System.out.println(Sexuales);
 				System.out.println(patrimoniales);
-				//insertarEfectos(Fisicos, Psicologicos, Sexuales, patrimoniales);
+				insertarEfectos(Fisicos, Psicologicos, Sexuales, patrimoniales);
 				RedesDeApoyo ventana = new RedesDeApoyo();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
