@@ -31,7 +31,7 @@ public class Efectosfisicos extends JFrame {
 	String Psicologicos="";
 	String Sexuales="";
 	String patrimoniales="";
-	
+	//CheckBox efectos fisicos
 	JCheckBox chkHerida = new JCheckBox("HERIDA");
 	JCheckBox chkFractura = new JCheckBox("FRACTURA");
 	JCheckBox chkAmputaciones = new JCheckBox("AMPUTACIONES");
@@ -40,7 +40,7 @@ public class Efectosfisicos extends JFrame {
 	JCheckBox chkQuemaduras = new JCheckBox("QUEMADURAS");
 	JCheckBox chkOtrosFisicos = new JCheckBox("OTROS");
 	JCheckBox chkNinguno = new JCheckBox("NINGUNO");
-	
+	//CheckBox efectos psicologicos
 	JCheckBox chkAngustia = new JCheckBox("ANGUSTIA/MIEDO");
 	JCheckBox chkEstresPostraumatico = new JCheckBox("ESTRES POSTRAUMATICO");
 	JCheckBox chkAnsiedad = new JCheckBox("ANSIEDAD");
@@ -51,12 +51,12 @@ public class Efectosfisicos extends JFrame {
 	JCheckBox chkAislamiento = new JCheckBox("AISLAMIENTO");
 	JCheckBox chkIntentoSuicida = new JCheckBox("INTENTO SUICIDA");
 	JCheckBox chkOtroPsicologico = new JCheckBox("OTRO");
-	
+	//CheckBox efectos sexuales
 	JCheckBox chkInfecciones = new JCheckBox("INFECCIONES");
 	JCheckBox chkEmbarazo = new JCheckBox("EMBARAZO");
 	JCheckBox chkAborto = new JCheckBox("ABORTO");
 	JCheckBox chkNoAplicaSexuales = new JCheckBox("NO APLICA");
-	
+	//CheckBox efectos patrimoniales
 	JCheckBox chkDejoEstudiar = new JCheckBox("DEJO DE ESTUDIAR");
 	JCheckBox chkNoRecibePensionAlimenticia = new JCheckBox("NO RECIBE PENSION ALIMENTICIA");
 	JCheckBox chkChantajeAportar = new JCheckBox("CHANTAJE PARA APORTAR");
