@@ -1,5 +1,7 @@
 package clases;
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -27,6 +29,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class DatosGenerales extends JFrame {
 
@@ -100,6 +104,17 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_1);
 		
 		txtApellidopaterno = new JTextField();
+		txtApellidopaterno.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent a) {
+				int k = (int) a.getKeyChar();
+				if (k >= 47 && k <=58 ) {
+					a.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN LETRAS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtApellidopaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -127,6 +142,17 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_2);
 		
 		txtApellidoMaterno = new JTextField();
+		txtApellidoMaterno.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent av) {
+				int k = (int) av.getKeyChar();
+				if (k >= 47 && k <=58 ) {
+					av.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN LETRAS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtApellidoMaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Aqui implemente un if para que cuando termine de escribir lo mande al siguiente txt automaticamente
@@ -149,6 +175,17 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_3);
 		
 		txtNombres = new JTextField();
+		txtNombres.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent avt) {
+				int k = (int) avt.getKeyChar();
+				if (k >= 47 && k <=58 ) {
+					avt.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN LETRAS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtNombres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -804,6 +841,17 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_17);
 		
 		txtIngresoFamiliar = new JTextField();
+		txtIngresoFamiliar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <=122 || k>= 65 && k<= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtIngresoFamiliar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -826,6 +874,21 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_18);
 		
 		txtNumeroCelular = new JTextField();
+		txtNumeroCelular.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ev) {
+				int k = (int) ev.getKeyChar();
+				if (k >= 97 && k <=122 || k>= 65 && k<= 90) {
+					ev.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+				if (txtNumeroCelular.getText().trim().length() ==12) {
+					ev.consume();
+				
+				}
+			}
+		});
 		txtNumeroCelular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -848,6 +911,20 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_19);
 		
 		txtnumeroDeCasa = new JTextField();
+		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				int k = (int) evt.getKeyChar();
+				if (k >= 97 && k <=122 || k>= 65 && k<= 90) {
+					evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null,"ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ","INGRESE LOS DATOS NUEVAMENTE",
+					JOptionPane.ERROR_MESSAGE);
+				}
+				if (txtNumeroCelular.getText().trim().length() ==12) {
+					evt.consume();
+				}
+			}
+		});
 		txtnumeroDeCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -856,7 +933,7 @@ public class DatosGenerales extends JFrame {
 					}else {
 						txtCanalizadPor.requestFocus();
 					}
-			}
+								}
 		});
 		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtnumeroDeCasa.setBackground(new Color(243, 220, 220));
@@ -994,11 +1071,10 @@ public class DatosGenerales extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String fecha = txtFecha.getText();
 				String Hora = txtHora.getText();
-				String apellidoPaterno = txtApellidopaterno.getText();
-				String apellidoMaterno = txtApellidoMaterno.getText();
-				String Nombres = txtNombres.getText();
+				String NombreDeLaVictima = txtApellidopaterno.getText()+ " " + txtApellidoMaterno.getText()+ "" +txtNombres.getText();
 				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
 				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
+				int edad = Integer.parseInt(comboBoxedad.getSelectedItem().toString());
 				String Ocupacion = txtOcupacion.getText();
 				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
 				String IngresoFamiliar = txtIngresoFamiliar.getText();
@@ -1007,7 +1083,7 @@ public class DatosGenerales extends JFrame {
 				String colonia = comboColonia.getSelectedItem().toString();
 				String Estado = txtEstado.getText();
 				String telefonoCelular = txtNumeroCelular.getText();
-				String telefnoCasa = txtnumeroDeCasa.getText();
+				String telefonoCasa = txtnumeroDeCasa.getText();
 				String vivienda = comboBoxvivienda.getSelectedItem().toString();
 				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
 				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
@@ -1015,23 +1091,72 @@ public class DatosGenerales extends JFrame {
 				String padecimiento = txtPadecimientoCronico.getText();
 				String denuncia = txtDenuncia.getText();
 				String dependientes = area.getText();
+				String FechaDeNacimiento = comboBoxanio.getSelectedItem().toString()+"-"+comboBoxmes.getSelectedItem().toString()+"-"+comboBoxdia.getSelectedItem().toString();
 				
 				//Es la conexion ala base de datos con el programa
 				
 								ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-				String sql = "INSERT INTO datos(FECHA,HORA,Apellido_Paterno,Apellido_Materno,Nombre,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String sql = "INSERT INTO datos(FECHA,HORA,Nombre_de_la_victima,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				try {
 					PreparedStatement pst = con.prepareStatement(sql);
-					pst.setString(1, )
+					pst.setString(1,fecha ); 
+					pst.setString(2,Hora );
+					pst.setString(3,NombreDeLaVictima);
+					pst.setString(4,EstadoCivil);
+					pst.setString(5,Ocupacion);
+					pst.setString(6,servicioMedico);
+					pst.setString(7,GradoDeEstudios);
+					pst.setInt(8, edad);
+					pst.setString(9,FechaDeNacimiento);
+					pst.setString(10,IngresoFamiliar);
+					pst.setString(11,Domicilio);
+					pst.setString(12,CodigoPostal);
+					pst.setString(13,colonia);
+					pst.setString(14,Estado);
+					pst.setString(15,telefonoCelular);
+					pst.setString(16,telefonoCasa);
+					pst.setString(17,vivienda);
+					pst.setString(18,nopersonas);
+					pst.setString(19,contribuyente);
+					pst.setString(20,canalizadaPor);
+					pst.setString(21,padecimiento);
+					pst.setString(22,denuncia);
+					pst.setString(23,dependientes);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				JOptionPane.showMessageDialog(null, "PRIMERA ETAPA CUMPLIDA L@ ENVIAREMOS AL SIGUIENTE CAMPO","PARA UNA MEJOR INFORMACION DEL CASO",
+				JOptionPane.INFORMATION_MESSAGE);
+				
+				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+
+				
+				final JDialog dialog = pane.createDialog("Espere 5 segundos pofavor");
+				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+				
+				Timer timer = new Timer(5000, new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				        dialog.dispose();
+				    }
+				});
+				timer.setRepeats(false); 
+				timer.start();
+
+				
+				dialog.setVisible(true);
+
+				
 				Violencia ventana = new Violencia();
 				dispose();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
+				
+				
 			}
 		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
