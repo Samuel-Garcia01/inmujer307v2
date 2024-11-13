@@ -94,12 +94,9 @@ public class RedesDeApoyo extends JFrame {
         txtNombre = new JTextField();
         txtNombre.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String Nombre = txtNombre.getText();
-        		if (txtNombre.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No puedes continuar sin llenar campos");
-				}else {
+        		
 					txtDireccion.requestFocus();
-				}
+				
         	}
         });
         txtNombre.setBounds(89, 53, 155, 19);
@@ -114,12 +111,9 @@ public class RedesDeApoyo extends JFrame {
         txtDireccion = new JTextField();
         txtDireccion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String Direccion = txtDireccion.getText();
-        		if (txtDireccion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No puedes continuar sin llenar campos");
-				}else {
+        		
 					txtTelefono.requestFocus();
-				}
+				
         	}
         });
         txtDireccion.setBounds(89, 140, 155, 19);
@@ -139,17 +133,14 @@ public class RedesDeApoyo extends JFrame {
         txtTelefono = new JTextField();
         txtTelefono.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String Telefono = txtTelefono.getText();
-        		if (txtTelefono.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No puedes continuar sin llenar campos");
-				}
+        		
         	}
         });
         txtTelefono.setBounds(89, 218, 155, 19);
         panel_1.add(txtTelefono);
         txtTelefono.setColumns(10);
 
-        // Panel para los otros campos
+       
         JPanel panel_1_1 = new JPanel();
         panel_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
         panel_1_1.setBackground(new Color(243, 220, 220));
@@ -165,12 +156,9 @@ public class RedesDeApoyo extends JFrame {
         txtTipoDeRealacion = new JTextField();
         txtTipoDeRealacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String TipoDeRelaion = txtTipoDeRealacion.getText();
-        		if (txtTipoDeRealacion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No puedes continuar sin llenar campos");
-				}else {
+        		
 					txtTiposDeApoyo.requestFocus();
-				}
+				
         	}
         });
         txtTipoDeRealacion.setBounds(125, 114, 196, 19);
@@ -185,19 +173,16 @@ public class RedesDeApoyo extends JFrame {
         txtTiposDeApoyo = new JTextField();
         txtTiposDeApoyo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String TipoDeApoyo = txtTiposDeApoyo.getText();
-        		if (txtTiposDeApoyo.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No puedes continuar sin llenar campos");
-				}else {
+        		
 					txtNombre.requestFocus();
-				}
+				
         	}
         });
         txtTiposDeApoyo.setBounds(125, 183, 196, 19);
         panel_1_1.add(txtTiposDeApoyo);
         txtTiposDeApoyo.setColumns(10);
 
-        // Botón "Siguiente"
+      
         JButton btnSiguiente = new JButton("Siguiente");
         btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
         btnSiguiente.setBounds(620, 510, 142, 34);
