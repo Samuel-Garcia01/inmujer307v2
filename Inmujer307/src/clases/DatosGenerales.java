@@ -927,13 +927,8 @@ public class DatosGenerales extends JFrame {
 		});
 		txtnumeroDeCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-					if (txtnumeroDeCasa.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-					}else {
 						txtCanalizadPor.requestFocus();
-					}
-								}
+			}
 		});
 		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtnumeroDeCasa.setBackground(new Color(243, 220, 220));
@@ -1134,11 +1129,11 @@ public class DatosGenerales extends JFrame {
 				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
 
 				
-				final JDialog dialog = pane.createDialog("Espere 5 segundos pofavor");
+				final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
 				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 				
-				Timer timer = new Timer(5000, new ActionListener() {
+				Timer timer = new Timer(2000, new ActionListener() {
 				    @Override
 				    public void actionPerformed(ActionEvent e) {
 				        dialog.dispose();
