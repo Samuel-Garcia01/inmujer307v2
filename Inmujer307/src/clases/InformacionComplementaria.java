@@ -74,7 +74,7 @@ public class InformacionComplementaria extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Información Complementaria");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
-		lblNewLabel_1.setBounds(276, 11, 260, 33);
+		lblNewLabel_1.setBounds(275, 11, 260, 33);
 		contentPane.add(lblNewLabel_1);
 		
 		JPanel panel_1 = new JPanel();
@@ -156,7 +156,7 @@ public class InformacionComplementaria extends JFrame {
 		btnInicio.setForeground(new Color(255, 255, 255));
 		btnInicio.setBackground(new Color(128, 0, 255));
 		btnInicio.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnInicio.setBounds(148, 529, 108, 23);
+		btnInicio.setBounds(255, 529, 108, 23);
 		contentPane.add(btnInicio);
 		
 		JButton btnFinalizar = new JButton("FINALIZAR");
@@ -206,22 +206,8 @@ public class InformacionComplementaria extends JFrame {
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.setBackground(new Color(128, 0, 255));
 		btnFinalizar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnFinalizar.setBounds(525, 529, 108, 23);
+		btnFinalizar.setBounds(456, 529, 108, 23);
 		contentPane.add(btnFinalizar);
-		
-		JButton btnRegresar = new JButton("REGRESAR");
-		btnRegresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RedesDeApoyo Atrasar = new RedesDeApoyo();
-	            Atrasar.setVisible(true);
-	            dispose();
-			}
-		});
-		btnRegresar.setForeground(new Color(255, 255, 255));
-		btnRegresar.setBackground(new Color(128, 0, 255));
-		btnRegresar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnRegresar.setBounds(346, 529, 108, 23);
-		contentPane.add(btnRegresar);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/IMG/butterfly_side_view_56.png")));

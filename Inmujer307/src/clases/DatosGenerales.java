@@ -1155,13 +1155,8 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
-		btnNewButton.setBounds(464, 594, 99, 23);
+		btnNewButton.setBounds(371, 594, 99, 23);
 		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("REGRESAR");
-		btnNewButton_1.setBackground(new Color(243, 220, 220));
-		btnNewButton_1.setBounds(267, 594, 108, 23);
-		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_30 = new JLabel("Nombre, Edad y Escolaridad/ Ocupacion");
 		lblNewLabel_30.setFont(new Font("Arial", Font.BOLD, 12));

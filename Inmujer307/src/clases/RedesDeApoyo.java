@@ -185,7 +185,7 @@ public class RedesDeApoyo extends JFrame {
       
         JButton btnSiguiente = new JButton("Siguiente");
         btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
-        btnSiguiente.setBounds(620, 510, 142, 34);
+        btnSiguiente.setBounds(533, 510, 142, 34);
         contentPane.add(btnSiguiente);
         
         JButton btnInicio = new JButton("Inicio");
@@ -198,20 +198,8 @@ public class RedesDeApoyo extends JFrame {
         });
         btnInicio.setForeground(Color.BLACK);
         btnInicio.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnInicio.setBounds(304, 510, 135, 34);
+        btnInicio.setBounds(162, 510, 135, 34);
         contentPane.add(btnInicio);
-        
-        JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Efectosfisicos ventana = new Efectosfisicos();
-				ventana.setVisible(true);
-				dispose();
-        	}
-        });
-        btnRegresar.setFont(new Font("Arial", Font.PLAIN, 12));
-        btnRegresar.setBounds(64, 510, 114, 34);
-        contentPane.add(btnRegresar);
 
         
         btnSiguiente.addActionListener(new ActionListener() {

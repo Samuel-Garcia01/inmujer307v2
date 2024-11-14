@@ -28,6 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.SwingConstants;
 
 public class DATOSDELAGRESOR extends JFrame {
 
@@ -393,8 +394,9 @@ public class DATOSDELAGRESOR extends JFrame {
 		contentPane.add(panel_1_1_1_1_1);
 		
 		JLabel lblNewLabel_23 = new JLabel("PORTA ARMAS");
+		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_23.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_23.setBounds(43, 11, 85, 14);
+		lblNewLabel_23.setBounds(20, 11, 118, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_23);
 		
 		JRadioButton rdportaArmasSI = new JRadioButton("SI");
@@ -411,7 +413,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		
 		JLabel lblNewLabel_24 = new JLabel("SELECCIONE ARMAS");
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_24.setBounds(184, 11, 117, 14);
+		lblNewLabel_24.setBounds(184, 11, 130, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_24);
 		
 		JComboBox comboTArma = new JComboBox();
@@ -554,21 +556,6 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_18_1.setBounds(577, 298, 81, 14);
 		contentPane.add(lblNewLabel_18_1);
 		
-		JButton btnRegresar = new JButton("REGRESAR");
-		btnRegresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
-				Violencia antventana = new Violencia();
-				dispose();
-				antventana.setVisible(true);
-			}
-		});
-		btnRegresar.setBounds(10, 577, 89, 23);
-		contentPane.add(btnRegresar);
-		
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -603,7 +590,7 @@ public class DATOSDELAGRESOR extends JFrame {
 				
 			}
 		});
-		btnInicio.setBounds(243, 577, 89, 23);
+		btnInicio.setBounds(150, 579, 89, 23);
 		contentPane.add(btnInicio);
 	}
 }

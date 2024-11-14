@@ -489,22 +489,8 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
 		btnSiguiente.setBackground(new Color(243, 220, 220));
-		btnSiguiente.setBounds(589, 577, 107, 23);
+		btnSiguiente.setBounds(481, 577, 107, 23);
 		panel.add(btnSiguiente);
-		
-		JButton btnRegresar = new JButton("REGRESAR");
-		btnRegresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
-				ventana.setVisible(true);
-				ventana.setLocationRelativeTo(null);
-				dispose();
-			}
-		});
-		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
-		btnRegresar.setBackground(new Color(243, 220, 220));
-		btnRegresar.setBounds(360, 577, 107, 23);
-		panel.add(btnRegresar);
 		
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
@@ -540,7 +526,7 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 11));
 		btnInicio.setBackground(new Color(243, 220, 220));
-		btnInicio.setBounds(142, 577, 89, 23);
+		btnInicio.setBounds(270, 577, 89, 23);
 		panel.add(btnInicio);
 	}
 }
