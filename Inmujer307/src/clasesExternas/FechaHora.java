@@ -131,11 +131,8 @@ public class FechaHora {
 			m = minutos;
 		}
 		
-		horaCompleta = h+":"+m+":"+segundos+" hrs.";
+		horaCompleta = h+":"+m;
 		return horaCompleta;
 	}
-	public int anio() {
-		int a = Integer.parseInt(anio);
-		return a;
-	}
+	
 }
