@@ -36,6 +36,13 @@ public class InformacionComplementaria extends JFrame {
 	private JPanel contentPane;
 	private final JLabel lblNewLabel = new JLabel("");
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	//Glovales
+	JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
+	JCheckBox checAutorizo = new JCheckBox("Autorizo");
+	JTextArea textObservaciones = new JTextArea();
+
+
+
 
 	/**
 	 * Launch the application.
@@ -88,7 +95,6 @@ public class InformacionComplementaria extends JFrame {
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1.add(lblNewLabel_2);
 		
-		JTextArea textObservaciones = new JTextArea();
 		textObservaciones.setBackground(new Color(243, 220, 220));
 		textObservaciones.setBounds(24, 27, 422, 115);
 		panel_1.add(textObservaciones);
@@ -100,7 +106,6 @@ public class InformacionComplementaria extends JFrame {
 		contentPane.add(panel_1_1);
 		panel_1_1.setLayout(null);
 		
-		JCheckBox checAutorizo = new JCheckBox("Autorizo");
 		buttonGroup.add(checAutorizo);
 		checAutorizo.setFont(new Font("Arial", Font.PLAIN, 11));
 		checAutorizo.setBackground(new Color(243, 220, 220));
@@ -112,7 +117,6 @@ public class InformacionComplementaria extends JFrame {
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1_1.add(lblNewLabel_3);
 		
-		JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
 		buttonGroup.add(checNoAutorizo);
 		checNoAutorizo.setFont(new Font("Arial", Font.PLAIN, 11));
 		checNoAutorizo.setBackground(new Color(243, 220, 220));
@@ -160,48 +164,57 @@ public class InformacionComplementaria extends JFrame {
 		
 		JButton btnFinalizar = new JButton("FINALIZAR");
 		btnFinalizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String Obser = textObservaciones.getText();
-				String Auto = checNoAutorizo.getText();
-				
-				ConexionInmujer conexion = new ConexionInmujer();
-				Connection con = conexion.conectar();
-				
-				String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ? , Autorizacion = ? WHERE EXP = ?";
-				
-				try {
-					PreparedStatement pst = con.prepareStatement(sql);
-					pst.setString(1, Obser);
-					pst.setString(2, Auto);
-					pst.setInt(1, DatosGenerales.exp);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
-				
-				String autorizacion;
+			public void actionPerformed(ActionEvent e) {		
+				        String observaciones = textObservaciones.getText();
+				        String autorizacion = "";
 
-				
+				        if (checAutorizo.isSelected()) {
+				            autorizacion = checAutorizo.getText();
+				        } else if (checNoAutorizo.isSelected()) {
+				            autorizacion = checNoAutorizo.getText();
+				        } else {
 
-				if (!checAutorizo.isSelected() && !checNoAutorizo.isSelected()) {
-				    JOptionPane.showMessageDialog(null,
-				        "Debe seleccionar una opción",
-				        "Error",
-				        JOptionPane.ERROR_MESSAGE);
-				    return; // Detiene la ejecución si no se ha seleccionado ninguna opción
-				}
-				// Mensaje de despedida y cierre del programa
-				JOptionPane.showMessageDialog(null,
-				    "Gracias por usar nuestro programa."
-				    + "\nSi tiene algún otro inconveniente, "
-				    + "\nno dude en consultar esta página.",
-				    "Hasta luego",
-				    JOptionPane.INFORMATION_MESSAGE);
-				System.exit(0);
-			}
+				        	JOptionPane.showMessageDialog(null,
+				                "Debe seleccionar una opción de autorización.",
+				                "Error",
+				                JOptionPane.ERROR_MESSAGE);
+				            return; // Detener ejecución
+				        }
+
+				        ConexionInmujer conexion = new ConexionInmujer();
+				        Connection con = conexion.conectar();
+
+				        String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ?, Autorizacion = ? WHERE EXP = ?";
+
+				        try {
+				            PreparedStatement pst = con.prepareStatement(sql);
+				            pst.setString(1, observaciones);  
+				            pst.setString(2, autorizacion); 
+				            pst.setInt(3, DatosGenerales.exp); 
+
+				            int valor = pst.executeUpdate();
+
+				            if (valor == 1) {
+				                JOptionPane.showMessageDialog(null,
+				                    "Datos actualizados correctamente.",
+				                    "Éxito",
+				                    JOptionPane.INFORMATION_MESSAGE);
+				            } else {
+				                JOptionPane.showMessageDialog(null,
+				                    "No se pudieron actualizar los datos.",
+				                    "Error",
+				                    JOptionPane.ERROR_MESSAGE);
+				            }
+				            } catch (Exception e1) {
+								// TODO: handle exception
+							}
+
+				        JOptionPane.showMessageDialog(null,
+				            "Gracias por usar nuestro programa.\nSi tiene algún inconveniente, no dude en contactarnos.",
+				            "Hasta luego",
+				            JOptionPane.INFORMATION_MESSAGE);
+				        System.exit(0);
+				    }
 		});
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.setBackground(new Color(128, 0, 255));
