@@ -54,15 +54,16 @@ public class DatosGenerales extends JFrame {
 	private JTextField textField_12;
 	private JTextField txtFecha;
 	private JTextField txtHora;
-	JComboBox comboBoxdia = new JComboBox();
-	JComboBox comboBoxmes = new JComboBox();
-	JComboBox comboBoxanio = new JComboBox();
-	JComboBox comboBoxedad = new JComboBox();
-	JComboBox comboBoxcontribuyentealgasto = new JComboBox();
-	JComboBox comboBoxgradoestudios = new JComboBox();
-	JComboBox comboBoxNopersonas = new JComboBox();
-	JComboBox comboBoxvivienda = new JComboBox();
-	JComboBox comboBoxserviciomedico = new JComboBox();
+	JComboBox comboDia = new JComboBox();
+	JComboBox comboMes = new JComboBox();
+	JComboBox comboAnio = new JComboBox();
+	JComboBox comboEdad = new JComboBox();
+	JComboBox comboCodigoPostal = new JComboBox();
+	JComboBox comboContribuyentealgasto = new JComboBox();
+	JComboBox comboGradoestudios = new JComboBox();
+	JComboBox comboVivienda = new JComboBox();
+	JComboBox comboNopersonas = new JComboBox();
+	JComboBox comboServiciomedico = new JComboBox();
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
 	JTextArea area = new JTextArea();
@@ -217,16 +218,18 @@ public class DatosGenerales extends JFrame {
 					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN LETRAS EN ESTE CAMPO !!! ",
 							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			}
 		});
 		txtNombres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// Aqui implemente un if para que cuando termine de escribir lo mande al
-				// siguiente txt automaticamente
+				// Aqui se implementa un if para que cuando de un Enter lo mande alsiguiente txt
+				// automaticamente
 				if (txtApellidoMaterno.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
+				} else {
+					comboCodigoPostal.showPopup();
 				}
 			}
 		});
@@ -242,9 +245,17 @@ public class DatosGenerales extends JFrame {
 		panel_2.setBounds(588, 92, 211, 510);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-
-		ComboEstadOCivil.setModel(
-				new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
+		
+		ComboEstadOCivil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ComboEstadOCivil.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboServiciomedico.showPopup();
+				}
+			}
+		});
+		ComboEstadOCivil.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
 		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
 		ComboEstadOCivil.setBounds(10, 11, 191, 22);
 		panel_2.add(ComboEstadOCivil);
@@ -253,33 +264,59 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_4.setBounds(67, 38, 120, 14);
 		panel_2.add(lblNewLabel_4);
+		
+		comboServiciomedico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboServiciomedico.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboGradoestudios.showPopup();
+				}
+			}
+		});
 
-		JComboBox comboBoxserviciomedico = new JComboBox();
-		comboBoxserviciomedico.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "IMSS ",
+		
+		comboServiciomedico.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "IMSS ",
 				"ISSEMYM", "ISSSTE", "ISSFAM", "Otro", "Sin seguro" }));
-		comboBoxserviciomedico.setBackground(new Color(243, 220, 220));
-		comboBoxserviciomedico.setBounds(10, 60, 191, 22);
-		panel_2.add(comboBoxserviciomedico);
+		comboServiciomedico.setBackground(new Color(243, 220, 220));
+		comboServiciomedico.setBounds(10, 60, 191, 22);
+		panel_2.add(comboServiciomedico);
 
 		JLabel lblNewLabel_5 = new JLabel("SERVICIO MEDICO");
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_5.setBounds(54, 85, 114, 14);
 		panel_2.add(lblNewLabel_5);
 
-		JComboBox comboBoxgradoestudios = new JComboBox();
-		comboBoxgradoestudios.setModel(new DefaultComboBoxModel(
-				new String[] { "Seleccione una opcion", "Primaria trunca", "Primaria terminada", "Secundaria",
-						"Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
-		comboBoxgradoestudios.setBackground(new Color(243, 220, 220));
-		comboBoxgradoestudios.setBounds(10, 107, 191, 22);
-		panel_2.add(comboBoxgradoestudios);
+		
+		comboGradoestudios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboServiciomedico.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboEdad.showPopup();
+				}
+			}
+		});
+		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Primaria trunca", "Primaria terminada", "Secundaria","Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
+		comboGradoestudios.setBackground(new Color(243, 220, 220));
+		comboGradoestudios.setBounds(10, 107, 191, 22);
+		panel_2.add(comboGradoestudios);
 
 		JLabel lblNewLabel_6 = new JLabel("GRADO DE ESTUDIOS");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_6.setBounds(54, 132, 147, 14);
 		panel_2.add(lblNewLabel_6);
-
-		comboBoxedad.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+		
+		comboEdad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboEdad.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboDia.showPopup();
+				}
+			}
+		});
+		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 99; i++) {
 			String E = String.valueOf(i);
 			String edad = "";
@@ -289,19 +326,27 @@ public class DatosGenerales extends JFrame {
 			} else {
 				edad = E;
 			}
-			comboBoxedad.addItem(edad);
+			comboEdad.addItem(edad);
 
 		}
-		comboBoxedad.setBackground(new Color(243, 220, 220));
-		comboBoxedad.setBounds(10, 157, 191, 22);
-		panel_2.add(comboBoxedad);
+		comboEdad.setBackground(new Color(243, 220, 220));
+		comboEdad.setBounds(10, 157, 191, 22);
+		panel_2.add(comboEdad);
 
 		JLabel lblNewLabel_7 = new JLabel("EDAD");
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(94, 179, 49, 14);
 		panel_2.add(lblNewLabel_7);
-
-		comboBoxdia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+		comboDia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboDia.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboMes.showPopup();
+				}
+			}
+		});
+		comboDia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 31; i++) {
 			String d = String.valueOf(i);
 			String dia = "";
@@ -311,19 +356,26 @@ public class DatosGenerales extends JFrame {
 			} else {
 				dia = d;
 			}
-			comboBoxdia.addItem(dia);
-
+			comboDia.addItem(dia);
 		}
-		comboBoxdia.setBackground(new Color(243, 220, 220));
-		comboBoxdia.setBounds(10, 204, 191, 22);
-		panel_2.add(comboBoxdia);
+		comboDia.setBackground(new Color(243, 220, 220));
+		comboDia.setBounds(10, 204, 191, 22);
+		panel_2.add(comboDia);
 
 		JLabel lblNewLabel_8 = new JLabel("DIA");
 		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_8.setBounds(94, 229, 49, 14);
 		panel_2.add(lblNewLabel_8);
-
-		comboBoxmes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+		comboMes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboMes.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboAnio.showPopup();
+				}
+			}
+		});
+		comboMes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 12; i++) {
 			String m = String.valueOf(i);
 			String mes = "";
@@ -333,62 +385,96 @@ public class DatosGenerales extends JFrame {
 			} else {
 				mes = m;
 			}
-			comboBoxmes.addItem(mes);
+			comboMes.addItem(mes);
 
 		}
-		comboBoxmes.setBackground(new Color(243, 220, 220));
-		comboBoxmes.setBounds(10, 254, 191, 22);
-		panel_2.add(comboBoxmes);
+		comboMes.setBackground(new Color(243, 220, 220));
+		comboMes.setBounds(10, 254, 191, 22);
+		panel_2.add(comboMes);
 
 		JLabel lblNewLabel_9 = new JLabel("MES");
 		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_9.setBounds(94, 278, 49, 14);
 		panel_2.add(lblNewLabel_9);
-
-		comboBoxanio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+		comboAnio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboAnio.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboVivienda.showPopup();
+				}
+			}
+		});
+		comboAnio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1940; i <= 2020; i++) {
-			comboBoxanio.addItem(i);
+			comboAnio.addItem(i);
 
 		}
-		comboBoxanio.setBackground(new Color(243, 220, 220));
-		comboBoxanio.setBounds(10, 303, 191, 22);
-		panel_2.add(comboBoxanio);
+		comboAnio.setBackground(new Color(243, 220, 220));
+		comboAnio.setBounds(10, 303, 191, 22);
+		panel_2.add(comboAnio);
 
 		JLabel lblNewLabel_10 = new JLabel("AÑO");
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_10.setBounds(94, 328, 49, 14);
 		panel_2.add(lblNewLabel_10);
-
-		JComboBox comboBoxvivienda = new JComboBox();
-		comboBoxvivienda.setModel(new DefaultComboBoxModel(
+		comboVivienda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboVivienda.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboNopersonas.showPopup();
+				}
+			}
+		});
+		comboVivienda.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione una opcion", "Familiar", "Propia", "Rentada", "Prestada" }));
-		comboBoxvivienda.setBackground(new Color(243, 220, 220));
-		comboBoxvivienda.setBounds(10, 351, 191, 22);
-		panel_2.add(comboBoxvivienda);
+		comboVivienda.setBackground(new Color(243, 220, 220));
+		comboVivienda.setBounds(10, 351, 191, 22);
+		panel_2.add(comboVivienda);
 
 		JLabel lblNewLabel_11 = new JLabel("VIVIENDA");
 		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_11.setBounds(83, 372, 165, 14);
 		panel_2.add(lblNewLabel_11);
+		
+		comboNopersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboNopersonas.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					comboContribuyentealgasto.showPopup();
+				}
+			}
+		});
 
-		JComboBox comboBoxNopersonas = new JComboBox();
-		comboBoxNopersonas.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "1", "2", "3", "4",
+		
+		comboNopersonas.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
-		comboBoxNopersonas.setBackground(new Color(243, 220, 220));
-		comboBoxNopersonas.setBounds(10, 397, 191, 22);
-		panel_2.add(comboBoxNopersonas);
+		comboNopersonas.setBackground(new Color(243, 220, 220));
+		comboNopersonas.setBounds(10, 397, 191, 22);
+		panel_2.add(comboNopersonas);
 
 		JLabel lblNewLabel_12 = new JLabel("NO. PERSONAS");
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_12.setBounds(66, 420, 168, 14);
 		panel_2.add(lblNewLabel_12);
+		comboContribuyentealgasto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboContribuyentealgasto.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+				} else {
+					area.requestFocus();
+				}
+			}
+		});
 
-		JComboBox comboBoxcontribuyentealgasto = new JComboBox();
-		comboBoxcontribuyentealgasto.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Mama",
+		
+		comboContribuyentealgasto.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Mama",
 				"Papa", "Esposo", "Esposa", "Abuelos", "Concubino(a)", "Hijo(a)" }));
-		comboBoxcontribuyentealgasto.setBackground(new Color(243, 220, 220));
-		comboBoxcontribuyentealgasto.setBounds(10, 447, 191, 22);
-		panel_2.add(comboBoxcontribuyentealgasto);
+		comboContribuyentealgasto.setBackground(new Color(243, 220, 220));
+		comboContribuyentealgasto.setBounds(10, 447, 191, 22);
+		panel_2.add(comboContribuyentealgasto);
 
 		JLabel lblNewLabel_13 = new JLabel("CONTRIBUYENTE AL GASTO");
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 12));
@@ -402,7 +488,6 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
-		JComboBox comboCodigoPostal = new JComboBox();
 		comboCodigoPostal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboCodigoPostal.getSelectedItem().equals("54900")) {
@@ -417,9 +502,10 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Barrio Santiaguito");
 					comboColonia.addItem("Colonia Tultitlán de Mariano Escobedo Centro");
 					comboColonia.addItem("Condominio Residencial los Reyes");
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54910")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Fuentes del Valle");
 					comboColonia.addItem("Fraccionamiento Villas de San José");
 					comboColonia.addItem("Colonia Villa Esmeralda");
@@ -429,10 +515,10 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Ranchería La Ponderosa");
 					comboColonia.addItem("Condominio Jardines de Tultitlán");
 					comboColonia.addItem("Zona comercial Central de Abastos");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54913")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento COCEM");
 					comboColonia.addItem("Condominio Sol de Tultitlán (Zona Oriente)");
 					comboColonia.addItem("Colonia Recursos Hidráulicos");
@@ -441,78 +527,78 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Unidad habitacional Quinta el Ángel");
 					comboColonia.addItem("Condominio Ampliación COCEM");
 					comboColonia.addItem("Fraccionamiento Residencial del Sol");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54914")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Condominio Unidad Electricistas");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54915")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Independencia");
 					comboColonia.addItem("Condominio El Obelisco");
 					comboColonia.addItem("Zona industrial Independencia");
 					comboColonia.addItem("Colonia Los Reyes");
 					comboColonia.addItem("Condominio Porto Alegre");
 					comboColonia.addItem("Residencial Rincón Colonial");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54916")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Lázaro Cárdenas (Zona Hornos)");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54918")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Parque industrial Cartagena");
 					comboColonia.addItem("Parque industrial Tultitlán");
 					comboColonia.addItem("Colonia El Cueyamil");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54920")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Condominio Hogares de Castera");
 					comboColonia.addItem("Fraccionamiento Jardines de los Claustros III");
 					comboColonia.addItem("Fraccionamiento San Pablo Castera II");
 					comboColonia.addItem("Condominio Estrella de Tultitlán (Lote 55 Pte.)");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54924")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Llanuras");
 					comboColonia.addItem("Condominio El Kiosco");
 					comboColonia.addItem("Condominio Conjunto Cristal");
 					comboColonia.addItem("Condominio Lote 104 (Tehuantepec)");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54925")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Hacienda San Pablo");
 					comboColonia.addItem("Unidad habitacional Las Manzanas");
 					comboColonia.addItem("Condominio Prados B");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54926")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Estepas");
 					comboColonia.addItem("Condominio Lote 55 (Los Tejados)");
 					comboColonia.addItem("Condominio Sustitución Arista");
 					comboColonia.addItem("Condominio Los Agaves (Lote 71)");
 					comboColonia.addItem("Fraccionamiento Galaxias Tultitlán");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54927")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Las Tórtolas");
 					comboColonia.addItem("Unidad habitacional Mariano Escobedo (los Faroles)");
 					comboColonia.addItem("Colonia Hogares de Castera Lote 73");
 					comboColonia.addItem("Condominio Lote 41 (El Carmen)");
 					comboColonia.addItem("Colonia Emilio Chuayffet");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54929")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Alborada I");
 					comboColonia.addItem("Unidad habitacional La Alborada Vallas");
 					comboColonia.addItem("Unidad habitacional Nuevo INFONAVIT");
@@ -520,10 +606,10 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Condominio Lote 12 (Crepúsculo)");
 					comboColonia.addItem("Condominio Villas Loreto");
 					comboColonia.addItem("Fraccionamiento Jardines de los Claustros VI");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54930")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Granjas San Pablo");
 					comboColonia.addItem("Fraccionamiento Izcalli Rinconada");
 					comboColonia.addItem("Fraccionamiento Jardines de los Claustros IV");
@@ -541,10 +627,10 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Condominio Solar San Pablo");
 					comboColonia.addItem("Condominio Quintas San Pablo");
 					comboColonia.addItem("Colonia Lomas de San Pablo");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54932")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Magnolias");
 					comboColonia.addItem("Condominio Conjunto Fortuna");
 					comboColonia.addItem("Fraccionamiento IMMEX II");
@@ -558,8 +644,8 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Fraccionamiento Residencial San Pablo II");
 					comboColonia.addItem("Condominio Villas San Pablo (Lote 117 Sur)");
 				} else if (comboCodigoPostal.getSelectedItem().equals("54933")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Condominio Azul Cielo");
 					comboColonia.addItem("Condominio Coyoli Martínez");
 					comboColonia.addItem("Fraccionamiento Izcalli San Pablo");
@@ -570,16 +656,16 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Condominio El Campanario");
 					comboColonia.addItem("Fraccionamiento Plaza Jardines");
 					comboColonia.addItem("Condominio Residencial La Esperanza");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54934")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Condominio El Rocío");
 					comboColonia.addItem("Condominio Gustavo Baz");
 					comboColonia.addItem("Condominio Prados A");
 				} else if (comboCodigoPostal.getSelectedItem().equals("54935")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Unidad habitacional Casas Alfa");
 					comboColonia.addItem("Condominio Casitas San Pablo");
 					comboColonia.addItem("Fraccionamiento Jardines de los Claustros I");
@@ -600,10 +686,10 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Unidad habitacional Lava 46");
 					comboColonia.addItem("Condominio Las Fuentes");
 					comboColonia.addItem("Colonia Las Chinampas");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54938")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Ampliación San Pablo de las Salinas");
 					comboColonia.addItem("Condominio Lote 64 (Octavio Paz)");
 					comboColonia.addItem("Condominio Lote 47 (El Reloj Residencial)");
@@ -629,36 +715,36 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Condominio Bonito Tultitlán (lote 60)");
 					comboColonia.addItem("Condominio El Alcázar");
 					comboColonia.addItem("Condominio Arcos VI");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54939")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Paraje San Pablito");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54940")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Lechería");
 					comboColonia.addItem("Zona industrial Corredor Lechería-Cuautitlán");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54942")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Benito Juárez");
 					comboColonia.addItem("Colonia La Libertad");
 					comboColonia.addItem("Colonia Ampliación Las Torres Segunda Sección");
 					comboColonia.addItem("Colonia Las Torres I");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54943")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Ciudad Labor");
 					comboColonia.addItem("Colonia Ojo de Agua Primera Sección");
 					comboColonia.addItem("Colonia Ojo de Agua Segunda Sección");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54944")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Pueblo San Francisco Chilpan");
 					comboColonia.addItem("Colonia Buenavista Parte Alta");
 					comboColonia.addItem("Colonia El Fresno");
@@ -676,25 +762,25 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Condominio Conjunto Urbano La Loma");
 					comboColonia.addItem("Condominio Villas de San Francisco II");
 					comboColonia.addItem("Colonia Ejido Buenavista");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54945")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Izcalli del Valle");
 					comboColonia.addItem("Colonia Valle de Tules");
 					comboColonia.addItem("Colonia Nueva Tultitlán");
 					comboColonia.addItem("Colonia Valle Verde");
 					comboColonia.addItem("Zona industrial Estado de México");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54946")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Ferrocarrilera");
 					comboColonia.addItem("Colonia Mariano Escobedo");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54948")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Bello Horizonte");
 					comboColonia.addItem("Pueblo San Mateo Cuautepec");
 					comboColonia.addItem("Ejido San Mateo Cuautepec");
@@ -703,45 +789,45 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Colonia Solidaridad 3ra. Sección");
 					comboColonia.addItem("Colonia Solidaridad 2da. Sección");
 					comboColonia.addItem("Colonia Ejido San Antonio Tultitán");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54949")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Las Terrazas");
 					comboColonia.addItem("Condominio Conjunto Brillante");
 					comboColonia.addItem("Pueblo Santa María Cuautepec");
 					comboColonia.addItem("Condominio Mayorazgo de Tultitlán");
 					comboColonia.addItem("Colonia Ejido Santa María Cuautepec");
 					comboColonia.addItem("Condominio Los Sauces");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54950")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia La Sardaña");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54954")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Rinconada San Marcos");
 					comboColonia.addItem("Colonia Ampliación San Marcos");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54955")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia Ampliación Buenavista");
 					comboColonia.addItem("Colonia Ampliación Buenavista 2da. Sección");
 					comboColonia.addItem("Colonia Ampliación Buenavista 1ra. Sección");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54957")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia El Tesoro");
 					comboColonia.addItem("Colonia Ampliación El Tesoro");
 					comboColonia.addItem("Colonia Sierra de Guadalupe");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54958")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Fraccionamiento Jardines de la Cañada");
 					comboColonia.addItem("Fraccionamiento Lomas de Cartagena");
 					comboColonia.addItem("Fraccionamiento Lomas del Parque I");
@@ -750,14 +836,14 @@ public class DatosGenerales extends JFrame {
 					comboColonia.addItem("Fraccionamiento Lomas del Parque III");
 					comboColonia.addItem("Fraccionamiento Lomas del Parque II");
 					comboColonia.addItem("Colonia FIMESA II (Ampliación la Sardaña)");
-
+					comboColonia.showPopup();
 				} else if (comboCodigoPostal.getSelectedItem().equals("54959")) {
-					comboColonia.addItem("selecciona una opcion");
 					comboColonia.removeAllItems();// quita las opciones del combo 2
+					comboColonia.addItem("selecciona una opcion");
 					comboColonia.addItem("Colonia El Paraje");
 					comboColonia.addItem("Zona industrial Corredor López Portillo");
 					comboColonia.addItem("Colonia FIMESA I (El Paraje)");
-
+					comboColonia.showPopup();
 				} else {
 					comboColonia.removeAllItems();
 					comboCodigoPostal.removeAllItems();
@@ -776,6 +862,11 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_14.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_14.setBounds(32, 36, 111, 14);
 		panel_3.add(lblNewLabel_14);
+		comboColonia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtDomicilio.requestFocus();
+			}
+		});
 
 		comboColonia.setBounds(190, 11, 149, 22);
 		panel_3.add(comboColonia);
@@ -788,11 +879,10 @@ public class DatosGenerales extends JFrame {
 		txtDomicilio = new JTextField();
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (txtDomicilio.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 				} else {
-					txtEstado.requestFocus();
+					txtOcupacion.requestFocus();
 				}
 			}
 		});
@@ -940,7 +1030,7 @@ public class DatosGenerales extends JFrame {
 					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
 							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
 				}
-				if (txtNumeroCelular.getText().trim().length() == 10) {
+				if (txtnumeroDeCasa.getText().trim().length() == 10) {
 					evt.consume();
 				}
 			}
@@ -978,7 +1068,7 @@ public class DatosGenerales extends JFrame {
 		});
 		txtCanalizadPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (txtCanalizadPor.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 				} else {
@@ -1031,7 +1121,7 @@ public class DatosGenerales extends JFrame {
 				if (txtDenuncia.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
 				} else {
-					area.requestFocus();
+					ComboEstadOCivil.showPopup();
 				}
 			}
 		});
@@ -1098,12 +1188,13 @@ public class DatosGenerales extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String fecha = txtFecha.getText();
 				String Hora = txtHora.getText();
-				NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "+ txtNombres.getText();
+				NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "
+						+ txtNombres.getText();
 				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboBoxgradoestudios.getSelectedItem().toString();
-				int edad = Integer.parseInt(comboBoxedad.getSelectedItem().toString());
+				String GradoDeEstudios = comboGradoestudios.getSelectedItem().toString();
+				int edad = Integer.parseInt(comboEdad.getSelectedItem().toString());
 				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboBoxserviciomedico.getSelectedItem().toString();
+				String servicioMedico = comboServiciomedico.getSelectedItem().toString();
 				String IngresoFamiliar = txtIngresoFamiliar.getText();
 				String Domicilio = txtDomicilio.getText();
 				String CodigoPostal = comboCodigoPostal.getSelectedItem().toString();
@@ -1111,14 +1202,15 @@ public class DatosGenerales extends JFrame {
 				String Estado = txtEstado.getText();
 				String telefonoCelular = txtNumeroCelular.getText();
 				String telefonoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboBoxvivienda.getSelectedItem().toString();
-				String nopersonas = comboBoxNopersonas.getSelectedItem().toString();
-				String contribuyente = comboBoxcontribuyentealgasto.getSelectedItem().toString();
+				String vivienda = comboVivienda.getSelectedItem().toString();
+				String nopersonas = comboNopersonas.getSelectedItem().toString();
+				String contribuyente = comboContribuyentealgasto.getSelectedItem().toString();
 				String canalizadaPor = txtCanalizadPor.getText();
 				String padecimiento = txtPadecimientoCronico.getText();
 				String denuncia = txtDenuncia.getText();
 				String dependientes = area.getText();
-				String FechaDeNacimiento = comboBoxanio.getSelectedItem().toString() + "-"+ comboBoxmes.getSelectedItem().toString() + "-" + comboBoxdia.getSelectedItem().toString();
+				String FechaDeNacimiento = comboAnio.getSelectedItem().toString() + "-"
+						+ comboMes.getSelectedItem().toString() + "-" + comboDia.getSelectedItem().toString();
 
 				// Es la conexion ala base de datos con el programa
 
@@ -1150,7 +1242,7 @@ public class DatosGenerales extends JFrame {
 					pst.setString(21, padecimiento);
 					pst.setString(22, denuncia);
 					pst.setString(23, dependientes);
-					
+
 					int valor = pst.executeUpdate();
 					if (valor == 1) {
 						System.out.println("Insertado correctamente");
@@ -1161,11 +1253,6 @@ public class DatosGenerales extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				System.out.println(fecha + " " + Hora + " " + NombreDeLaVictima + " " + EstadoCivil + " " + Ocupacion
-						+ " " + servicioMedico + " " + GradoDeEstudios + " " + edad + " " + FechaDeNacimiento + " "
-						+ IngresoFamiliar + " " + Domicilio + " " + CodigoPostal + " " + colonia + " " + Estado + " "
-						+ telefonoCelular + " " + telefonoCasa + " " + vivienda + " " + nopersonas + " " + contribuyente
-						+ " " + canalizadaPor + " " + padecimiento + " " + denuncia + " " + dependientes);
 				BuscarExpediente();
 
 				JOptionPane.showMessageDialog(null, "PRIMERA ETAPA CUMPLIDA L@ ENVIAREMOS AL SIGUIENTE CAMPO",
