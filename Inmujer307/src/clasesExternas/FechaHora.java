@@ -131,7 +131,7 @@ public class FechaHora {
 			m = minutos;
 		}
 		
-		horaCompleta = h+":"+m;
+		horaCompleta = h+":"+m+" hrs.";
 		return horaCompleta;
 	}
 	
