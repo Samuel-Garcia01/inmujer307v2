@@ -16,7 +16,6 @@ import javax.swing.border.LineBorder;
 import com.mysql.cj.xdevapi.PreparableStatement;
 
 import ConexionBaseDeDatos.ConexionInmujer;
-import ConexionBaseDeDatos.variables;
 
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
@@ -137,7 +136,7 @@ public class InformacionComplementaria extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
@@ -169,12 +168,13 @@ public class InformacionComplementaria extends JFrame {
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
 				
-				String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ? , Autorizacion = ? ";
+				String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ? , Autorizacion = ? WHERE EXP = ?";
 				
 				try {
 					PreparedStatement pst = con.prepareStatement(sql);
 					pst.setString(1, Obser);
 					pst.setString(2, Auto);
+					pst.setInt(1, DatosGenerales.exp);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

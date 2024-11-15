@@ -17,8 +17,11 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class Violencia extends JFrame {
 
@@ -28,8 +31,47 @@ public class Violencia extends JFrame {
 	private JTextField textField_2;
 	
 	public void insertar(String tv, String md, String hm, String des) {
+
+		try {
+			
+			//UPDATE datos SET Tipos_de_Violencia = "aaaa", Modalidades_de_violencia = "bbb", Hechos_y_motivos_de_la_atencion = "ccc", Descripcion = ""
+			ConexionInmujer conexion = new ConexionInmujer();
+			Connection con = conexion.conectar();
+
+			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP";
+			PreparedStatement preparedStmt = con.prepareStatement(sql);
+			preparedStmt.setString (1, tv);
+			preparedStmt.setString (2, md);
+			preparedStmt.setString(3, hm);
+			preparedStmt.setString(4, des);
+			preparedStmt.setInt(1, DatosGenerales.exp);
+			
+			int valor = preparedStmt.executeUpdate();
+			if (valor == 1) {
+				System.out.println("Insertado correctamente");
+			} else {
+				System.out.println("No se inserto");
+			}
+			
+			DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+			ventana.setVisible(true);
+			ventana.setLocationRelativeTo(null);
+			dispose();
+			
+			con.close();
+		}
+
+		catch (Exception e)
+		{
+		  System.err.println("Error esto no esta funcionando");
+		  e.printStackTrace();
+		  System.out.println(e); 
+		  }
+		
 		
 	}
+
+
 
 	/**
 	 * Launch the application.
@@ -359,9 +401,6 @@ public class Violencia extends JFrame {
 				if (!textArea.getText().isEmpty()) {
 					DescripcionDeLosHechos += textArea.getText();
 				}
-
-				String Fecha = txtFecha.getText();
-				String Lugar = txtLugar.getText();
 
 				insertar(tiposDeViolencia, modalidades , hechosYMotivos, DescripcionDeLosHechos);
 			}

@@ -19,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
-import ConexionBaseDeDatos.variables;
 
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -74,7 +73,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET Domicilio = '"+Domicilio+"',Estado_Civil = '"+EstadoCivil+"',Edad = '"+Edad+"',Fecha_de_nacimiento='"+Fechadenacimiento+"', Grado_escolar = '"+GradoEscolar+"',Nivel_de_Riesgo = '"+NivelDeRiesgo+"',Relacion_o_Vinculo = '"+Relacion+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion = '"+Ocupacion+"', Porta_armas = '"+PortaArmas+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algún_tipo_de_sustancia = '"+ConsumeSustancia+"', Señas_particulares = '"+Señas+"', Cual = '"+Cual+"',Media_filiación_del_agresor = '"+Media+"' WHERE Nombre = '"+variables.Nombre+"'";
+		String sql = "UPDATE datos SET Domicilio = '"+Domicilio+"',Estado_Civil = '"+EstadoCivil+"',Edad = '"+Edad+"',Fecha_de_nacimiento='"+Fechadenacimiento+"', Grado_escolar = '"+GradoEscolar+"',Nivel_de_Riesgo = '"+NivelDeRiesgo+"',Relacion_o_Vinculo = '"+Relacion+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion = '"+Ocupacion+"', Porta_armas = '"+PortaArmas+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algún_tipo_de_sustancia = '"+ConsumeSustancia+"', Señas_particulares = '"+Señas+"', Cual = '"+Cual+"',Media_filiación_del_agresor = '"+Media+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -536,6 +535,7 @@ public class DATOSDELAGRESOR extends JFrame {
 				Efectosfisicos sigventana = new Efectosfisicos();
 				dispose();
 				sigventana.setVisible(true);
+				sigventana.setLocationRelativeTo(null);
 			}
 		});
 		btnContinuar.setBounds(229, 248, 117, 23);
@@ -573,7 +573,7 @@ public class DATOSDELAGRESOR extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);

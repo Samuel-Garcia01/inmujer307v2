@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
-import ConexionBaseDeDatos.variables;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -191,7 +190,7 @@ public class Efectosfisicos extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE EXP = 1";
+		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -508,7 +507,7 @@ public class Efectosfisicos extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+variables.Nombre+"'";
+					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
