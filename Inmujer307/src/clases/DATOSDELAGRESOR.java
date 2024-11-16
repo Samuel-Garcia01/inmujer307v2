@@ -68,13 +68,12 @@ public class DATOSDELAGRESOR extends JFrame {
 		});
 	}
 	
-	public void InsertarEnBase(String Domicilio, String EstadoCivil, String Edad , String Fechadenacimiento, String GradoEscolar, String NivelDeRiesgo, String Relacion,String ServidorPublico, String Ocupacion, String Tez, String Nariz, String Ojos, String Cabello, String Cara, String Cejas, String Labios, String Complexion, String PortaArmas, String SelecArma, String PerteneceABanda, String ConsumeSustancia, String Señas, String Cual, String Media) {
+	public void InsertarEnBase(String DatosdelAgresor, String NiveldeRiesgo, String GradoEscolar, String EstadoCivil, String RelacionoVinculo ,String Domicilio, String ServidorPublico, String Ocupacion, String MediaAfil, String PortaArmas, String Tipo, String PerteneceABanda, String Sustancias, String Señas, String cual) {
 		
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET Domicilio = '"+Domicilio+"',Estado_Civil = '"+EstadoCivil+"',Edad = '"+Edad+"',Fecha_de_nacimiento='"+Fechadenacimiento+"', Grado_escolar = '"+GradoEscolar+"',Nivel_de_Riesgo = '"+NivelDeRiesgo+"',Relacion_o_Vinculo = '"+Relacion+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion = '"+Ocupacion+"', Porta_armas = '"+PortaArmas+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algún_tipo_de_sustancia = '"+ConsumeSustancia+"', Señas_particulares = '"+Señas+"', Cual = '"+Cual+"',Media_filiación_del_agresor = '"+Media+"' WHERE EXP = '"+DatosGenerales.exp+"'";
-		
+		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"' , Datos_del_Agresor = '"+DatosdelAgresor+"' ,  Grado_escolar = '"+GradoEscolar+"' ,Estado_Civil_del_Agresor = '"+EstadoCivil+"' , Relacion_o_Vinculo = '"+RelacionoVinculo+"' , Domicilio_completo = '"+Domicilio+"' , Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"', Media_filiación_del_agresor = '"+MediaAfil+"', Porta_armas= '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algún_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			int valor = pst.executeUpdate();
@@ -486,52 +485,58 @@ public class DATOSDELAGRESOR extends JFrame {
 		JButton btnContinuar = new JButton("CONTINUAR");
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String Domicilio = txtDomicilio.getText();
+				String DatosdelAgresor = txtNombre.getText() + "," + comboEdad.getSelectedItem().toString() + "," + txtFechadeN.getText() ; 
+				String NiveldeRiesgo = comboNivel.getSelectedItem().toString(); 
+				String GradoEscolar = comboGrado.getSelectedItem().toString(); 
 				String EstadoCivil = "";
-				if (rdestSolt.isSelected()) {
-					EstadoCivil="Soltero";
-				} else if (rdestCasad.isSelected()) {
-					EstadoCivil="Casado/a";
-				}else if(rdestViud.isSelected()) {
-					EstadoCivil="Viudo/a";
+				if (rdestCasad.isSelected()) {
+					EstadoCivil = "Casado/a";
+				} else if(rdestSolt.isSelected()){
+					EstadoCivil = "Soltero/a";
+				} else if (rootPaneCheckingEnabled) {
+					EstadoCivil = "Viudo/a";
+				}else {
+					EstadoCivil = "Dato no dado";
 				}
-				String Edad = comboEdad.getSelectedItem().toString();
-				String Fechadenacimiento = txtFechadeN.getText();
-				String GradoEscolar = comboGrado.getSelectedItem().toString();
-				String NivelDeRiesgo = comboNivel.getSelectedItem().toString();
-				String Relacion = txtRelacion.getText();
-				String ServidorPublico="";
+				String RelacionoVinculo = txtRelacion.getText();
+				String Domicilio = txtDomicilio.getText();
+				String ServidorPublico = ""; 
 				if (rdservidorSI.isSelected()) {
-					ServidorPublico="Si";
-				} else if (rdservidorNO.isSelected()) {
-					ServidorPublico="No";
+					ServidorPublico = "Si";
+				} else if(rdservidorNO.isSelected()){
+					ServidorPublico = "No";
+				}else {
+					ServidorPublico = "Dato no dado";
 				}
 				String Ocupacion = txtOcupacion.getText();
-				String PortaArmas="";
+				String MediaAfil =  "Tez: "+ txtTez.getText() + "\n" + "Nariz: " + txtNariz.getText() + "\n" + "Ojos: " + txtOjos.getText() + "\n" + "Cabello: " + txtCabello.getText() + "\n"+ "Cara: " + txtCara.getText() + "\n" + "Cejas: " + txtCejas.getText() + "\n" + "Labios:" + txtLabios.getText() + "\n" + "Complexion: " + txtComplexion.getText() ;
+				String PortaArmas = "";
 				if (rdportaArmasSI.isSelected()) {
-					PortaArmas="Si";
+					PortaArmas = "Si";
 				} else if (rdportaArmasNO.isSelected()) {
-					PortaArmas="No";
+					PortaArmas = "No";
 				}
-				String SelecArma =  comboTArma.getSelectedItem().toString();
-				String PerteneceABanda="";
+				String Tipo = comboTArma.getSelectedItem().toString();
+				String PerteneceABanda = "";
 				if (rdBandaDelictivaSI.isSelected()) {
-					PerteneceABanda="Si";
-				} else if (rdBandaDelictivaSI.isSelected()) {
-					PerteneceABanda="No";
+					PerteneceABanda = "Si";
+				} else if (rdBandaDelictivaNO.isSelected()){
+					PerteneceABanda = "No";
+				}else {
+					PerteneceABanda = "Dato no dado";
 				}
-				String ConsumeSustancia="";
+				String Sustancias = "";
 				if (rdConsumeSI.isSelected()) {
-					ConsumeSustancia="Si";
-				} else if (rdConsumeNO.isSelected()) {
-					ConsumeSustancia="No";
+					Sustancias = "Si";
+				}else if (rdConsumeNO.isSelected()) {
+					Sustancias = "No";
+				}else {
+					Sustancias = "Dato no dado";
 				}
-				String Señas = txtSeñasP.getText();
-				String Cual = txtCuales.getText();
-				String Media = txtTez.getText() + "," + txtNariz.getText() + "," + txtOjos.getText() + "," + txtCabello.getText()+ "," + txtCara.getText() + "," + txtCejas.getText() + "," + txtLabios.getText() + "," + txtComplexion.getText();
+				String Señas = txtSeñasP.getText(); 
+				String cual = txtCuales.getText(); 
 				
-				InsertarEnBase(Domicilio,EstadoCivil, Edad, Fechadenacimiento, GradoEscolar, NivelDeRiesgo, Relacion, ServidorPublico, Ocupacion, PerteneceABanda, Fechadenacimiento, GradoEscolar, NivelDeRiesgo, SelecArma, Relacion, ServidorPublico, Ocupacion, PortaArmas, SelecArma, PerteneceABanda, ConsumeSustancia, Señas, Cual, Media);
-				
+				InsertarEnBase(DatosdelAgresor, NiveldeRiesgo, GradoEscolar, EstadoCivil, RelacionoVinculo, Domicilio, ServidorPublico, Ocupacion, MediaAfil, PortaArmas, Tipo, PerteneceABanda, Sustancias, Señas, cual);
 				Efectosfisicos sigventana = new Efectosfisicos();
 				dispose();
 				sigventana.setVisible(true);
@@ -573,7 +578,7 @@ public class DATOSDELAGRESOR extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
+					String sql = "DELETE FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
