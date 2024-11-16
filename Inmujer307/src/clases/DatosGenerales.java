@@ -242,7 +242,7 @@ public class DatosGenerales extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_2.setBackground(new Color(243, 220, 220));
-		panel_2.setBounds(588, 92, 211, 510);
+		panel_2.setBounds(588, 92, 211, 326);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -337,16 +337,6 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(94, 179, 49, 14);
 		panel_2.add(lblNewLabel_7);
-		comboDia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboDia.getSelectedIndex()==0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboMes.showPopup();
-				}
-			}
-		});
-		comboDia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 31; i++) {
 			String d = String.valueOf(i);
 			String dia = "";
@@ -358,24 +348,6 @@ public class DatosGenerales extends JFrame {
 			}
 			comboDia.addItem(dia);
 		}
-		comboDia.setBackground(new Color(243, 220, 220));
-		comboDia.setBounds(10, 204, 191, 22);
-		panel_2.add(comboDia);
-
-		JLabel lblNewLabel_8 = new JLabel("DIA");
-		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_8.setBounds(94, 229, 49, 14);
-		panel_2.add(lblNewLabel_8);
-		comboMes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboMes.getSelectedIndex()==0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboAnio.showPopup();
-				}
-			}
-		});
-		comboMes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 12; i++) {
 			String m = String.valueOf(i);
 			String mes = "";
@@ -388,36 +360,10 @@ public class DatosGenerales extends JFrame {
 			comboMes.addItem(mes);
 
 		}
-		comboMes.setBackground(new Color(243, 220, 220));
-		comboMes.setBounds(10, 254, 191, 22);
-		panel_2.add(comboMes);
-
-		JLabel lblNewLabel_9 = new JLabel("MES");
-		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_9.setBounds(94, 278, 49, 14);
-		panel_2.add(lblNewLabel_9);
-		comboAnio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboAnio.getSelectedIndex()==0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboVivienda.showPopup();
-				}
-			}
-		});
-		comboAnio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1940; i <= 2020; i++) {
 			comboAnio.addItem(i);
 
 		}
-		comboAnio.setBackground(new Color(243, 220, 220));
-		comboAnio.setBounds(10, 303, 191, 22);
-		panel_2.add(comboAnio);
-
-		JLabel lblNewLabel_10 = new JLabel("AÑO");
-		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_10.setBounds(94, 328, 49, 14);
-		panel_2.add(lblNewLabel_10);
 		comboVivienda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboVivienda.getSelectedIndex()==0) {
@@ -430,12 +376,12 @@ public class DatosGenerales extends JFrame {
 		comboVivienda.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione una opcion", "Familiar", "Propia", "Rentada", "Prestada" }));
 		comboVivienda.setBackground(new Color(243, 220, 220));
-		comboVivienda.setBounds(10, 351, 191, 22);
+		comboVivienda.setBounds(10, 202, 191, 22);
 		panel_2.add(comboVivienda);
 
 		JLabel lblNewLabel_11 = new JLabel("VIVIENDA");
 		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_11.setBounds(83, 372, 165, 14);
+		lblNewLabel_11.setBounds(83, 224, 165, 14);
 		panel_2.add(lblNewLabel_11);
 		
 		comboNopersonas.addActionListener(new ActionListener() {
@@ -452,12 +398,12 @@ public class DatosGenerales extends JFrame {
 		comboNopersonas.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
 		comboNopersonas.setBackground(new Color(243, 220, 220));
-		comboNopersonas.setBounds(10, 397, 191, 22);
+		comboNopersonas.setBounds(10, 244, 191, 22);
 		panel_2.add(comboNopersonas);
 
 		JLabel lblNewLabel_12 = new JLabel("NO. PERSONAS");
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_12.setBounds(66, 420, 168, 14);
+		lblNewLabel_12.setBounds(67, 269, 168, 14);
 		panel_2.add(lblNewLabel_12);
 		comboContribuyentealgasto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -473,12 +419,12 @@ public class DatosGenerales extends JFrame {
 		comboContribuyentealgasto.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Mama",
 				"Papa", "Esposo", "Esposa", "Abuelos", "Concubino(a)", "Hijo(a)" }));
 		comboContribuyentealgasto.setBackground(new Color(243, 220, 220));
-		comboContribuyentealgasto.setBounds(10, 447, 191, 22);
+		comboContribuyentealgasto.setBounds(10, 283, 191, 22);
 		panel_2.add(comboContribuyentealgasto);
 
 		JLabel lblNewLabel_13 = new JLabel("CONTRIBUYENTE AL GASTO");
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_13.setBounds(32, 472, 194, 14);
+		lblNewLabel_13.setBounds(20, 305, 194, 14);
 		panel_2.add(lblNewLabel_13);
 
 		JPanel panel_3 = new JPanel();
@@ -1132,7 +1078,7 @@ public class DatosGenerales extends JFrame {
 		txtDenuncia.setColumns(10);
 
 		area.setBackground(new Color(243, 220, 220));
-		area.setBounds(272, 313, 303, 270);
+		area.setBounds(272, 312, 303, 270);
 		contentPane.add(area);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
@@ -1290,5 +1236,71 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_30.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_30.setBounds(272, 288, 272, 14);
 		contentPane.add(lblNewLabel_30);
+								
+								JPanel panel = new JPanel();
+								panel.setBorder(new LineBorder(new Color(233, 150, 122), 3));
+								panel.setBackground(new Color(243, 220, 220));
+								panel.setBounds(588, 428, 211, 184);
+								contentPane.add(panel);
+								panel.setLayout(null);
+								
+								JLabel lblNewLabel_31 = new JLabel("fecha nacimiento");
+								lblNewLabel_31.setFont(new Font("Arial", Font.BOLD, 12));
+								lblNewLabel_31.setBounds(57, 10, 118, 13);
+								panel.add(lblNewLabel_31);
+								comboDia.setBounds(10, 26, 191, 22);
+								panel.add(comboDia);
+								comboDia.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										if (comboDia.getSelectedIndex()==0) {
+											JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+										} else {
+											comboMes.showPopup();
+										}
+									}
+								});
+								comboDia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+								comboDia.setBackground(new Color(243, 220, 220));
+								
+										JLabel lblNewLabel_8 = new JLabel("DIA");
+										lblNewLabel_8.setBounds(92, 51, 49, 14);
+										panel.add(lblNewLabel_8);
+										lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
+										comboMes.setBounds(10, 68, 191, 22);
+										panel.add(comboMes);
+										comboMes.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												if (comboMes.getSelectedIndex()==0) {
+													JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+												} else {
+													comboAnio.showPopup();
+												}
+											}
+										});
+										comboMes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+										comboMes.setBackground(new Color(243, 220, 220));
+										
+												JLabel lblNewLabel_9 = new JLabel("MES");
+												lblNewLabel_9.setBounds(92, 94, 49, 14);
+												panel.add(lblNewLabel_9);
+												lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
+												comboAnio.setBounds(10, 115, 191, 22);
+												panel.add(comboAnio);
+												comboAnio.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+														if (comboAnio.getSelectedIndex()==0) {
+															JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!","Error",JOptionPane.ERROR_MESSAGE);
+														} else {
+															comboVivienda.showPopup();
+														}
+													}
+												});
+												comboAnio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
+												comboAnio.setBackground(new Color(243, 220, 220));
+												
+														JLabel lblNewLabel_10 = new JLabel("AÑO");
+														lblNewLabel_10.setBounds(92, 142, 49, 14);
+														panel.add(lblNewLabel_10);
+														lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
 	}
 }

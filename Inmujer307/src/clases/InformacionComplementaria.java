@@ -40,7 +40,7 @@ public class InformacionComplementaria extends JFrame {
 	JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
 	JCheckBox checAutorizo = new JCheckBox("Autorizo");
 	JTextArea textObservaciones = new JTextArea();
-
+	
 
 
 
@@ -169,31 +169,31 @@ public class InformacionComplementaria extends JFrame {
 				        String autorizacion = "";
 
 				        if (checAutorizo.isSelected()) {
-				            autorizacion = checAutorizo.getText();
+				            autorizacion = "si";
 				        } else if (checNoAutorizo.isSelected()) {
-				            autorizacion = checNoAutorizo.getText();
+				            autorizacion = "no";
 				        } else {
-
+				        	
 				        	JOptionPane.showMessageDialog(null,
 				                "Debe seleccionar una opción de autorización.",
 				                "Error",
 				                JOptionPane.ERROR_MESSAGE);
 				            return; // Detener ejecución
 				        }
-
+				        
 				        ConexionInmujer conexion = new ConexionInmujer();
 				        Connection con = conexion.conectar();
 
 				        String sql = "UPDATE datos SET Observaciones_generales_y_o_Canalizacion = ?, Autorizacion = ? WHERE EXP = ?";
-
+				        
 				        try {
 				            PreparedStatement pst = con.prepareStatement(sql);
 				            pst.setString(1, observaciones);  
 				            pst.setString(2, autorizacion); 
 				            pst.setInt(3, DatosGenerales.exp); 
-
+				            
 				            int valor = pst.executeUpdate();
-
+				            
 				            if (valor == 1) {
 				                JOptionPane.showMessageDialog(null,
 				                    "Datos actualizados correctamente.",

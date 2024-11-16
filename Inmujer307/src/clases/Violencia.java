@@ -38,13 +38,13 @@ public class Violencia extends JFrame {
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
-			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP";
+			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP = ?";
 			PreparedStatement preparedStmt = con.prepareStatement(sql);
 			preparedStmt.setString (1, tv);
 			preparedStmt.setString (2, md);
 			preparedStmt.setString(3, hm);
 			preparedStmt.setString(4, des);
-			preparedStmt.setInt(1, DatosGenerales.exp);
+			preparedStmt.setInt(5, DatosGenerales.exp);
 			
 			int valor = preparedStmt.executeUpdate();
 			if (valor == 1) {
