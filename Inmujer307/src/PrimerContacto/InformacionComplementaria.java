@@ -1,4 +1,4 @@
-package clases;
+package PrimerContacto;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -11,17 +11,22 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Menu;
+
 import javax.swing.border.LineBorder;
 
 import com.mysql.cj.xdevapi.PreparableStatement;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import MenuInmujer.MenuInmujer;
 
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
@@ -213,7 +218,29 @@ public class InformacionComplementaria extends JFrame {
 				            "Gracias por usar nuestro programa.\nSi tiene algún inconveniente, no dude en contactarnos.",
 				            "Hasta luego",
 				            JOptionPane.INFORMATION_MESSAGE);
-				        System.exit(0);
+				        
+				        final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
+								JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+
+						final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
+						dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+						Timer timer = new Timer(2000, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								dialog.dispose();
+							}
+						});
+						timer.setRepeats(false);
+						timer.start();
+
+						dialog.setVisible(true);
+						
+						MenuInmujer irAmenuInmujer = new MenuInmujer();
+						dispose();
+						irAmenuInmujer.setVisible(true);
+						irAmenuInmujer.setLocationRelativeTo(null);
+				        
 				    }
 		});
 		btnFinalizar.setForeground(new Color(255, 255, 255));

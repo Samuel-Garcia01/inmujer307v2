@@ -1,4 +1,4 @@
-package clases;
+package PrimerContacto;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
