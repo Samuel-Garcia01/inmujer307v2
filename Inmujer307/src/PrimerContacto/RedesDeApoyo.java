@@ -12,6 +12,7 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.*;
+import MenuInmujer.MenuInmujer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -91,9 +92,7 @@ public class RedesDeApoyo extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				txtDireccion.requestFocus();
-
 			}
 		});
 		txtNombre.setBounds(89, 53, 155, 19);
@@ -108,9 +107,7 @@ public class RedesDeApoyo extends JFrame {
 		txtDireccion = new JTextField();
 		txtDireccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				txtTelefono.requestFocus();
-
 			}
 		});
 		txtDireccion.setBounds(89, 140, 155, 19);
@@ -186,9 +183,37 @@ public class RedesDeApoyo extends JFrame {
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
-				ventana.setVisible(true);
-				dispose();
+				String [] opciones = {"Aceptar","Cancelar"};
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
+						"Confirmación",
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						opciones,
+						opciones[0]);
+				if (opcion== JOptionPane.YES_OPTION) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+					
+					String sql = "DELETE FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+					
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor==1) {
+							System.out.println("Éxito en eliminar expediente");
+						}
+						MenuInmujer ventana = new MenuInmujer();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						dispose();
+					} catch (Exception e1) {
+						// TODO: handle exception
+					}
+				} else if (opcion == JOptionPane.NO_OPTION) {
+					
+				}
 			}
 		});
 		btnInicio.setForeground(Color.BLACK);

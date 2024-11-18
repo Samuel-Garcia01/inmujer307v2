@@ -15,12 +15,14 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import MenuInmujer.MenuInmujer;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Efectosfisicos extends JFrame {
 
@@ -250,6 +252,7 @@ public class Efectosfisicos extends JFrame {
 		panelEfectosFisicos.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel(" FISICOS");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(325, 11, 97, 16);
 		panelEfectosFisicos.add(lblNewLabel_1);
@@ -405,7 +408,7 @@ public class Efectosfisicos extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("ECONOMICOS Y PATRIMONIALES");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(297, 11, 269, 14);
+		lblNewLabel_4.setBounds(285, 11, 281, 14);
 		panelEfectosEconomicos.add(lblNewLabel_4);
 		
 		//Economicos
@@ -507,7 +510,7 @@ public class Efectosfisicos extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
+					String sql = "DELETE FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
@@ -515,6 +518,10 @@ public class Efectosfisicos extends JFrame {
 						if (valor==1) {
 							System.out.println("Éxito en eliminar expediente");
 						}
+						MenuInmujer ventana = new MenuInmujer();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						dispose();
 					} catch (Exception e1) {
 						// TODO: handle exception
 					}

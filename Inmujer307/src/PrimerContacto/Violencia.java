@@ -7,12 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
@@ -29,49 +33,62 @@ public class Violencia extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_2;
-	
+
 	public void insertar(String tv, String md, String hm, String des) {
 
 		try {
-			
-			//UPDATE datos SET Tipos_de_Violencia = "aaaa", Modalidades_de_violencia = "bbb", Hechos_y_motivos_de_la_atencion = "ccc", Descripcion = ""
+
+			// UPDATE datos SET Tipos_de_Violencia = "aaaa", Modalidades_de_violencia =
+			// "bbb", Hechos_y_motivos_de_la_atencion = "ccc", Descripcion = ""
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
 			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP = ?";
 			PreparedStatement preparedStmt = con.prepareStatement(sql);
-			preparedStmt.setString (1, tv);
-			preparedStmt.setString (2, md);
+			preparedStmt.setString(1, tv);
+			preparedStmt.setString(2, md);
 			preparedStmt.setString(3, hm);
 			preparedStmt.setString(4, des);
 			preparedStmt.setInt(5, DatosGenerales.exp);
-			
+
 			int valor = preparedStmt.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
+				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
+						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+
+				final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
+				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+				Timer timer = new Timer(2000, new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dialog.dispose();
+					}
+				});
+				timer.setRepeats(false);
+				timer.start();
+
+				dialog.setVisible(true);
+
+				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				dispose();
+
+				con.close();
 			} else {
 				System.out.println("No se inserto");
 			}
-			
-			DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
-			ventana.setVisible(true);
-			ventana.setLocationRelativeTo(null);
-			dispose();
-			
-			con.close();
 		}
 
-		catch (Exception e)
-		{
-		  System.err.println("Error esto no esta funcionando");
-		  e.printStackTrace();
-		  System.out.println(e); 
-		  }
-		
-		
+		catch (Exception e) {
+			System.err.println("Error esto no esta funcionando");
+			e.printStackTrace();
+			System.out.println(e);
+		}
+
 	}
-
-
 
 	/**
 	 * Launch the application.
@@ -173,7 +190,7 @@ public class Violencia extends JFrame {
 		JCheckBox chckbxViolenciaAcosoHostigamiento = new JCheckBox("Acoso/Hostigamiento");
 		chckbxViolenciaAcosoHostigamiento.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaAcosoHostigamiento.setFont(new Font("Arial", Font.BOLD, 12));
-		chckbxViolenciaAcosoHostigamiento.setBounds(102, 188, 149, 21);
+		chckbxViolenciaAcosoHostigamiento.setBounds(102, 188, 174, 21);
 		panel_1.add(chckbxViolenciaAcosoHostigamiento);
 
 		JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
@@ -221,7 +238,7 @@ public class Violencia extends JFrame {
 		JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
 		chckbxComunitario.setBackground(new Color(243, 220, 220));
 		chckbxComunitario.setFont(new Font("Arial", Font.BOLD, 12));
-		chckbxComunitario.setBounds(224, 91, 93, 21);
+		chckbxComunitario.setBounds(224, 91, 113, 21);
 		panel_2.add(chckbxComunitario);
 
 		JCheckBox chckbxLaboral = new JCheckBox("Laboral");
@@ -378,31 +395,31 @@ public class Violencia extends JFrame {
 
 				// Hechos y motivos
 				String hechosYMotivos = "";
-				
+
 				if (!txtLugar.getText().isEmpty()) {
-					hechosYMotivos += "Lugar: "+txtFecha.getText()+"\n";
+					hechosYMotivos += "Lugar: " + txtFecha.getText() + "\n";
 				} else {
 					hechosYMotivos += "Lugar: No dado\n";
 				}
 				if (!txtFecha.getText().isEmpty()) {
-					hechosYMotivos += "Fecha: "+txtFecha.getText()+"\n";
+					hechosYMotivos += "Fecha: " + txtFecha.getText() + "\n";
 				} else {
 					hechosYMotivos += "Fecha: No dado\n";
 				}
-				if (comboHora.getSelectedIndex()==1) {
+				if (comboHora.getSelectedIndex() == 0) {
 					hechosYMotivos += "Hora: No dada\n";
 				} else {
-					hechosYMotivos += "Hora: "+comboHora.getSelectedItem().toString()+"\n";
+					hechosYMotivos += "Hora: " + comboHora.getSelectedItem().toString() + "\n";
 				}
-				
-				//Descripcion de los hechos
+
+				// Descripcion de los hechos
 				String DescripcionDeLosHechos = "";
-				
+
 				if (!textArea.getText().isEmpty()) {
 					DescripcionDeLosHechos += textArea.getText();
 				}
 
-				insertar(tiposDeViolencia, modalidades , hechosYMotivos, DescripcionDeLosHechos);
+				insertar(tiposDeViolencia, modalidades, hechosYMotivos, DescripcionDeLosHechos);
 			}
 		});
 		btnGuardar.setBackground(new Color(243, 220, 220));

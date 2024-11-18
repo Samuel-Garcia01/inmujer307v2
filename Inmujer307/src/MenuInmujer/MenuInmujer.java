@@ -22,6 +22,7 @@ import javax.swing.JDialog;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Cursor;
 
 public class MenuInmujer extends JFrame {
 
@@ -36,6 +37,7 @@ public class MenuInmujer extends JFrame {
 				try {
 					MenuInmujer frame = new MenuInmujer();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,6 +84,7 @@ public class MenuInmujer extends JFrame {
 		btninmujer.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/imginmu.png")));
 		
 		JButton btnNewButton = new JButton("Primer Contacto");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//si presiona el boton lo envia ala ventana prinsipal de 
@@ -102,6 +105,7 @@ public class MenuInmujer extends JFrame {
 				timer.start();
 				
 				dialog.setVisible(true);
+				
 				DatosGenerales ventanaDatosGenerales = new DatosGenerales();
 				dispose();
 				ventanaDatosGenerales.setVisible(true);
@@ -165,6 +169,7 @@ public class MenuInmujer extends JFrame {
 		btnseguro.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/segvioleta.png")));
 		
 		JButton btnNewButton_1 = new JButton("Seguro Violeta");
+		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_1.setBackground(new Color(238, 196, 255));
 		btnNewButton_1.setBounds(322, 265, 166, 23);
@@ -204,6 +209,7 @@ public class MenuInmujer extends JFrame {
 		btninfomes.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/tultitlan.png")));
 		
 		JButton btnNewButton_2 = new JButton("Informes");
+		btnNewButton_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_2.setBackground(new Color(238, 196, 255));
 		btnNewButton_2.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_2.setBounds(616, 265, 110, 23);
@@ -231,6 +237,7 @@ public class MenuInmujer extends JFrame {
 		btnestadisticas.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/graficalogo.png")));
 		
 		JButton btnNewButton_3 = new JButton("Estadisticas");
+		btnNewButton_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_3.setBackground(new Color(238, 196, 255));
 		btnNewButton_3.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_3.setBounds(74, 497, 132, 23);
@@ -257,6 +264,7 @@ public class MenuInmujer extends JFrame {
 		contentPane.add(panel_11);
 		
 		JButton btnNewButton_4 = new JButton("Tripticos");
+		btnNewButton_4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_4.setBackground(new Color(238, 196, 255));
 		btnNewButton_4.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_4.setBounds(367, 497, 101, 23);
@@ -286,6 +294,7 @@ public class MenuInmujer extends JFrame {
 		btnjuego.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/juegologo.png")));
 		
 		JButton btnNewButton_5 = new JButton("Juego");
+		btnNewButton_5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_5.setBackground(new Color(238, 196, 255));
 		btnNewButton_5.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_5.setBounds(637, 497, 89, 23);

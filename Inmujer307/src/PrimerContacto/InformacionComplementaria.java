@@ -41,7 +41,7 @@ public class InformacionComplementaria extends JFrame {
 	private JPanel contentPane;
 	private final JLabel lblNewLabel = new JLabel("");
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	//Glovales
+	//Globales
 	JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
 	JCheckBox checAutorizo = new JCheckBox("Autorizo");
 	JTextArea textObservaciones = new JTextArea();
@@ -131,7 +131,6 @@ public class InformacionComplementaria extends JFrame {
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				String [] opciones = {"Aceptar","Cancelar"};
 				int opcion = JOptionPane.showOptionDialog(null,
 						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
@@ -145,7 +144,7 @@ public class InformacionComplementaria extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 					
-					String sql = "DELETE FROM datos WHERE Nombre = '"+DatosGenerales.exp+"'";
+					String sql = "DELETE FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
 					
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
@@ -153,6 +152,10 @@ public class InformacionComplementaria extends JFrame {
 						if (valor==1) {
 							System.out.println("Éxito en eliminar expediente");
 						}
+						MenuInmujer ventana = new MenuInmujer();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						dispose();
 					} catch (Exception e1) {
 						// TODO: handle exception
 					}
