@@ -79,36 +79,13 @@ public class DATOSDELAGRESOR extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 
-		String sql = "UPDATE datos SET Nivel_de_Riesgo = '" + NiveldeRiesgo + "' , Datos_del_Agresor = '"
-				+ DatosdelAgresor + "' ,  Grado_escolar = '" + GradoEscolar + "' ,Estado_Civil_del_Agresor = '"
-				+ EstadoCivil + "' , Relacion_o_Vinculo = '" + RelacionoVinculo + "' , Domicilio_completo = '"
-				+ Domicilio + "' , Servidor_Publico = '" + ServidorPublico + "', Ocupacion_del_Agresor = '" + Ocupacion
-				+ "', Media_filiación_del_agresor = '" + MediaAfil + "', Porta_armas= '" + PortaArmas
-				+ "', Seleccionar_armas = '" + Tipo + "', Pertenece_a_alguna_banda_delictiva = '" + PerteneceABanda
-				+ "', Consume_algún_tipo_de_sustancia = '" + Sustancias + "', Cual = '" + cual
-				+ "', Señas_particulares = '" + Señas + "' WHERE EXP = '" + DatosGenerales.exp + "'";
+		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"' , Datos_del_Agresor = '"+DatosdelAgresor+"' ,  Grado_escolar = '"+GradoEscolar+"' ,Estado_Civil_del_Agresor = '"+EstadoCivil+"' , Relacion_o_Vinculo = '" +RelacionoVinculo+"' , Domicilio_completo = '"+Domicilio+"' , Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"', Media_filiacion_del_agresor = '"+MediaAfil+"', Porta_armas= '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algun_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			int valor = pst.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
-				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
-						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
-
-				final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
-				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-
-				Timer timer = new Timer(2000, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dialog.dispose();
-					}
-				});
-				timer.setRepeats(false);
-				timer.start();
-
-				dialog.setVisible(true);
-
+				
 				Efectosfisicos sigventana = new Efectosfisicos();
 				dispose();
 				sigventana.setVisible(true);
@@ -148,17 +125,17 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/IMG/butterfly_side_view_56.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/butterfly_side_view_56.png")));
 		lblNewLabel_1.setBounds(241, 3, 51, 50);
 		panel.add(lblNewLabel_1);
 
 		JLabel label = new JLabel("New label");
-		label.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/IMG/butterfly_side_espejo.png")));
+		label.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/butterfly_side_espejo.png")));
 		label.setBounds(509, 3, 51, 50);
 		panel.add(label);
 
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/IMG/encabezado.gif")));
+		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/encabezado.gif")));
 		lblNewLabel_2.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_2);
 
@@ -251,22 +228,22 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_9.setBounds(260, 35, 39, 14);
 		panel_1_1.add(lblNewLabel_9);
 
-		JRadioButton rdestSolt = new JRadioButton("SOLTERA");
+		JRadioButton rdestSolt = new JRadioButton("SOLTERO/A");
 		buttonGroup.add(rdestSolt);
 		rdestSolt.setBackground(new Color(243, 220, 220));
-		rdestSolt.setBounds(310, 6, 94, 23);
+		rdestSolt.setBounds(310, 6, 103, 23);
 		panel_1_1.add(rdestSolt);
 
-		JRadioButton rdestViud = new JRadioButton("VIUDA");
+		JRadioButton rdestViud = new JRadioButton("VIUDO/A");
 		buttonGroup.add(rdestViud);
 		rdestViud.setBackground(new Color(243, 220, 220));
 		rdestViud.setBounds(310, 35, 83, 23);
 		panel_1_1.add(rdestViud);
 
-		JRadioButton rdestCasad = new JRadioButton("CASADA");
+		JRadioButton rdestCasad = new JRadioButton("CASADO/A");
 		buttonGroup.add(rdestCasad);
 		rdestCasad.setBackground(new Color(243, 220, 220));
-		rdestCasad.setBounds(406, 6, 109, 23);
+		rdestCasad.setBounds(426, 7, 94, 23);
 		panel_1_1.add(rdestCasad);
 
 		JLabel lblNewLabel_10 = new JLabel("RELACION O VINCULO");

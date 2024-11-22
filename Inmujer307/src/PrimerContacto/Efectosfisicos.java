@@ -200,6 +200,10 @@ public class Efectosfisicos extends JFrame {
 			int valor = pst.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Datos incertados");
+				RedesDeApoyo ventana = new RedesDeApoyo();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				dispose();
 			} else {
 				System.out.println("Datos no incertados");
 			}
@@ -483,10 +487,6 @@ public class Efectosfisicos extends JFrame {
 				System.out.println(Sexuales);
 				System.out.println(patrimoniales);
 				insertarEfectos(Fisicos, Psicologicos, Sexuales, patrimoniales);
-				RedesDeApoyo ventana = new RedesDeApoyo();
-				ventana.setVisible(true);
-				ventana.setLocationRelativeTo(null);
-				dispose();
 			}
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));

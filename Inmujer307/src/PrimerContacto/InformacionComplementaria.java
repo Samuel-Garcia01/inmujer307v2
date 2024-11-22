@@ -222,23 +222,6 @@ public class InformacionComplementaria extends JFrame {
 				            "Hasta luego",
 				            JOptionPane.INFORMATION_MESSAGE);
 				        
-				        final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
-								JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
-
-						final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
-						dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-
-						Timer timer = new Timer(2000, new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								dialog.dispose();
-							}
-						});
-						timer.setRepeats(false);
-						timer.start();
-
-						dialog.setVisible(true);
-						
 						MenuInmujer irAmenuInmujer = new MenuInmujer();
 						dispose();
 						irAmenuInmujer.setVisible(true);

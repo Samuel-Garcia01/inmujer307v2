@@ -54,23 +54,7 @@ public class Violencia extends JFrame {
 			int valor = preparedStmt.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
-				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
-						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
-
-				final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
-				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-
-				Timer timer = new Timer(2000, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dialog.dispose();
-					}
-				});
-				timer.setRepeats(false);
-				timer.start();
-
-				dialog.setVisible(true);
-
+				
 				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
