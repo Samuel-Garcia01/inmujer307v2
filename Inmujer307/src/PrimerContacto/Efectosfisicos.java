@@ -460,17 +460,17 @@ public class Efectosfisicos extends JFrame {
 		panel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/IMG/butterfly_side_view_56.png")));
+		lblNewLabel.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_view_56.png")));
 		lblNewLabel.setBounds(251, 11, 55, 46);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/IMG/butterfly_side_espejo.png")));
+		lblNewLabel_6.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_espejo.png")));
 		lblNewLabel_6.setBounds(444, 11, 67, 46);
 		panel.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/IMG/encabezado.gif")));
+		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezado.gif")));
 		lblNewLabel_7.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_7);
 		

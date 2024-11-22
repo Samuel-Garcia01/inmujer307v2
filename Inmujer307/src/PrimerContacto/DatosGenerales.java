@@ -1,5 +1,6 @@
 package PrimerContacto;
-
+import javax.swing.*;
+import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,10 +69,11 @@ public class DatosGenerales extends JFrame {
 	JComboBox comboColonia = new JComboBox();
 	JTextArea area = new JTextArea();
 	FechaHora fech = new FechaHora();
-
 	String NombreDeLaVictima;
+	
 
 	public void BuscarExpediente() {
+		//Aqui se crea un metodo para generar el numero de expediente medianate la conexion ala base de datos
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 
@@ -1096,7 +1098,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_26.setBounds(464, 71, 49, 14);
 		contentPane.add(lblNewLabel_26);
 
-		txtFecha = new JTextField(fech.obtenerFechaCortaInversa());
+		txtFecha = new JTextField(fech.obtenerFechaCortainversa());
 		txtFecha.setEditable(false);
 		txtFecha.setBounds(511, 66, 116, 20);
 		contentPane.add(txtFecha);
@@ -1131,6 +1133,8 @@ public class DatosGenerales extends JFrame {
 		JButton btnNewButton = new JButton("SIGUIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Se generan las variables para su almacenaciento, esto nos ayudara a guardar  los datos ingresado
+				//por el usuario
 				String fecha = txtFecha.getText();
 				String Hora = txtHora.getText();
 				NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "
@@ -1157,12 +1161,16 @@ public class DatosGenerales extends JFrame {
 				String FechaDeNacimiento = comboAnio.getSelectedItem().toString() + "-"
 						+ comboMes.getSelectedItem().toString() + "-" + comboDia.getSelectedItem().toString();
 
-				// Es la conexion ala base de datos con el programa
-
+				//En esta seccion se genera la conexion a la base de datos, la cual enviara la informacion almacenada
+				//en las variables creadas anteriormente.
+				
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
 				String sql = "INSERT INTO datos(FECHA,HORA,Nombre_de_la_victima,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				try {
+					//Preparamos la sentencia sql para conectarlo en la base de datos 
+					//comentamos anteriormente
+					
 					PreparedStatement pst = con.prepareStatement(sql);
 					pst.setString(1, fecha);
 					pst.setString(2, Hora);
@@ -1193,18 +1201,28 @@ public class DatosGenerales extends JFrame {
 						System.out.println("Insertado correctamente");
 
 						BuscarExpediente();
-
+						//En esta seccion le mostrara un mensaje inmformando que paso al siguiente campo 
 						JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
 								"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
+						//Aqui generamos una un tiempo denespera mientras carga el siguiente campo
+						
+						BorderLayout borderLayout1 = new BorderLayout();
+						  JLabel imageLabel = new JLabel();
+						  JPanel southPanel = new JPanel();
+						  FlowLayout southPanelFlowLayout = new FlowLayout();
+						  JProgressBar progressBar = new JProgressBar();
+						  ImageIcon imageIcon;
 
+						 
+						
 						final JOptionPane pane = new JOptionPane("Por favor, espere...",
 								JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {},
 								null);
 
-						final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
+						final JDialog dialog = pane.createDialog("Espere 10 segundos pofavor");
 						dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
-						Timer timer = new Timer(2000, new ActionListener() {
+						Timer timer = new Timer(10000, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								dialog.dispose();
@@ -1214,7 +1232,8 @@ public class DatosGenerales extends JFrame {
 						timer.start();
 
 						dialog.setVisible(true);
-
+						//Aqui generamos una instancia que lo mande automaticamente ala siguiente ventana 
+						//despues del proceso antes mostrado
 						Violencia ventana = new Violencia();
 						dispose();
 						ventana.setVisible(true);

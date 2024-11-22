@@ -253,16 +253,16 @@ public class InformacionComplementaria extends JFrame {
 		contentPane.add(btnFinalizar);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/IMG/butterfly_side_view_56.png")));
+		lblNewLabel_4.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/butterfly_side_view_56.png")));
 		lblNewLabel_4.setBounds(224, -14, 61, 69);
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/IMG/butterfly_side_espejo.png")));
+		lblNewLabel_5.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/butterfly_side_espejo.png")));
 		lblNewLabel_5.setBounds(525, -14, 102, 69);
 		contentPane.add(lblNewLabel_5);
 		lblNewLabel.setBounds(0, 0, 807, 57);
 		contentPane.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/IMG/encabezado.gif")));
+		lblNewLabel.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/encabezado.gif")));
 	}
 }

@@ -1,9 +1,18 @@
 package MenuInmujer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.JProgressBar;
+import javax.swing.JWindow;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +24,7 @@ import javax.swing.border.LineBorder;
 import PrimerContacto.DatosGenerales;
 import PrimerContacto.Violencia;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,13 +38,16 @@ public class MenuInmujer extends JFrame {
 
 	private JPanel contentPane;
 
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			
 			public void run() {
 				try {
+					
 					MenuInmujer frame = new MenuInmujer();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
@@ -48,6 +61,8 @@ public class MenuInmujer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+
 	public MenuInmujer() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 648);
@@ -87,25 +102,6 @@ public class MenuInmujer extends JFrame {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//si presiona el boton lo envia ala ventana prinsipal de 
-				//Primer contacto pero antes tendra que esperar 2 segundos
-				final JOptionPane pane = new JOptionPane("Por favor, espere...", JOptionPane.INFORMATION_MESSAGE,
-						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
-
-				final JDialog dialog = pane.createDialog("Espere 2 segundos pofavor");
-				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-
-				Timer timer = new Timer(2000, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dialog.dispose();
-					}
-				});
-				timer.setRepeats(false);
-				timer.start();
-				
-				dialog.setVisible(true);
-				
 				DatosGenerales ventanaDatosGenerales = new DatosGenerales();
 				dispose();
 				ventanaDatosGenerales.setVisible(true);
@@ -209,6 +205,14 @@ public class MenuInmujer extends JFrame {
 		btninfomes.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/tultitlan.png")));
 		
 		JButton btnNewButton_2 = new JButton("Informes");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu menu = new Menu();
+				menu.setVisible(true);
+				menu.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnNewButton_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_2.setBackground(new Color(238, 196, 255));
 		btnNewButton_2.setFont(new Font("Californian FB", Font.BOLD, 12));
@@ -237,6 +241,14 @@ public class MenuInmujer extends JFrame {
 		btnestadisticas.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/graficalogo.png")));
 		
 		JButton btnNewButton_3 = new JButton("Estadisticas");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menuGraficas menu = new menuGraficas();
+				menu.setVisible(true);
+				menu.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnNewButton_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_3.setBackground(new Color(238, 196, 255));
 		btnNewButton_3.setFont(new Font("Californian FB", Font.BOLD, 12));
@@ -264,6 +276,14 @@ public class MenuInmujer extends JFrame {
 		contentPane.add(panel_11);
 		
 		JButton btnNewButton_4 = new JButton("Tripticos");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				diseñoPDF diseño = new diseñoPDF();
+				diseño.setVisible(true);
+				diseño.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnNewButton_4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_4.setBackground(new Color(238, 196, 255));
 		btnNewButton_4.setFont(new Font("Californian FB", Font.BOLD, 12));
