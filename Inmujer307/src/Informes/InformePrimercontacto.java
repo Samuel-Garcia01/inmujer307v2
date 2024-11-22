@@ -357,7 +357,7 @@ public class InformePrimercontacto extends JFrame {
 				String portaArmas = rs.getString("Porta_armas")!=null ? rs.getString("Porta_armas"): "";
 				String seleccionarArmas = rs.getString("Seleccionar_armas")!=null ? rs.getString("Seleccionar_armas"): "";
 				String bandaDelictiva = rs.getString("Pertenece_a_alguna_banda_delictiva")!=null ? rs.getString("Pertenece_a_alguna_banda_delictiva"): "";
-				String sustancia = rs.getString("Consume_algún_tipo_de_sustancia")!=null ?  rs.getString("Consume_algún_tipo_de_sustancia"): "";
+				String sustancia = rs.getString("Consume_algun_tipo_de_sustancia")!=null ?  rs.getString("Consume_algun_tipo_de_sustancia"): "";
 				String cual = rs.getString("Cual")!=null ? rs.getString("Cual"): "";
 				String senias = rs.getString("Señas_particulares")!=null ? rs.getString("Señas_particulares"): "";
 				

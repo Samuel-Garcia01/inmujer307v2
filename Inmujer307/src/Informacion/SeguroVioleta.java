@@ -58,7 +58,7 @@ public class SeguroVioleta extends JFrame {
         Document reporte = new Document();
         String ruta = System.getProperty("user.home");
         try {
-        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Seguro Violeta.pdf"));
+        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Seguro Violeta.pdf"));
       
             
             

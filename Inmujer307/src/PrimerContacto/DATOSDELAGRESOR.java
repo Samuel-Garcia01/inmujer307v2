@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
@@ -72,30 +73,27 @@ public class DATOSDELAGRESOR extends JFrame {
 		});
 	}
 
-	public void InsertarEnBase(String DatosdelAgresor, String NiveldeRiesgo, String GradoEscolar, String EstadoCivil,
-			String RelacionoVinculo, String Domicilio, String ServidorPublico, String Ocupacion, String MediaAfil,
-			String PortaArmas, String Tipo, String PerteneceABanda, String Sustancias, String Señas, String cual) {
+	public void InsertarEnBase(String NiveldeRiesgo, String DatosdelAgresor, String GradoEscolar, String EstadoCivil, String RelacionoVinculo, String Domicilio, String ServidorPublico, String Ocupacion, String MediaAfil,String PortaArmas, String Tipo, String PerteneceABanda, String Sustancias, String cual, String Señas) {
 
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 
-		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"' , Datos_del_Agresor = '"+DatosdelAgresor+"' ,  Grado_escolar = '"+GradoEscolar+"' ,Estado_Civil_del_Agresor = '"+EstadoCivil+"' , Relacion_o_Vinculo = '" +RelacionoVinculo+"' , Domicilio_completo = '"+Domicilio+"' , Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"', Media_filiacion_del_agresor = '"+MediaAfil+"', Porta_armas= '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algun_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";
+		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"', Datos_del_Agresor = '"+DatosdelAgresor+"',Grado_escolar = '"+GradoEscolar+"', Estado_Civil = '"+EstadoCivil+"', Relacion_o_Vinculo = '"+RelacionoVinculo+"', Domicilio_completo = '"+Domicilio+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"',Media_filiacion_del_agresor = '"+MediaAfil+"', Porta_armas = '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algun_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			int valor = pst.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
-				
-				Efectosfisicos sigventana = new Efectosfisicos();
+				Efectosfisicos ventana = new Efectosfisicos();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
 				dispose();
-				sigventana.setVisible(true);
-				sigventana.setLocationRelativeTo(null);
 			} else {
-				System.out.println("No se inserto");
+				System.out.println("No insertado");
 			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -555,7 +553,7 @@ public class DATOSDELAGRESOR extends JFrame {
 				} else if (rdservidorNO.isSelected()) {
 					ServidorPublico = "No";
 				} else {
-					ServidorPublico = "Dato no dado";
+					ServidorPublico = "";
 				}
 				String Ocupacion = txtOcupacion.getText();
 				String MediaAfil = "Tez: " + txtTez.getText() + "\n" + "Nariz: " + txtNariz.getText() + "\n" + "Ojos: "
@@ -588,9 +586,9 @@ public class DATOSDELAGRESOR extends JFrame {
 				String Señas = txtSeñasP.getText();
 				String cual = txtCuales.getText();
 
-				InsertarEnBase(DatosdelAgresor, NiveldeRiesgo, GradoEscolar, EstadoCivil, RelacionoVinculo, Domicilio,
-						ServidorPublico, Ocupacion, MediaAfil, PortaArmas, Tipo, PerteneceABanda, Sustancias, Señas,
-						cual);
+				InsertarEnBase(NiveldeRiesgo, DatosdelAgresor, GradoEscolar, EstadoCivil, RelacionoVinculo, Domicilio,
+						ServidorPublico, Ocupacion, MediaAfil, PortaArmas, Tipo, PerteneceABanda, Sustancias, cual,
+						Señas);
 			}
 		});
 		btnContinuar.setBounds(229, 248, 117, 23);

@@ -59,7 +59,7 @@ public class elArteDeSerMujer extends JFrame {
 	        String ruta = System.getProperty("user.home");
 	        try {
 	           
-	            PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("El Arte De Ser Mujer.pdf"));
+	            PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/El Arte De Ser Mujer.pdf"));
 	            
 	            
 	            reporte.open();

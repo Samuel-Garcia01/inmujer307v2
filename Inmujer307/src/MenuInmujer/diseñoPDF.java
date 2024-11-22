@@ -66,7 +66,7 @@ public class diseñoPDF extends JFrame {
 		String ruta = System.getProperty("user.home");
 		try {
 
-			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("El Arte De Ser Mujer.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/El Arte De Ser Mujer.pdf"));
 
 			reporte.open();
 
@@ -98,7 +98,7 @@ public class diseñoPDF extends JFrame {
 		Document reporte = new Document();
 		String ruta = System.getProperty("user.home");
 		try {
-			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Seguro Violeta.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Seguro Violeta.pdf"));
 
 			reporte.open();
 
@@ -130,7 +130,7 @@ public class diseñoPDF extends JFrame {
 		Document reporte = new Document();
 		String ruta = System.getProperty("user.home");
 		try {
-			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Salud Sexual.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Salud Sexual.pdf"));
 
 			reporte.open();
 
@@ -162,7 +162,7 @@ public class diseñoPDF extends JFrame {
 		Document reporte = new Document();
 		String ruta = System.getProperty("user.home");
 		try {
-			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Ley Olympia.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Ley Olimpya.pdf"));
 
 			reporte.open();
 

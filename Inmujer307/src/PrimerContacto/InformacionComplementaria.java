@@ -203,10 +203,15 @@ public class InformacionComplementaria extends JFrame {
 				            int valor = pst.executeUpdate();
 				            
 				            if (valor == 1) {
-				                JOptionPane.showMessageDialog(null,
-				                    "Datos actualizados correctamente.",
-				                    "Éxito",
-				                    JOptionPane.INFORMATION_MESSAGE);
+				            	JOptionPane.showMessageDialog(null,
+							            "Gracias por usar nuestro programa.\nSi tiene algún inconveniente, no dude en contactarnos.",
+							            "Hasta luego",
+							            JOptionPane.INFORMATION_MESSAGE);
+							        
+									MenuInmujer irAmenuInmujer = new MenuInmujer();
+									dispose();
+									irAmenuInmujer.setVisible(true);
+									irAmenuInmujer.setLocationRelativeTo(null);
 				            } else {
 				                JOptionPane.showMessageDialog(null,
 				                    "No se pudieron actualizar los datos.",
@@ -216,17 +221,6 @@ public class InformacionComplementaria extends JFrame {
 				            } catch (Exception e1) {
 								// TODO: handle exception
 							}
-
-				        JOptionPane.showMessageDialog(null,
-				            "Gracias por usar nuestro programa.\nSi tiene algún inconveniente, no dude en contactarnos.",
-				            "Hasta luego",
-				            JOptionPane.INFORMATION_MESSAGE);
-				        
-						MenuInmujer irAmenuInmujer = new MenuInmujer();
-						dispose();
-						irAmenuInmujer.setVisible(true);
-						irAmenuInmujer.setLocationRelativeTo(null);
-				        
 				    }
 		});
 		btnFinalizar.setForeground(new Color(255, 255, 255));

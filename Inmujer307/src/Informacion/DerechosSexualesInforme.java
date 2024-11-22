@@ -56,7 +56,7 @@ public class DerechosSexualesInforme extends JFrame {
 	        Document reporte = new Document();
 	        String ruta = System.getProperty("user.home");
 	        try {
-	        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Salud Sexual.pdf"));
+	        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Salud Sexual.pdf"));
 	      
 	            
 	            

@@ -58,7 +58,7 @@ public class LeyOlimpia extends JFrame {
 	        Document reporte = new Document();
 	        String ruta = System.getProperty("user.home");
 	        try {
-	        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream("Ley Olimpya.pdf"));
+	        	  PdfWriter writer = PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/Ley Olimpya.pdf"));
 	      
 	            
 	            

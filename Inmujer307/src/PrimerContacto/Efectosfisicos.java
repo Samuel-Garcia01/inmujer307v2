@@ -192,7 +192,7 @@ public class Efectosfisicos extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 		
-		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_económicos_y_patrimoniales = '"+ecpm+"' WHERE EXP = '"+DatosGenerales.exp+"'";
+		String sql = "UPDATE datos SET Efectos_fisicos = '"+fs+"', Efectos_psicologicos = '"+psq+"', Efectos_sexuales = '"+sx+"', Efectos_economicos_y_patrimoniales = '"+ecpm+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);

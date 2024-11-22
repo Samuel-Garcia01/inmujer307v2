@@ -281,6 +281,7 @@ public class RedesDeApoyo extends JFrame {
 				}
 				InformacionComplementaria ventana = new InformacionComplementaria();
 				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
