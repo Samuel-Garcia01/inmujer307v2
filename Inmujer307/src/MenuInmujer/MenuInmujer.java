@@ -314,6 +314,14 @@ public class MenuInmujer extends JFrame {
 		btnjuego.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/juegologo.png")));
 		
 		JButton btnNewButton_5 = new JButton("Juego");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuDeJuegos juego = new MenuDeJuegos();
+				juego.setVisible(true);
+				juego.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnNewButton_5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_5.setBackground(new Color(238, 196, 255));
 		btnNewButton_5.setFont(new Font("Californian FB", Font.BOLD, 12));
