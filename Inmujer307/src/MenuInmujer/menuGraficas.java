@@ -18,6 +18,7 @@ import GraficaBarras.TiposDeViolencia;
 import GraficasPastel.Colonias;
 import GraficasPastel.Edades;
 import GraficasPastel.ModalidadViolencia;
+import GraficasPastel.Colonias;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

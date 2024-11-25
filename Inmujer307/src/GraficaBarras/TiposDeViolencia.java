@@ -1,80 +1,25 @@
 package GraficaBarras;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import ConexionBaseDeDatos.ConexionInmujer;
-
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Cursor;
 import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 public class TiposDeViolencia extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	JPanel contenedor = new JPanel();
-	private JScrollPane scrollPane;
-	private JTable tablaGrafica;
 
-	public void mostrarDatos() {
-		ConexionInmujer conexion = new ConexionInmujer();
-		Connection con = conexion.conectar();
-		
-		String sql = "SELECT Tipos_de_Violencia, COUNT(Tipos_de_Violencia) AS total FROM datos GROUP BY Tipos_de_Violencia";
-		
-		DefaultTableModel modelo = new DefaultTableModel();
-		modelo.addColumn("Tipos de violencia");
-		modelo.addColumn("Total Casos");
-		
-		tablaGrafica.setModel(modelo);
-		
-		String[] baseDatos = new String[2];
-		
-		try {
-			PreparedStatement pst=con.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				do {
-					baseDatos[0] = rs.getString("Tipos_de_Violencia");
-					baseDatos[1] = rs.getString("total");
-					
-					modelo.addRow(baseDatos);
-				} while (rs.next());
-				tablaGrafica.setModel(modelo);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	
 	/**
 	 * Launch the application.
 	 */
@@ -96,92 +41,56 @@ public class TiposDeViolencia extends JFrame {
 	 */
 	public TiposDeViolencia() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 689, 503);
+		setBounds(100, 100, 823, 648);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(222, 163, 231));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(TiposDeViolencia.class.getResource("/img/encabezadografic.png")));
+		lblNewLabel.setBounds(0, 0, 809, 60);
+		contentPane.add(lblNewLabel);
 		
-		contenedor.setBounds(10, 214, 653, 239);
-		contentPane.add(contenedor);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 58, 316, 553);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		JButton btnGraficar = new JButton("Graficar");
-		btnGraficar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnGraficar.setIcon(new ImageIcon(Efectos_Sexuales.class.getResource("/img/GraficarBarras2.png/")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnGraficar.setIcon(new ImageIcon(Efectos_Sexuales.class.getResource("/img/GraficarBarras1.png/")));
-			}
-		});
-		btnGraficar.setIcon(new ImageIcon(TiposDeViolencia.class.getResource("/img/GraficarBarras1.png")));
-		btnGraficar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnGraficar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String et1 = tablaGrafica.getValueAt(0, 0).toString();
-				String et2 = tablaGrafica.getValueAt(1, 0).toString();
-				String et3 = tablaGrafica.getValueAt(2, 0).toString();
-				String et4 = tablaGrafica.getValueAt(3, 0).toString();
-				String et5= tablaGrafica.getValueAt(4, 0).toString();
-				String et6= tablaGrafica.getValueAt(5, 0).toString();
-				String et7= tablaGrafica.getValueAt(6, 0).toString();
-				
-				
-				int dato1 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(0, 1)));
-				int dato2 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(1, 1)));
-				int dato3 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(2, 1)));
-				int dato4 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(3, 1)));
-				int dato5 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(4, 1)));
-				int dato6 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(5, 1)));
-				int dato7 = Integer.parseInt(String.valueOf(tablaGrafica.getValueAt(6, 1)));
-				
-				
-				DefaultCategoryDataset Datos = new DefaultCategoryDataset();
-				
-				Datos.setValue(dato1, "Tipos de violencia", et1);
-				Datos.setValue(dato2, "Tipos de violencia", et2);
-				Datos.setValue(dato3, "Tipos de violencia", et3);
-				Datos.setValue(dato4, "Tipos de violencia", et4);
-				Datos.setValue(dato5, "Tipos de violencia", et5);
-				Datos.setValue(dato6, "Tipos de violencia", et6);
-				Datos.setValue(dato7, "Tipos de violencia", et7);
-				
-				JFreeChart graficoBarras = ChartFactory.createBarChart(
-						"GRAFICA DE TIPOS DE VIOLENCIA",
-						"Tipos",
-						"Victimas",
-						Datos,
-						PlotOrientation.VERTICAL,
-						true,
-						true,
-						false
-						);
-				
-				ChartPanel cont = new ChartPanel(graficoBarras);
-				cont.setMouseWheelEnabled(true);
-				cont.setPreferredSize(new Dimension(653, 239));
-				
-				contenedor.setLayout(new BorderLayout());
-				contenedor.add(cont,BorderLayout.NORTH);
-				
-				pack();
-				repaint();
-				setBounds(100, 100, 689, 503);
-			}
-		});
-		btnGraficar.setBounds(539, 127, 76, 69);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(79, 0, 79));
+		panel_1.setBounds(0, 507, 316, 46);
+		panel.add(panel_1);
+		
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(186, 85, 211));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton.setBounds(74, 360, 133, 23);
+		panel.add(btnNewButton);
+		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setIcon(new ImageIcon(TiposDeViolencia.class.getResource("/img/inmujer.png")));
+		lblNewLabel_8.setBounds(0, 0, 316, 508);
+		panel.add(lblNewLabel_8);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(79, 0, 79));
+		panel_2.setBounds(310, 566, 509, 45);
+		contentPane.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 213, 255));
+		panel_3.setBounds(374, 84, 381, 433);
+		contentPane.add(panel_3);
+		
+		JButton btnGraficar = new JButton("GRAFICAR");
+		btnGraficar.setForeground(Color.WHITE);
+		btnGraficar.setFont(new Font("Arial", Font.BOLD, 12));
+		btnGraficar.setBackground(new Color(186, 85, 211));
+		btnGraficar.setBounds(508, 528, 133, 23);
 		contentPane.add(btnGraficar);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 340, 192);
-		contentPane.add(scrollPane);
-		
-		tablaGrafica = new JTable();
-		scrollPane.setViewportView(tablaGrafica);
-		mostrarDatos();
 	}
 }

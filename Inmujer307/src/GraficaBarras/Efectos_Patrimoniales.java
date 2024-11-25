@@ -1,71 +1,25 @@
 package GraficaBarras;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import ConexionBaseDeDatos.ConexionInmujer;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 public class Efectos_Patrimoniales extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable tablaGrafica2;
 
-		
-	public void mostrarDatos2() {
-		ConexionInmujer conexion = new ConexionInmujer();
-		Connection con = conexion.conectar();
-		
-		String sql = "SELECT Efectos_economicos_y_patrimoniales, COUNT(Efectos_economicos_y_patrimoniales) AS total FROM datos GROUP BY Efectos_economicos_y_patrimoniales";
-		
-		DefaultTableModel modelo = new DefaultTableModel();
-		modelo.addColumn("Efectos");
-		modelo.addColumn("Total Casos");
-		
-		tablaGrafica2.setModel(modelo);
-		
-		String[] baseDatos = new String[2];
-		
-		try {
-			PreparedStatement pst=con.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				do {
-					baseDatos[0] = rs.getString("Efectos_economicos_y_patrimoniales");
-					baseDatos[1] = rs.getString("total");
-					
-					modelo.addRow(baseDatos);
-				} while (rs.next());
-				tablaGrafica2.setModel(modelo);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
 	/**
 	 * Launch the application.
 	 */
@@ -87,71 +41,56 @@ public class Efectos_Patrimoniales extends JFrame {
 	 */
 	public Efectos_Patrimoniales() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 380);
+		setBounds(100, 100, 823, 648);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(222, 163, 231));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 261, 158);
-		contentPane.add(scrollPane);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Efectos_Patrimoniales.class.getResource("/img/encabezadografic.png")));
+		lblNewLabel.setBounds(0, 0, 809, 60);
+		contentPane.add(lblNewLabel);
 		
-		tablaGrafica2 = new JTable();
-		scrollPane.setViewportView(tablaGrafica2);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 58, 316, 553);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		JPanel panel2 = new JPanel();
-		panel2.setBounds(0, 159, 261, 182);
-		contentPane.add(panel2);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(79, 0, 79));
+		panel_1.setBounds(0, 507, 316, 46);
+		panel.add(panel_1);
 		
-		JButton btnGraficar = new JButton("New button");
-		btnGraficar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String et11 = tablaGrafica2.getValueAt(0, 0).toString();
-				String et22 = tablaGrafica2.getValueAt(1, 0).toString();
-				String et33 = tablaGrafica2.getValueAt(2, 0).toString();
-				String et44 = tablaGrafica2.getValueAt(3, 0).toString();
-				String et5= tablaGrafica2.getValueAt(4, 0).toString();
-				String et6= tablaGrafica2.getValueAt(5, 0).toString();
-				String et7= tablaGrafica2.getValueAt(6, 0).toString();
-				String et8= tablaGrafica2.getValueAt(7, 0).toString();
-				
-				int DejoEstudiar=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(0, 1)));
-				int NoPensionAlimenticia=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(1, 1)));
-				int Nogastos=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(2, 1)));
-				int Chantaje=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(3, 1)));
-				int PerdidaPropiedades=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(4, 1)));
-				int quema=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(5, 1)));
-				int Salir=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(6, 1)));
-				int Noaplica2=Integer.parseInt(String.valueOf(tablaGrafica2.getValueAt(7, 1)));
-				
-				DefaultCategoryDataset datos2= new DefaultCategoryDataset();
-				
-				datos2.setValue(DejoEstudiar, "1", "");
-				datos2.setValue(NoPensionAlimenticia, "2", "");
-				datos2.setValue(Nogastos, "3", "");
-				datos2.setValue(Chantaje, "4", "");
-				datos2.setValue(PerdidaPropiedades, "5", "");
-				datos2.setValue(quema, "6", "");
-				datos2.setValue(Salir, "7", "");
-				datos2.setValue(Noaplica2, "8", "");
-				
-				JFreeChart grafico_barras2 = ChartFactory.createBarChart3D("Economicos", "Efectos", "Victimas", datos2, PlotOrientation.VERTICAL,true,true,false);
-				ChartPanel paneldos = new ChartPanel(grafico_barras2);
-				paneldos.setMouseWheelEnabled(true);
-				paneldos.setPreferredSize(new Dimension(236, 219));
-				
-				panel2.setLayout(new BorderLayout());
-				panel2.add(paneldos,BorderLayout.NORTH);
-				
-				pack();
-				repaint();
-				setBounds(100, 100, 488, 525);
-			}
-		});
-		btnGraficar.setBounds(296, 264, 89, 23);
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(186, 85, 211));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton.setBounds(74, 360, 133, 23);
+		panel.add(btnNewButton);
+		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setIcon(new ImageIcon(Efectos_Patrimoniales.class.getResource("/img/inmujer.png")));
+		lblNewLabel_8.setBounds(0, 0, 316, 508);
+		panel.add(lblNewLabel_8);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(79, 0, 79));
+		panel_2.setBounds(310, 566, 509, 45);
+		contentPane.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 213, 255));
+		panel_3.setBounds(374, 84, 381, 433);
+		contentPane.add(panel_3);
+		
+		JButton btnGraficar = new JButton("GRAFICAR");
+		btnGraficar.setForeground(Color.WHITE);
+		btnGraficar.setFont(new Font("Arial", Font.BOLD, 12));
+		btnGraficar.setBackground(new Color(186, 85, 211));
+		btnGraficar.setBounds(501, 528, 133, 23);
 		contentPane.add(btnGraficar);
-		mostrarDatos2();
 	}
 }

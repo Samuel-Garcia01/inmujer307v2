@@ -73,74 +73,123 @@ public class Efectosfisicos extends JFrame {
 	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
 	
 	public void insertarDatosEfectos() {
-		
-		
-		if (chkHerida.isSelected()) {
-			Fisicos = chkHerida.getText().toLowerCase()+"\n";
-		} else if (chkFractura.isSelected()) {
-			Fisicos = chkFractura.getText().toLowerCase()+"\n";
-		} else if (chkAmputaciones.isSelected()) {
-			Fisicos = chkFractura.getText().toLowerCase()+"\n";
-		} else if (chkEnfermedad.isSelected()) {
-			Fisicos = chkEnfermedad.getText().toLowerCase()+"\n";
-		} else if (chkCicatrices.isSelected()) {
-			Fisicos = chkCicatrices.getText().toLowerCase()+"\n";
-		} else if (chkQuemaduras.isSelected()) {
-			Fisicos = chkQuemaduras.getText().toLowerCase()+"\n";
-		} else if (chkOtrosFisicos.isSelected()) {
-			Fisicos = chkOtrosFisicos.getText().toLowerCase()+"\n";
-		} else if (chkNinguno.isSelected()) {
-			Fisicos = chkNinguno.getText().toLowerCase()+"\n";
+		boolean [] condFisicos = new boolean[8];
+		boolean [] condPsicologicos = new boolean[10];
+		boolean [] condSexuales = new boolean[4];
+		boolean [] condPatrimoniales = new boolean[8];
+
+		for (int i = 0; i < 8; i++) {
+			if (chkHerida.isSelected() && !condFisicos[0]) {
+				Fisicos += (i+1)+". "+chkHerida.getText().toLowerCase()+"\n";
+				condFisicos[0] = true;
+			} else if (chkFractura.isSelected() && !condFisicos[1]) {
+				Fisicos += (i+1)+". "+chkFractura.getText().toLowerCase()+"\n";
+				condFisicos[1] = true;
+			} else if (chkAmputaciones.isSelected() && !condFisicos[2]) {
+				Fisicos += (i+1)+". "+chkFractura.getText().toLowerCase()+"\n";
+				condFisicos[2] = true;
+			} else if (chkEnfermedad.isSelected() && !condFisicos[3]) {
+				Fisicos += (i+1)+". "+chkEnfermedad.getText().toLowerCase()+"\n";
+				condFisicos[3] = true;
+			} else if (chkCicatrices.isSelected() && !condFisicos[4]) {
+				Fisicos += (i+1)+". "+chkCicatrices.getText().toLowerCase()+"\n";
+				condFisicos[4] = true;
+			} else if (chkQuemaduras.isSelected() && !condFisicos[5]) {
+				Fisicos += (i+1)+". "+chkQuemaduras.getText().toLowerCase()+"\n";
+				condFisicos[5] = true;
+			} else if (chkOtrosFisicos.isSelected() && !condFisicos[6]) {
+				Fisicos += (i+1)+". "+chkOtrosFisicos.getText().toLowerCase()+"\n";
+				condFisicos[6] = true;
+			} else if (chkNinguno.isSelected() && !condFisicos[7]) {
+				Fisicos += (i+1)+". "+chkNinguno.getText().toLowerCase()+"\n";
+				condFisicos[7] = true;
+			} else {
+				break;
+			}
 		}
 		
-		if (chkAngustia.isSelected()) {
-			Psicologicos = chkAngustia.getText().toLowerCase()+"\n";
-		} else if (chkEstresPostraumatico.isSelected()) {
-			Psicologicos = chkEstresPostraumatico.getText().toLowerCase()+"\n";
-		} else if (chkAnsiedad.isSelected()) {
-			Psicologicos = chkAnsiedad.getText().toLowerCase()+"\n";
-		} else if (chkIdeaSuicida.isSelected()) {
-			Psicologicos = chkIdeaSuicida.getText().toLowerCase()+"\n";
-		} else if (chkTranstornoAlimenticio.isSelected()) {
-			Psicologicos = chkTranstornoAlimenticio.getText().toLowerCase()+"\n";
-		} else if (chkTranstornoSuenio.isSelected()) {
-			Psicologicos = chkTranstornoSuenio.getText().toLowerCase()+"\n";
-		} else if (chkDepresion.isSelected()) {
-			Psicologicos = chkDepresion.getText().toLowerCase()+"\n";
-		} else if (chkAislamiento.isSelected()) {
-			Psicologicos = chkAislamiento.getText().toLowerCase()+"\n";
-		} else if (chkIntentoSuicida.isSelected()) {
-			Psicologicos = chkIntentoSuicida.getText().toLowerCase()+"\n";
-		} else if (chkOtroPsicologico.isSelected()) {
-			Psicologicos = chkOtroPsicologico.getText().toLowerCase()+"\n";
+		for (int i = 0; i < 10; i++) {
+			if (chkAngustia.isSelected() && !condPsicologicos[0]) {
+				Psicologicos += (i+1)+". "+chkAngustia.getText().toLowerCase()+"\n";
+				condPsicologicos[0] = true;
+			} else if (chkEstresPostraumatico.isSelected() && !condPsicologicos[1]) {
+				Psicologicos += (i+1)+". "+chkEstresPostraumatico.getText().toLowerCase()+"\n";
+				condPsicologicos[1] = true;
+			} else if (chkAnsiedad.isSelected() && !condPsicologicos[2]) {
+				Psicologicos += (i+1)+". "+chkAnsiedad.getText().toLowerCase()+"\n";
+				condPsicologicos[2] = true;
+			} else if (chkIdeaSuicida.isSelected() && !condPsicologicos[3]) {
+				Psicologicos += (i+1)+". "+chkIdeaSuicida.getText().toLowerCase()+"\n";
+				condPsicologicos[3] = true;
+			} else if (chkTranstornoAlimenticio.isSelected() && !condPsicologicos[4]) {
+				Psicologicos += (i+1)+". "+chkTranstornoAlimenticio.getText().toLowerCase()+"\n";
+				condPsicologicos[4] = true;
+			} else if (chkTranstornoSuenio.isSelected() && !condPsicologicos[5]) {
+				Psicologicos += (i+1)+". "+chkTranstornoSuenio.getText().toLowerCase()+"\n";
+				condPsicologicos[5] = true;
+			} else if (chkDepresion.isSelected() && !condPsicologicos[6]) {
+				Psicologicos += (i+1)+". "+chkDepresion.getText().toLowerCase()+"\n";
+				condPsicologicos[6] = true;
+			} else if (chkAislamiento.isSelected() && !condPsicologicos[7]) {
+				Psicologicos += (i+1)+". "+chkAislamiento.getText().toLowerCase()+"\n";
+				condPsicologicos[7] = true;
+			} else if (chkIntentoSuicida.isSelected() && !condPsicologicos[8]) {
+				Psicologicos += (i+1)+". "+chkIntentoSuicida.getText().toLowerCase()+"\n";
+				condPsicologicos[8] = true;
+			} else if (chkOtroPsicologico.isSelected() && !condPsicologicos[9]) {
+				Psicologicos += (i+1)+". "+chkOtroPsicologico.getText().toLowerCase()+"\n";
+				condPsicologicos[9] = true;
+			} else {
+				break;
+			}
 		}
 		
-		if (chkInfecciones.isSelected()) {
-			Sexuales = chkInfecciones.getText().toLowerCase()+"\n";
-		} else if (chkEmbarazo.isSelected()) {
-			Sexuales = chkEmbarazo.getText().toLowerCase()+"\n";
-		} else if (chkAborto.isSelected()) {
-			Sexuales = chkAborto.getText().toLowerCase()+"\n";
-		} else if (chkNoAplicaSexuales.isSelected()) {
-			Sexuales = chkNoAplicaSexuales.getText().toLowerCase()+"\n";
+		for (int i = 0; i < 4; i++) {
+			if (chkInfecciones.isSelected() && !condSexuales[0]) {
+				Sexuales += (i+1)+". "+chkInfecciones.getText().toLowerCase()+"\n";
+				condSexuales [0] = true;
+			} else if (chkEmbarazo.isSelected() && !condSexuales[1]) {
+				Sexuales += (i+1)+". "+chkEmbarazo.getText().toLowerCase()+"\n";
+				condSexuales [1] = true;
+			} else if (chkAborto.isSelected() && !condSexuales[2]) {
+				Sexuales += (i+1)+". "+chkAborto.getText().toLowerCase()+"\n";
+				condSexuales [2] = true;
+			} else if (chkNoAplicaSexuales.isSelected() && !condSexuales[3]) {
+				Sexuales += (i+1)+". "+chkNoAplicaSexuales.getText().toLowerCase()+"\n";
+				condSexuales [3] = true;
+			} else {
+				break;
+			}
 		}
 		
-		if (chkDejoEstudiar.isSelected()) {
-			patrimoniales = chkDejoEstudiar.getText().toLowerCase()+"\n";
-		} else if (chkNoRecibePensionAlimenticia.isSelected()) {
-			patrimoniales = chkNoRecibePensionAlimenticia.getText().toLowerCase()+"\n";
-		} else if (chkNoRecibeGasto.isSelected()) {
-			patrimoniales = chkNoRecibeGasto.getText().toLowerCase()+"\n";
-		} else if (chkChantajeAportar.isSelected()) {
-			patrimoniales = chkChantajeAportar.getText().toLowerCase()+"\n";
-		} else if (chkPerdidaPropiedades.isSelected()) {
-			patrimoniales = chkPerdidaPropiedades.getText().toLowerCase()+"\n";
-		} else if (chkPerdidaDocumentos.isSelected()) {
-			patrimoniales = chkPerdidaDocumentos.getText().toLowerCase()+"\n";
-		} else if (chkSalirDomicilio.isSelected()) {
-			patrimoniales = chkSalirDomicilio.getText().toLowerCase()+"\n";
-		} else if (chkNoAplicaEconomico.isSelected()) {
-			patrimoniales = chkNoAplicaEconomico.getText().toLowerCase()+"\n";
+		for (int i = 0; i < 8; i++) {
+			if (chkDejoEstudiar.isSelected() && !condPatrimoniales[0]) {
+				patrimoniales += (i+1)+". "+chkDejoEstudiar.getText().toLowerCase()+"\n";
+				condPatrimoniales [0]= true;
+			} else if (chkNoRecibePensionAlimenticia.isSelected() && !condPatrimoniales[1]) {
+				patrimoniales += (i+1)+". "+chkNoRecibePensionAlimenticia.getText().toLowerCase()+"\n";
+				condPatrimoniales [1]= true;
+			} else if (chkNoRecibeGasto.isSelected() && !condPatrimoniales[2]) {
+				patrimoniales += (i+1)+". "+chkNoRecibeGasto.getText().toLowerCase()+"\n";
+				condPatrimoniales [2]= true;
+			} else if (chkChantajeAportar.isSelected() && !condPatrimoniales[3]) {
+				patrimoniales += (i+1)+". "+chkChantajeAportar.getText().toLowerCase()+"\n";
+				condPatrimoniales [3]= true;
+			} else if (chkPerdidaPropiedades.isSelected() && !condPatrimoniales[4]) {
+				patrimoniales += (i+1)+". "+chkPerdidaPropiedades.getText().toLowerCase()+"\n";
+				condPatrimoniales [4]= true;
+			} else if (chkPerdidaDocumentos.isSelected() && !condPatrimoniales[5]) {
+				patrimoniales += (i+1)+". "+chkPerdidaDocumentos.getText().toLowerCase()+"\n";
+				condPatrimoniales [5]= true;
+			} else if (chkSalirDomicilio.isSelected() && !condPatrimoniales[6]) {
+				patrimoniales += (i+1)+". "+chkSalirDomicilio.getText().toLowerCase()+"\n";
+				condPatrimoniales [6]= true;
+			} else if (chkNoAplicaEconomico.isSelected() && !condPatrimoniales[7]) {
+				patrimoniales += (i+1)+". "+chkNoAplicaEconomico.getText().toLowerCase()+"\n";
+				condPatrimoniales [7]= true;
+			} else {
+				break;
+			}
 		}
 	}
 	
@@ -216,56 +265,48 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(325, 11, 97, 16);
 		panelEfectosFisicos.add(lblNewLabel_1);
-		buttonGroup.add(chkHerida);
 		
 		chkHerida.setForeground(Color.BLACK);
 		chkHerida.setBackground(new Color(243, 220, 220));
 		chkHerida.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkHerida.setBounds(6, 27, 97, 23);
 		panelEfectosFisicos.add(chkHerida);
-		buttonGroup.add(chkFractura);
 		
 		chkFractura.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkFractura.setBackground(new Color(243, 220, 220));
 		chkFractura.setForeground(Color.BLACK);
 		chkFractura.setBounds(6, 60, 97, 23);
 		panelEfectosFisicos.add(chkFractura);
-		buttonGroup.add(chkAmputaciones);
 		
 		chkAmputaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAmputaciones.setBackground(new Color(243, 220, 220));
 		chkAmputaciones.setForeground(Color.BLACK);
 		chkAmputaciones.setBounds(189, 27, 118, 23);
 		panelEfectosFisicos.add(chkAmputaciones);
-		buttonGroup.add(chkEnfermedad);
 		
 		chkEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEnfermedad.setBackground(new Color(243, 220, 220));
 		chkEnfermedad.setForeground(Color.BLACK);
 		chkEnfermedad.setBounds(189, 60, 118, 23);
 		panelEfectosFisicos.add(chkEnfermedad);
-		buttonGroup.add(chkCicatrices);
 		
 		chkCicatrices.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkCicatrices.setBackground(new Color(243, 220, 220));
 		chkCicatrices.setForeground(Color.BLACK);
 		chkCicatrices.setBounds(384, 34, 97, 23);
 		panelEfectosFisicos.add(chkCicatrices);
-		buttonGroup.add(chkQuemaduras);
 		
 		chkQuemaduras.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkQuemaduras.setBackground(new Color(243, 220, 220));
 		chkQuemaduras.setForeground(Color.BLACK);
 		chkQuemaduras.setBounds(384, 60, 135, 23);
 		panelEfectosFisicos.add(chkQuemaduras);
-		buttonGroup.add(chkOtrosFisicos);
 		
 		chkOtrosFisicos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkOtrosFisicos.setBackground(new Color(243, 220, 220));
 		chkOtrosFisicos.setForeground(Color.BLACK);
 		chkOtrosFisicos.setBounds(621, 34, 97, 23);
 		panelEfectosFisicos.add(chkOtrosFisicos);
-		buttonGroup.add(chkNinguno);
 		
 		chkNinguno.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNinguno.setBackground(new Color(243, 220, 220));
@@ -284,61 +325,51 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(139, 11, 129, 14);
 		panelEfectosPsicologicos.add(lblNewLabel_2);
-		buttonGroup_1.add(chkAngustia);
 		
 		chkAngustia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAngustia.setBackground(new Color(243, 220, 220));
 		chkAngustia.setBounds(6, 47, 178, 23);
 		panelEfectosPsicologicos.add(chkAngustia);
-		buttonGroup_1.add(chkEstresPostraumatico);
 		
 		chkEstresPostraumatico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEstresPostraumatico.setBackground(new Color(243, 220, 220));
 		chkEstresPostraumatico.setBounds(6, 85, 178, 23);
 		panelEfectosPsicologicos.add(chkEstresPostraumatico);
-		buttonGroup_1.add(chkAnsiedad);
 		
 		chkAnsiedad.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAnsiedad.setBackground(new Color(243, 220, 220));
 		chkAnsiedad.setBounds(6, 121, 178, 23);
 		panelEfectosPsicologicos.add(chkAnsiedad);
-		buttonGroup_1.add(chkIdeaSuicida);
 		
 		chkIdeaSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkIdeaSuicida.setBackground(new Color(243, 220, 220));
 		chkIdeaSuicida.setBounds(6, 162, 178, 23);
 		panelEfectosPsicologicos.add(chkIdeaSuicida);
-		buttonGroup_1.add(chkTranstornoAlimenticio);
 		
 		chkTranstornoAlimenticio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkTranstornoAlimenticio.setBackground(new Color(243, 220, 220));
 		chkTranstornoAlimenticio.setBounds(6, 203, 196, 23);
 		panelEfectosPsicologicos.add(chkTranstornoAlimenticio);
-		buttonGroup_1.add(chkTranstornoSuenio);
 		
 		chkTranstornoSuenio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkTranstornoSuenio.setBackground(new Color(243, 220, 220));
 		chkTranstornoSuenio.setBounds(204, 47, 185, 23);
 		panelEfectosPsicologicos.add(chkTranstornoSuenio);
-		buttonGroup_1.add(chkDepresion);
 		
 		chkDepresion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkDepresion.setBackground(new Color(243, 220, 220));
 		chkDepresion.setBounds(204, 85, 167, 23);
 		panelEfectosPsicologicos.add(chkDepresion);
-		buttonGroup_1.add(chkAislamiento);
 		
 		chkAislamiento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAislamiento.setBackground(new Color(243, 220, 220));
 		chkAislamiento.setBounds(204, 121, 167, 23);
 		panelEfectosPsicologicos.add(chkAislamiento);
-		buttonGroup_1.add(chkIntentoSuicida);
 		
 		chkIntentoSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkIntentoSuicida.setBackground(new Color(243, 220, 220));
 		chkIntentoSuicida.setBounds(204, 162, 185, 23);
 		panelEfectosPsicologicos.add(chkIntentoSuicida);
-		buttonGroup_1.add(chkOtroPsicologico);
 		
 		chkOtroPsicologico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkOtroPsicologico.setBackground(new Color(243, 220, 220));
@@ -356,25 +387,21 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_3.setBounds(141, 11, 101, 14);
 		panelEfectosSexuales.add(lblNewLabel_3);
-		buttonGroup_2.add(chkInfecciones);
 		
 		chkInfecciones.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkInfecciones.setBackground(new Color(243, 220, 220));
 		chkInfecciones.setBounds(52, 74, 113, 23);
 		panelEfectosSexuales.add(chkInfecciones);
-		buttonGroup_2.add(chkEmbarazo);
 		
 		chkEmbarazo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEmbarazo.setBackground(new Color(243, 220, 220));
 		chkEmbarazo.setBounds(215, 74, 97, 23);
 		panelEfectosSexuales.add(chkEmbarazo);
-		buttonGroup_2.add(chkAborto);
 		
 		chkAborto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAborto.setBackground(new Color(243, 220, 220));
 		chkAborto.setBounds(52, 150, 97, 23);
 		panelEfectosSexuales.add(chkAborto);
-		buttonGroup_2.add(chkNoAplicaSexuales);
 		
 		chkNoAplicaSexuales.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoAplicaSexuales.setBackground(new Color(243, 220, 220));
@@ -392,7 +419,6 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(285, 11, 281, 14);
 		panelEfectosEconomicos.add(lblNewLabel_4);
-		buttonGroup_3.add(chkDejoEstudiar);
 		
 		//Economicos
 		
@@ -400,43 +426,36 @@ public class Efectosfisicos extends JFrame {
 		chkDejoEstudiar.setBackground(new Color(243, 220, 220));
 		chkDejoEstudiar.setBounds(6, 45, 215, 23);
 		panelEfectosEconomicos.add(chkDejoEstudiar);
-		buttonGroup_3.add(chkNoRecibePensionAlimenticia);
 		
 		chkNoRecibePensionAlimenticia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoRecibePensionAlimenticia.setBackground(new Color(243, 220, 220));
 		chkNoRecibePensionAlimenticia.setBounds(6, 93, 215, 23);
 		panelEfectosEconomicos.add(chkNoRecibePensionAlimenticia);
-		buttonGroup_3.add(chkNoRecibeGasto);
 		
 		chkNoRecibeGasto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoRecibeGasto.setBackground(new Color(243, 220, 220));
 		chkNoRecibeGasto.setBounds(217, 93, 162, 23);
 		panelEfectosEconomicos.add(chkNoRecibeGasto);
-		buttonGroup_3.add(chkChantajeAportar);
 		
 		chkChantajeAportar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkChantajeAportar.setBackground(new Color(243, 220, 220));
 		chkChantajeAportar.setBounds(217, 45, 184, 23);
 		panelEfectosEconomicos.add(chkChantajeAportar);
-		buttonGroup_3.add(chkPerdidaPropiedades);
 		
 		chkPerdidaPropiedades.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkPerdidaPropiedades.setBackground(new Color(243, 220, 220));
 		chkPerdidaPropiedades.setBounds(408, 45, 215, 23);
 		panelEfectosEconomicos.add(chkPerdidaPropiedades);
-		buttonGroup_3.add(chkPerdidaDocumentos);
 		
 		chkPerdidaDocumentos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkPerdidaDocumentos.setBackground(new Color(243, 220, 220));
 		chkPerdidaDocumentos.setBounds(412, 93, 226, 23);
 		panelEfectosEconomicos.add(chkPerdidaDocumentos);
-		buttonGroup_3.add(chkSalirDomicilio);
 		
 		chkSalirDomicilio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkSalirDomicilio.setBackground(new Color(243, 220, 220));
-		chkSalirDomicilio.setBounds(634, 45, 147, 23);
+		chkSalirDomicilio.setBounds(634, 45, 171, 23);
 		panelEfectosEconomicos.add(chkSalirDomicilio);
-		buttonGroup_3.add(chkNoAplicaEconomico);
 		
 		chkNoAplicaEconomico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoAplicaEconomico.setBackground(new Color(243, 220, 220));

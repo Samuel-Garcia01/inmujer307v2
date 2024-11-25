@@ -346,52 +346,52 @@ public class Violencia extends JFrame {
 				String tiposDeViolencia = "";
 
 				if (chckbxViolenciaFisica.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaFisica.getText();
+					tiposDeViolencia += chckbxViolenciaFisica.getText()+",";
 				}
 				if (chckbxViolenciaSexual.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaSexual.getText();
+					tiposDeViolencia += chckbxViolenciaSexual.getText()+",";
 				}
 				if (chckbxViolenciaPatrimonial.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaPatrimonial.getText();
+					tiposDeViolencia += chckbxViolenciaPatrimonial.getText()+",";
 				}
 				if (chckbxViolenciaVicaria.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaVicaria.getText();
+					tiposDeViolencia += chckbxViolenciaVicaria.getText()+",";
 				}
 				if (chckbxViolenciaPsicologica.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaPsicologica.getText();
+					tiposDeViolencia += chckbxViolenciaPsicologica.getText()+",";
 				}
 				if (chckbxViolenciaEconomica.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaEconomica.getText();
+					tiposDeViolencia += chckbxViolenciaEconomica.getText()+",";
 				}
 				if (chckbxViolenciaAcosoHostigamiento.isSelected()) {
-					tiposDeViolencia = chckbxViolenciaAcosoHostigamiento.getText();
+					tiposDeViolencia += chckbxViolenciaAcosoHostigamiento.getText()+",";
 				}
 
 				String modalidades = "";
 
 				if (chckbxFamilia.isSelected()) {
-					modalidades = chckbxFamilia.getText();
+					modalidades += chckbxFamilia.getText()+",";
 				}
 				if (chckbxDocente.isSelected()) {
-					modalidades = chckbxDocente.getText();
+					modalidades += chckbxDocente.getText()+",";
 				}
 				if (chckbxInstitucional.isSelected()) {
-					modalidades = chckbxInstitucional.getText();
+					modalidades += chckbxInstitucional.getText()+",";
 				}
 				if (chckbxNoviazgo.isSelected()) {
-					modalidades = chckbxNoviazgo.getText();
+					modalidades += chckbxNoviazgo.getText()+",";
 				}
 				if (chckbxComunitario.isSelected()) {
-					modalidades = chckbxComunitario.getText();
+					modalidades += chckbxComunitario.getText()+",";
 				}
 				if (chckbxComunitario.isSelected()) {
-					modalidades = chckbxComunitario.getText();
+					modalidades += chckbxComunitario.getText()+",";
 				}
 				if (chckbxLaboral.isSelected()) {
-					modalidades = chckbxLaboral.getText();
+					modalidades += chckbxLaboral.getText()+",";
 				}
 				if (chckbxCibernetica.isSelected()) {
-					modalidades = chckbxCibernetica.getText();
+					modalidades += chckbxCibernetica.getText()+",";
 				}
 
 				// Hechos y motivos
