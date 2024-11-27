@@ -227,8 +227,7 @@ public class DatosGenerales extends JFrame {
 				if (ComboEstadOCivil.getSelectedIndex() == 0) {
 					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
 							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboServiciomedico.showPopup();
+				
 				}
 			}
 		});
@@ -304,8 +303,7 @@ public class DatosGenerales extends JFrame {
 				if (comboNopersonas.getSelectedIndex() == 0) {
 					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
 							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboContribuyentealgasto.showPopup();
+				
 				}
 			}
 		});
@@ -778,10 +776,9 @@ public class DatosGenerales extends JFrame {
 
 				if (txtOcupacion.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-				} else {
-					txtIngresoFamiliar.requestFocus();
-				}
+				
 
+			}
 			}
 		});
 		txtOcupacion.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -851,7 +848,7 @@ public class DatosGenerales extends JFrame {
 		});
 		txtnumeroDeCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtCanalizadPor.requestFocus();
+				
 			}
 		});
 		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -914,15 +911,15 @@ public class DatosGenerales extends JFrame {
 				// los datos ingresado
 				// por el usuario
 				String fecha = txtFecha.getText();
-				String Hora = txtHora.getText();
+				
 				NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "
 						+ txtNombres.getText();
 				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				String GradoDeEstudios = comboGradoestudios.getSelectedItem().toString();
+				
 				int edad = Integer.parseInt(comboEdad.getSelectedItem().toString());
 				String Ocupacion = txtOcupacion.getText();
-				String servicioMedico = comboServiciomedico.getSelectedItem().toString();
-				String IngresoFamiliar = txtIngresoFamiliar.getText();
+				
+				
 				String Domicilio = txtDomicilio.getText();
 				String CodigoPostal = comboCodigoPostal.getSelectedItem().toString();
 				String colonia = comboColonia.getSelectedItem().toString();
@@ -931,10 +928,10 @@ public class DatosGenerales extends JFrame {
 				String telefonoCasa = txtnumeroDeCasa.getText();
 				String vivienda = comboVivienda.getSelectedItem().toString();
 				String nopersonas = comboNopersonas.getSelectedItem().toString();
-				String contribuyente = comboContribuyentealgasto.getSelectedItem().toString();
-				String canalizadaPor = txtCanalizadPor.getText();
-				String padecimiento = txtPadecimientoCronico.getText();
-				String denuncia = txtDenuncia.getText();
+				
+				
+				
+				
 				String dependientes = area.getText();
 				String FechaDeNacimiento = comboAnio.getSelectedItem().toString() + "-"
 						+ comboMes.getSelectedItem().toString() + "-" + comboDia.getSelectedItem().toString();
