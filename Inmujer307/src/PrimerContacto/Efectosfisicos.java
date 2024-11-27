@@ -539,5 +539,11 @@ public class Efectosfisicos extends JFrame {
 		btnInicio.setBackground(new Color(243, 220, 220));
 		btnInicio.setBounds(270, 577, 89, 23);
 		panel.add(btnInicio);
+		
+		JButton btnRegresar = new JButton("Regresar");
+		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnRegresar.setBackground(new Color(243, 220, 220));
+		btnRegresar.setBounds(75, 578, 89, 23);
+		panel.add(btnRegresar);
 	}
 }
