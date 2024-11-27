@@ -281,7 +281,7 @@ public class Efectosfisicos extends JFrame {
 		chkAmputaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAmputaciones.setBackground(new Color(243, 220, 220));
 		chkAmputaciones.setForeground(Color.BLACK);
-		chkAmputaciones.setBounds(189, 27, 118, 23);
+		chkAmputaciones.setBounds(189, 27, 135, 23);
 		panelEfectosFisicos.add(chkAmputaciones);
 		
 		chkEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -293,7 +293,7 @@ public class Efectosfisicos extends JFrame {
 		chkCicatrices.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkCicatrices.setBackground(new Color(243, 220, 220));
 		chkCicatrices.setForeground(Color.BLACK);
-		chkCicatrices.setBounds(384, 34, 97, 23);
+		chkCicatrices.setBounds(384, 34, 118, 23);
 		panelEfectosFisicos.add(chkCicatrices);
 		
 		chkQuemaduras.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -444,7 +444,7 @@ public class Efectosfisicos extends JFrame {
 		
 		chkPerdidaPropiedades.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkPerdidaPropiedades.setBackground(new Color(243, 220, 220));
-		chkPerdidaPropiedades.setBounds(408, 45, 215, 23);
+		chkPerdidaPropiedades.setBounds(408, 45, 184, 23);
 		panelEfectosEconomicos.add(chkPerdidaPropiedades);
 		
 		chkPerdidaDocumentos.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -454,7 +454,7 @@ public class Efectosfisicos extends JFrame {
 		
 		chkSalirDomicilio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkSalirDomicilio.setBackground(new Color(243, 220, 220));
-		chkSalirDomicilio.setBounds(634, 45, 171, 23);
+		chkSalirDomicilio.setBounds(601, 45, 167, 23);
 		panelEfectosEconomicos.add(chkSalirDomicilio);
 		
 		chkNoAplicaEconomico.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -465,21 +465,21 @@ public class Efectosfisicos extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("EFECTOS");
 		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 24));
-		lblNewLabel_5.setBounds(316, 22, 151, 21);
+		lblNewLabel_5.setBounds(331, 0, 120, 58);
 		panel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_view_56.png")));
-		lblNewLabel.setBounds(251, 11, 55, 46);
+		lblNewLabel.setBounds(251, 0, 55, 57);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_6 = new JLabel("");
 		lblNewLabel_6.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_espejo.png")));
-		lblNewLabel_6.setBounds(444, 11, 67, 46);
+		lblNewLabel_6.setBounds(477, 0, 55, 58);
 		panel.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_7.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_7);
 		
@@ -496,7 +496,7 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
 		btnSiguiente.setBackground(new Color(243, 220, 220));
-		btnSiguiente.setBounds(481, 577, 107, 23);
+		btnSiguiente.setBounds(594, 577, 107, 23);
 		panel.add(btnSiguiente);
 		
 		JButton btnInicio = new JButton("INICIO");
@@ -537,13 +537,13 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 11));
 		btnInicio.setBackground(new Color(243, 220, 220));
-		btnInicio.setBounds(270, 577, 89, 23);
+		btnInicio.setBounds(359, 577, 89, 23);
 		panel.add(btnInicio);
 		
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
 		btnRegresar.setBackground(new Color(243, 220, 220));
-		btnRegresar.setBounds(75, 578, 89, 23);
+		btnRegresar.setBounds(97, 577, 89, 23);
 		panel.add(btnRegresar);
 	}
 }
