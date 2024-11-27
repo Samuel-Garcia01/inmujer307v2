@@ -90,7 +90,7 @@ public class RedesDeApoyo extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtDireccion.requestFocus();
+				
 			}
 		});
 		txtNombre.setBounds(89, 53, 155, 19);
@@ -194,17 +194,15 @@ public class RedesDeApoyo extends JFrame {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String tipoDeRelacion = txtTipoDeRealacion.getText();
+				
 				String tiposDeApoyo = txtTiposDeApoyo.getText();
 				String nombre = txtNombre.getText();
-				String direccion = txtDireccion.getText();
+				
 				String telefono = txtTelefono.getText();
 
 				String RedesDeApoyo = "";
-				if (!tipoDeRelacion.isEmpty()) {
-					RedesDeApoyo += "Tipo de relacion: "+tipoDeRelacion+"\n";
-				} else {
-					RedesDeApoyo += "Tipo de relacion: No dada";
+				if (!tiposDeApoyo.isEmpty()) {
+					
 				}
 				if (!tiposDeApoyo.isEmpty()) {
 					RedesDeApoyo += "Tipos de apoyo: "+tiposDeApoyo+"\n";
@@ -216,11 +214,7 @@ public class RedesDeApoyo extends JFrame {
 				} else {
 					RedesDeApoyo += "Nombre: No dado";
 				}
-				if (!direccion.isEmpty()) {
-					RedesDeApoyo += "Dirección: "+direccion+"\n";
-				} else {
-					RedesDeApoyo += "Dirección: No dado";
-				}
+				
 				if (!telefono.isEmpty()) {
 					RedesDeApoyo += "Telefono: "+telefono+"\n";
 				} else {
