@@ -643,7 +643,11 @@ public class DATOSDELAGRESOR extends JFrame {
 
 			}
 		});
-		btnInicio.setBounds(150, 579, 89, 23);
+		btnInicio.setBounds(37, 579, 89, 23);
 		contentPane.add(btnInicio);
+		
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setBounds(224, 577, 89, 23);
+		contentPane.add(btnNewButton);
 	}
 }
