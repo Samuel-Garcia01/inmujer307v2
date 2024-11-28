@@ -892,7 +892,7 @@ public class DatosGenerales extends JFrame {
 				// en las variables creadas anteriormente.
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-				String sql = "UPDATE seguro_violeta SET Estado_de_salud = ?,Denuncia_y/o_demanda = ?,Estructura_familiar = ?,Escolaridad_y/o_Ocupacion = ?,Parentesco = ?,Tipo_Vivienda = ?";
+				String sql = "INSERT INTO seguro_violeta (EXP,MES,Nombre_de_la_victima,Fecha_de_nacimiento,Edad,Grado_de_Estudios,Estado_Civil,Ocupacion,Calle,Numero_calle,Colonia,Municipio,Codigo_postal,Telefono_Celular,Contacto_Emerjencia,Vivienda,No_Personas,Estado_de_salud,Tipo_Vivienda,Denuncia_y/o_demanda,Estructura_familiar,Edad_Familiar,Escolaridad_y/o_Ocupacion,Parentesco VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				try {
 					// Preparamos la sentencia sql para conectarlo en la base de datos
 					// comentamos anteriormente

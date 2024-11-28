@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class DATOSDELAGRESOR extends JFrame {
-
+//Jesus es puto
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtFechadeN;
