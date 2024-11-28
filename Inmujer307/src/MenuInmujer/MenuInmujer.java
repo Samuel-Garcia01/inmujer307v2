@@ -167,7 +167,7 @@ public class MenuInmujer extends JFrame {
 		JButton btnNewButton_1 = new JButton("Seguro Violeta");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosGenerales ventanaDatosGenerales = new DatosGenerales();
+				SEGUROVIOLETA.DatosGenerales ventanaDatosGenerales = new SEGUROVIOLETA.DatosGenerales();
 				dispose();
 				ventanaDatosGenerales.setVisible(true);
 				ventanaDatosGenerales.setLocationRelativeTo(null);
