@@ -47,7 +47,7 @@ package SEGUROVIOLETA;
 	import java.awt.event.KeyEvent;
 	import java.awt.event.ActionEvent;
 	import javax.swing.SwingConstants;
-
+ //puto el kevin
 	public class NumeroDeExpediente extends JFrame {
 	    private JPanel contentPane;
 	    private JTextField txtInforme;
