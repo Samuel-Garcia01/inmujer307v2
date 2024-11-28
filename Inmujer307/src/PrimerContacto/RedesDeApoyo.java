@@ -78,7 +78,7 @@ public class RedesDeApoyo extends JFrame {
 		panel.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon(RedesDeApoyo.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_8.setIcon(new ImageIcon(RedesDeApoyo.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_8.setBounds(0, 0, 809, 57);
 		panel.add(lblNewLabel_8);
 
@@ -175,12 +175,14 @@ public class RedesDeApoyo extends JFrame {
 		panel_1_1.add(txtTiposDeApoyo);
 		txtTiposDeApoyo.setColumns(10);
 
-		JButton btnSiguiente = new JButton("Siguiente");
+		JButton btnSiguiente = new JButton("SIGUIENTE");
+		btnSiguiente.setBackground(new Color(222, 158, 158));
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
 		btnSiguiente.setBounds(533, 510, 142, 34);
 		contentPane.add(btnSiguiente);
 
-		JButton btnInicio = new JButton("Inicio");
+		JButton btnInicio = new JButton("INICIO");
+		btnInicio.setBackground(new Color(222, 158, 158));
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String [] opciones = {"Aceptar","Cancelar"};
@@ -217,9 +219,20 @@ public class RedesDeApoyo extends JFrame {
 			}
 		});
 		btnInicio.setForeground(Color.BLACK);
-		btnInicio.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnInicio.setFont(new Font("Arial", Font.BOLD, 12));
 		btnInicio.setBounds(162, 510, 135, 34);
 		contentPane.add(btnInicio);
+		
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setBackground(new Color(222, 158, 158));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setBounds(362, 510, 112, 34);
+		contentPane.add(btnNewButton);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(133, 20, 121));
+		panel_2.setBounds(0, 566, 809, 47);
+		contentPane.add(panel_2);
 
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -133,7 +133,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel.add(label);
 
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_2.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_2);
 

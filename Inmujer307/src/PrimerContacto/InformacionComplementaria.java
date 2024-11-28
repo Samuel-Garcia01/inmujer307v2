@@ -167,7 +167,7 @@ public class InformacionComplementaria extends JFrame {
 		btnInicio.setForeground(new Color(255, 255, 255));
 		btnInicio.setBackground(new Color(128, 0, 255));
 		btnInicio.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnInicio.setBounds(255, 529, 108, 23);
+		btnInicio.setBounds(343, 529, 108, 23);
 		contentPane.add(btnInicio);
 		
 		JButton btnFinalizar = new JButton("FINALIZAR");
@@ -226,7 +226,7 @@ public class InformacionComplementaria extends JFrame {
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.setBackground(new Color(128, 0, 255));
 		btnFinalizar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnFinalizar.setBounds(456, 529, 108, 23);
+		btnFinalizar.setBounds(482, 529, 108, 23);
 		contentPane.add(btnFinalizar);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
@@ -240,6 +240,13 @@ public class InformacionComplementaria extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		lblNewLabel.setBounds(0, 0, 807, 57);
 		contentPane.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/encabezado.gif")));
+		lblNewLabel.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/encabezadodatos.png")));
+		
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setBackground(new Color(128, 0, 225));
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnNewButton.setBounds(207, 529, 108, 23);
+		contentPane.add(btnNewButton);
 	}
 }

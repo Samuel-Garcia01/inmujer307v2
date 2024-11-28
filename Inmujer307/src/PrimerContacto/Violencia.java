@@ -128,7 +128,7 @@ public class Violencia extends JFrame {
 		panel.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon(Violencia.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_8.setIcon(new ImageIcon(Violencia.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_8.setBounds(0, 0, 809, 57);
 		panel.add(lblNewLabel_8);
 
@@ -338,7 +338,7 @@ public class Violencia extends JFrame {
 		lblNewLabel_10.setBounds(10, 9, 165, 13);
 		panel_4.add(lblNewLabel_10);
 
-		JButton btnGuardar = new JButton("Siguiente");
+		JButton btnGuardar = new JButton("SIGUIENTE");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConexionInmujer conMujer = new ConexionInmujer();
@@ -423,8 +423,13 @@ public class Violencia extends JFrame {
 				insertar(tiposDeViolencia, modalidades, hechosYMotivos, DescripcionDeLosHechos);
 			}
 		});
-		btnGuardar.setBackground(new Color(243, 220, 220));
-		btnGuardar.setBounds(371, 579, 89, 23);
+		btnGuardar.setBackground(new Color(222, 158, 158));
+		btnGuardar.setBounds(518, 579, 89, 23);
 		contentPane.add(btnGuardar);
+		
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.setBackground(new Color(222, 158, 158));
+		btnNewButton.setBounds(256, 579, 96, 23);
+		contentPane.add(btnNewButton);
 	}
 }
