@@ -107,7 +107,7 @@ package SEGUROVIOLETA;
 	                        
 	                        if (rs.next()) {
 	                            // Si el expediente existe, abrir la ventana DATOSDELAGRESOR
-	                            DATOSDELAGRESOR datosVentana = new DATOSDELAGRESOR();
+	                            Efectosfisicos datosVentana = new Efectosfisicos();
 	                            datosVentana.setVisible(true);
 	                            datosVentana.setLocationRelativeTo(null);
 	                            datosVentana.cargarDatos(rs);

@@ -19,6 +19,7 @@ import MenuInmujer.MenuInmujer;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -66,6 +67,84 @@ public class Efectosfisicos extends JFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
+	
+	public void cargarDatos(ResultSet rs) {
+	    try {
+	        // Obtener los datos del resultado de la consulta
+	        String efectosFisicos = rs.getString("Efectos_fisicos");
+	        String efectosPsicologicos = rs.getString("Efectos_psicologicos");
+	        String efectosSexuales = rs.getString("Efectos_sexuales");
+	        String efectosEconomicos = rs.getString("Efectos_economicos_y_patrimoniales");
+
+	        // Asegúrate de que las casillas de verificación estén correctamente inicializadas
+	        JCheckBox[] efectosFisicosCheckboxes = { chkFractura, chkHerida, chkEnfermedad, chkCicatrices, chkQuemaduras, chkNinguno };
+	        JCheckBox[] efectosPsicologicosCheckboxes = { chkAngustia, chkEstresPostraumatico, chkAnsiedad, chkTranstornoAlimenticio, chkTranstornoSuenio, chkDepresion, chkIntentoSuicida, chkOtroPsicologico };
+	        JCheckBox[] efectosSexualesCheckboxes = { chkInfecciones, chkEmbarazo, chkAborto, chkNoAplicaSexuales };
+	        JCheckBox[] efectosEconomicosCheckboxes = { chkDejoTrabajar, chkNoRecibePensionAlimenticia, chkNoRecibeGasto, chkChantajeAportar, chkPerdidaPropiedades, chkPerdidaDocumentos, chkSalirDomicilio, chkNoAplicaEconomico };
+
+	        // Imprimir los valores obtenidos
+	        System.out.println("Efectos Físicos: " + efectosFisicos);
+	        System.out.println("Efectos Psicológicos: " + efectosPsicologicos);
+	        System.out.println("Efectos Sexuales: " + efectosSexuales);
+	        System.out.println("Efectos Económicos: " + efectosEconomicos);
+
+	        // Comparar los efectos físicos
+	        String[] efectosFisicosArray = efectosFisicos.split(",");
+	        for (JCheckBox checkBox : efectosFisicosCheckboxes) {
+	            boolean marcado = false;
+	            for (String efecto : efectosFisicosArray) {
+	                if (checkBox.getText().equals(efecto.trim())) {
+	                    marcado = true;
+	                    break;
+	                }
+	            }
+	            checkBox.setSelected(marcado);
+	        }
+
+	        // Comparar los efectos psicológicos
+	        String[] efectosPsicologicosArray = efectosPsicologicos.split(",");
+	        for (JCheckBox checkBox : efectosPsicologicosCheckboxes) {
+	            boolean marcado = false;
+	            for (String efecto : efectosPsicologicosArray) {
+	                if (checkBox.getText().equals(efecto.trim())) {
+	                    marcado = true;
+	                    break;
+	                }
+	            }
+	            checkBox.setSelected(marcado);
+	        }
+
+	        // Comparar los efectos sexuales
+	        String[] efectosSexualesArray = efectosSexuales.split(",");
+	        for (JCheckBox checkBox : efectosSexualesCheckboxes) {
+	            boolean marcado = false;
+	            for (String efecto : efectosSexualesArray) {
+	                if (checkBox.getText().equals(efecto.trim())) {
+	                    marcado = true;
+	                    break;
+	                }
+	            }
+	            checkBox.setSelected(marcado);
+	        }
+
+	        // Comparar los efectos económicos
+	        String[] efectosEconomicosArray = efectosEconomicos.split(",");
+	        for (JCheckBox checkBox : efectosEconomicosCheckboxes) {
+	            boolean marcado = false;
+	            for (String efecto : efectosEconomicosArray) {
+	                if (checkBox.getText().equals(efecto.trim())) {
+	                    marcado = true;
+	                    break;
+	                }
+	            }
+	            checkBox.setSelected(marcado);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public void insertarDatosEfectos() {
 		

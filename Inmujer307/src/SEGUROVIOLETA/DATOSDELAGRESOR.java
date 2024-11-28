@@ -44,6 +44,7 @@ public class DATOSDELAGRESOR extends JFrame {
 	    private JTextField txtOcupacion;
 	    
 
+	    
 	    public void cargarDatos(ResultSet rs) {
 	        try {
 	            // Obtener los datos del resultado de la consulta y cargarlos en los campos
