@@ -35,17 +35,43 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class DATOSDELAGRESOR extends JFrame {
+	
+	
+	 private JPanel contentPane;
+	    private JTextField txtNombre;
+	    private JTextField txtRelacion;
+	    private JTextField txtDomicilio;
+	    private JTextField txtOcupacion;
+	    
 
-	private JPanel contentPane;
-	private JTextField txtNombre;
-	private JTextField txtRelacion;
-	private JTextField txtDomicilio;
-	private JTextField txtOcupacion;
+	    public void cargarDatos(ResultSet rs) {
+	        try {
+	            // Obtener los datos del resultado de la consulta y cargarlos en los campos
+	            String nombre = rs.getString("Nombre_de_la_victima");
+	            String relacion = rs.getString("Relacion_o_Vinculo");
+	            String domicilio = rs.getString("Domicilio_completo");
+	            String ocupacion = rs.getString("Ocupacion_del_Agresor");
+	            String edad = rs.getString("Edad");
+	            
+	            txtNombre.setText(nombre);
+	            txtRelacion.setText(relacion);
+	            txtDomicilio.setText(domicilio);
+	            txtOcupacion.setText(ocupacion);
+	            comboEdad.setSelectedItem(edad);
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }	
+
+	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
+	JComboBox comboEdad = new JComboBox();
+
 
 	/**
 	 * Launch the application.
@@ -151,7 +177,6 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_5.setBounds(569, 11, 145, 14);
 		panel_1.add(lblNewLabel_5);
 
-		JComboBox comboEdad = new JComboBox();
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "seleccione una opcion", "1", "2", "3", "4", "5",
 				"6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 				"24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
