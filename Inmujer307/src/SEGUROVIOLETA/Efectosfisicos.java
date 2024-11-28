@@ -70,78 +70,57 @@ public class Efectosfisicos extends JFrame {
 	
 	public void cargarDatos(ResultSet rs) {
 	    try {
-	        // Obtener los datos del resultado de la consulta
+	        // Obtener datos del ResultSet
 	        String efectosFisicos = rs.getString("Efectos_fisicos");
 	        String efectosPsicologicos = rs.getString("Efectos_psicologicos");
 	        String efectosSexuales = rs.getString("Efectos_sexuales");
 	        String efectosEconomicos = rs.getString("Efectos_economicos_y_patrimoniales");
 
-	        // Asegúrate de que las casillas de verificación estén correctamente inicializadas
+	        // Validar datos nulos o vacíos
+	        efectosFisicos = (efectosFisicos == null) ? "" : efectosFisicos;
+	        efectosPsicologicos = (efectosPsicologicos == null) ? "" : efectosPsicologicos;
+	        efectosSexuales = (efectosSexuales == null) ? "" : efectosSexuales;
+	        efectosEconomicos = (efectosEconomicos == null) ? "" : efectosEconomicos;
+
+	        // Imprimir los datos obtenidos
+	        System.out.println("Efectos Físicos obtenidos: " + efectosFisicos);
+	        System.out.println("Efectos Psicológicos obtenidos: " + efectosPsicologicos);
+	        System.out.println("Efectos Sexuales obtenidos: " + efectosSexuales);
+	        System.out.println("Efectos Económicos obtenidos: " + efectosEconomicos);
+
+	        // Definir arreglos de JCheckBox
 	        JCheckBox[] efectosFisicosCheckboxes = { chkFractura, chkHerida, chkEnfermedad, chkCicatrices, chkQuemaduras, chkNinguno };
 	        JCheckBox[] efectosPsicologicosCheckboxes = { chkAngustia, chkEstresPostraumatico, chkAnsiedad, chkTranstornoAlimenticio, chkTranstornoSuenio, chkDepresion, chkIntentoSuicida, chkOtroPsicologico };
 	        JCheckBox[] efectosSexualesCheckboxes = { chkInfecciones, chkEmbarazo, chkAborto, chkNoAplicaSexuales };
 	        JCheckBox[] efectosEconomicosCheckboxes = { chkDejoTrabajar, chkNoRecibePensionAlimenticia, chkNoRecibeGasto, chkChantajeAportar, chkPerdidaPropiedades, chkPerdidaDocumentos, chkSalirDomicilio, chkNoAplicaEconomico };
 
-	        // Imprimir los valores obtenidos
-	        System.out.println("Efectos Físicos: " + efectosFisicos);
-	        System.out.println("Efectos Psicológicos: " + efectosPsicologicos);
-	        System.out.println("Efectos Sexuales: " + efectosSexuales);
-	        System.out.println("Efectos Económicos: " + efectosEconomicos);
-
-	        // Comparar los efectos físicos
-	        String[] efectosFisicosArray = efectosFisicos.split(",");
-	        for (JCheckBox checkBox : efectosFisicosCheckboxes) {
-	            boolean marcado = false;
-	            for (String efecto : efectosFisicosArray) {
-	                if (checkBox.getText().equals(efecto.trim())) {
-	                    marcado = true;
-	                    break;
-	                }
-	            }
-	            checkBox.setSelected(marcado);
-	        }
-
-	        // Comparar los efectos psicológicos
-	        String[] efectosPsicologicosArray = efectosPsicologicos.split(",");
-	        for (JCheckBox checkBox : efectosPsicologicosCheckboxes) {
-	            boolean marcado = false;
-	            for (String efecto : efectosPsicologicosArray) {
-	                if (checkBox.getText().equals(efecto.trim())) {
-	                    marcado = true;
-	                    break;
-	                }
-	            }
-	            checkBox.setSelected(marcado);
-	        }
-
-	        // Comparar los efectos sexuales
-	        String[] efectosSexualesArray = efectosSexuales.split(",");
-	        for (JCheckBox checkBox : efectosSexualesCheckboxes) {
-	            boolean marcado = false;
-	            for (String efecto : efectosSexualesArray) {
-	                if (checkBox.getText().equals(efecto.trim())) {
-	                    marcado = true;
-	                    break;
-	                }
-	            }
-	            checkBox.setSelected(marcado);
-	        }
-
-	        // Comparar los efectos económicos
-	        String[] efectosEconomicosArray = efectosEconomicos.split(",");
-	        for (JCheckBox checkBox : efectosEconomicosCheckboxes) {
-	            boolean marcado = false;
-	            for (String efecto : efectosEconomicosArray) {
-	                if (checkBox.getText().equals(efecto.trim())) {
-	                    marcado = true;
-	                    break;
-	                }
-	            }
-	            checkBox.setSelected(marcado);
-	        }
+	        // Actualizar JCheckBox
+	        actualizarCheckboxes(efectosFisicos.split(","), efectosFisicosCheckboxes, "Físicos");
+	        actualizarCheckboxes(efectosPsicologicos.split(","), efectosPsicologicosCheckboxes, "Psicológicos");
+	        actualizarCheckboxes(efectosSexuales.split(","), efectosSexualesCheckboxes, "Sexuales");
+	        actualizarCheckboxes(efectosEconomicos.split(","), efectosEconomicosCheckboxes, "Económicos");
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    }
+	}
+
+	private void actualizarCheckboxes(String[] efectosArray, JCheckBox[] checkboxes, String categoria) {
+	    for (JCheckBox checkBox : checkboxes) {
+	        boolean marcado = false;
+	        System.out.println("Evaluando JCheckBox: " + checkBox.getText());
+	        for (String efecto : efectosArray) {
+	            System.out.println("Comparando con efecto: " + efecto.trim());
+	            if (checkBox.getText().trim().equalsIgnoreCase(efecto.trim())) {
+	                marcado = true;
+	                System.out.println("Coincidencia encontrada para: " + checkBox.getText());
+	                break;
+	            }
+	        }
+	        checkBox.setSelected(marcado);
+	        if (!marcado) {
+	            System.out.println("No se encontró coincidencia para: " + checkBox.getText());
+	        }
 	    }
 	}
 
