@@ -278,22 +278,11 @@ public class DATOSDELAGRESOR extends JFrame {
 				contentPane.add(btnContinuar);
 				btnContinuar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String DatosdelAgresor = "";
-						if (!txtNombre.getText().isEmpty()) {
-							DatosdelAgresor += "Nombre: " + txtNombre.getText() + ",";
-						} else {
-							DatosdelAgresor += "Nombre: Dato no dado" + ",";
-						}
-						if (comboEdad.getSelectedIndex() == 0) {
-							DatosdelAgresor += "Edad: dato no dado";
-						} else {
-							DatosdelAgresor += "Edad: " + comboEdad.getSelectedItem().toString() + ",";
-						}
-
+						String edad = comboEdad.getSelectedItem().toString();
 						String RelacionoVinculo = txtRelacion.getText();
 						String Domicilio = txtDomicilio.getText();
 						String Ocupacion = txtOcupacion.getText();
-						InsertarEnBase(DatosdelAgresor, RelacionoVinculo, Domicilio, Ocupacion);
+						
 					}
 				});
 	}

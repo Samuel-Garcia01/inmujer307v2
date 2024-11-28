@@ -165,6 +165,16 @@ public class MenuInmujer extends JFrame {
 		btnseguro.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/segvioleta.png")));
 		
 		JButton btnNewButton_1 = new JButton("Seguro Violeta");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatosGenerales ventanaDatosGenerales = new DatosGenerales();
+				dispose();
+				ventanaDatosGenerales.setVisible(true);
+				ventanaDatosGenerales.setLocationRelativeTo(null);
+				JOptionPane.showMessageDialog(null, "INGRESE EL NUMERO DE EXPEDIENTE QUE SE LE DIO EN PRIMER CONTACTO","ESTE PASO ES IMPORTANTE PARA PODER CONTINUAR",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setFont(new Font("Californian FB", Font.BOLD, 12));
 		btnNewButton_1.setBackground(new Color(238, 196, 255));

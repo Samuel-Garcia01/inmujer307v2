@@ -1,4 +1,6 @@
 package SEGUROVIOLETA;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.*;
@@ -19,6 +21,8 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import ConexionBaseDeDatos.ConexionInmujer;
+import PrimerContacto.Violencia;
 import clasesExternas.FechaHora;
 
 import javax.swing.JComboBox;
@@ -29,6 +33,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DatosGenerales extends JFrame {
 
@@ -36,14 +44,12 @@ public class DatosGenerales extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtApellidopaterno;
-	private JTextField txtApellidoMaterno;
-	private JTextField txtNombres;
 	private JTextField txtDomicilio;
 	private JTextField txtOcupacion;
 	private JTextField txtNumeroCelular;
 	private JTextField txtnumeroDeCasa;
 	private JTextField txtEstado;
-	private JTextField textField_12;
+	private JTextField txtExpediente;
 	private JTextField txtFecha;
 	JComboBox comboDia = new JComboBox();
 	JComboBox comboMes = new JComboBox();
@@ -54,19 +60,59 @@ public class DatosGenerales extends JFrame {
 	JComboBox comboNopersonas = new JComboBox();
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
-	JTextArea area = new JTextArea();
+	JTextArea areaContacto = new JTextArea();
 	FechaHora fech = new FechaHora();
 	JTextArea areadenuncia = new JTextArea();
 
+	 JComboBox combotipodevivienda = new JComboBox();
 	
 	String NombreDeLaVictima;
 	private JTextField txtEstadodesalud;
 	private JTextField txtparentesco;
 	private JTextField txtestructurafamiliar;
+	 public void tiempo () {
+	 }
+	
 
-	public void EncontrarExpediene() {
-		
-	}
+
+
+	 
+
+	 
+	 public void EncontrarEXP(ResultSet rs) {
+	        try {
+	            
+	            String nombre = rs.getString("Nombre_de_la_victima");
+	            String codigoPostal = rs.getString("Codigo_postal");
+	            String colonia = rs.getString("Colonia");
+	            String Domicio = rs.getString("Domicilio");
+	            String Ocupacion = rs.getString("Ocupacion");
+	            String numCelu = rs.getString("Telefono_Celular");
+	            String NumCasa = rs.getString("Telefono_Casa");
+	            String Estadocivil = rs.getString("Estado_Civil");
+	            String Edad = rs.getString("Edad");	            
+	            String Vivienda = rs.getString("Vivienda");
+	   	        String noPersonas = rs.getString("No_Personas");
+	            
+	           
+	            txtApellidopaterno.setText(nombre);
+	            comboCodigoPostal.setSelectedItem(codigoPostal);
+	            comboColonia.setSelectedItem(colonia);
+	            txtDomicilio.setText(Domicio);
+	            txtOcupacion.setText(Ocupacion);
+	            txtNumeroCelular.setText(numCelu);
+	            txtnumeroDeCasa.setText(NumCasa);
+	            ComboEstadOCivil.setSelectedItem(Estadocivil);
+	            comboEdad.setSelectedItem(Edad);
+	            comboVivienda.setSelectedItem(Vivienda);
+	            comboNopersonas.setSelectedItem(noPersonas);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	
+	 }
+	
 
 	/**
 	 * Launch the application.
@@ -75,16 +121,19 @@ public class DatosGenerales extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					DatosGenerales frame = new DatosGenerales();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
+			
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -120,7 +169,7 @@ public class DatosGenerales extends JFrame {
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
 		txtApellidopaterno.setForeground(Color.BLACK);
 		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtApellidopaterno.setBounds(23, 11, 138, 20);
+		txtApellidopaterno.setBounds(23, 11, 485, 20);
 		panel_1.add(txtApellidopaterno);
 		txtApellidopaterno.setColumns(10);
 
@@ -130,59 +179,11 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_2.setBounds(206, 35, 138, 14);
 		panel_1.add(lblNewLabel_2);
 
-		txtApellidoMaterno = new JTextField();
-		txtApellidoMaterno.setEditable(false);
-		txtApellidoMaterno.addKeyListener(new KeyAdapter() {
-			
-		});
-		txtApellidoMaterno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Aqui implemente un if para que cuando termine de escribir lo mande al
-				// siguiente txt automaticamente
-				if (txtApellidoMaterno.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡No puedes continuar, necesitas llenar este campo!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					txtNombres.requestFocus();
-				}
-			}
-		});
-		txtApellidoMaterno.setBackground(new Color(243, 220, 220));
-		txtApellidoMaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtApellidoMaterno.setBounds(206, 11, 138, 20);
-		panel_1.add(txtApellidoMaterno);
-		txtApellidoMaterno.setColumns(10);
-
 		JLabel lblNewLabel_3 = new JLabel("NOMBRE/S");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_3.setBounds(386, 35, 122, 14);
 		panel_1.add(lblNewLabel_3);
-
-		txtNombres = new JTextField();
-		txtNombres.setEditable(false);
-		txtNombres.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent avt) {
-				int k = (int) avt.getKeyChar();
-				if (k >= 47 && k <= 58) {
-					avt.setKeyChar((char) KeyEvent.VK_CLEAR);
-					JOptionPane.showMessageDialog(null, "¡Error, solo se aceptan letras en este campo!",
-							"Ingrese los datos nuevamente", JOptionPane.ERROR_MESSAGE);
-				}
-
-			}
-		});
-		txtNombres.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		txtNombres.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtNombres.setBackground(new Color(243, 220, 220));
-		txtNombres.setBounds(386, 11, 122, 20);
-		panel_1.add(txtNombres);
-		txtNombres.setColumns(10);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -295,7 +296,6 @@ public class DatosGenerales extends JFrame {
 		panel_3.setBounds(10, 175, 568, 103);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
-		comboCodigoPostal.setEnabled(false);
 
 		comboCodigoPostal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -817,24 +817,36 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_20.setBounds(27, 142, 194, 14);
 		panel_4.add(lblNewLabel_20);
 
-		area.setBackground(new Color(243, 220, 220));
-		area.setBounds(272, 313, 303, 103);
-		contentPane.add(area);
+		areaContacto.setBackground(new Color(243, 220, 220));
+		areaContacto.setBounds(272, 313, 303, 103);
+		contentPane.add(areaContacto);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
 		lblNewLabel_25.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_25.setBounds(20, 71, 49, 14);
 		contentPane.add(lblNewLabel_25);
 
-		textField_12 = new JTextField();
-		textField_12.setEditable(false);
-		textField_12.setBounds(56, 66, 96, 20);
-		contentPane.add(textField_12);
-		textField_12.setColumns(10);
+		txtExpediente = new JTextField();
+		txtExpediente.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String text = txtExpediente.getText();
+				}
+			}
+		});
+		txtExpediente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		txtExpediente.setBounds(56, 66, 96, 20);
+		contentPane.add(txtExpediente);
+		txtExpediente.setColumns(10);
 
 		JLabel lblNewLabel_26 = new JLabel("FECHA");
 		lblNewLabel_26.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_26.setBounds(172, 71, 49, 14);
+		lblNewLabel_26.setBounds(343, 72, 49, 14);
 		contentPane.add(lblNewLabel_26);
 
 		txtFecha = new JTextField(fech.obtenerFechaCortainversa());
@@ -843,7 +855,7 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		txtFecha.setEditable(false);
-		txtFecha.setBounds(223, 66, 116, 20);
+		txtFecha.setBounds(418, 66, 116, 20);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
@@ -868,35 +880,54 @@ public class DatosGenerales extends JFrame {
 				// Se generan las variables para su almacenaciento, esto nos ayudara a guardar
 				// los datos ingresado
 				// por el usuario
-				String fecha = txtFecha.getText();
-				
-				NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "
-						+ txtNombres.getText();
-				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
-				
-				int edad = Integer.parseInt(comboEdad.getSelectedItem().toString());
-				String Ocupacion = txtOcupacion.getText();
-				
-				
-				String Domicilio = txtDomicilio.getText();
-				String CodigoPostal = comboCodigoPostal.getSelectedItem().toString();
-				String colonia = comboColonia.getSelectedItem().toString();
-				String Estado = txtEstado.getText();
-				String telefonoCelular = txtNumeroCelular.getText();
-				String telefonoCasa = txtnumeroDeCasa.getText();
-				String vivienda = comboVivienda.getSelectedItem().toString();
-				String nopersonas = comboNopersonas.getSelectedItem().toString();
-				
-				
-				
-				
-				String dependientes = area.getText();
-				String FechaDeNacimiento = comboAnio.getSelectedItem().toString() + "-"
-						+ comboMes.getSelectedItem().toString() + "-" + comboDia.getSelectedItem().toString();
-
+				String Denuncia = areadenuncia.getText();
+				String Contacto = areaContacto.getText();
+				String EstadoSalud = txtEstadodesalud.getText();
+				String parentesco = txtparentesco.getText();
+				String tipoVivienda = combotipodevivienda.getSelectedItem().toString();
+				String Estructura = txtestructurafamiliar.getText();
+	
 				// En esta seccion se genera la conexion a la base de datos, la cual enviara la
 				// informacion almacenada
 				// en las variables creadas anteriormente.
+				ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
+				String sql = "UPDATE seguro_violeta SET Estado_de_salud = ?,Denuncia_y/o_demanda = ?,Estructura_familiar = ?,Escolaridad_y/o_Ocupacion = ?,Parentesco = ?,Tipo_Vivienda = ?";
+				try {
+					// Preparamos la sentencia sql para conectarlo en la base de datos
+					// comentamos anteriormente
+
+					PreparedStatement pst = con.prepareStatement(sql);
+					pst.setString(1, EstadoSalud);
+					pst.setString(2, Denuncia);
+					pst.setString(3, Estructura);
+					pst.setString(4, Contacto);
+					pst.setString(5, parentesco);
+					pst.setString(6, tipoVivienda);
+					
+
+					int valor = pst.executeUpdate();
+					if (valor == 1) {
+						System.out.println("Insertado correctamente");
+
+						//BuscarExpediente();
+						// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
+						// campo
+						JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
+								"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
+						// Aqui generamos una instancia que lo mande automaticamente a la siguiente
+						// ventana despues del proceso antes mostrado
+						DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+						dispose();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+					} else {
+						System.out.println("No se inserto");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 				
 		});
@@ -993,7 +1024,7 @@ public class DatosGenerales extends JFrame {
 					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					area.requestFocus();
+					areaContacto.requestFocus();
 				}
 			}
 		});
@@ -1060,7 +1091,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_17_1_1_1.setBounds(139, 11, 119, 14);
 		panel_5.add(lblNewLabel_17_1_1_1);
 		
-		JComboBox combotipodevivienda = new JComboBox();
+		
 		combotipodevivienda.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "casa", "cuarto", "departamento"}));
 		combotipodevivienda.setBounds(149, 34, 131, 22);
 		panel_5.add(combotipodevivienda);
@@ -1077,5 +1108,49 @@ public class DatosGenerales extends JFrame {
 		txtestructurafamiliar.setBackground(new Color(243, 220, 220));
 		txtestructurafamiliar.setBounds(149, 91, 98, 20);
 		panel_5.add(txtestructurafamiliar);
+		
+		JButton btnBuscar = new JButton("BUSCAR EXPEDIENTE");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EXP = txtExpediente.getText();
+				  int pro =  JOptionPane.showConfirmDialog(null, "ESTAS SEGURO QUE ES TU NUMERO DE EXPEDIENTE");
+                  if (pro == 0) {
+               	   // Realizar la consulta para obtener los datos del expediente
+                      String sql = "SELECT * FROM datos WHERE EXP = ?";
+                      ConexionInmujer conexion = new ConexionInmujer();
+                      Connection con = conexion.conectar();
+
+                      try {
+                          PreparedStatement pst = con.prepareStatement(sql);
+                          pst.setString(1, EXP);
+                          ResultSet rs = pst.executeQuery();
+                          if (rs.next()) {
+                          	DatosGenerales Ventana = new DatosGenerales();
+                          	Ventana.setVisible(true);
+                              Ventana.setLocationRelativeTo(null);
+                              Ventana.EncontrarEXP(rs);
+                              dispose(); 
+                        
+                          	
+                          }
+                          
+                          	
+                      } catch (SQLException e1) {
+                          e1.printStackTrace();
+                      }
+				}else if (pro ==1) {
+					JOptionPane.showMessageDialog(null, "CORROBORELO PORFAVOR");
+				}else if (pro == 2) {
+					JOptionPane.showMessageDialog(null, "Vuelva Pronto");
+				}
+                if (EXP.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debe ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
+                 
+                }
+			}
+		});
+		btnBuscar.setBounds(173, 67, 160, 23);
+		contentPane.add(btnBuscar);
+		 
 	}
-}
+	 }
