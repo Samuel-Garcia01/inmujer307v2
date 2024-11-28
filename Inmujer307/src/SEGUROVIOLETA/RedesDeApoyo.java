@@ -38,8 +38,8 @@ public class RedesDeApoyo extends JFrame {
     }
 
     public RedesDeApoyo() {
-        conexion = new ConexionInmujer();
-        con = conexion.conectar();
+       ConexionInmujer conexion = new ConexionInmujer();
+      Connection con = conexion.conectar();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 823, 650);
@@ -145,6 +145,8 @@ public class RedesDeApoyo extends JFrame {
     }
 
     public void cargarDatos(int exp) {
+    	 ConexionInmujer conexion = new ConexionInmujer();
+         Connection con = conexion.conectar();
         String sql = "SELECT Redes_de_apoyo, Nombre_de_la_victima, Telefono_Celular FROM datos WHERE EXP = ?";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setInt(1, exp);
