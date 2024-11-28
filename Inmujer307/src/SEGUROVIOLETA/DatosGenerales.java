@@ -19,7 +19,7 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
-
+import clasesExternas.FechaHora;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -55,19 +55,18 @@ public class DatosGenerales extends JFrame {
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
 	JTextArea area = new JTextArea();
+	FechaHora fech = new FechaHora();
+	JTextArea areadenuncia = new JTextArea();
+
 	
 	String NombreDeLaVictima;
 	private JTextField txtEstadodesalud;
 	private JTextField txtparentesco;
 	private JTextField txtestructurafamiliar;
 
-	public void BuscarExpediente() {
-		// Aqui se crea un metodo para generar el numero de expediente medianate la
-		// conexion ala base de datos
+	public void EncontrarExpediene() {
 		
-
 	}
-	// Aqui definimos la variable
 
 	/**
 	 * Launch the application.
@@ -113,26 +112,10 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_1);
 
 		txtApellidopaterno = new JTextField();
+		txtApellidopaterno.setEditable(false);
 		txtApellidopaterno.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent a) {
-				int k = (int) a.getKeyChar();
-				if (k >= 47 && k <= 58) {
-					a.setKeyChar((char) KeyEvent.VK_CLEAR);
-					JOptionPane.showMessageDialog(null, "¡Error, solo se aceptan letras en este campo! ",
-							"Ingrese los datos nuevamente", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		txtApellidopaterno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (txtApellidopaterno.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡No puedes continuar, necesitas llenar este campo!");
-				} else {
-					txtApellidoMaterno.requestFocus();
-				}
-
-			}
+		
+			
 		});
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
 		txtApellidopaterno.setForeground(Color.BLACK);
@@ -148,16 +131,9 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_2);
 
 		txtApellidoMaterno = new JTextField();
+		txtApellidoMaterno.setEditable(false);
 		txtApellidoMaterno.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent av) {
-				int k = (int) av.getKeyChar();
-				if (k >= 47 && k <= 58) {
-					av.setKeyChar((char) KeyEvent.VK_CLEAR);
-					JOptionPane.showMessageDialog(null, "¡Error, solo se aceptan letras en este campo! ",
-							"Ingrese los datos nuevamente", JOptionPane.ERROR_MESSAGE);
-				}
-			}
+			
 		});
 		txtApellidoMaterno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -184,6 +160,7 @@ public class DatosGenerales extends JFrame {
 		panel_1.add(lblNewLabel_3);
 
 		txtNombres = new JTextField();
+		txtNombres.setEditable(false);
 		txtNombres.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent avt) {
@@ -199,14 +176,6 @@ public class DatosGenerales extends JFrame {
 		txtNombres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// Aqui se implementa un if para que cuando de un Enter lo mande alsiguiente txt
-				// automaticamente
-				if (txtApellidoMaterno.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡No puedes continuar, necesitas llenar este campo!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboCodigoPostal.showPopup();
-				}
 			}
 		});
 		txtNombres.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -326,6 +295,7 @@ public class DatosGenerales extends JFrame {
 		panel_3.setBounds(10, 175, 568, 103);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
+		comboCodigoPostal.setEnabled(false);
 
 		comboCodigoPostal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -718,13 +688,10 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(lblNewLabel_15);
 
 		txtDomicilio = new JTextField();
+		txtDomicilio.setEditable(false);
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtDomicilio.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-				} else {
-					txtOcupacion.requestFocus();
-				}
+				
 			}
 		});
 		txtDomicilio.setBackground(new Color(243, 220, 220));
@@ -771,15 +738,14 @@ public class DatosGenerales extends JFrame {
 		panel_4.setLayout(null);
 
 		txtOcupacion = new JTextField();
+		txtOcupacion.setEditable(false);
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (txtOcupacion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-				
+			}
 
-			}
-			}
+			
+			
 		});
 		txtOcupacion.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtOcupacion.setBackground(new Color(243, 220, 220));
@@ -794,6 +760,7 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_17);
 
 		txtNumeroCelular = new JTextField();
+		txtNumeroCelular.setEditable(false);
 		txtNumeroCelular.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ev) {
@@ -812,11 +779,7 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (txtNumeroCelular.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-				} else {
-					txtnumeroDeCasa.requestFocus();
-				}
+				
 			}
 		});
 		txtNumeroCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -832,25 +795,16 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_19);
 
 		txtnumeroDeCasa = new JTextField();
+		txtnumeroDeCasa.setEditable(false);
 		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
-			@Override
+		
 			public void keyTyped(KeyEvent evt) {
-				int k = (int) evt.getKeyChar();
-				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
-					evt.setKeyChar((char) KeyEvent.VK_CLEAR);
-					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
-							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
-				}
-				if (txtnumeroDeCasa.getText().trim().length() == 10) {
-					evt.consume();
-				}
-			}
-		});
-		txtnumeroDeCasa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
+		
+				
+			
 		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtnumeroDeCasa.setBackground(new Color(243, 220, 220));
 		txtnumeroDeCasa.setBounds(27, 111, 194, 20);
@@ -864,7 +818,7 @@ public class DatosGenerales extends JFrame {
 		panel_4.add(lblNewLabel_20);
 
 		area.setBackground(new Color(243, 220, 220));
-		area.setBounds(272, 312, 303, 103);
+		area.setBounds(272, 313, 303, 103);
 		contentPane.add(area);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
@@ -878,14 +832,18 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(textField_12);
 		textField_12.setColumns(10);
 
-		JLabel lblNewLabel_26 = new JLabel("MES");
+		JLabel lblNewLabel_26 = new JLabel("FECHA");
 		lblNewLabel_26.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_26.setBounds(172, 71, 49, 14);
 		contentPane.add(lblNewLabel_26);
 
-		txtFecha = new JTextField();
+		txtFecha = new JTextField(fech.obtenerFechaCortainversa());
+		txtFecha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		txtFecha.setEditable(false);
-		txtFecha.setBounds(206, 66, 116, 20);
+		txtFecha.setBounds(223, 66, 116, 20);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
 
@@ -1058,7 +1016,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_30_1.setBounds(10, 467, 235, 14);
 		contentPane.add(lblNewLabel_30_1);
 		
-		JTextArea areadenuncia = new JTextArea();
+		
 		areadenuncia.setBackground(new Color(243, 220, 220));
 		areadenuncia.setBounds(10, 492, 252, 103);
 		contentPane.add(areadenuncia);
