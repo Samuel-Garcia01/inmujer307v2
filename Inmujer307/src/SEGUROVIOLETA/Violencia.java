@@ -140,6 +140,7 @@ public class Violencia extends JFrame {
 		panel_1.setLayout(null);
 
 		JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
+		chckbxViolenciaFisica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaFisica);
 		chckbxViolenciaFisica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaFisica.setFont(new Font("Arial", Font.BOLD, 12));
@@ -152,6 +153,7 @@ public class Violencia extends JFrame {
 		panel_1.add(lblNewLabel);
 
 		JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
+		chckbxViolenciaPsicologica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaPsicologica);
 		chckbxViolenciaPsicologica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPsicologica.setFont(new Font("Arial", Font.BOLD, 12));
@@ -159,6 +161,7 @@ public class Violencia extends JFrame {
 		panel_1.add(chckbxViolenciaPsicologica);
 
 		JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
+		chckbxViolenciaSexual.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaSexual);
 		chckbxViolenciaSexual.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaSexual.setFont(new Font("Arial", Font.BOLD, 12));
@@ -166,6 +169,7 @@ public class Violencia extends JFrame {
 		panel_1.add(chckbxViolenciaSexual);
 
 		JCheckBox chckbxViolenciaEconomica = new JCheckBox("Violencia Económica");
+		chckbxViolenciaEconomica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaEconomica);
 		chckbxViolenciaEconomica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaEconomica.setFont(new Font("Arial", Font.BOLD, 12));
@@ -173,6 +177,7 @@ public class Violencia extends JFrame {
 		panel_1.add(chckbxViolenciaEconomica);
 
 		JCheckBox chckbxViolenciaPatrimonial = new JCheckBox("Violencia Patrimonial");
+		chckbxViolenciaPatrimonial.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaPatrimonial);
 		chckbxViolenciaPatrimonial.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPatrimonial.setFont(new Font("Arial", Font.BOLD, 12));
@@ -180,6 +185,7 @@ public class Violencia extends JFrame {
 		panel_1.add(chckbxViolenciaPatrimonial);
 
 		JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
+		chckbxViolenciaVicaria.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaVicaria);
 		chckbxViolenciaVicaria.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaVicaria.setFont(new Font("Arial", Font.BOLD, 12));
@@ -199,6 +205,7 @@ public class Violencia extends JFrame {
 		panel_2.add(lblNewLabel_1);
 
 		JCheckBox chckbxFamilia = new JCheckBox("Familia");
+		chckbxFamilia.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxFamilia);
 		chckbxFamilia.setBackground(new Color(243, 220, 220));
 		chckbxFamilia.setFont(new Font("Arial", Font.BOLD, 12));
@@ -206,6 +213,7 @@ public class Violencia extends JFrame {
 		panel_2.add(chckbxFamilia);
 
 		JCheckBox chckbxDocente = new JCheckBox("Docente");
+		chckbxDocente.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxDocente);
 		chckbxDocente.setBackground(new Color(243, 220, 220));
 		chckbxDocente.setFont(new Font("Arial", Font.BOLD, 12));
@@ -213,6 +221,7 @@ public class Violencia extends JFrame {
 		panel_2.add(chckbxDocente);
 
 		JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
+		chckbxInstitucional.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxInstitucional);
 		chckbxInstitucional.setBackground(new Color(243, 220, 220));
 		chckbxInstitucional.setFont(new Font("Arial", Font.BOLD, 12));
@@ -220,6 +229,7 @@ public class Violencia extends JFrame {
 		panel_2.add(chckbxInstitucional);
 
 		JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
+		chckbxComunitario.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxComunitario);
 		chckbxComunitario.setBackground(new Color(243, 220, 220));
 		chckbxComunitario.setFont(new Font("Arial", Font.BOLD, 12));
@@ -227,6 +237,7 @@ public class Violencia extends JFrame {
 		panel_2.add(chckbxComunitario);
 
 		JCheckBox chckbxLaboral = new JCheckBox("Laboral");
+		chckbxLaboral.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxLaboral);
 		chckbxLaboral.setBackground(new Color(243, 220, 220));
 		chckbxLaboral.setFont(new Font("Arial", Font.BOLD, 12));
@@ -234,6 +245,7 @@ public class Violencia extends JFrame {
 		panel_2.add(chckbxLaboral);
 
 		JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
+		chckbxCibernetica.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxCibernetica);
 		chckbxCibernetica.setBackground(new Color(243, 220, 220));
 		chckbxCibernetica.setFont(new Font("Arial", Font.BOLD, 12));
@@ -247,6 +259,8 @@ public class Violencia extends JFrame {
 		panel_4.setLayout(null);
 
 		JTextArea textArea = new JTextArea();
+		textArea.setForeground(new Color(75, 0, 130));
+		textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		textArea.setBackground(new Color(243, 220, 220));
 		textArea.setBounds(10, 31, 769, 70);
 		panel_4.add(textArea);

@@ -263,45 +263,45 @@ public class Efectosfisicos extends JFrame {
 		panelEfectosFisicos.add(lblNewLabel_1);
 		buttonGroup.add(chkHerida);
 		
-		chkHerida.setForeground(Color.BLACK);
+		chkHerida.setForeground(new Color(47, 79, 79));
 		chkHerida.setBackground(new Color(243, 220, 220));
 		chkHerida.setFont(new Font("Tahoma", Font.BOLD, 11));
-		chkHerida.setBounds(6, 27, 97, 23);
+		chkHerida.setBounds(56, 29, 97, 23);
 		panelEfectosFisicos.add(chkHerida);
 		buttonGroup.add(chkFractura);
 		
 		chkFractura.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkFractura.setBackground(new Color(243, 220, 220));
-		chkFractura.setForeground(Color.BLACK);
-		chkFractura.setBounds(6, 60, 97, 23);
+		chkFractura.setForeground(new Color(47, 79, 79));
+		chkFractura.setBounds(56, 62, 97, 23);
 		panelEfectosFisicos.add(chkFractura);
 		buttonGroup.add(chkEnfermedad);
 		
 		chkEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEnfermedad.setBackground(new Color(243, 220, 220));
-		chkEnfermedad.setForeground(Color.BLACK);
-		chkEnfermedad.setBounds(195, 27, 118, 23);
+		chkEnfermedad.setForeground(new Color(47, 79, 79));
+		chkEnfermedad.setBounds(335, 34, 118, 23);
 		panelEfectosFisicos.add(chkEnfermedad);
 		buttonGroup.add(chkCicatrices);
 		
 		chkCicatrices.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkCicatrices.setBackground(new Color(243, 220, 220));
-		chkCicatrices.setForeground(Color.BLACK);
-		chkCicatrices.setBounds(384, 34, 97, 23);
+		chkCicatrices.setForeground(new Color(47, 79, 79));
+		chkCicatrices.setBounds(596, 36, 97, 23);
 		panelEfectosFisicos.add(chkCicatrices);
 		buttonGroup.add(chkQuemaduras);
 		
 		chkQuemaduras.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkQuemaduras.setBackground(new Color(243, 220, 220));
-		chkQuemaduras.setForeground(Color.BLACK);
-		chkQuemaduras.setBounds(195, 60, 135, 23);
+		chkQuemaduras.setForeground(new Color(47, 79, 79));
+		chkQuemaduras.setBounds(335, 67, 135, 23);
 		panelEfectosFisicos.add(chkQuemaduras);
 		buttonGroup.add(chkNinguno);
 		
 		chkNinguno.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNinguno.setBackground(new Color(243, 220, 220));
-		chkNinguno.setForeground(Color.BLACK);
-		chkNinguno.setBounds(384, 60, 97, 23);
+		chkNinguno.setForeground(new Color(47, 79, 79));
+		chkNinguno.setBounds(596, 62, 97, 23);
 		panelEfectosFisicos.add(chkNinguno);
 		
 		JPanel panelEfectosPsicologicos = new JPanel();
@@ -312,59 +312,69 @@ public class Efectosfisicos extends JFrame {
 		panelEfectosPsicologicos.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("PSICOLOGICOS");
+		lblNewLabel_2.setForeground(new Color(0, 0, 0));
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(139, 11, 129, 14);
 		panelEfectosPsicologicos.add(lblNewLabel_2);
 		buttonGroup_1.add(chkAngustia);
+		chkAngustia.setForeground(new Color(47, 79, 79));
 		
 		chkAngustia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAngustia.setBackground(new Color(243, 220, 220));
 		chkAngustia.setBounds(6, 47, 178, 23);
 		panelEfectosPsicologicos.add(chkAngustia);
 		buttonGroup_1.add(chkEstresPostraumatico);
+		chkEstresPostraumatico.setForeground(new Color(47, 79, 79));
 		
 		chkEstresPostraumatico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEstresPostraumatico.setBackground(new Color(243, 220, 220));
 		chkEstresPostraumatico.setBounds(6, 85, 178, 23);
 		panelEfectosPsicologicos.add(chkEstresPostraumatico);
 		buttonGroup_1.add(chkAnsiedad);
+		chkAnsiedad.setForeground(new Color(47, 79, 79));
 		
 		chkAnsiedad.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAnsiedad.setBackground(new Color(243, 220, 220));
 		chkAnsiedad.setBounds(6, 121, 178, 23);
 		panelEfectosPsicologicos.add(chkAnsiedad);
 		buttonGroup_1.add(chkTranstornoAlimenticio);
+		chkTranstornoAlimenticio.setForeground(new Color(47, 79, 79));
 		
 		chkTranstornoAlimenticio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkTranstornoAlimenticio.setBackground(new Color(243, 220, 220));
 		chkTranstornoAlimenticio.setBounds(6, 203, 196, 23);
 		panelEfectosPsicologicos.add(chkTranstornoAlimenticio);
 		buttonGroup_1.add(chkTranstornoSuenio);
+		chkTranstornoSuenio.setForeground(new Color(47, 79, 79));
 		
 		chkTranstornoSuenio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkTranstornoSuenio.setBackground(new Color(243, 220, 220));
 		chkTranstornoSuenio.setBounds(204, 47, 185, 23);
 		panelEfectosPsicologicos.add(chkTranstornoSuenio);
 		buttonGroup_1.add(chkDepresion);
+		chkDepresion.setForeground(new Color(47, 79, 79));
 		
 		chkDepresion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkDepresion.setBackground(new Color(243, 220, 220));
 		chkDepresion.setBounds(204, 85, 167, 23);
 		panelEfectosPsicologicos.add(chkDepresion);
 		buttonGroup_1.add(chkIntentoSuicida);
+		chkIntentoSuicida.setForeground(new Color(47, 79, 79));
 		
 		chkIntentoSuicida.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkIntentoSuicida.setBackground(new Color(243, 220, 220));
 		chkIntentoSuicida.setBounds(6, 163, 185, 23);
 		panelEfectosPsicologicos.add(chkIntentoSuicida);
 		buttonGroup_1.add(chkOtroPsicologico);
+		chkOtroPsicologico.setForeground(new Color(47, 79, 79));
 		
 		chkOtroPsicologico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkOtroPsicologico.setBackground(new Color(243, 220, 220));
-		chkOtroPsicologico.setBounds(204, 203, 167, 23);
+		chkOtroPsicologico.setBounds(204, 121, 167, 23);
 		panelEfectosPsicologicos.add(chkOtroPsicologico);
 		
 		JPanel panelEfectosSexuales = new JPanel();
+		panelEfectosSexuales.setForeground(new Color(47, 79, 79));
 		panelEfectosSexuales.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panelEfectosSexuales.setBackground(new Color(243, 220, 220));
 		panelEfectosSexuales.setBounds(429, 171, 368, 233);
@@ -376,24 +386,28 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_3.setBounds(141, 11, 101, 14);
 		panelEfectosSexuales.add(lblNewLabel_3);
 		buttonGroup_2.add(chkInfecciones);
+		chkInfecciones.setForeground(new Color(47, 79, 79));
 		
 		chkInfecciones.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkInfecciones.setBackground(new Color(243, 220, 220));
 		chkInfecciones.setBounds(52, 74, 113, 23);
 		panelEfectosSexuales.add(chkInfecciones);
 		buttonGroup_2.add(chkEmbarazo);
+		chkEmbarazo.setForeground(new Color(47, 79, 79));
 		
 		chkEmbarazo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkEmbarazo.setBackground(new Color(243, 220, 220));
 		chkEmbarazo.setBounds(215, 74, 97, 23);
 		panelEfectosSexuales.add(chkEmbarazo);
 		buttonGroup_2.add(chkAborto);
+		chkAborto.setForeground(new Color(47, 79, 79));
 		
 		chkAborto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkAborto.setBackground(new Color(243, 220, 220));
 		chkAborto.setBounds(52, 150, 97, 23);
 		panelEfectosSexuales.add(chkAborto);
 		buttonGroup_2.add(chkNoAplicaSexuales);
+		chkNoAplicaSexuales.setForeground(new Color(47, 79, 79));
 		
 		chkNoAplicaSexuales.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoAplicaSexuales.setBackground(new Color(243, 220, 220));
@@ -412,6 +426,7 @@ public class Efectosfisicos extends JFrame {
 		lblNewLabel_4.setBounds(285, 11, 281, 14);
 		panelEfectosEconomicos.add(lblNewLabel_4);
 		buttonGroup_3.add(chkDejoTrabajar);
+		chkDejoTrabajar.setForeground(new Color(47, 79, 79));
 		
 		//Economicos
 		
@@ -420,42 +435,49 @@ public class Efectosfisicos extends JFrame {
 		chkDejoTrabajar.setBounds(6, 45, 215, 23);
 		panelEfectosEconomicos.add(chkDejoTrabajar);
 		buttonGroup_3.add(chkNoRecibePensionAlimenticia);
+		chkNoRecibePensionAlimenticia.setForeground(new Color(47, 79, 79));
 		
 		chkNoRecibePensionAlimenticia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoRecibePensionAlimenticia.setBackground(new Color(243, 220, 220));
 		chkNoRecibePensionAlimenticia.setBounds(6, 93, 215, 23);
 		panelEfectosEconomicos.add(chkNoRecibePensionAlimenticia);
 		buttonGroup_3.add(chkNoRecibeGasto);
+		chkNoRecibeGasto.setForeground(new Color(47, 79, 79));
 		
 		chkNoRecibeGasto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoRecibeGasto.setBackground(new Color(243, 220, 220));
 		chkNoRecibeGasto.setBounds(217, 93, 162, 23);
 		panelEfectosEconomicos.add(chkNoRecibeGasto);
 		buttonGroup_3.add(chkChantajeAportar);
+		chkChantajeAportar.setForeground(new Color(47, 79, 79));
 		
 		chkChantajeAportar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkChantajeAportar.setBackground(new Color(243, 220, 220));
 		chkChantajeAportar.setBounds(217, 45, 184, 23);
 		panelEfectosEconomicos.add(chkChantajeAportar);
 		buttonGroup_3.add(chkPerdidaPropiedades);
+		chkPerdidaPropiedades.setForeground(new Color(47, 79, 79));
 		
 		chkPerdidaPropiedades.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkPerdidaPropiedades.setBackground(new Color(243, 220, 220));
 		chkPerdidaPropiedades.setBounds(408, 45, 215, 23);
 		panelEfectosEconomicos.add(chkPerdidaPropiedades);
 		buttonGroup_3.add(chkPerdidaDocumentos);
+		chkPerdidaDocumentos.setForeground(new Color(47, 79, 79));
 		
 		chkPerdidaDocumentos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkPerdidaDocumentos.setBackground(new Color(243, 220, 220));
 		chkPerdidaDocumentos.setBounds(412, 93, 226, 23);
 		panelEfectosEconomicos.add(chkPerdidaDocumentos);
 		buttonGroup_3.add(chkSalirDomicilio);
+		chkSalirDomicilio.setForeground(new Color(47, 79, 79));
 		
 		chkSalirDomicilio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkSalirDomicilio.setBackground(new Color(243, 220, 220));
 		chkSalirDomicilio.setBounds(634, 45, 147, 23);
 		panelEfectosEconomicos.add(chkSalirDomicilio);
 		buttonGroup_3.add(chkNoAplicaEconomico);
+		chkNoAplicaEconomico.setForeground(new Color(47, 79, 79));
 		
 		chkNoAplicaEconomico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chkNoAplicaEconomico.setBackground(new Color(243, 220, 220));
