@@ -136,12 +136,14 @@ public class DatosGenerales extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("APELLIDO PATERNO");
+		lblNewLabel_1.setForeground(Color.GRAY);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(23, 35, 138, 14);
 		panel_1.add(lblNewLabel_1);
 
 		txtApellidopaterno = new JTextField();
+		txtApellidopaterno.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtApellidopaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent a) {
@@ -164,19 +166,22 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
-		txtApellidopaterno.setForeground(Color.BLACK);
+		txtApellidopaterno.setForeground(new Color(64, 0, 128));
 		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtApellidopaterno.setBounds(23, 11, 138, 20);
 		panel_1.add(txtApellidopaterno);
 		txtApellidopaterno.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("APELLIDO MATERNO");
+		lblNewLabel_2.setForeground(Color.GRAY);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_2.setBounds(206, 35, 138, 14);
 		panel_1.add(lblNewLabel_2);
 
 		txtApellidoMaterno = new JTextField();
+		txtApellidoMaterno.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtApellidoMaterno.setForeground(new Color(64, 0, 128));
 		txtApellidoMaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent av) {
@@ -207,12 +212,15 @@ public class DatosGenerales extends JFrame {
 		txtApellidoMaterno.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("NOMBRE/S");
+		lblNewLabel_3.setForeground(Color.GRAY);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_3.setBounds(386, 35, 122, 14);
 		panel_1.add(lblNewLabel_3);
 
 		txtNombres = new JTextField();
+		txtNombres.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtNombres.setForeground(new Color(64, 0, 128));
 		txtNombres.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent avt) {
@@ -268,6 +276,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(ComboEstadOCivil);
 
 		JLabel lblNewLabel_4 = new JLabel("ESTADO CIVIL");
+		lblNewLabel_4.setForeground(Color.GRAY);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_4.setBounds(10, 38, 191, 14);
@@ -291,6 +300,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboServiciomedico);
 
 		JLabel lblNewLabel_5 = new JLabel("SERVICIO MEDICO");
+		lblNewLabel_5.setForeground(Color.GRAY);
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_5.setBounds(10, 85, 191, 14);
@@ -313,6 +323,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboGradoestudios);
 
 		JLabel lblNewLabel_6 = new JLabel("GRADO DE ESTUDIOS");
+		lblNewLabel_6.setForeground(Color.GRAY);
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_6.setBounds(10, 132, 191, 14);
@@ -346,6 +357,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboEdad);
 
 		JLabel lblNewLabel_7 = new JLabel("EDAD");
+		lblNewLabel_7.setForeground(Color.GRAY);
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(10, 179, 191, 14);
@@ -368,6 +380,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboVivienda);
 
 		JLabel lblNewLabel_11 = new JLabel("VIVIENDA");
+		lblNewLabel_11.setForeground(Color.GRAY);
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_11.setBounds(10, 224, 191, 14);
@@ -391,6 +404,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboNopersonas);
 
 		JLabel lblNewLabel_12 = new JLabel("NO. PERSONAS");
+		lblNewLabel_12.setForeground(Color.GRAY);
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_12.setBounds(10, 269, 191, 14);
@@ -413,6 +427,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboContribuyentealgasto);
 
 		JLabel lblNewLabel_13 = new JLabel("CONTRIBUYENTE AL GASTO");
+		lblNewLabel_13.setForeground(Color.GRAY);
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_13.setBounds(10, 305, 191, 14);
@@ -796,6 +811,7 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(comboCodigoPostal);
 
 		JLabel lblNewLabel_14 = new JLabel("CODIGO POSTAL");
+		lblNewLabel_14.setForeground(Color.GRAY);
 		lblNewLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_14.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_14.setBounds(10, 36, 136, 14);
@@ -810,12 +826,15 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(comboColonia);
 
 		JLabel lblNewLabel_15 = new JLabel("COLONIA");
+		lblNewLabel_15.setForeground(Color.GRAY);
 		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_15.setBounds(200, 36, 139, 14);
 		panel_3.add(lblNewLabel_15);
 
 		txtDomicilio = new JTextField();
+		txtDomicilio.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtDomicilio.setForeground(new Color(64, 0, 128));
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtDomicilio.getText().isEmpty()) {
@@ -832,6 +851,7 @@ public class DatosGenerales extends JFrame {
 		txtDomicilio.setColumns(10);
 
 		JLabel lblNewLabel_16 = new JLabel("DOMICILIO");
+		lblNewLabel_16.setForeground(Color.GRAY);
 		lblNewLabel_16.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_16.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_16.setBounds(373, 36, 168, 14);
@@ -856,6 +876,7 @@ public class DatosGenerales extends JFrame {
 		txtEstado.setColumns(10);
 
 		JLabel lblNewLabel_24 = new JLabel("ESTADO");
+		lblNewLabel_24.setForeground(Color.GRAY);
 		lblNewLabel_24.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_24.setBounds(10, 78, 136, 14);
@@ -869,6 +890,8 @@ public class DatosGenerales extends JFrame {
 		panel_4.setLayout(null);
 
 		txtOcupacion = new JTextField();
+		txtOcupacion.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtOcupacion.setForeground(new Color(64, 0, 128));
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -887,12 +910,15 @@ public class DatosGenerales extends JFrame {
 		txtOcupacion.setColumns(10);
 
 		JLabel lblNewLabel_17 = new JLabel("OCUPACION");
+		lblNewLabel_17.setForeground(Color.GRAY);
 		lblNewLabel_17.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_17.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_17.setBounds(27, 32, 194, 14);
 		panel_4.add(lblNewLabel_17);
 
 		txtIngresoFamiliar = new JTextField();
+		txtIngresoFamiliar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtIngresoFamiliar.setForeground(new Color(64, 0, 128));
 		txtIngresoFamiliar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -921,12 +947,15 @@ public class DatosGenerales extends JFrame {
 		txtIngresoFamiliar.setColumns(10);
 
 		JLabel lblNewLabel_18 = new JLabel("INGRESO FAMILIAR");
+		lblNewLabel_18.setForeground(Color.GRAY);
 		lblNewLabel_18.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_18.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_18.setBounds(27, 73, 194, 14);
 		panel_4.add(lblNewLabel_18);
 
 		txtNumeroCelular = new JTextField();
+		txtNumeroCelular.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtNumeroCelular.setForeground(new Color(64, 0, 128));
 		txtNumeroCelular.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ev) {
@@ -959,12 +988,15 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular.setColumns(10);
 
 		JLabel lblNewLabel_19 = new JLabel("NUMERO CELULAR");
+		lblNewLabel_19.setForeground(Color.GRAY);
 		lblNewLabel_19.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_19.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_19.setBounds(27, 117, 194, 14);
 		panel_4.add(lblNewLabel_19);
 
 		txtnumeroDeCasa = new JTextField();
+		txtnumeroDeCasa.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtnumeroDeCasa.setForeground(new Color(64, 0, 128));
 		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -991,12 +1023,15 @@ public class DatosGenerales extends JFrame {
 		txtnumeroDeCasa.setColumns(10);
 
 		JLabel lblNewLabel_20 = new JLabel("NUMERO CASA");
+		lblNewLabel_20.setForeground(Color.GRAY);
 		lblNewLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_20.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_20.setBounds(27, 162, 194, 14);
 		panel_4.add(lblNewLabel_20);
 
 		txtCanalizadPor = new JTextField();
+		txtCanalizadPor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtCanalizadPor.setForeground(new Color(64, 0, 128));
 		txtCanalizadPor.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ki) {
@@ -1028,12 +1063,15 @@ public class DatosGenerales extends JFrame {
 		txtCanalizadPor.setColumns(10);
 
 		JLabel lblNewLabel_21 = new JLabel("CANALIZADA POR:");
+		lblNewLabel_21.setForeground(Color.GRAY);
 		lblNewLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_21.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_21.setBounds(27, 207, 194, 14);
 		panel_4.add(lblNewLabel_21);
 
 		txtPadecimientoCronico = new JTextField();
+		txtPadecimientoCronico.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtPadecimientoCronico.setForeground(new Color(64, 0, 128));
 		txtPadecimientoCronico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1051,18 +1089,22 @@ public class DatosGenerales extends JFrame {
 		txtPadecimientoCronico.setColumns(10);
 
 		JLabel lblNewLabel_22 = new JLabel("PADECIMIENTO CRONICO");
+		lblNewLabel_22.setForeground(Color.GRAY);
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_22.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_22.setBounds(27, 247, 194, 14);
 		panel_4.add(lblNewLabel_22);
 
 		JLabel lblNewLabel_23 = new JLabel("DENUNCIA");
+		lblNewLabel_23.setForeground(Color.GRAY);
 		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_23.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_23.setBounds(27, 291, 194, 14);
 		panel_4.add(lblNewLabel_23);
 
 		txtDenuncia = new JTextField();
+		txtDenuncia.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtDenuncia.setForeground(new Color(64, 0, 128));
 		txtDenuncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1078,6 +1120,7 @@ public class DatosGenerales extends JFrame {
 		txtDenuncia.setBounds(27, 270, 194, 20);
 		panel_4.add(txtDenuncia);
 		txtDenuncia.setColumns(10);
+		area.setForeground(new Color(64, 0, 128));
 
 		area.setBackground(new Color(243, 220, 220));
 		area.setBounds(272, 312, 303, 270);
@@ -1272,6 +1315,7 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_8 = new JLabel("DIA");
+		lblNewLabel_8.setForeground(Color.GRAY);
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setBounds(10, 68, 191, 14);
 		panel.add(lblNewLabel_8);
@@ -1304,6 +1348,7 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_9 = new JLabel("MES");
+		lblNewLabel_9.setForeground(Color.GRAY);
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setBounds(10, 111, 191, 14);
 		panel.add(lblNewLabel_9);
@@ -1328,6 +1373,7 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_10 = new JLabel("AÑO");
+		lblNewLabel_10.setForeground(Color.GRAY);
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_10.setBounds(10, 159, 191, 14);
 		panel.add(lblNewLabel_10);
