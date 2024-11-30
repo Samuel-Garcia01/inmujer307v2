@@ -109,8 +109,8 @@ public class MenuInmujer extends JFrame {
 			}
 		});
 		btnNewButton.setBackground(new Color(238, 196, 251));
-		btnNewButton.setFont(new Font("Californian FB", Font.BOLD, 12));
-		btnNewButton.setBounds(74, 265, 143, 23);
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton.setBounds(61, 265, 166, 23);
 		contentPane.add(btnNewButton);
 		
 		JPanel panel_1 = new JPanel();
@@ -176,7 +176,7 @@ public class MenuInmujer extends JFrame {
 			}
 		});
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setFont(new Font("Californian FB", Font.BOLD, 12));
+		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		btnNewButton_1.setBackground(new Color(238, 196, 255));
 		btnNewButton_1.setBounds(322, 265, 166, 23);
 		contentPane.add(btnNewButton_1);
@@ -225,8 +225,8 @@ public class MenuInmujer extends JFrame {
 		});
 		btnNewButton_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_2.setBackground(new Color(238, 196, 255));
-		btnNewButton_2.setFont(new Font("Californian FB", Font.BOLD, 12));
-		btnNewButton_2.setBounds(616, 265, 110, 23);
+		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_2.setBounds(584, 265, 166, 23);
 		contentPane.add(btnNewButton_2);
 		
 		JPanel panel_10 = new JPanel();
@@ -261,8 +261,8 @@ public class MenuInmujer extends JFrame {
 		});
 		btnNewButton_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_3.setBackground(new Color(238, 196, 255));
-		btnNewButton_3.setFont(new Font("Californian FB", Font.BOLD, 12));
-		btnNewButton_3.setBounds(74, 497, 132, 23);
+		btnNewButton_3.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_3.setBounds(61, 496, 166, 23);
 		contentPane.add(btnNewButton_3);
 		
 		JLabel btntripticos = new JLabel("");
@@ -296,8 +296,8 @@ public class MenuInmujer extends JFrame {
 		});
 		btnNewButton_4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_4.setBackground(new Color(238, 196, 255));
-		btnNewButton_4.setFont(new Font("Californian FB", Font.BOLD, 12));
-		btnNewButton_4.setBounds(367, 497, 101, 23);
+		btnNewButton_4.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_4.setBounds(332, 496, 166, 23);
 		contentPane.add(btnNewButton_4);
 		
 		JPanel panel_12 = new JPanel();
@@ -334,8 +334,8 @@ public class MenuInmujer extends JFrame {
 		});
 		btnNewButton_5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_5.setBackground(new Color(238, 196, 255));
-		btnNewButton_5.setFont(new Font("Californian FB", Font.BOLD, 12));
-		btnNewButton_5.setBounds(637, 497, 89, 23);
+		btnNewButton_5.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_5.setBounds(584, 496, 166, 23);
 		contentPane.add(btnNewButton_5);
 		
 		JLabel lblNewLabel_2 = new JLabel("");

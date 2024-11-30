@@ -150,32 +150,32 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel.add(label);
 
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_2.setIcon(new ImageIcon(DATOSDELAGRESOR.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_2.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_2);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_1.setBackground(new Color(243, 220, 220));
-		panel_1.setBounds(10, 62, 787, 63);
+		panel_1.setBounds(8, 92, 787, 127);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_4 = new JLabel("NOMBRE COMPLETO");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_4.setBounds(36, 11, 154, 14);
+		lblNewLabel_4.setBounds(36, 47, 154, 14);
 		panel_1.add(lblNewLabel_4);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(36, 36, 154, 20);
+		txtNombre.setBounds(36, 72, 154, 20);
 		panel_1.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("EDAD");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_5.setBounds(569, 11, 145, 14);
+		lblNewLabel_5.setBounds(569, 47, 145, 14);
 		panel_1.add(lblNewLabel_5);
 
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "seleccione una opcion", "1", "2", "3", "4", "5",
@@ -186,17 +186,17 @@ public class DATOSDELAGRESOR extends JFrame {
 				"75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91",
 				"92", "93", "94", "95", "96", "97", "98", "99", "" }));
 		comboEdad.setForeground(Color.BLACK);
-		comboEdad.setBounds(569, 35, 145, 22);
+		comboEdad.setBounds(569, 71, 145, 22);
 		panel_1.add(comboEdad);
 		
 				JLabel lblNewLabel_10 = new JLabel("RELACION O VINCULO");
-				lblNewLabel_10.setBounds(302, 11, 158, 14);
+				lblNewLabel_10.setBounds(302, 47, 158, 14);
 				panel_1.add(lblNewLabel_10);
 				lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
 				
 						txtRelacion = new JTextField();
-						txtRelacion.setBounds(302, 36, 158, 20);
+						txtRelacion.setBounds(302, 72, 158, 20);
 						panel_1.add(txtRelacion);
 						txtRelacion.setColumns(10);
 
@@ -204,36 +204,38 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_1_1.setLayout(null);
 		panel_1_1.setBackground(new Color(243, 220, 220));
-		panel_1_1.setBounds(10, 133, 787, 63);
+		panel_1_1.setBounds(8, 240, 789, 140);
 		contentPane.add(panel_1_1);
 		
 				JLabel lblNewLabel_11 = new JLabel("DOMICILIO");
-				lblNewLabel_11.setBounds(116, 11, 67, 14);
+				lblNewLabel_11.setBounds(116, 52, 67, 14);
 				panel_1_1.add(lblNewLabel_11);
 				lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
 				
 						JLabel lblNewLabel_12 = new JLabel("COMPLETO :");
-						lblNewLabel_12.setBounds(116, 36, 80, 14);
+						lblNewLabel_12.setBounds(116, 70, 80, 14);
 						panel_1_1.add(lblNewLabel_12);
 						lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 						
 								txtDomicilio = new JTextField();
-								txtDomicilio.setBounds(206, 33, 158, 20);
+								txtDomicilio.setBounds(206, 67, 158, 20);
 								panel_1_1.add(txtDomicilio);
 								txtDomicilio.setColumns(10);
 								
 										JLabel lblNewLabel_15 = new JLabel("OCUPACION");
-										lblNewLabel_15.setBounds(447, 11, 158, 14);
+										lblNewLabel_15.setBounds(447, 42, 158, 14);
 										panel_1_1.add(lblNewLabel_15);
 										lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
 										lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 										
 												txtOcupacion = new JTextField();
-												txtOcupacion.setBounds(447, 33, 158, 20);
+												txtOcupacion.setBounds(447, 67, 158, 20);
 												panel_1_1.add(txtOcupacion);
 												txtOcupacion.setColumns(10);
 
 		JButton btnInicio = new JButton("INICIO");
+		btnInicio.setForeground(Color.WHITE);
+		btnInicio.setBackground(new Color(224, 167, 167));
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String [] opciones = {"Aceptar","Cancelar"};
@@ -270,12 +272,25 @@ public class DATOSDELAGRESOR extends JFrame {
 
 			}
 		});
-		btnInicio.setBounds(93, 207, 89, 23);
+		btnInicio.setBounds(124, 421, 101, 23);
 		contentPane.add(btnInicio);
 		
 				JButton btnContinuar = new JButton("CONTINUAR");
-				btnContinuar.setBounds(575, 207, 117, 23);
+				btnContinuar.setForeground(Color.WHITE);
+				btnContinuar.setBackground(new Color(224, 167, 167));
+				btnContinuar.setBounds(323, 421, 128, 23);
 				contentPane.add(btnContinuar);
+				
+				JButton btnNewButton = new JButton("REGRESAR");
+				btnNewButton.setForeground(Color.WHITE);
+				btnNewButton.setBackground(new Color(224, 167, 167));
+				btnNewButton.setBounds(561, 421, 111, 23);
+				contentPane.add(btnNewButton);
+				
+				JPanel panel_2 = new JPanel();
+				panel_2.setBackground(new Color(128, 0, 128));
+				panel_2.setBounds(0, 568, 849, 62);
+				contentPane.add(panel_2);
 				btnContinuar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String edad = comboEdad.getSelectedItem().toString();

@@ -71,7 +71,7 @@ public class RedesDeApoyo extends JFrame {
         panel.add(lblNewLabel_7);
 
         JLabel lblNewLabel_8 = new JLabel("");
-        lblNewLabel_8.setIcon(new ImageIcon(RedesDeApoyo.class.getResource("/img/encabezado.gif")));
+        lblNewLabel_8.setIcon(new ImageIcon(RedesDeApoyo.class.getResource("/img/encabezadodatos.png")));
         lblNewLabel_8.setBounds(0, 0, 809, 57);
         panel.add(lblNewLabel_8);
 
@@ -130,15 +130,31 @@ public class RedesDeApoyo extends JFrame {
         panel_1_1.add(lblViabilidad);
 
        
-        JButton btnSiguiente = new JButton("Siguiente");
+        JButton btnSiguiente = new JButton("SIGUIENTE");
+        btnSiguiente.setBackground(new Color(224, 167, 167));
+        btnSiguiente.setForeground(Color.WHITE);
         btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
-        btnSiguiente.setBounds(533, 510, 142, 34);
+        btnSiguiente.setBounds(352, 469, 142, 34);
         contentPane.add(btnSiguiente);
         
-        JButton btnNewButton = new JButton("Inicio");
+        JButton btnNewButton = new JButton("INICIO");
+        btnNewButton.setBackground(new Color(224, 167, 167));
+        btnNewButton.setForeground(Color.WHITE);
         btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnNewButton.setBounds(137, 510, 131, 34);
+        btnNewButton.setBounds(136, 468, 131, 34);
         contentPane.add(btnNewButton);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(128, 0, 128));
+        panel_2.setBounds(0, 568, 824, 57);
+        contentPane.add(panel_2);
+        
+        JButton btnNewButton_1 = new JButton("REGRESAR");
+        btnNewButton_1.setBackground(new Color(224, 167, 167));
+        btnNewButton_1.setForeground(Color.WHITE);
+        btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnNewButton_1.setBounds(571, 471, 131, 29);
+        contentPane.add(btnNewButton_1);
 
         
        

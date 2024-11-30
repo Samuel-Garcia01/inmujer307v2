@@ -67,6 +67,7 @@ public class Efectosfisicos extends JFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
+	private final JButton btnNewButton = new JButton("REGRESAR");
 	
 	public void cargarDatos(ResultSet rs) {
 	    try {
@@ -501,11 +502,12 @@ public class Efectosfisicos extends JFrame {
 		panel.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezado.gif")));
+		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezadodatos.png")));
 		lblNewLabel_7.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_7);
 		
 		JButton btnSiguiente = new JButton("SIGUIENTE");
+		btnSiguiente.setForeground(Color.WHITE);
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertarDatosEfectos();
@@ -517,11 +519,12 @@ public class Efectosfisicos extends JFrame {
 			}
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
-		btnSiguiente.setBackground(new Color(243, 220, 220));
-		btnSiguiente.setBounds(481, 577, 107, 23);
+		btnSiguiente.setBackground(new Color(224, 167, 167));
+		btnSiguiente.setBounds(351, 577, 107, 23);
 		panel.add(btnSiguiente);
 		
 		JButton btnInicio = new JButton("INICIO");
+		btnInicio.setForeground(Color.WHITE);
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String [] opciones = {"Aceptar","Cancelar"};
@@ -558,9 +561,15 @@ public class Efectosfisicos extends JFrame {
 			}
 		});
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 11));
-		btnInicio.setBackground(new Color(243, 220, 220));
-		btnInicio.setBounds(270, 577, 89, 23);
+		btnInicio.setBackground(new Color(224, 167, 167));
+		btnInicio.setBounds(164, 577, 89, 23);
 		panel.add(btnInicio);
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(new Color(224, 167, 167));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setBounds(564, 577, 119, 23);
+		
+		panel.add(btnNewButton);
 	}
 }
 
