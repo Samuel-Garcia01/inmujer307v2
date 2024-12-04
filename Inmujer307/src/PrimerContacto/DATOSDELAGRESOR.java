@@ -57,6 +57,22 @@ public class DATOSDELAGRESOR extends JFrame {
 	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
 	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
 
+	JComboBox comboNivel = new JComboBox();
+	JComboBox comboEdad = new JComboBox();
+	JComboBox comboGrado = new JComboBox();
+	JComboBox comboEstadoCivil = new JComboBox();
+	JComboBox comboTArma = new JComboBox();
+	
+	JRadioButton rdservidorSI = new JRadioButton("SI");
+	JRadioButton rdservidorNO = new JRadioButton("NO");
+	JRadioButton rdportaArmasSI = new JRadioButton("SI");
+	JRadioButton rdportaArmasNO = new JRadioButton("NO");
+	JRadioButton rdBandaDelictivaSI = new JRadioButton("SI");
+	JRadioButton rdBandaDelictivaNO = new JRadioButton("NO");
+	JRadioButton rdConsumeSI = new JRadioButton("SI");
+	JRadioButton rdConsumeNO = new JRadioButton("NO");
+	
+	JTextArea txtSeñasP = new JTextArea();
 	/**
 	 * Launch the application.
 	 */
@@ -78,7 +94,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
 
-		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"', Datos_del_Agresor = '"+DatosdelAgresor+"',Grado_escolar = '"+GradoEscolar+"', Estado_Civil = '"+EstadoCivil+"', Relacion_o_Vinculo = '"+RelacionoVinculo+"', Domicilio_completo = '"+Domicilio+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"',Media_filiacion_del_agresor = '"+MediaAfil+"', Porta_armas = '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algun_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";
+		String sql = "UPDATE datos SET Nivel_de_Riesgo = '"+NiveldeRiesgo+"', Datos_del_Agresor = '"+DatosdelAgresor+"',Grado_escolar = '"+GradoEscolar+"', Estado_Civil_del_Agresor = '"+EstadoCivil+"', Relacion_o_Vinculo = '"+RelacionoVinculo+"', Domicilio_completo = '"+Domicilio+"', Servidor_Publico = '"+ServidorPublico+"', Ocupacion_del_Agresor = '"+Ocupacion+"',Media_filiacion_del_agresor = '"+MediaAfil+"', Porta_armas = '"+PortaArmas+"', Seleccionar_armas = '"+Tipo+"', Pertenece_a_alguna_banda_delictiva = '"+PerteneceABanda+"', Consume_algun_tipo_de_sustancia = '"+Sustancias+"', Cual = '"+cual+"', Señas_particulares = '"+Señas+"' WHERE EXP = '"+DatosGenerales.exp+"'";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			int valor = pst.executeUpdate();
@@ -97,11 +113,103 @@ public class DATOSDELAGRESOR extends JFrame {
 		}
 
 	}
+	
+	public void Regresar() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+
+		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				comboNivel.setSelectedItem(rs.getString("Nivel_de_Riesgo"));
+				
+				String sqlDatos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Datos_del_Agresor,'\n',1),'Nombre: ','')) AS nombre_agresor, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Datos_del_Agresor,'\n',2),'\n',-1),'Edad: ','')) AS edad_agresor, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Datos_del_Agresor,'\n',3),'\n',-1),'Fecha de nacimiento: ','')) AS fecha_nacimiento FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstDatos = con.prepareStatement(sqlDatos);
+				ResultSet rsDatos = pstDatos.executeQuery();
+				if (rsDatos.next()) {
+					txtNombre.setText(rsDatos.getString("nombre_agresor"));
+					
+					String edad = rsDatos.getString("edad_agresor"), e = "";
+					if (edad.length()==1) {
+						e = "0"+edad;
+					} else {
+						e = edad;
+					}
+					comboEdad.setSelectedItem(e);
+					
+					txtFechadeN.setText(rsDatos.getString("fecha_nacimiento"));
+				}
+				
+				comboGrado.setSelectedItem(rs.getString("Grado_escolar"));
+				comboEstadoCivil.setSelectedItem(rs.getString("Estado_Civil_del_Agresor"));
+				txtRelacion.setText(rs.getString("Relacion_o_Vinculo"));
+				txtDomicilio.setText(rs.getString("Domicilio_completo"));
+				
+				String servidorPublico = rs.getString("Servidor_Publico");
+				if (servidorPublico.equalsIgnoreCase("si")) {
+					rdservidorSI.setSelected(true);
+				} else if (servidorPublico.equalsIgnoreCase("no")) {
+					rdservidorNO.setSelected(true);
+				}
+				
+				txtOcupacion.setText(rs.getString("Ocupacion_del_Agresor"));
+				
+				String sqlFiliacion = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',1),'Tez: ','')) AS tez, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',2),'\n',-1),'Nariz: ','')) AS nariz, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',3),'\n',-1),'Ojos: ','')) AS ojos, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',4),'\n',-1),'Cabello: ','')) AS cabello, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',5),'\n',-1),'Cara: ','')) AS cara, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',6),'\n',-1),'Cejas: ','')) AS cejas, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',7),'\n',-1),'Labios: ','')) AS labios, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',8),'\n',-1),'Complexion: ','')) AS complexion FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstFiliacion = con.prepareStatement(sqlFiliacion);
+				ResultSet rsFiliacion = pstFiliacion.executeQuery();
+				if (rsFiliacion.next()) {
+					txtTez.setText(rsFiliacion.getString("tez"));
+					txtNariz.setText(rsFiliacion.getString("nariz"));
+					txtOjos.setText(rsFiliacion.getString("ojos"));
+					txtCabello.setText(rsFiliacion.getString("cabello"));
+					txtCara.setText(rsFiliacion.getString("cara"));
+					txtCejas.setText(rsFiliacion.getString("cejas"));
+					txtLabios.setText(rsFiliacion.getString("labios"));
+					txtComplexion.setText(rsFiliacion.getString("complexion"));
+				}
+				
+				String portaArmas = rs.getString("Porta_armas");
+				if (portaArmas.equalsIgnoreCase("si")) {
+					rdportaArmasSI.setSelected(true);
+				} else if (portaArmas.equalsIgnoreCase("no")) {
+					rdportaArmasNO.setSelected(true);
+				}
+				
+				comboTArma.setSelectedItem(rs.getString("Seleccionar_armas"));
+				
+				String bandaDelictiva = rs.getString("Pertenece_a_alguna_banda_delictiva");
+				if (bandaDelictiva.equalsIgnoreCase("si")) {
+					rdBandaDelictivaSI.setSelected(true);
+				} else if (bandaDelictiva.equalsIgnoreCase("no")) {
+					rdBandaDelictivaNO.setSelected(true);
+				}
+				
+				String TSustancia = rs.getString("Consume_algun_tipo_de_sustancia");
+				if (TSustancia.equalsIgnoreCase("si")) {
+					rdConsumeSI.setSelected(true);
+				} else if (TSustancia.equalsIgnoreCase("no")) {
+					rdConsumeNO.setSelected(true);
+				}
+				txtCuales.setText(rs.getString("Cual"));
+				
+				txtSeñasP.setText(rs.getString("Señas_particulares"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public DATOSDELAGRESOR() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -150,9 +258,8 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_3.setBounds(37, 11, 130, 14);
 		panel_1.add(lblNewLabel_3);
 
-		JComboBox comboNivel = new JComboBox();
-		comboNivel
-				.setModel(new DefaultComboBoxModel(new String[] { "selecciona una opcion", "Bajo", "Medio", "alto" }));
+		
+		comboNivel.setModel(new DefaultComboBoxModel(new String[] { "selecciona una opcion", "Bajo", "Medio", "alto" }));
 		comboNivel.setBounds(37, 36, 145, 22);
 		panel_1.add(comboNivel);
 
@@ -173,7 +280,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_5.setBounds(395, 11, 145, 14);
 		panel_1.add(lblNewLabel_5);
 
-		JComboBox comboEdad = new JComboBox();
+		
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "seleccione una opcion", "1", "2", "3", "4", "5",
 				"6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 				"24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
@@ -209,40 +316,17 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_7.setBounds(68, 11, 131, 14);
 		panel_1_1.add(lblNewLabel_7);
 
-		JComboBox comboGrado = new JComboBox();
+		
 		comboGrado.setModel(new DefaultComboBoxModel(new String[] { "Selecciona una opcion", "Primaria Trunca",
 				"primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
-		comboGrado.setBounds(68, 36, 131, 22);
+		comboGrado.setBounds(46, 36, 174, 22);
 		panel_1_1.add(comboGrado);
 
-		JLabel lblNewLabel_8 = new JLabel("ESTADO");
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.TRAILING);
+		JLabel lblNewLabel_8 = new JLabel("ESTADO CIVIL");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_8.setBounds(250, 15, 54, 14);
+		lblNewLabel_8.setBounds(316, 11, 158, 14);
 		panel_1_1.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel("CIVIL :");
-		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_9.setBounds(260, 35, 39, 14);
-		panel_1_1.add(lblNewLabel_9);
-
-		JRadioButton rdestSolt = new JRadioButton("SOLTERO/A");
-		buttonGroup.add(rdestSolt);
-		rdestSolt.setBackground(new Color(243, 220, 220));
-		rdestSolt.setBounds(310, 6, 103, 23);
-		panel_1_1.add(rdestSolt);
-
-		JRadioButton rdestViud = new JRadioButton("VIUDO/A");
-		buttonGroup.add(rdestViud);
-		rdestViud.setBackground(new Color(243, 220, 220));
-		rdestViud.setBounds(310, 35, 83, 23);
-		panel_1_1.add(rdestViud);
-
-		JRadioButton rdestCasad = new JRadioButton("CASADO/A");
-		buttonGroup.add(rdestCasad);
-		rdestCasad.setBackground(new Color(243, 220, 220));
-		rdestCasad.setBounds(426, 7, 94, 23);
-		panel_1_1.add(rdestCasad);
 
 		JLabel lblNewLabel_10 = new JLabel("RELACION O VINCULO");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
@@ -254,6 +338,11 @@ public class DATOSDELAGRESOR extends JFrame {
 		txtRelacion.setBounds(559, 38, 158, 20);
 		panel_1_1.add(txtRelacion);
 		txtRelacion.setColumns(10);
+		
+		
+		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Divorciada", "Viuda", "Separada", "Union libre", "Comprometida"}));
+		comboEstadoCivil.setBounds(316, 36, 158, 22);
+		panel_1_1.add(comboEstadoCivil);
 
 		JPanel panel_1_1_1 = new JPanel();
 		panel_1_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
@@ -287,16 +376,16 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_14.setBounds(346, 35, 67, 14);
 		panel_1_1_1.add(lblNewLabel_14);
 
-		JRadioButton rdservidorSI = new JRadioButton("SI");
+		
 		buttonGroup_1.add(rdservidorSI);
 		rdservidorSI.setBackground(new Color(243, 220, 220));
 		rdservidorSI.setBounds(413, 11, 41, 23);
 		panel_1_1_1.add(rdservidorSI);
 
-		JRadioButton rdservidorNO = new JRadioButton("NO");
+		
 		buttonGroup_1.add(rdservidorNO);
 		rdservidorNO.setBackground(new Color(243, 220, 220));
-		rdservidorNO.setBounds(413, 37, 41, 23);
+		rdservidorNO.setBounds(413, 37, 56, 23);
 		panel_1_1_1.add(rdservidorNO);
 
 		JLabel lblNewLabel_15 = new JLabel("OCUPACION");
@@ -422,13 +511,13 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_23.setBounds(10, 11, 139, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_23);
 
-		JRadioButton rdportaArmasSI = new JRadioButton("SI");
+		
 		buttonGroup_2.add(rdportaArmasSI);
 		rdportaArmasSI.setBackground(new Color(243, 220, 220));
 		rdportaArmasSI.setBounds(53, 32, 50, 23);
 		panel_1_1_1_1_1.add(rdportaArmasSI);
 
-		JRadioButton rdportaArmasNO = new JRadioButton("NO");
+		
 		buttonGroup_2.add(rdportaArmasNO);
 		rdportaArmasNO.setBackground(new Color(243, 220, 220));
 		rdportaArmasNO.setBounds(53, 58, 50, 23);
@@ -440,7 +529,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_24.setBounds(211, 11, 152, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_24);
 
-		JComboBox comboTArma = new JComboBox();
+		
 		comboTArma.setModel(new DefaultComboBoxModel(
 				new String[] { "selecciona una opcion", "Pistola", "Punzocortante", "Contundente" }));
 		comboTArma.setBounds(211, 32, 152, 22);
@@ -470,25 +559,25 @@ public class DATOSDELAGRESOR extends JFrame {
 		lblNewLabel_28.setBounds(206, 108, 157, 14);
 		panel_1_1_1_1_1.add(lblNewLabel_28);
 
-		JRadioButton rdBandaDelictivaSI = new JRadioButton("SI");
+		
 		buttonGroup_3.add(rdBandaDelictivaSI);
 		rdBandaDelictivaSI.setBackground(new Color(243, 220, 220));
 		rdBandaDelictivaSI.setBounds(53, 129, 50, 23);
 		panel_1_1_1_1_1.add(rdBandaDelictivaSI);
 
-		JRadioButton rdBandaDelictivaNO = new JRadioButton("NO");
+		
 		buttonGroup_3.add(rdBandaDelictivaNO);
 		rdBandaDelictivaNO.setBackground(new Color(243, 220, 220));
 		rdBandaDelictivaNO.setBounds(53, 155, 50, 23);
 		panel_1_1_1_1_1.add(rdBandaDelictivaNO);
 
-		JRadioButton rdConsumeSI = new JRadioButton("SI");
+		
 		buttonGroup_4.add(rdConsumeSI);
 		rdConsumeSI.setBackground(new Color(243, 220, 220));
 		rdConsumeSI.setBounds(251, 129, 50, 23);
 		panel_1_1_1_1_1.add(rdConsumeSI);
 
-		JRadioButton rdConsumeNO = new JRadioButton("NO");
+		
 		buttonGroup_4.add(rdConsumeNO);
 		rdConsumeNO.setBackground(new Color(243, 220, 220));
 		rdConsumeNO.setBounds(251, 155, 50, 23);
@@ -509,7 +598,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1_1_1_1.add(txtCuales);
 		txtCuales.setColumns(10);
 
-		JTextArea txtSeñasP = new JTextArea();
+		
 		txtSeñasP.setBounds(10, 210, 149, 61);
 		panel_1_1_1_1_1.add(txtSeñasP);
 
@@ -518,14 +607,14 @@ public class DATOSDELAGRESOR extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String DatosdelAgresor = "";
 				if (!txtNombre.getText().isEmpty()) {
-					DatosdelAgresor += "Nombre: " + txtNombre.getText() + ",";
+					DatosdelAgresor += "Nombre: " + txtNombre.getText() + "\n";
 				} else {
-					DatosdelAgresor += "Nombre: Dato no dado" + ",";
+					DatosdelAgresor += "Nombre: Dato no dado" + "\n";
 				}
 				if (comboEdad.getSelectedIndex() == 0) {
-					DatosdelAgresor += "Edad: dato no dado";
+					DatosdelAgresor += "Edad: dato no dado"+"\n";
 				} else {
-					DatosdelAgresor += "Edad: " + comboEdad.getSelectedItem().toString() + ",";
+					DatosdelAgresor += "Edad: " + comboEdad.getSelectedItem().toString() + "\n";
 				}
 				if (!txtFechadeN.getText().isEmpty()) {
 					DatosdelAgresor += "Fecha de nacimiento: " + txtFechadeN.getText();
@@ -535,16 +624,8 @@ public class DATOSDELAGRESOR extends JFrame {
 
 				String NiveldeRiesgo = comboNivel.getSelectedItem().toString();
 				String GradoEscolar = comboGrado.getSelectedItem().toString();
-				String EstadoCivil = "";
-				if (rdestCasad.isSelected()) {
-					EstadoCivil = "Casado/a";
-				} else if (rdestSolt.isSelected()) {
-					EstadoCivil = "Soltero/a";
-				} else if (rdestViud.isSelected()) {
-					EstadoCivil = "Viudo/a";
-				} else {
-					EstadoCivil = "Dato no dado";
-				}
+				String EstadoCivil = comboEstadoCivil.getSelectedItem().toString();
+				
 				String RelacionoVinculo = txtRelacion.getText();
 				String Domicilio = txtDomicilio.getText();
 				String ServidorPublico = "";
@@ -558,7 +639,7 @@ public class DATOSDELAGRESOR extends JFrame {
 				String Ocupacion = txtOcupacion.getText();
 				String MediaAfil = "Tez: " + txtTez.getText() + "\n" + "Nariz: " + txtNariz.getText() + "\n" + "Ojos: "
 						+ txtOjos.getText() + "\n" + "Cabello: " + txtCabello.getText() + "\n" + "Cara: "
-						+ txtCara.getText() + "\n" + "Cejas: " + txtCejas.getText() + "\n" + "Labios:"
+						+ txtCara.getText() + "\n" + "Cejas: " + txtCejas.getText() + "\n" + "Labios: "
 						+ txtLabios.getText() + "\n" + "Complexion: " + txtComplexion.getText();
 				String PortaArmas = "";
 				if (rdportaArmasSI.isSelected()) {
@@ -647,6 +728,15 @@ public class DATOSDELAGRESOR extends JFrame {
 		contentPane.add(btnInicio);
 		
 		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Violencia ventana = new Violencia();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				ventana.Regresar();
+				dispose();
+			}
+		});
 		btnNewButton.setBounds(224, 577, 89, 23);
 		contentPane.add(btnNewButton);
 	}

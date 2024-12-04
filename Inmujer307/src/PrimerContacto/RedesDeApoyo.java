@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RedesDeApoyo extends JFrame {
@@ -34,6 +35,21 @@ public class RedesDeApoyo extends JFrame {
 	ConexionInmujer conexion = new ConexionInmujer();
 	Connection con = conexion.conectar();
 
+	public void Regresar() {
+		String sql = "";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,7 +64,7 @@ public class RedesDeApoyo extends JFrame {
 	}
 
 	public RedesDeApoyo() {
-
+		DatosGenerales.exp = 13;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -224,6 +240,15 @@ public class RedesDeApoyo extends JFrame {
 		contentPane.add(btnInicio);
 		
 		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Efectosfisicos ventana = new Efectosfisicos();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				ventana.Regresar();
+				dispose();
+			}
+		});
 		btnNewButton.setBackground(new Color(222, 158, 158));
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		btnNewButton.setBounds(362, 510, 112, 34);

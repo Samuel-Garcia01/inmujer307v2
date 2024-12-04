@@ -20,6 +20,8 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import com.mysql.cj.xdevapi.Statement;
+
 import ConexionBaseDeDatos.ConexionInmujer;
 import clasesExternas.FechaHora;
 
@@ -72,29 +74,84 @@ public class DatosGenerales extends JFrame {
 	FechaHora fech = new FechaHora();
 	String NombreDeLaVictima;
 
-	public void BuscarExpediente() {
-		// Aqui se crea un metodo para generar el numero de expediente medianate la
-		// conexion ala base de datos
+	public void Regresar() {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
-
-		String sql = "SELECT * FROM datos WHERE Nombre_de_la_victima = '" + NombreDeLaVictima + "'";
-
+		
+		String sql = "SELECT * FROM datos WHERE EXP = '"+exp+"'";
+		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
-
+			
 			if (rs.next()) {
-				exp = rs.getInt("EXP");
+				String nombreVic = "SELECT SUBSTRING_INDEX(Nombre_de_la_victima, ' ',1) AS apellido_paterno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',2),' ',-1) AS apellido_materno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',3),' ',-1) AS nombre FROM datos WHERE EXP = '"+exp+"'";
+				
+				PreparedStatement pstVic = con.prepareStatement(nombreVic);
+				ResultSet rsVic = pstVic.executeQuery();
+				if (rsVic.next()) {
+					txtApellidopaterno.setText(rsVic.getString("apellido_paterno"));
+					txtApellidoMaterno.setText(rsVic.getString("apellido_materno"));
+					txtNombres.setText(rsVic.getString("nombre"));
+				}
+				
+				comboCodigoPostal.setSelectedItem(rs.getString("Codigo_postal"));
+	            comboColonia.setSelectedItem(rs.getString("Colonia"));
+	            txtDomicilio.setText(rs.getString("Domicilio"));
+	            txtOcupacion.setText(rs.getString("Ocupacion"));
+	            txtIngresoFamiliar.setText(rs.getString("Ingreso_familiar"));
+	            txtNumeroCelular.setText(rs.getString("Telefono_Celular"));
+	            txtnumeroDeCasa.setText(rs.getString("Telefono_Casa"));
+	            txtCanalizadPor.setText(rs.getString("Canalizada_por"));
+	            txtPadecimientoCronico.setText(rs.getString("Padecimiento_y_o_Enfermedad_cronica"));
+	            txtDenuncia.setText(rs.getString("Denuncia"));
+	            ComboEstadOCivil.setSelectedItem(rs.getString("Estado_Civil"));
+	            comboServiciomedico.setSelectedItem(rs.getString("Servicio_Medico"));
+	            comboGradoestudios.setSelectedItem(rs.getString("Grado_de_Estudios"));
+	            
+	            String edad = rs.getString("Edad"),e = "";
+	            if (edad.length()==1) {
+					e = "0"+edad;
+				} else {
+					e = edad;
+				}
+	            comboEdad.setSelectedItem(e);
+	            
+	            comboVivienda.setSelectedItem(rs.getString("Vivienda"));
+	            comboNopersonas.setSelectedItem(rs.getString("No_Personas"));
+	            comboContribuyentealgasto.setSelectedItem(rs.getString("Contribuyente_al_gasto"));
+	            
+	            String fechaNac = "SELECT Fecha_de_nacimiento, YEAR(Fecha_de_nacimiento) AS anio, MONTH(Fecha_de_nacimiento) AS mes, DAY(Fecha_de_nacimiento) AS dia FROM datos WHERE EXP = '"+exp+"'";
+				
+	            PreparedStatement pstNac = con.prepareStatement(fechaNac);
+				ResultSet rsNac = pstNac.executeQuery();
+				if (rsNac.next()) {
+					String mes = rsNac.getString("mes"), m = "";
+					String dia = rsNac.getString("dia"), d = "";
+					if (mes.length()==1) {
+						m = "0"+mes;
+					} else {
+						m = mes;
+					}
+					if (dia.length()==1) {
+						d = "0"+dia;
+					} else {
+						d = dia;
+					}
+					comboAnio.setSelectedItem(rsNac.getInt("anio"));
+					comboMes.setSelectedItem(m);
+					comboDia.setSelectedItem(d);
+				}
+				
+				area.setText(rs.getString("Dependientes_Economicos"));
 			} else {
-
+				System.out.println("No se encontraron registros");
 			}
-
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 	// Aqui definimos la variable
 
@@ -136,14 +193,14 @@ public class DatosGenerales extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("APELLIDO PATERNO");
-		lblNewLabel_1.setForeground(Color.GRAY);
+		lblNewLabel_1.setForeground(new Color(43, 43, 43));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(23, 35, 138, 14);
 		panel_1.add(lblNewLabel_1);
 
 		txtApellidopaterno = new JTextField();
-		txtApellidopaterno.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtApellidopaterno.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtApellidopaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent a) {
@@ -166,22 +223,22 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
-		txtApellidopaterno.setForeground(new Color(64, 0, 128));
+		txtApellidopaterno.setForeground(new Color(43, 43, 43));
 		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtApellidopaterno.setBounds(23, 11, 138, 20);
 		panel_1.add(txtApellidopaterno);
 		txtApellidopaterno.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("APELLIDO MATERNO");
-		lblNewLabel_2.setForeground(Color.GRAY);
+		lblNewLabel_2.setForeground(new Color(43, 43, 43));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_2.setBounds(206, 35, 138, 14);
 		panel_1.add(lblNewLabel_2);
 
 		txtApellidoMaterno = new JTextField();
-		txtApellidoMaterno.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtApellidoMaterno.setForeground(new Color(64, 0, 128));
+		txtApellidoMaterno.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtApellidoMaterno.setForeground(new Color(43, 43, 43));
 		txtApellidoMaterno.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent av) {
@@ -212,15 +269,15 @@ public class DatosGenerales extends JFrame {
 		txtApellidoMaterno.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("NOMBRE/S");
-		lblNewLabel_3.setForeground(Color.GRAY);
+		lblNewLabel_3.setForeground(new Color(43, 43, 43));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_3.setBounds(386, 35, 122, 14);
 		panel_1.add(lblNewLabel_3);
 
 		txtNombres = new JTextField();
-		txtNombres.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtNombres.setForeground(new Color(64, 0, 128));
+		txtNombres.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNombres.setForeground(new Color(43, 43, 43));
 		txtNombres.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent avt) {
@@ -270,13 +327,13 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		ComboEstadOCivil.setModel(
-				new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
+				new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Divorciada", "Viuda", "Separada", "Union libre", "Comprometida"}));
 		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
 		ComboEstadOCivil.setBounds(10, 11, 191, 22);
 		panel_2.add(ComboEstadOCivil);
 
 		JLabel lblNewLabel_4 = new JLabel("ESTADO CIVIL");
-		lblNewLabel_4.setForeground(Color.GRAY);
+		lblNewLabel_4.setForeground(new Color(43, 43, 43));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_4.setBounds(10, 38, 191, 14);
@@ -300,7 +357,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboServiciomedico);
 
 		JLabel lblNewLabel_5 = new JLabel("SERVICIO MEDICO");
-		lblNewLabel_5.setForeground(Color.GRAY);
+		lblNewLabel_5.setForeground(new Color(43, 43, 43));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_5.setBounds(10, 85, 191, 14);
@@ -323,7 +380,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboGradoestudios);
 
 		JLabel lblNewLabel_6 = new JLabel("GRADO DE ESTUDIOS");
-		lblNewLabel_6.setForeground(Color.GRAY);
+		lblNewLabel_6.setForeground(new Color(43, 43, 43));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_6.setBounds(10, 132, 191, 14);
@@ -357,7 +414,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboEdad);
 
 		JLabel lblNewLabel_7 = new JLabel("EDAD");
-		lblNewLabel_7.setForeground(Color.GRAY);
+		lblNewLabel_7.setForeground(new Color(43, 43, 43));
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(10, 179, 191, 14);
@@ -380,7 +437,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboVivienda);
 
 		JLabel lblNewLabel_11 = new JLabel("VIVIENDA");
-		lblNewLabel_11.setForeground(Color.GRAY);
+		lblNewLabel_11.setForeground(new Color(43, 43, 43));
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_11.setBounds(10, 224, 191, 14);
@@ -404,7 +461,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboNopersonas);
 
 		JLabel lblNewLabel_12 = new JLabel("NO. PERSONAS");
-		lblNewLabel_12.setForeground(Color.GRAY);
+		lblNewLabel_12.setForeground(new Color(43, 43, 43));
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_12.setBounds(10, 269, 191, 14);
@@ -427,7 +484,7 @@ public class DatosGenerales extends JFrame {
 		panel_2.add(comboContribuyentealgasto);
 
 		JLabel lblNewLabel_13 = new JLabel("CONTRIBUYENTE AL GASTO");
-		lblNewLabel_13.setForeground(Color.GRAY);
+		lblNewLabel_13.setForeground(new Color(43, 43, 43));
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_13.setBounds(10, 305, 191, 14);
@@ -811,7 +868,7 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(comboCodigoPostal);
 
 		JLabel lblNewLabel_14 = new JLabel("CODIGO POSTAL");
-		lblNewLabel_14.setForeground(Color.GRAY);
+		lblNewLabel_14.setForeground(new Color(43, 43, 43));
 		lblNewLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_14.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_14.setBounds(10, 36, 136, 14);
@@ -826,15 +883,15 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(comboColonia);
 
 		JLabel lblNewLabel_15 = new JLabel("COLONIA");
-		lblNewLabel_15.setForeground(Color.GRAY);
+		lblNewLabel_15.setForeground(new Color(43, 43, 43));
 		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_15.setBounds(200, 36, 139, 14);
 		panel_3.add(lblNewLabel_15);
 
 		txtDomicilio = new JTextField();
-		txtDomicilio.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtDomicilio.setForeground(new Color(64, 0, 128));
+		txtDomicilio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDomicilio.setForeground(new Color(43, 43, 43));
 		txtDomicilio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtDomicilio.getText().isEmpty()) {
@@ -851,7 +908,7 @@ public class DatosGenerales extends JFrame {
 		txtDomicilio.setColumns(10);
 
 		JLabel lblNewLabel_16 = new JLabel("DOMICILIO");
-		lblNewLabel_16.setForeground(Color.GRAY);
+		lblNewLabel_16.setForeground(new Color(43, 43, 43));
 		lblNewLabel_16.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_16.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_16.setBounds(373, 36, 168, 14);
@@ -876,7 +933,7 @@ public class DatosGenerales extends JFrame {
 		txtEstado.setColumns(10);
 
 		JLabel lblNewLabel_24 = new JLabel("ESTADO");
-		lblNewLabel_24.setForeground(Color.GRAY);
+		lblNewLabel_24.setForeground(new Color(43, 43, 43));
 		lblNewLabel_24.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_24.setBounds(10, 78, 136, 14);
@@ -890,7 +947,7 @@ public class DatosGenerales extends JFrame {
 		panel_4.setLayout(null);
 
 		txtOcupacion = new JTextField();
-		txtOcupacion.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtOcupacion.setForeground(new Color(64, 0, 128));
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -910,15 +967,15 @@ public class DatosGenerales extends JFrame {
 		txtOcupacion.setColumns(10);
 
 		JLabel lblNewLabel_17 = new JLabel("OCUPACION");
-		lblNewLabel_17.setForeground(Color.GRAY);
+		lblNewLabel_17.setForeground(new Color(43, 43, 43));
 		lblNewLabel_17.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_17.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_17.setBounds(27, 32, 194, 14);
 		panel_4.add(lblNewLabel_17);
 
 		txtIngresoFamiliar = new JTextField();
-		txtIngresoFamiliar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtIngresoFamiliar.setForeground(new Color(64, 0, 128));
+		txtIngresoFamiliar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtIngresoFamiliar.setForeground(new Color(43, 43, 43));
 		txtIngresoFamiliar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -947,15 +1004,15 @@ public class DatosGenerales extends JFrame {
 		txtIngresoFamiliar.setColumns(10);
 
 		JLabel lblNewLabel_18 = new JLabel("INGRESO FAMILIAR");
-		lblNewLabel_18.setForeground(Color.GRAY);
+		lblNewLabel_18.setForeground(new Color(43, 43, 43));
 		lblNewLabel_18.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_18.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_18.setBounds(27, 73, 194, 14);
 		panel_4.add(lblNewLabel_18);
 
 		txtNumeroCelular = new JTextField();
-		txtNumeroCelular.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtNumeroCelular.setForeground(new Color(64, 0, 128));
+		txtNumeroCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNumeroCelular.setForeground(new Color(43, 43, 43));
 		txtNumeroCelular.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ev) {
@@ -988,15 +1045,15 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular.setColumns(10);
 
 		JLabel lblNewLabel_19 = new JLabel("NUMERO CELULAR");
-		lblNewLabel_19.setForeground(Color.GRAY);
+		lblNewLabel_19.setForeground(new Color(43, 43, 43));
 		lblNewLabel_19.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_19.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_19.setBounds(27, 117, 194, 14);
 		panel_4.add(lblNewLabel_19);
 
 		txtnumeroDeCasa = new JTextField();
-		txtnumeroDeCasa.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtnumeroDeCasa.setForeground(new Color(64, 0, 128));
+		txtnumeroDeCasa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtnumeroDeCasa.setForeground(new Color(43, 43, 43));
 		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -1023,15 +1080,15 @@ public class DatosGenerales extends JFrame {
 		txtnumeroDeCasa.setColumns(10);
 
 		JLabel lblNewLabel_20 = new JLabel("NUMERO CASA");
-		lblNewLabel_20.setForeground(Color.GRAY);
+		lblNewLabel_20.setForeground(new Color(43, 43, 43));
 		lblNewLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_20.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_20.setBounds(27, 162, 194, 14);
 		panel_4.add(lblNewLabel_20);
 
 		txtCanalizadPor = new JTextField();
-		txtCanalizadPor.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtCanalizadPor.setForeground(new Color(64, 0, 128));
+		txtCanalizadPor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCanalizadPor.setForeground(new Color(43, 43, 43));
 		txtCanalizadPor.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ki) {
@@ -1063,15 +1120,15 @@ public class DatosGenerales extends JFrame {
 		txtCanalizadPor.setColumns(10);
 
 		JLabel lblNewLabel_21 = new JLabel("CANALIZADA POR:");
-		lblNewLabel_21.setForeground(Color.GRAY);
+		lblNewLabel_21.setForeground(new Color(43, 43, 43));
 		lblNewLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_21.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_21.setBounds(27, 207, 194, 14);
 		panel_4.add(lblNewLabel_21);
 
 		txtPadecimientoCronico = new JTextField();
-		txtPadecimientoCronico.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtPadecimientoCronico.setForeground(new Color(64, 0, 128));
+		txtPadecimientoCronico.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtPadecimientoCronico.setForeground(new Color(43, 43, 43));
 		txtPadecimientoCronico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1089,22 +1146,22 @@ public class DatosGenerales extends JFrame {
 		txtPadecimientoCronico.setColumns(10);
 
 		JLabel lblNewLabel_22 = new JLabel("PADECIMIENTO CRONICO");
-		lblNewLabel_22.setForeground(Color.GRAY);
+		lblNewLabel_22.setForeground(new Color(43, 43, 43));
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_22.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_22.setBounds(27, 247, 194, 14);
 		panel_4.add(lblNewLabel_22);
 
 		JLabel lblNewLabel_23 = new JLabel("DENUNCIA");
-		lblNewLabel_23.setForeground(Color.GRAY);
+		lblNewLabel_23.setForeground(new Color(43, 43, 43));
 		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_23.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_23.setBounds(27, 291, 194, 14);
 		panel_4.add(lblNewLabel_23);
 
 		txtDenuncia = new JTextField();
-		txtDenuncia.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtDenuncia.setForeground(new Color(64, 0, 128));
+		txtDenuncia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDenuncia.setForeground(new Color(43, 43, 43));
 		txtDenuncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1120,10 +1177,10 @@ public class DatosGenerales extends JFrame {
 		txtDenuncia.setBounds(27, 270, 194, 20);
 		panel_4.add(txtDenuncia);
 		txtDenuncia.setColumns(10);
-		area.setForeground(new Color(64, 0, 128));
+		area.setForeground(new Color(43, 43, 43));
 
 		area.setBackground(new Color(243, 220, 220));
-		area.setBounds(272, 312, 303, 270);
+		area.setBounds(272, 312, 303, 271);
 		contentPane.add(area);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
@@ -1212,57 +1269,86 @@ public class DatosGenerales extends JFrame {
 
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-				String sql = "INSERT INTO datos(FECHA,HORA,Nombre_de_la_victima,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-				try {
-					// Preparamos la sentencia sql para conectarlo en la base de datos
-					// comentamos anteriormente
+				String sql="";
+				if (exp==0) {
+					sql = "INSERT INTO datos(FECHA,HORA,Nombre_de_la_victima,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					try {
+						// Preparamos la sentencia sql para conectarlo en la base de datos
+						// comentamos anteriormente
 
-					PreparedStatement pst = con.prepareStatement(sql);
-					pst.setString(1, fecha);
-					pst.setString(2, Hora);
-					pst.setString(3, NombreDeLaVictima);
-					pst.setString(4, EstadoCivil);
-					pst.setString(5, Ocupacion);
-					pst.setString(6, servicioMedico);
-					pst.setString(7, GradoDeEstudios);
-					pst.setInt(8, edad);
-					pst.setString(9, FechaDeNacimiento);
-					pst.setString(10, IngresoFamiliar);
-					pst.setString(11, Domicilio);
-					pst.setString(12, CodigoPostal);
-					pst.setString(13, colonia);
-					pst.setString(14, Estado);
-					pst.setString(15, telefonoCelular);
-					pst.setString(16, telefonoCasa);
-					pst.setString(17, vivienda);
-					pst.setString(18, nopersonas);
-					pst.setString(19, contribuyente);
-					pst.setString(20, canalizadaPor);
-					pst.setString(21, padecimiento);
-					pst.setString(22, denuncia);
-					pst.setString(23, dependientes);
+						PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+						pst.setString(1, fecha);
+						pst.setString(2, Hora);
+						pst.setString(3, NombreDeLaVictima);
+						pst.setString(4, EstadoCivil);
+						pst.setString(5, Ocupacion);
+						pst.setString(6, servicioMedico);
+						pst.setString(7, GradoDeEstudios);
+						pst.setInt(8, edad);
+						pst.setString(9, FechaDeNacimiento);
+						pst.setString(10, IngresoFamiliar);
+						pst.setString(11, Domicilio);
+						pst.setString(12, CodigoPostal);
+						pst.setString(13, colonia);
+						pst.setString(14, Estado);
+						pst.setString(15, telefonoCelular);
+						pst.setString(16, telefonoCasa);
+						pst.setString(17, vivienda);
+						pst.setString(18, nopersonas);
+						pst.setString(19, contribuyente);
+						pst.setString(20, canalizadaPor);
+						pst.setString(21, padecimiento);
+						pst.setString(22, denuncia);
+						pst.setString(23, dependientes);
 
-					int valor = pst.executeUpdate();
-					if (valor == 1) {
-						System.out.println("Insertado correctamente");
+						int valor = pst.executeUpdate();
+						if (valor == 1) {
+							System.out.println("Insertado correctamente");
 
-						BuscarExpediente();
-						// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
-						// campo
-						JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
-								"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
-						// Aqui generamos una instancia que lo mande automaticamente a la siguiente
-						// ventana despues del proceso antes mostrado
-						Violencia ventana = new Violencia();
-						dispose();
-						ventana.setVisible(true);
-						ventana.setLocationRelativeTo(null);
-					} else {
-						System.out.println("No se inserto");
+							ResultSet rs = pst.getGeneratedKeys();
+							if (rs.next()) {
+								exp = rs.getInt(1);
+								System.out.println(exp);
+							}
+							// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
+							// campo
+							JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
+									"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
+							// Aqui generamos una instancia que lo mande automaticamente a la siguiente
+							// ventana despues del proceso antes mostrado
+							Violencia ventana = new Violencia();
+							dispose();
+							ventana.setVisible(true);
+							ventana.setLocationRelativeTo(null);
+						} else {
+							System.out.println("No se inserto");
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else {
+					sql = "UPDATE datos SET FECHA = '"+fecha+"', HORA = '"+Hora+"',Nombre_de_la_victima = '"+NombreDeLaVictima+"',Estado_Civil = '"+EstadoCivil+"',Ocupacion = '"+Ocupacion+"',Servicio_Medico = '"+servicioMedico+"',Grado_de_Estudios = '"+GradoDeEstudios+"',Edad = '"+edad+"',Fecha_de_nacimiento = '"+fecha+"',Ingreso_familiar = '"+IngresoFamiliar+"',Domicilio = '"+Domicilio+"',Codigo_postal = '"+CodigoPostal+"',Colonia = '"+colonia+"',Estado = '"+Estado+"',Telefono_Celular = '"+telefonoCelular+"',Telefono_Casa = '"+telefonoCasa+"',Vivienda = '"+vivienda+"',No_Personas = '"+nopersonas+"',Contribuyente_al_gasto = '"+contribuyente+"',Canalizada_por = '"+canalizadaPor+"',Padecimiento_y_o_Enfermedad_cronica = '"+padecimiento+"',Denuncia = '"+denuncia+"',Dependientes_Economicos = '"+dependientes+"' WHERE EXP = '"+DatosGenerales.exp+"'";
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (rootPaneCheckingEnabled) {
+							System.out.println("Insertado correctamente");
+							JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
+									"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
+							// Aqui generamos una instancia que lo mande automaticamente a la siguiente
+							// ventana despues del proceso antes mostrado
+							Violencia ventana = new Violencia();
+							dispose();
+							ventana.setVisible(true);
+							ventana.setLocationRelativeTo(null);
+						} else {
+							System.out.println("No se inserto");
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -1315,7 +1401,7 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_8 = new JLabel("DIA");
-		lblNewLabel_8.setForeground(Color.GRAY);
+		lblNewLabel_8.setForeground(new Color(43, 43, 43));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setBounds(10, 68, 191, 14);
 		panel.add(lblNewLabel_8);
@@ -1348,7 +1434,7 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_9 = new JLabel("MES");
-		lblNewLabel_9.setForeground(Color.GRAY);
+		lblNewLabel_9.setForeground(new Color(43, 43, 43));
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setBounds(10, 111, 191, 14);
 		panel.add(lblNewLabel_9);
@@ -1373,10 +1459,11 @@ public class DatosGenerales extends JFrame {
 		}
 
 		JLabel lblNewLabel_10 = new JLabel("AÑO");
-		lblNewLabel_10.setForeground(Color.GRAY);
+		lblNewLabel_10.setForeground(new Color(43, 43, 43));
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_10.setBounds(10, 159, 191, 14);
 		panel.add(lblNewLabel_10);
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
+		System.out.println(exp);
 	}
 }

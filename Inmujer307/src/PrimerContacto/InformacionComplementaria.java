@@ -32,6 +32,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -46,8 +47,24 @@ public class InformacionComplementaria extends JFrame {
 	JCheckBox checAutorizo = new JCheckBox("Autorizo");
 	JTextArea textObservaciones = new JTextArea();
 	
+	public void Regresar() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		String sql = "";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-
+	
 
 	/**
 	 * Launch the application.

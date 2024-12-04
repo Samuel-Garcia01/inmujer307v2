@@ -20,6 +20,7 @@ import MenuInmujer.MenuInmujer;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -67,10 +68,6 @@ public class Efectosfisicos extends JFrame {
 	JCheckBox chkPerdidaDocumentos = new JCheckBox("QUEMA/PERDIDA DE DOCUMENTOS");
 	JCheckBox chkSalirDomicilio = new JCheckBox("SALIR DEL DOMICILIO");
 	JCheckBox chkNoAplicaEconomico = new JCheckBox("NO APLICA");
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
-	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
 	
 	public void insertarDatosEfectos() {
 		boolean [] condFisicos = new boolean[8];
@@ -218,6 +215,136 @@ public class Efectosfisicos extends JFrame {
 		}
 	}
 	
+	public void Regresar() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				String sqlFisicos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Efectos_fisicos,'\n',1),'1. ','')) AS primer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',2),'\n',-1),'2. ','')) AS segundo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',3),'\n',-1),'3. ','')) AS tercer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',4),'\n',-1),'4. ','')) AS cuarto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',5),'\n',-1),'5. ','')) AS quinto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',6),'\n',-1),'6. ','')) AS sexto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',7),'\n',-1),'7. ','')) AS septimo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_fisicos,'\n',8),'\n',-1),'8. ','')) AS octavo_efecto FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstFisicos = con.prepareStatement(sqlFisicos);
+				ResultSet rsFisicos = pstFisicos.executeQuery();
+				if (rsFisicos.next()) {
+					if (chkHerida.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))) {
+						chkHerida.setSelected(true);
+					}
+					if (chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkFractura.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkFractura.setSelected(true);
+					}
+					if (chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkAmputaciones.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkAmputaciones.setSelected(true);
+					}
+					if (chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkEnfermedad.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkEnfermedad.setSelected(true);
+					}
+					if (chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkCicatrices.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkCicatrices.setSelected(true);
+					}
+					if (chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkQuemaduras.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkQuemaduras.setSelected(true);
+					}
+					if (chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkOtrosFisicos.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkOtrosFisicos.setSelected(true);
+					}
+					if (chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("primer_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("segundo_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("tercer_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("cuarto_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("quinto_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("sexto_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("septimo_efecto"))||chkNinguno.getText().equalsIgnoreCase(rsFisicos.getString("octavo_efecto"))) {
+						chkNinguno.setSelected(true);
+					}
+				}
+				
+				String sqlPsicologicos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Efectos_psicologicos,'\n',1),'1. ','')) AS primer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',2),'\n',-1),'2. ','')) AS segundo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',3),'\n',-1),'3. ','')) AS tercer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',4),'\n',-1),'4. ','')) AS cuarto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',5),'\n',-1),'5. ','')) AS quinto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',6),'\n',-1),'6. ','')) AS sexto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',7),'\n',-1),'7. ','')) AS septimo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',8),'\n',-1),'8. ','')) AS octavo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',9),'\n',-1),'9. ','')) AS noveno_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_psicologicos,'\n',10),'\n',-1),'10. ','')) AS decimo_efecto  FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstPsicologicos = con.prepareStatement(sqlPsicologicos);
+				ResultSet rsPsicologicos = pstPsicologicos.executeQuery();
+				if (rsPsicologicos.next()) {
+					if (chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkAngustia.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkAngustia.setSelected(true);
+					}
+					if (chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkTranstornoSuenio.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkTranstornoSuenio.setSelected(true);
+					}
+					if (chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkEstresPostraumatico.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkEstresPostraumatico.setSelected(true);
+					}
+					if (chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkDepresion.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkDepresion.setSelected(true);
+					}
+					if (chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkAnsiedad.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkAnsiedad.setSelected(true);
+					}
+					if (chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkAislamiento.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkAislamiento.setSelected(true);
+					}
+					if (chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkIdeaSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkIdeaSuicida.setSelected(true);
+					}
+					if (chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkIntentoSuicida.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkIntentoSuicida.setSelected(true);
+					}
+					if (chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkTranstornoAlimenticio.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkTranstornoAlimenticio.setSelected(true);
+					}
+					if (chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("primer_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("segundo_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("tercer_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("cuarto_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("quinto_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("sexto_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("septimo_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("octavo_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("noveno_efecto"))||chkOtroPsicologico.getText().equalsIgnoreCase(rsPsicologicos.getString("decimo_efecto"))) {
+						chkOtroPsicologico.setSelected(true);
+					}
+				}
+				
+				String sqlSexuales = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Efectos_sexuales,'\n',1),'1. ','')) AS primer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_sexuales,'\n',2),'\n',-1),'2. ','')) AS segundo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_sexuales,'\n',3),'\n',-1),'3. ','')) AS tercer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_sexuales,'\n',4),'\n',-1),'4. ','')) AS cuarto_efecto FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstSexuales = con.prepareStatement(sqlSexuales);
+				ResultSet rsSexuales = pstSexuales.executeQuery();
+				if (rsSexuales.next()) {
+					if (chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("primer_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("segundo_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("tercer_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("cuarto_efecto"))) {
+						chkInfecciones.setSelected(true);
+					}
+					if (chkEmbarazo.getText().equalsIgnoreCase(rsSexuales.getString("primer_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("segundo_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("tercer_efecto"))||chkInfecciones.getText().equalsIgnoreCase(rsSexuales.getString("cuarto_efecto"))) {
+						chkEmbarazo.setSelected(true);
+					}
+					if (chkAborto.getText().equalsIgnoreCase(rsSexuales.getString("primer_efecto"))||chkAborto.getText().equalsIgnoreCase(rsSexuales.getString("segundo_efecto"))||chkAborto.getText().equalsIgnoreCase(rsSexuales.getString("tercer_efecto"))||chkAborto.getText().equalsIgnoreCase(rsSexuales.getString("cuarto_efecto"))) {
+						chkAborto.setSelected(true);
+					}
+					if (chkNoAplicaSexuales.getText().equalsIgnoreCase(rsSexuales.getString("primer_efecto"))||chkNoAplicaSexuales.getText().equalsIgnoreCase(rsSexuales.getString("segundo_efecto"))||chkNoAplicaSexuales.getText().equalsIgnoreCase(rsSexuales.getString("tercer_efecto"))||chkNoAplicaSexuales.getText().equalsIgnoreCase(rsSexuales.getString("cuarto_efecto"))) {
+						chkNoAplicaSexuales.setSelected(true);
+					}
+				}
+				
+				String sqlPatrimoniales = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',1),'1. ','')) AS primer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',2),'\n',-1),'2. ','')) AS segundo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',3),'\n',-1),'3. ','')) AS tercer_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',4),'\n',-1),'4. ','')) AS cuarto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',5),'\n',-1),'5. ','')) AS quinto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',6),'\n',-1),'6. ','')) AS sexto_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',7),'\n',-1),'7. ','')) AS septimo_efecto, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Efectos_economicos_y_patrimoniales,'\n',8),'\n',-1),'8. ','')) AS octavo_efecto FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstPatrimoniales = con.prepareStatement(sqlPatrimoniales);
+				ResultSet rsPatrimoniales = pstPatrimoniales.executeQuery();
+				if (rsPatrimoniales.next()) {
+					if (chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkDejoEstudiar.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkDejoEstudiar.setSelected(true);
+					}
+					if (chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkNoRecibePensionAlimenticia.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkNoRecibePensionAlimenticia.setSelected(true);
+					}
+					if (chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkChantajeAportar.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkChantajeAportar.setSelected(true);
+					}
+					if (chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkNoRecibeGasto.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkNoRecibeGasto.setSelected(true);
+					}
+					if (chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkPerdidaPropiedades.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkPerdidaPropiedades.setSelected(true);
+					}
+					if (chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkPerdidaDocumentos.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkPerdidaDocumentos.setSelected(true);
+					}
+					if (chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkSalirDomicilio.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkSalirDomicilio.setSelected(true);
+					}
+					if (chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("primer_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("segundo_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("tercer_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("cuarto_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("quinto_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("sexto_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("septimo_efecto"))||chkNoAplicaEconomico.getText().equalsIgnoreCase(rsPatrimoniales.getString("octavo_efecto"))) {
+						chkNoAplicaEconomico.setSelected(true);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -239,6 +366,7 @@ public class Efectosfisicos extends JFrame {
 	 * Create the frame.
 	 */
 	public Efectosfisicos() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -541,6 +669,15 @@ public class Efectosfisicos extends JFrame {
 		panel.add(btnInicio);
 		
 		JButton btnRegresar = new JButton("Regresar");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				ventana.Regresar();
+				dispose();
+			}
+		});
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
 		btnRegresar.setBackground(new Color(243, 220, 220));
 		btnRegresar.setBounds(97, 577, 89, 23);
