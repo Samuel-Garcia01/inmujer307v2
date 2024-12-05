@@ -187,7 +187,7 @@ public class InformeSeguroVioleta extends JFrame {
 					String personasViviendo = rs.getInt("No_Personas")>0 ? String.valueOf(rs.getInt("No_Personas")): "";
 					String estadoSalud = rs.getString("Estado_de_salud") !=null ? rs.getString("Estado_de_salud"): "";
 					String tipoDeVivienda = rs.getString("Tipo_Vivienda") !=null ? rs.getString("Tipo_Vivienda"): "";
-					String denuncia =rs.getString("Denuncia_y/o_demanda")!=null ? rs.getString("Denuncia_y/o_demanda"): "";
+					String denuncia =rs.getString("Denuncia_y/o_demanda")!=null ? rs.getString("Denuncia_o_demanda"): "";
 					String estructuraFamiliar= rs.getString("Estructura_familiar")!=null ? rs.getString("Estructura_familiar"): "";
 					
 					
