@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import PrimerContacto.DatosGenerales;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,61 +52,89 @@ public class Violencia extends JFrame {
 	JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
 	JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
 	JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
-
-
-
-
-
 	
-	
-	public void cargarDatos(ResultSet rs) {
-	    try {
-	        // Obtener datos del ResultSet
-	        String tiposDeViolencia = rs.getString("Tipos_de_Violencia");
-	        String modalidades = rs.getString("Modalidades_de_violencia");
-	      
-	        // Validar datos nulos o vacíos
-	        tiposDeViolencia = (tiposDeViolencia == null) ? "" : tiposDeViolencia;
-	        modalidades = (modalidades == null) ? "" : modalidades;
-	        
-
-	        // Imprimir los datos obtenidos
-	        System.out.println("Tipo de violencia: " + tiposDeViolencia);
-	        System.out.println("Tipos de modalidades:  " + tiposDeViolencia);
-
-	        // Definir arreglos de JCheckBox
-	        JCheckBox[] tiposDeViolenciachckbx = { chckbxViolenciaFisica, chckbxViolenciaSexual, chckbxViolenciaPatrimonial, chckbxViolenciaVicaria, chckbxViolenciaPsicologica, chckbxViolenciaEconomica };
-	        JCheckBox[] modalidadeschckbx = { chckbxFamilia, chckbxDocente, chckbxInstitucional, chckbxComunitario, chckbxLaboral, chckbxCibernetica, };
-	        
-	        // Actualizar JCheckBox
-	        actualizarCheckboxes(tiposDeViolencia.split(","), tiposDeViolenciachckbx, "Físicos");
-	        actualizarCheckboxes(modalidades.split(","), modalidadeschckbx, "Psicológicos");
-	      
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+	public void BuscarDatos() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				String sqlTipos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Tipos_de_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',6),',',-1),', ','')) AS sexto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',7),',',-1),', ','')) AS septimo_tipo FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstTipos = con.prepareStatement(sqlTipos);
+				ResultSet rsTipos = pstTipos.executeQuery();
+				if (rsTipos.next()) {
+					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaFisica.setSelected(true);
+					}
+					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaPsicologica.setSelected(true);
+					}
+					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaSexual.setSelected(true);
+					}
+					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaVicaria.setSelected(true);
+					}
+					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaPatrimonial.setSelected(true);
+					}
+					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaEconomica.setSelected(true);
+					}
+					//if (chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+					//	chckbxViolenciaAcosoHostigamiento.setSelected(true);
+					//} 
+				}
+				
+				String sqlModalidades = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Tipos_de_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',6),',',-1),', ','')) AS sexto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',7),',',-1),', ','')) AS septimo_tipo FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstModalidades = con.prepareStatement(sqlTipos);
+				ResultSet rsModalidades = pstModalidades.executeQuery();
+				if (rsModalidades.next()) {
+					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaFisica.setSelected(true);
+					}
+					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaPsicologica.setSelected(true);
+					}
+					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaSexual.setSelected(true);
+					}
+					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaVicaria.setSelected(true);
+					}
+					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaPatrimonial.setSelected(true);
+					}
+					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaEconomica.setSelected(true);
+					}
+					//if (chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))||chckbxViolenciaAcosoHostigamiento.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						//chckbxViolenciaAcosoHostigamiento.setSelected(true);
+				//	} 
+				}
+				
+				String sqlHc = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Hechos_y_motivos_de_la_atencion, '\\n', 1), 'Lugar: ', -1), 'Lugar: ', '')) AS lugar_hechos, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Hechos_y_motivos_de_la_atencion, '\\n', 2), 'Fecha: ', -1), 'Fecha: ', '')) AS fecha_hechos, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Hechos_y_motivos_de_la_atencion, '\\n', 3), 'Hora: ', -1), 'Hora:', '')) AS hora_hechos FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstHc = con.prepareStatement(sqlHc);
+				ResultSet rsHc = pstHc.executeQuery();
+				if (rsHc.next()) {
+				//	txtLugar.setText(rsHc.getString("lugar_hechos"));
+					//txtFecha.setText(rsHc.getString("fecha_hechos"));
+					//comboHora.setSelectedItem(rsHc.getString("hora_hechos"));
+				}
+				//txtDescripcion.setText(rs.getString("Descripcion"));
+			} else {
+				System.out.println("No se encontraron registros");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	private void actualizarCheckboxes(String[] efectosArray, JCheckBox[] checkboxes, String categoria) {
-	    for (JCheckBox checkBox : checkboxes) {
-	        boolean marcado = false;
-	        System.out.println("Evaluando JCheckBox: " + checkBox.getText());
-	        for (String efecto : efectosArray) {
-	            System.out.println("Comparando con efecto: " + efecto.trim());
-	            if (checkBox.getText().trim().equalsIgnoreCase(efecto.trim())) {
-	                marcado = true;
-	                System.out.println("Coincidencia encontrada para: " + checkBox.getText());
-	                break;
-	            }
-	        }
-	        checkBox.setSelected(marcado);
-	        if (!marcado) {
-	            System.out.println("No se encontró coincidencia para: " + checkBox.getText());
-	        }
-	    }
-	}
-	
-	
 
 	public void insertar(String tv, String md, String hm, String des) {
 
@@ -115,7 +144,7 @@ public class Violencia extends JFrame {
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
-			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP = ?";
+			String sql = "UPDATE seguro_violeta SET Tipos_de_Violencia = '', Modalidades_de_violencia = '', Descripcion_Hechos_UltimoEpisodio_Violencia = '', WHERE EXP = ?";
 			PreparedStatement preparedStmt = con.prepareStatement(sql);
 			preparedStmt.setString(1, tv);
 			preparedStmt.setString(2, md);

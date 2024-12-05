@@ -22,6 +22,7 @@ import javax.swing.border.LineBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
 import MenuInmujer.MenuInmujer;
+import PrimerContacto.DatosGenerales;
 
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -43,27 +44,96 @@ public class DATOSDELAGRESOR extends JFrame {
 	    private JTextField txtDomicilio;
 	    private JTextField txtOcupacion;
 	    
+	    public void Busca() {
+			ConexionInmujer conexion = new ConexionInmujer();
+			Connection con = conexion.conectar();
 
-	    
-	    public void cargarDatos(ResultSet rs) {
-	        try {
-	            // Obtener los datos del resultado de la consulta y cargarlos en los campos
-	            String nombre = rs.getString("Nombre_de_la_victima");
-	            String relacion = rs.getString("Relacion_o_Vinculo");
-	            String domicilio = rs.getString("Domicilio_completo");
-	            String ocupacion = rs.getString("Ocupacion_del_Agresor");
-	            String edad = rs.getString("Edad");
-	            
-	            txtNombre.setText(nombre);
-	            txtRelacion.setText(relacion);
-	            txtDomicilio.setText(domicilio);
-	            txtOcupacion.setText(ocupacion);
-	            comboEdad.setSelectedItem(edad);
-
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }	
+			String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+			
+			try {
+				PreparedStatement pst = con.prepareStatement(sql);
+				ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					//comboNivel.setSelectedItem(rs.getString("Nivel_de_Riesgo"));
+					
+					String sqlDatos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Datos_del_Agresor,'\n',1),'Nombre: ','')) AS nombre_agresor, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Datos_del_Agresor,'\n',2),'\n',-1),'Edad: ','')) AS edad_agresor, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Datos_del_Agresor,'\n',3),'\n',-1),'Fecha de nacimiento: ','')) AS fecha_nacimiento FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+					PreparedStatement pstDatos = con.prepareStatement(sqlDatos);
+					ResultSet rsDatos = pstDatos.executeQuery();
+					if (rsDatos.next()) {
+						txtNombre.setText(rsDatos.getString("nombre_agresor"));
+						
+						String edad = rsDatos.getString("edad_agresor"), e = "";
+						if (edad.length()==1) {
+							e = "0"+edad;
+						} else {
+							e = edad;
+						}
+						comboEdad.setSelectedItem(e);
+						
+						//txtFechadeN.setText(rsDatos.getString("fecha_nacimiento"));
+					}
+					
+					//comboGrado.setSelectedItem(rs.getString("Grado_escolar"));
+					//comboEstadoCivil.setSelectedItem(rs.getString("Estado_Civil_del_Agresor"));
+					txtRelacion.setText(rs.getString("Relacion_o_Vinculo"));
+					txtDomicilio.setText(rs.getString("Domicilio_completo"));
+					
+					String servidorPublico = rs.getString("Servidor_Publico");
+					if (servidorPublico.equalsIgnoreCase("si")) {
+						//rdservidorSI.setSelected(true);
+					} else if (servidorPublico.equalsIgnoreCase("no")) {
+					//	rdservidorNO.setSelected(true);
+					}
+					
+					txtOcupacion.setText(rs.getString("Ocupacion_del_Agresor"));
+					
+					String sqlFiliacion = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',1),'Tez: ','')) AS tez, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',2),'\n',-1),'Nariz: ','')) AS nariz, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',3),'\n',-1),'Ojos: ','')) AS ojos, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',4),'\n',-1),'Cabello: ','')) AS cabello, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',5),'\n',-1),'Cara: ','')) AS cara, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',6),'\n',-1),'Cejas: ','')) AS cejas, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',7),'\n',-1),'Labios: ','')) AS labios, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Media_filiacion_del_agresor,'\n',8),'\n',-1),'Complexion: ','')) AS complexion FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+					PreparedStatement pstFiliacion = con.prepareStatement(sqlFiliacion);
+					ResultSet rsFiliacion = pstFiliacion.executeQuery();
+					if (rsFiliacion.next()) {
+					//	txtTez.setText(rsFiliacion.getString("tez"));
+						//txtNariz.setText(rsFiliacion.getString("nariz"));
+						//txtOjos.setText(rsFiliacion.getString("ojos"));
+						//txtCabello.setText(rsFiliacion.getString("cabello"));
+						//txtCara.setText(rsFiliacion.getString("cara"));
+						//txtCejas.setText(rsFiliacion.getString("cejas"));
+						//txtLabios.setText(rsFiliacion.getString("labios"));
+						//txtComplexion.setText(rsFiliacion.getString("complexion"));
+					}
+					
+					String portaArmas = rs.getString("Porta_armas");
+					if (portaArmas.equalsIgnoreCase("si")) {
+					//	rdportaArmasSI.setSelected(true);
+					} else if (portaArmas.equalsIgnoreCase("no")) {
+					//	rdportaArmasNO.setSelected(true);
+					}
+					
+					//comboTArma.setSelectedItem(rs.getString("Seleccionar_armas"));
+					
+					String bandaDelictiva = rs.getString("Pertenece_a_alguna_banda_delictiva");
+					if (bandaDelictiva.equalsIgnoreCase("si")) {
+						//rdBandaDelictivaSI.setSelected(true);
+					} else if (bandaDelictiva.equalsIgnoreCase("no")) {
+						//rdBandaDelictivaNO.setSelected(true);
+					}
+					
+					String TSustancia = rs.getString("Consume_algun_tipo_de_sustancia");
+					if (TSustancia.equalsIgnoreCase("si")) {
+						//rdConsumeSI.setSelected(true);
+					} else if (TSustancia.equalsIgnoreCase("no")) {
+						//rdConsumeNO.setSelected(true);
+					}
+					//txtCuales.setText(rs.getString("Cual"));
+					
+					//txtSeñasP.setText(rs.getString("Señas_particulares"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();

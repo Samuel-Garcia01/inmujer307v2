@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import ConexionBaseDeDatos.ConexionInmujer;
+import PrimerContacto.DatosGenerales;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +23,30 @@ public class RedesDeApoyo extends JFrame {
     private Connection con;
     private JTextField txtviabilidad;
     private JTextField txtrelacion;
+    
+    public void BusquedaDeDatos() {
+		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				String sqlRedes = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Redes_de_apoyo,'\n',1),'Tipo de relacion: ','')) AS tipo_de_relacion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',2),'\n',-1),'Tipos de apoyo: ','')) AS tipos_de_apoyo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',3),'\n',-1),'Nombre: ','')) AS nombre, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',4),'\n',-1),'Dirección: ','')) AS direccion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',5),'\n',-1),'Telefono: ','')) AS telefono FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstRedes = con.prepareStatement(sqlRedes);
+				ResultSet rsRedes = pstRedes.executeQuery();
+				if (rsRedes.next()) {
+				//	txtTipoDeRealacion.setText(rsRedes.getString("tipo_de_relacion"));
+					txtTiposDeApoyo.setText(rsRedes.getString("tipos_de_apoyo"));
+					txtNombre.setText(rsRedes.getString("nombre"));
+					//txtDireccion.setText(rsRedes.getString("direccion"));
+					txtTelefono.setText(rsRedes.getString("telefono"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
     public static void main(String[] args) {
        
