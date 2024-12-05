@@ -1,11 +1,13 @@
 package Informes;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -23,19 +25,21 @@ import ConexionBaseDeDatos.ConexionInmujer;
 import MenuInmujer.Menu;
 
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +47,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -50,12 +56,19 @@ public class InformeBoletaPago extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtInforme;
+	private JList<String> opciones;
+	private DefaultListModel<String> lista;
+	private JPopupMenu popmenu;
+	private JTextField txtNombre;
+	
+	ConexionInmujer conexion = new ConexionInmujer(); 
+    Connection con = conexion.conectar();
 	 public void boletadepago(String expediente) {
 	        Document boleta = new Document();
 	        String ruta = System.getProperty("user.home");
 
 	        try {
-	            PdfWriter writer = PdfWriter.getInstance(boleta, new FileOutputStream(ruta+"/desktop/Boleta_de_Pago.pdf"));//ruta + "/Boleta_de_Pago.pdf"
+	            PdfWriter writer = PdfWriter.getInstance(boleta, new FileOutputStream(ruta+"/BoletaDePago.pdf"));//ruta + "/Boleta_de_Pago.pdf"
 	            boleta.open();
 
 	            try {                
@@ -92,8 +105,7 @@ public class InformeBoletaPago extends JFrame {
 	            tabla.addCell(cell4);
 	            tabla.setHorizontalAlignment(Element.ALIGN_CENTER + Element.ALIGN_BOTTOM); 
 	            
-	            ConexionInmujer conexion = new ConexionInmujer(); 
-	            Connection con = conexion.conectar();
+	            
 	            String sql = "SELECT * FROM boleta_de_pago WHERE id = ?";
 
 	            try {
@@ -279,25 +291,53 @@ public class InformeBoletaPago extends JFrame {
 		txtInforme.setBounds(350, 237, 141, 20);
 		contentPane.add(txtInforme);
 		txtInforme.setColumns(10);
+		txtInforme.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+		});
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		JButton btnGenerar = new JButton("");
+		btnGenerar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				String exp = txtInforme.getText().trim();
 				String expediente= txtInforme.getText();
 				if (txtInforme.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Debe ingresar un n�mero","Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe ingresar un número","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				if (!exp.isEmpty() && !verificarExpediente(exp)) {
+					JOptionPane.showMessageDialog(null, "El expediente no se encuetra en la base de datos",
+							"Error",JOptionPane.ERROR_MESSAGE);
+					txtInforme.setText("");
 				}else {
 					boletadepago(expediente);
 				}
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(InformeBoletaPago.class.getResource("/img/generarPDF.png")));
-		btnNewButton.setBounds(350, 261, 141, 34);
-		contentPane.add(btnNewButton);
+		btnGenerar.setIcon(new ImageIcon(InformeBoletaPago.class.getResource("/img/generarPDF.png")));
+		btnGenerar.setBounds(350, 261, 141, 34);
+		contentPane.add(btnGenerar);
 		
 		JLabel lblNewLabel_12 = new JLabel("Ingrese el n\u00FAmero de expediente");
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_12.setBounds(311, 214, 205, 14);
+		lblNewLabel_12.setBounds(320, 214, 196, 14);
 		contentPane.add(lblNewLabel_12);
 		
 		JButton btnRegresar = new JButton("REGRESAR");
@@ -311,5 +351,168 @@ public class InformeBoletaPago extends JFrame {
 		});
 		btnRegresar.setBounds(116, 416, 116, 23);
 		contentPane.add(btnRegresar);
+		
+		JLabel lblNewLabel_13 = new JLabel("Buscar por nombre");
+		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_13.setBounds(347, 332, 144, 14);
+		contentPane.add(lblNewLabel_13);
+		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(350, 357, 141, 20);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		lista = new DefaultListModel<>();
+		opciones = new JList<>(lista);
+		popmenu = new JPopupMenu();
+		popmenu.add(new JScrollPane(opciones));
+		popmenu.setFocusable(false);
+		
+		txtNombre.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+		});
+		opciones.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					popmenu.setVisible(false);
+				}
+			}
+		});
+		opciones.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2 ) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					popmenu.setVisible(false);
+				}
+			}
+		});
 	}
+	private String obtenerEXP(String nombre) {
+		String exp = "";
+		String sql = "SELECT id FROM boleta_de_pago WHERE Beneficiaria LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				exp = rs.getString("id");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exp;
+	}
+	
+	private void actualizarOpciones() {
+		String buscarTexto = txtNombre.getText().trim();
+		if (buscarTexto.isEmpty()) {
+			popmenu.setVisible(false);
+			return;
+		}
+		List<String> opciones = obtenerOpcionesBaseDatos(buscarTexto);
+		lista.clear();
+		for (String opcion : opciones) {
+			lista.addElement(opcion);
+		}
+		if (!opciones.isEmpty()) {
+			popmenu.show(txtNombre, 0, txtNombre.getHeight());
+		} else {
+			popmenu.setVisible(true);
+		}
+	}
+	private List<String> obtenerOpcionesBaseDatos(String buscarTexto){
+		List<String> opciones = new ArrayList<>();
+		String sql = "SELECT Beneficiaria FROM boleta_de_pago WHERE Beneficiaria LIKE ?";
+		
+		try {
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setString(1, "%"+buscarTexto+"%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				opciones.add(rs.getString("Beneficiaria"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opciones;
+	}
+	private void mostarNombre() {
+		String exp = txtInforme.getText().trim();
+		if (exp.isEmpty()) {
+			txtNombre.setText("");
+			return;
+		}
+		String nombre = obtenerNombre(exp);
+		if (nombre.isEmpty()) {
+			txtNombre.setText("");
+		}else {
+			txtNombre.setText(nombre);
+		}
+	}
+	private String obtenerNombre(String exp) {
+		String nombre = "";
+		String sql = "SELECT Beneficiaria FROM boleta_de_pago WHERE id LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				nombre = rs.getString("Beneficiaria");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nombre;
+	}
+	private boolean verificarExpediente(String exp) {
+		String sql = "SELECT COUNT(*) FROM boleta_de_pago WHERE id = ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				int datos = rs.getInt(1);
+				return datos>0;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

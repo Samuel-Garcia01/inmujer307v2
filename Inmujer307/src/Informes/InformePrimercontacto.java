@@ -5,8 +5,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+import com.itextpdf.awt.geom.misc.RenderingHints.Key;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -32,7 +36,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import java.io.FileNotFoundException;
@@ -43,6 +49,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -51,106 +59,144 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InformePrimercontacto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtInforme;
-
+	private JList<String> opciones;
+	private DefaultListModel<String> lista;
+	private JPopupMenu popmenu;
+	private JTextField txtNombre;
+	JTextArea Area = new JTextArea();
+	
+	ConexionInmujer conexion = new ConexionInmujer();
+	Connection con = conexion.conectar();
 	
 	public void generarInformePrimerContacto(String expediente) {
+		//se hace una instanciacion para obtener fecha y hora del sistema 
 		FechaHora fecha = new FechaHora();
+		//se crea el documento
 		Document primer_contacto = new Document();
 		String ruta = System.getProperty("user.home");
 		PdfWriter writter;
-		ConexionInmujer conexion = new ConexionInmujer();
-		Connection con = conexion.conectar();
+		//se conecta a la base de datos
+		
 		try {
-			writter = PdfWriter.getInstance(primer_contacto, new FileOutputStream(ruta+"/desktop/PrimerContacto.pdf"));
-			//writter = PdfWriter.getInstance(primer_contacto, new FileOutputStream(ruta+"/PrimerContacto.pdf"));
+			//se le da un nombre del .pdf
+			writter = PdfWriter.getInstance(primer_contacto, new FileOutputStream(ruta+"/PrimerContacto.pdf"));
+			//se abre el documento 
 			primer_contacto.open();
 			
+			//se genera un ContentByte para generar imagenes en el fondo 
 			PdfContentByte cb = writter.getDirectContentUnder();
 			
+			//se obtiene la imagen para el fondo
 			Image logo = Image.getInstance("src/img/logo INMUJER.jpg");
+			//posicion
 			logo.setAbsolutePosition(10, 750);
+			//tamaño
 			logo.scaleToFit(80,100);
+			//alineacion
 			logo.setAlignment(Chunk.ALIGN_TOP+Chunk.ALIGN_LEFT);
+			//se agrega la imagen
 			cb.addImage(logo);
 			
+			//se coloca la imagen del fondo
 			Image fondo = Image.getInstance("src/img/FondoPrimerContacto.jpg");
+			//posicion
 			fondo.setAbsolutePosition(0,0);
+			//tamaño (carta general, abarca toda la hoja)
 			fondo.scaleAbsolute(595,842);
+			//se agrega el fondo
 			cb.addImage(fondo);
-			
+			//se define la letra
 			Font letra_grande = new Font(FontFactory.getFont("Century Gothic",12,Font.NORMAL,BaseColor.BLACK));
 			Font letra_pequenia = new Font(FontFactory.getFont("Century Gothic",9,Font.NORMAL,BaseColor.BLACK));
 			Font letra_blanca = new Font(FontFactory.getFont("Century Gothic",9,Font.NORMAL,BaseColor.WHITE));
 			
+			//se define un parrafo del titulo
 			Paragraph titulo = new Paragraph();
 			titulo.setAlignment(Paragraph.ALIGN_TOP);
 			titulo.setFont(FontFactory.getFont("Century Gothic", 12, Font.NORMAL,BaseColor.BLACK));
 			titulo.add("FORMATO DE ATENCIÓN DE PRIMER CONTACTO");
+			//es la distancia entre el borde izquierdo y el elemento
 			titulo.setIndentationLeft(236f);
-						
+			
+			//se define el diseño del rectangulo
 			cb.setColorFill(BaseColor.WHITE);
 			cb.setColorFill(BaseColor.BLACK);
 			cb.rectangle(100, 754, 150, 20);
+			//contorno
 			cb.stroke();
+			//relleno
 			cb.fill();
-			
+		
+			//letra
 			cb.setFontAndSize(BaseFont.createFont(), 9);
-			cb.showTextAligned(Element.ALIGN_LEFT,"Elabor�:", 100, 780, 0);
+			//texto que se va a mostrar
+			cb.showTextAligned(Element.ALIGN_LEFT,"Elaboró:", 100, 780, 0);
 			
+			//se hace una tabla
 			PdfPTable tabla1 = new PdfPTable(2);
+			//espacio que hay antes de la tabla
 			tabla1.setSpacingBefore(10f);
+			//porcentaje de cuanto va a abarcar
 			tabla1.setWidthPercentage(51);
+			//orientacion
 			tabla1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+		
+			//instruccion de sql (se selecciona toda la info de datos)
 			String sql = "SELECT * FROM datos WHERE EXP = ?";
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, expediente);
 			ResultSet rs = pst.executeQuery();
+			//siempre se debe poner rs.next
 			 while(rs.next()) {
-				 	
+				 	//se generan las celdas que van a ir dentro de la tabla 
 				 	PdfPCell celda1 = new PdfPCell(new Phrase("Fecha: "+String.valueOf(rs.getString("FECHA")),letra_pequenia));
 				 	PdfPCell celda2 = new PdfPCell(new Phrase("Hora: "+fecha.obtenerHoraCompleta(),letra_pequenia));
 				 	PdfPCell celda3 = new PdfPCell(new Phrase("EXP: "+String.valueOf(rs.getInt("EXP")),letra_pequenia));
 				 	PdfPCell celda4 = new PdfPCell(new Phrase("Dia: "+fecha.obtenerDiaMesAnio(),letra_pequenia));
-				 	
+				 	//se agregan las celdas de la tabla
 				 	tabla1.addCell(celda1);
 				 	tabla1.addCell(celda2);
 				 	tabla1.addCell(celda3);
 				 	tabla1.addCell(celda4);
 			}
+			 //primer numero: horizontal, segundo numero: vertical
 			pst.setString(1, expediente);
 			rs = pst.executeQuery();
 			while(rs.next()) {
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Nombre_de_la_victima"),letra_pequenia),
-			60, 735, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Nombre_de_la_victima"),letra_pequenia),
+			105, 735, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("__________________________",letra_pequenia),
 			37, 730, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Nombre Completo",letra_pequenia),
 			70, 720, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Estado_Civil"),letra_pequenia),
-			200, 735, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Estado_Civil"),letra_pequenia),
+			213, 735, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("_____________",letra_pequenia),
 			185, 730, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Estado Civil",letra_pequenia),
 			190, 720, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Ocupacion"),letra_pequenia),
-			285, 735, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Ocupacion"),letra_pequenia),
+			308, 735, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("________________",letra_pequenia),
 			270, 730, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Ocupación",letra_pequenia),
 			285, 720, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Servicio_Medico"),letra_pequenia),
-			390, 735, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Servicio_Medico"),letra_pequenia),
+			408, 735, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("___________________",letra_pequenia),
 			360, 730, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Servicio Médico",letra_pequenia),
 			375, 720, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Grado_de_Estudios"),letra_pequenia),
-			490, 735, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Grado_de_Estudios"),letra_pequenia),
+			502, 735, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("________________",letra_pequenia),
 			463, 730, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Grado de Estudios",letra_pequenia),
@@ -162,24 +208,24 @@ public class InformePrimercontacto extends JFrame {
 			38, 700, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Edad",letra_pequenia),
 			48, 690, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Fecha_de_nacimiento"),letra_pequenia),
-			118, 705, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Fecha_de_nacimiento"),letra_pequenia),
+			141, 705, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("__________________",letra_pequenia),
-			100, 700, 0);
+			95, 700, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Fecha de Nacimiento",letra_pequenia),
-			103, 690, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Ingreso_familiar"),letra_pequenia),
-			235, 705, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("________________",letra_pequenia),
-			205, 700, 0);
+			97, 690, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Ingreso_familiar"),letra_pequenia),
+			230, 705, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("_____________",letra_pequenia),
+			202, 700, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Ingreso Familiar",letra_pequenia),
-			213, 690, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Domicilio"),letra_pequenia),
-			325, 705, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("_________________________________________________",letra_pequenia),
-			305, 700, 0);
+			200, 690, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Domicilio"),letra_pequenia),
+			420, 705, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("______________________________________________________",letra_pequenia),
+			290, 700, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Domicilio",letra_pequenia),
-			410, 690, 0);
+			400, 690, 0);
 			
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Codigo_postal"),letra_pequenia),
 			53, 675, 0);
@@ -187,14 +233,14 @@ public class InformePrimercontacto extends JFrame {
 			38, 670, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Código Postal",letra_pequenia),
 			38, 660, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Colonia"),letra_pequenia),
-			115, 675, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Colonia"),letra_pequenia),
+			175, 675, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("__________________________",letra_pequenia),
 			110, 670, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Colonia",letra_pequenia),
-			140, 660, 0);
-			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase(rs.getString("Estado"),letra_pequenia),
-			262, 675, 0);
+			160, 660, 0);
+			ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(rs.getString("Estado"),letra_pequenia),
+			296, 675, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("___________________",letra_pequenia),
 			250, 670, 0);
 			ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Estado",letra_pequenia),
@@ -223,6 +269,9 @@ public class InformePrimercontacto extends JFrame {
 			pst.setString(1, expediente);
 			rs = pst.executeQuery();
 			while (rs.next()) {
+				
+				//si el dato es null se coloca una cadena vacia
+				//si hay resultado se coloca la informacion que esta en la base de datos
 				String vivienda = rs.getString("Vivienda")!=null ? rs.getString("Vivienda"): "";
 				String personasViviendo = rs.getInt("No_Personas")>0 ? String.valueOf(rs.getInt("No_Personas")): "";
 				String contribuyente = rs.getString("Contribuyente_al_gasto")!=null ?rs.getString("Contribuyente_al_gasto"): "";
@@ -231,6 +280,7 @@ public class InformePrimercontacto extends JFrame {
 				String denuncia =rs.getString("Denuncia")!=null ? rs.getString("Denuncia"): "";
 				String hijosDependientes = rs.getString("Dependientes_Economicos")!=null ? rs.getString("Dependientes_Economicos"): "";
 				
+				//a las celdas se les agrega una nueva frase en la cual se coloca la informacion de la base de datos
 				PdfPCell Vivienda = new PdfPCell(new Phrase("Vivienda: "+vivienda,letra_pequenia));
 				PdfPCell PersonasViviendo = new PdfPCell(new  Phrase("Número de personas que viven en el domicilio: "+personasViviendo,letra_pequenia));
 				PdfPCell Contribuyente = new PdfPCell(new Phrase("¿Quién contribuye al gasto familiar? "+contribuyente,letra_pequenia));
@@ -240,18 +290,19 @@ public class InformePrimercontacto extends JFrame {
 				PdfPCell HijosDependientes  =new PdfPCell(new Phrase("Nombre edad y escolaridad/ocupación de los hijos o dependientes económicos: ",letra_pequenia));
 				PdfPCell NomHijos = new PdfPCell(new Phrase(hijosDependientes,letra_pequenia));
 				
+				//se añaden las celdas a la tabla
 				tabla2.addCell(Vivienda);
 				tabla2.addCell(PersonasViviendo);
 				tabla2.addCell(Contribuyente);
 				tabla2.addCell(Canalizada);
 				tabla2.addCell(Padecimineto);
 				tabla2.addCell(DenunciaODemanda);
-				HijosDependientes.setColspan(2);
+				//cuantas columnas abarcan cada celda
+				 HijosDependientes.setColspan(2);
 				tabla2.addCell(HijosDependientes);
-				NomHijos.setColspan(2);
+				 NomHijos.setColspan(2);
 				tabla2.addCell(NomHijos);
 			}
-			
 			PdfPTable tabla3 = new PdfPTable(2);
 			tabla3.setWidthPercentage(100);
 			tabla3.setSpacingBefore(5);
@@ -270,8 +321,8 @@ public class InformePrimercontacto extends JFrame {
 				modalidad.setBackgroundColor(BaseColor.BLACK);
 				modalidad.setHorizontalAlignment(Element.ALIGN_CENTER);
 				
-				PdfPCell tipo_de_violencia = new PdfPCell(new Phrase(tipoDeViolencia,letra_pequenia));
-				PdfPCell modalidad_de_violencia = new PdfPCell(new Phrase(modalidadesDeViolencia,letra_pequenia));
+				PdfPCell tipo_de_violencia = new PdfPCell(new Phrase(" "+tipoDeViolencia,letra_pequenia));
+				PdfPCell modalidad_de_violencia = new PdfPCell(new Phrase(" "+modalidadesDeViolencia,letra_pequenia));
 				
 				tabla3.addCell(violencia);
 				tabla3.addCell(modalidad);
@@ -279,22 +330,24 @@ public class InformePrimercontacto extends JFrame {
 				tabla3.addCell(modalidad_de_violencia);
 			}
 			
+			
 			PdfPTable tabla4 = new PdfPTable(1);
 			tabla4.setWidthPercentage(100);
 			tabla4.setSpacingBefore(5);
 			tabla4.setHorizontalAlignment(Element.ALIGN_UNDEFINED);
 			pst.setString(1, expediente);
 			rs = pst.executeQuery();
+			//si no hay nada de datos se ppone una cadena vacia, si esta llena se pone lo que ingreso el usuario
 			while (rs.next()) {
 				String hechosYmotivos = rs.getString("Hechos_y_motivos_de_la_atencion")!=null ? rs.getString("Hechos_y_motivos_de_la_atencion"): "";
 				String Descripcion = rs.getString("Descripcion")!=null ? rs.getString("Descripcion"): "";
 				String nivelRiesgo = rs.getString("Nivel_de_Riesgo")!=null ? rs.getString("Nivel_de_Riesgo"): "";
 				
-				PdfPCell hechos = new PdfPCell(new Phrase("HECHOS Y MOTIVOS DE LA ATENCI�N",letra_blanca));
+				PdfPCell hechos = new PdfPCell(new Phrase("HECHOS Y MOTIVOS DE LA ATENCIÓN",letra_blanca));
 				hechos.setBackgroundColor(BaseColor.BLACK);
 				hechos.setHorizontalAlignment(Element.ALIGN_CENTER);
 				
-				PdfPCell lugar_y_fecha = new PdfPCell(new Phrase("Lugar, fecha y hora de la agresi�n: "+hechosYmotivos,letra_pequenia));
+				PdfPCell lugar_y_fecha = new PdfPCell(new Phrase(" "+hechosYmotivos,letra_pequenia));
 				PdfPCell descripcion = new PdfPCell(new Phrase("DESCRIPCIÓN DE LOS HECHOS",letra_pequenia));
 				descripcion.setHorizontalAlignment(Element.ALIGN_CENTER);
 				PdfPCell descripcion_hechos = new PdfPCell(new Phrase(Descripcion,letra_pequenia));
@@ -306,6 +359,7 @@ public class InformePrimercontacto extends JFrame {
 				tabla4.addCell(descripcion_hechos);
 				tabla4.addCell(nivel_de_riesgo);
 			}
+			
 			
 			PdfPTable tabla5 = new PdfPTable(2);
 			tabla5.setWidthPercentage(100);
@@ -330,6 +384,7 @@ public class InformePrimercontacto extends JFrame {
 				PdfPCell datos = new PdfPCell(new Phrase("Nombre completo, edad y fecha de nacimiento: "+datosAgresor,letra_pequenia));
 				datos.setColspan(2);
 				
+				//se agregan las celdas a la tabla
 				PdfPCell grado = new PdfPCell(new Phrase("Grado Escolar: "+gradoEscolar,letra_pequenia));
 				PdfPCell estado_civil = new PdfPCell(new Phrase("Estado Civil: "+estadoCivil,letra_pequenia));
 				PdfPCell relacion = new PdfPCell(new Phrase("Relación o vínculo: "+relacionVinculo,letra_pequenia));
@@ -347,6 +402,7 @@ public class InformePrimercontacto extends JFrame {
 				tabla5.addCell(ocupacion);
 			}
 			
+			
 			PdfPTable tabla6 = new PdfPTable(2);
 			tabla6.setWidthPercentage(100);
 			tabla6.setSpacingBefore(5);
@@ -361,7 +417,7 @@ public class InformePrimercontacto extends JFrame {
 				String cual = rs.getString("Cual")!=null ? rs.getString("Cual"): "";
 				String senias = rs.getString("Señas_particulares")!=null ? rs.getString("Señas_particulares"): "";
 				
-				PdfPCell filiacion = new PdfPCell(new Phrase("Media_filiacion_del_agresor",letra_blanca));
+				PdfPCell filiacion = new PdfPCell(new Phrase("MEDIA FILIACION DEL AGRESOR",letra_blanca));
 				filiacion.setBackgroundColor(BaseColor.BLACK);
 				filiacion.setHorizontalAlignment(Element.ALIGN_CENTER);
 				
@@ -371,7 +427,7 @@ public class InformePrimercontacto extends JFrame {
 				
 				PdfPCell media_filiacion = new PdfPCell(new Phrase(rs.getString("Media_filiacion_del_agresor"),letra_pequenia));
 				PdfPCell porta_armas = new PdfPCell(new Phrase("Porta Armas: "+portaArmas+" "+seleccionarArmas+"\n\n"+
-				 "¿Pertenece a alguna banda delictiva?"+" "+bandaDelictiva+"\n\n"+"¿Consume algún tipo de sustancia?¿Cuál?"+
+				 "¿Pertenece a alguna banda delictiva?"+" "+bandaDelictiva+"\n\n"+"¿Consume algun tipo de sustancia? Cuál?"+
 				sustancia+" "+cual+"\n\n"+"Señas particulares: "+
 				 senias,letra_pequenia));
 				
@@ -397,13 +453,13 @@ public class InformePrimercontacto extends JFrame {
 				efectos.setColspan(3);
 				efectos.setHorizontalAlignment(Element.ALIGN_CENTER);
 				
-				PdfPCell e_fisicos = new PdfPCell(new Phrase("                           Fisicos: \n"+
+				PdfPCell e_fisicos = new PdfPCell(new Phrase("                           Físicos: \n"+
 				efectosFisicos,letra_pequenia));
-				PdfPCell e_psicologicos = new PdfPCell(new Phrase("                       Psicologicos: \n"+
+				PdfPCell e_psicologicos = new PdfPCell(new Phrase("                       Psicológicos: \n"+
 				efectosPsicologicos,letra_pequenia));
 				PdfPCell e_sexuales = new PdfPCell(new Phrase("                          Sexuales: \n"+
 				efectosSexuales,letra_pequenia));
-				PdfPCell economicos_patrimonoales = new PdfPCell(new Phrase("Economicos y Patrimoniales\n"+
+				PdfPCell economicos_patrimonoales = new PdfPCell(new Phrase("Económicos y Patrimoniales\n"+
 				efectosEco,letra_pequenia));
 				economicos_patrimonoales.setColspan(3);
 				
@@ -452,7 +508,12 @@ public class InformePrimercontacto extends JFrame {
 			}
 			
 			 Font font = FontFactory.getFont(("Century Gothic"),7, Font.NORMAL); 
-			 Paragraph avisodeprivacidad = new Paragraph("AVISO DE PRIVACIDAD: Con fundamento en lo dispuesto por los Articulos 3,fraccion IX,6 y 143 de la Ley de Transparencia y Acceso a la Informacion Publica del Estado de Mexico y Municipios, Articulo 6,15,29 y 32 de la Ley de Proteccion de Datos Personales en Posesion de Sujetos Obligados del Estado de Mexico y Municipios y demas relativos aplicables, los datos recabados en la presente cedula seran utilizados con fines estadisticos y de control interno por el INSTITUTO MUNICIPAL DE LA MUJER DE TULTITLAN", font);
+			 Paragraph avisodeprivacidad = new Paragraph("AVISO DE PRIVACIDAD: Con fundamento en lo dispuesto por los Artículos 3,"
+			 		+ "fracción IX,6 y 143 de la Ley de Transparencia y Acceso a la Información Pública del Estado de México y "
+			 		+ "Municipios, Articulo 6,15,29 y 32 de la Ley de Protección de Datos Personales en "
+			 		+ "Posesión de Sujetos Obligados del Estado de México y Municipios y demás relativos aplicables, los datos "
+			 		+ "recabados en la presente cedula serán utilizados con fines estadísticos y de control interno por el "
+			 		+ "INSTITUTO MUNICIPAL DE LA MUJER DE TULTITLÁN", font);
 			 avisodeprivacidad.setAlignment(Paragraph.ALIGN_LEFT);
 	         
 			 Paragraph autorizacion = new Paragraph("\nAUTORIZO LA UTILIZACION DE MIS DATOS PARA ALIMENTAR LA PLATAFORMA DE BANCO DE DATOS E INFORMACION DEL ESTADO DE MEXICO SOBRE CASOS DE VIOLENCIA CONTRA LAS MUJERES", font);
@@ -620,21 +681,34 @@ public class InformePrimercontacto extends JFrame {
 		lblNewLabel_7_1.setBounds(719, 171, 90, 209);
 		contentPane.add(lblNewLabel_7_1);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		Area.setLineWrap(true);
+		Area.setWrapStyleWord(true);
+		Area.setEditable(false);
+		
+		JScrollPane scrollPane = new JScrollPane(Area);
+		scrollPane.setBounds(347, 131, 352, 118);
+		contentPane.add(scrollPane);
+		
+		JButton btnGenerar = new JButton("");
+		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String expediente= txtInforme.getText();
+				String exp = txtInforme.getText().trim();
 				if (txtInforme.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Debe ingresar un n�mero","Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debe ingresar un número","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				if (!exp.isEmpty() && !verificarExpediente(exp)) {
+					JOptionPane.showMessageDialog(null, "El expediente no se encuetra en la base de datos",
+							"Error",JOptionPane.ERROR_MESSAGE);
+					txtInforme.setText("");
 				}else {
 					generarInformePrimerContacto(expediente);
 				}
-			}	
-			
+			}
 		});
-		btnNewButton.setIcon(new ImageIcon(InformePrimercontacto.class.getResource("/img/generarPDF.png")));
-		btnNewButton.setBounds(350, 284, 141, 34);
-		contentPane.add(btnNewButton);
+		btnGenerar.setIcon(new ImageIcon(InformePrimercontacto.class.getResource("/img/generarPDF.png")));
+		btnGenerar.setBounds(347, 361, 141, 34);
+		contentPane.add(btnGenerar);
 		
 		txtInforme = new JTextField();
 		txtInforme.addKeyListener(new KeyAdapter() {
@@ -650,13 +724,37 @@ public class InformePrimercontacto extends JFrame {
 				}
 			}
 		});
-		txtInforme.setBounds(350, 237, 141, 20);
+		txtInforme.setBounds(180, 131, 141, 20);
 		contentPane.add(txtInforme);
 		txtInforme.setColumns(10);
 		
-		JLabel lblNewLabel_12 = new JLabel("Ingrese el n\u00FAmero de expediente");
+		txtInforme.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+		});
+		
+		JLabel lblNewLabel_12 = new JLabel("Ingrese el número de expediente");
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_12.setBounds(311, 214, 205, 14);
+		lblNewLabel_12.setBounds(150, 106, 196, 14);
 		contentPane.add(lblNewLabel_12);
 		
 		JButton btnRegresar = new JButton("REGRESAR");
@@ -670,5 +768,210 @@ public class InformePrimercontacto extends JFrame {
 		});
 		btnRegresar.setBounds(116, 416, 116, 23);
 		contentPane.add(btnRegresar);
+		
+		JLabel lblNewLabel_13 = new JLabel("Buscar por nombre");
+		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_13.setBounds(177, 168, 144, 14);
+		contentPane.add(lblNewLabel_13);
+		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(180, 193, 141, 20);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblNewLabel_14 = new JLabel("Caso de la persona");
+		lblNewLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_14.setBounds(347, 106, 352, 14);
+		contentPane.add(lblNewLabel_14);
+		
+		lista = new DefaultListModel<>();
+		opciones = new JList<>(lista);
+		popmenu = new JPopupMenu();
+		popmenu.add(new JScrollPane(opciones));
+		popmenu.setFocusable(false);
+		
+		txtNombre.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+		});
+		opciones.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					String caso = obtenerCaso(exp);
+					Area.setText(caso);
+					popmenu.setVisible(false);
+				}
+			}
+		});
+		opciones.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2 ) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					String caso = obtenerCaso(exp);
+					Area.setText(caso);
+					popmenu.setVisible(false);
+				}
+			}
+		});
 	}
+	private String obtenerEXP(String nombre) {
+		String exp = "";
+		String sql = "SELECT EXP FROM datos WHERE Nombre_de_la_victima LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				exp = rs.getString("EXP");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exp;
+	}
+	private void mostarNombre() {
+		String exp = txtInforme.getText().trim();
+		if (exp.isEmpty()) {
+			txtNombre.setText("");
+			return;
+		}
+		String nombre = obtenerNombre(exp);
+		if (nombre.isEmpty()) {
+			txtNombre.setText("");
+		}else {
+			txtNombre.setText(nombre);
+		}
+	}
+	private String obtenerNombre(String exp) {
+		String nombre = "";
+		String sql = "SELECT Nombre_de_la_victima FROM datos WHERE EXP LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				nombre = rs.getString("Nombre_de_la_victima");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nombre;
+	}
+	
+	private void actualizarOpciones() {
+		String buscarTexto = txtNombre.getText().trim();
+		if (buscarTexto.isEmpty()) {
+			popmenu.setVisible(false);
+			return;
+		}
+		List<String> opciones = obtenerOpcionesBaseDatos(buscarTexto);
+		lista.clear();
+		for (String opcion : opciones) {
+			lista.addElement(opcion);
+		}
+		if (!opciones.isEmpty()) {
+			popmenu.show(txtNombre, 0, txtNombre.getHeight());
+		} else {
+			popmenu.setVisible(true);
+		}
+	}
+	private List<String> obtenerOpcionesBaseDatos(String buscarTexto){
+		List<String> opciones = new ArrayList<>();
+		String sql = "SELECT Nombre_de_la_victima FROM datos WHERE Nombre_de_la_victima LIKE ?";
+		
+		try {
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setString(1, "%"+buscarTexto+"%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				opciones.add(rs.getString("Nombre_de_la_victima"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opciones;
+	}
+	
+	private String obtenerCaso(String exp) {
+		String caso= "";
+		String sql = "SELECT Hechos_y_motivos_de_la_atencion FROM datos WHERE EXP LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				caso = rs.getString("Hechos_y_motivos_de_la_atencion");
+				if (caso == null) {
+					caso = "No se encontraron datos";
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return caso;
+	}
+	private void mostrarCaso() {
+		String exp = txtInforme.getText().trim();
+		if (exp.isEmpty()) {
+			Area.setText("");
+			return;
+		}
+		String caso = obtenerCaso(exp);
+		if (!caso.isEmpty()) {
+			Area.setText(caso);
+		}else {
+			Area.setText("No se encontraron datos");
+		}
+	}
+	private boolean verificarExpediente(String exp) {
+		String sql = "SELECT COUNT(*) FROM datos WHERE EXP = ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				int datos = rs.getInt(1);
+				return datos>0;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

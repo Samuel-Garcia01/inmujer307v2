@@ -1,20 +1,20 @@
 package Informes;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.ColumnText;
@@ -30,14 +30,16 @@ import javax.swing.JTextField;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,8 +48,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -62,6 +66,13 @@ public class InformePermanencia extends JFrame {
 	private String fechaLarga = "";
 	String nombre = "";
 	private JTextField txtInforme;
+	private JList<String> opciones;
+	private DefaultListModel<String> lista;
+	private JPopupMenu popmenu;
+	private JTextField txtNombre;
+	JTextArea Area = new JTextArea();
+	ConexionInmujer conexion = new ConexionInmujer();
+	Connection con = conexion.conectar();
 	
 	public String nombre() {
 		String nombrecompleto = nombre;
@@ -128,49 +139,55 @@ public class InformePermanencia extends JFrame {
 		return fechaLarga;
 	}
     public void generarinforme() {
+    	//se crea el documento
     	Document reporte = new Document();
-    	
+    	//se obtiene la ruta
     	String ruta = System.getProperty("user.home");
     	try {
-			PdfWriter writer =PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/desktop/informePermanencia.pdf"));//ruta+"/Desktop/informe.pdf"
-			
+    		//se utiliza para que se pueda codificar los elementos dentro del PDF
+			PdfWriter writer =PdfWriter.getInstance(reporte, new FileOutputStream(ruta+"/CartaDePermanencia.pdf"));//ruta+"/Desktop/informe.pdf"
+			//se abre el documento
 			reporte.open();
-			
-			Image foto = Image.getInstance("src/img/informe1.1.png");
-			foto.scaleToFit(600,1000);
-			foto.setAlignment(Element.ALIGN_CENTER);
+			//se coloca la imagen de fondo
+			Image foto = Image.getInstance("src/img/fondoInforme.gif");
+			//se pone la escala del tamaño de la imagen
+			foto.setAbsolutePosition(0,0);
+			foto.scaleAbsolute(595,842);
+			//es para añadir la imagen dentro del PDF	
 			reporte.add(foto);
 			
+			//permite modificar el contenido del PDF 
 			PdfContentByte canvas = writer.getDirectContent();
-			
+			//se define la letra y sus caracteristicas
 			Font font=FontFactory.getFont(FontFactory.HELVETICA,13,Font.NORMAL); //letra color normal ,font
-			
-			Phrase frase = new Phrase("Tultitlan,Estado de Mexico a "+obtenerFechaLarga(),font);
+			//es para añadir una frase al documento
+			Phrase frase = new Phrase("Tultitlán,Estado de México a "+obtenerFechaLarga(),font);
+			//alinea textoi en columnas 
 			ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, frase, 370, 675, 0);// 370=es lo horizontal  del texto,675 lo alto el texto donde se pone,0 es la rotacion
 			
 			
 			Font font1=FontFactory.getFont(FontFactory.HELVETICA,14,Font.BOLD);//en negrita la letra ,fon1
 			
-		    Phrase parrafo = new Phrase("Carta de permanencia al",font1);
+		    Phrase parrafo = new Phrase("Carta de Permanencia al",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, parrafo, 300, 650, 0);
 		    
 		    Phrase parrafo1 = new Phrase("Programa Social Seguro Violeta del",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, parrafo1, 300, 635, 0);
 		    
-		    Phrase parrafo2 = new Paragraph("Municipio de Tultitlan para el Ejercicio Fiscal 2024.",font1);
+		    Phrase parrafo2 = new Paragraph("Municipio de Tultitlán para el Ejercicio Fiscal 2024.",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, parrafo2, 300, 620, 0);
 		    
 		    
-		    Phrase texto = new Paragraph("Con fundamento en la fracci�n X. Requisitos de Permanencia y XVI. Conformaci�n",font);
+		    Phrase texto = new Paragraph("Con fundamento en la fracción X. Requisitos de Permanencia y XVI. Conformación",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, texto, 300, 580, 0);
 		    
-		    Phrase texto1 = new Paragraph("e Integraci�n del Comit� Dictaminador de las Reglas de Operaci�n del Programa",font);
+		    Phrase texto1 = new Paragraph("e Integración del Comité Dictaminador de las Reglas de Operación del Programa",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, texto1, 300, 565, 0);
 		    
-		    Phrase texto2 = new Paragraph("Social Seguro Violeta del Municipio de Tultitl�n para el Ejercicio Fiscal 2024, hago",font);
+		    Phrase texto2 = new Paragraph("Social Seguro Violeta del Municipio de Tultitlán para el Ejercicio Fiscal 2024, hago",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, texto2, 300, 550, 0);
 		    
-		    Phrase texto3 = new Paragraph("menci�n que la BENEFICIARIA de nombre:",font);
+		    Phrase texto3 = new Paragraph("mención que la BENEFICIARIA de nombre:",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, texto3, 300, 535, 0);
 		    
 		    Phrase nom = new Paragraph(nombre(),font1);
@@ -183,13 +200,13 @@ public class InformePermanencia extends JFrame {
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, ben, 300, 460, 0);
 		    
 		    
-		    Phrase text = new Paragraph("Contin�a como BENEFICIARIA del Programa Social Seguro Violeta del",font);
+		    Phrase text = new Paragraph("Continúa como BENEFICIARIA del Programa Social Seguro Violeta del",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, text, 300, 420, 0);
 		    
-		    Phrase text1 = new Paragraph("Municipio de Tultitl�n para el Ejercicio Fiscal 2024, por lo que debe seguir",font);
+		    Phrase text1 = new Paragraph("Municipio de Tultitlán para el Ejercicio Fiscal 2024, por lo que debe seguir",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, text1, 300, 405, 0);
 		    
-		    Phrase text2 = new Paragraph("cumpliendo con lo estipulado en la fracci�n X. Requisitos de Permanencia.",font);
+		    Phrase text2 = new Paragraph("cumpliendo con lo estipulado en la fracción X. Requisitos de Permanencia.",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, text2, 300, 390, 0);
 		    
 		    
@@ -199,16 +216,16 @@ public class InformePermanencia extends JFrame {
 		    Phrase linea1 = new Paragraph("_____________________________________________",font);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, linea1, 300, 270, 0);
 		    
-		    Phrase nombre = new Paragraph("DULCE IVON ROSAS GOD�NES",font1);
+		    Phrase nombre = new Paragraph("DULCE IVON ROSAS GODÍNES",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, nombre, 300, 255, 0);
 		    
 		    Phrase nombre1 = new Paragraph("JEFA DEL DEPARTAMENTO DE",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, nombre1, 300, 240, 0);
 		    
-		    Phrase nombre2 = new Paragraph("ATENCI�N A LA VIOLENCIA DE G�NERO",font1);
+		    Phrase nombre2 = new Paragraph("ATENCIÓN A LA VIOLENCIA DE GÉNERO",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, nombre2, 300, 225, 0);
 		    
-		    Phrase nombre3 = new Paragraph("Y PRESIDENTA DEL COMITE DICTAMINADOR",font1);
+		    Phrase nombre3 = new Paragraph("Y PRESIDENTA DEL COMITÉ DICTAMINADOR",font1);
 		    ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, nombre3, 300, 210, 0);
 		    
 		    
@@ -341,9 +358,17 @@ public class InformePermanencia extends JFrame {
 		lblNewLabel_7_1.setBounds(719, 171, 90, 209);
 		contentPane.add(lblNewLabel_7_1);
 		
+		Area.setLineWrap(true);
+		Area.setWrapStyleWord(true);
+		Area.setEditable(false);
+		
+		JScrollPane scrollPane = new JScrollPane(Area);
+		scrollPane.setBounds(347, 131, 352, 118);
+		contentPane.add(scrollPane);
+		
 		JLabel lblNewLabel_12 = new JLabel("Ingrese el n\u00FAmero de expediente");
 		lblNewLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_12.setBounds(321, 213, 205, 14);
+		lblNewLabel_12.setBounds(150, 106, 196, 14);
 		contentPane.add(lblNewLabel_12);
 		
 		txtInforme = new JTextField();
@@ -361,21 +386,50 @@ public class InformePermanencia extends JFrame {
 
 			}
 		});
-		txtInforme.setBounds(350, 237, 141, 20);
+		txtInforme.setBounds(180, 131, 141, 20);
 		contentPane.add(txtInforme);
 		txtInforme.setColumns(10);
+		
+		txtInforme.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				mostrarCaso();
+				mostarNombre();
+				popmenu.setVisible(false);
+			}
+		});
 		
 		JButton btngenerar = new JButton("");
 		btngenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String exp = txtInforme.getText().trim();
 				String id= "";
 				id = (txtInforme.getText());
-				if ((txtInforme.getText().isEmpty())) {
-					JOptionPane.showMessageDialog(null, "Debe ingresar un n�mero","Error",JOptionPane.ERROR_MESSAGE);
+				if (txtInforme.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar un número","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				if(!exp.isEmpty() && !verificarExpediente(exp)) {
+					JOptionPane.showMessageDialog(null, "El expediente no se encuetra en la base de datos",
+							"Error",JOptionPane.ERROR_MESSAGE);
+					txtInforme.setText("");
 				}else {
 				String sql ="SELECT*FROM datos WHERE EXP= ?";
-				ConexionInmujer conexion = new ConexionInmujer();
-				Connection con = conexion.conectar();
+				
 				
 				try {
 					PreparedStatement pst = con.prepareStatement(sql);
@@ -387,7 +441,7 @@ public class InformePermanencia extends JFrame {
 					     nombre = rs.getString("Nombre_de_la_victima");
 						generarinforme();
 						
-						JOptionPane.showMessageDialog(null, "informe generado");
+						JOptionPane.showMessageDialog(null, "Informe generado");
 					}else {
 						JOptionPane.showMessageDialog(null, "no se encontro");
 					}
@@ -402,8 +456,9 @@ public class InformePermanencia extends JFrame {
 			
 		});
 		btngenerar.setIcon(new ImageIcon(InformePermanencia.class.getResource("/img/generarPDF.png")));
-		btngenerar.setBounds(350, 263, 141, 34);
+		btngenerar.setBounds(347, 361, 141, 34);
 		contentPane.add(btngenerar);
+		
 		JButton btnRegresar = new JButton("REGRESAR");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -415,5 +470,205 @@ public class InformePermanencia extends JFrame {
 		});
 		btnRegresar.setBounds(116, 416, 116, 23);
 		contentPane.add(btnRegresar);
+		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(180, 193, 141, 20);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblNewLabel_14 = new JLabel("Buscar por nombre");
+		lblNewLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_14.setBounds(177, 168, 144, 14);
+		contentPane.add(lblNewLabel_14);
+		
+		JLabel lblNewLabel_15 = new JLabel("Caso de la persona");
+		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_15.setBounds(347, 106, 352, 14);
+		contentPane.add(lblNewLabel_15);
+		
+		lista = new DefaultListModel<>();
+		opciones = new JList<>(lista);
+		popmenu = new JPopupMenu();
+		popmenu.add(new JScrollPane(opciones));
+		popmenu.setFocusable(false);
+		
+		txtNombre.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarOpciones();
+			}
+		});
+		opciones.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					popmenu.setVisible(false);
+				}
+			}
+		});
+		opciones.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2 ) {
+					String nombreUsuario = opciones.getSelectedValue();
+					txtNombre.setText(nombreUsuario);
+					String exp = obtenerEXP(nombreUsuario);
+					txtInforme.setText(exp);
+					popmenu.setVisible(false);
+				}
+			}
+		});
 	}
+	private String obtenerEXP(String nombre) {
+		String exp = "";
+		String sql = "SELECT EXP FROM datos WHERE Nombre_de_la_victima LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				exp = rs.getString("EXP");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exp;
+	}
+	private void mostarNombre() {
+		String exp = txtInforme.getText().trim();
+		if (exp.isEmpty()) {
+			txtNombre.setText("");
+			return;
+		}
+		String nombre = obtenerNombre(exp);
+		if (nombre.isEmpty()) {
+			txtNombre.setText("");
+		}else {
+			txtNombre.setText(nombre);
+		}
+	}
+	private String obtenerNombre(String exp) {
+		String nombre = "";
+		String sql = "SELECT Nombre_de_la_victima FROM datos WHERE EXP LIKE ?";
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, exp);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				nombre = rs.getString("Nombre_de_la_victima");
+			} else {
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nombre;
+	}
+	
+	private void actualizarOpciones() {
+		String buscarTexto = txtNombre.getText().trim();
+		if (buscarTexto.isEmpty()) {
+			popmenu.setVisible(false);
+			return;
+		}
+		List<String> opciones = obtenerOpcionesBaseDatos(buscarTexto);
+		lista.clear();
+		for (String opcion : opciones) {
+			lista.addElement(opcion);
+		}
+		if (!opciones.isEmpty()) {
+			popmenu.show(txtNombre, 0, txtNombre.getHeight());
+		} else {
+			popmenu.setVisible(true);
+		}
+	}
+	private List<String> obtenerOpcionesBaseDatos(String buscarTexto){
+		List<String> opciones = new ArrayList<>();
+		String sql = "SELECT Nombre_de_la_victima FROM datos WHERE Nombre_de_la_victima LIKE ?";
+		
+		try {
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setString(1, "%"+buscarTexto+"%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				opciones.add(rs.getString("Nombre_de_la_victima"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opciones;
+	 }
+		private String obtenerCaso(String exp) {
+			String caso= "";
+			String sql = "SELECT Hechos_y_motivos_de_la_atencion FROM datos WHERE EXP LIKE ?";
+			try {
+				PreparedStatement pst = con.prepareStatement(sql);
+				pst.setString(1, exp);
+				ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					caso = rs.getString("Hechos_y_motivos_de_la_atencion");
+					if (caso == null) {
+						caso = "No se encontraron datos";
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return caso;
+		}
+		private void mostrarCaso() {
+			String exp = txtInforme.getText().trim();
+			if (exp.isEmpty()) {
+				Area.setText("");
+				return;
+			}
+			String caso = obtenerCaso(exp);
+			if (!caso.isEmpty()) {
+				Area.setText(caso);
+			}else {
+				Area.setText("No se encontraron datos");
+			}
+	}
+		private boolean verificarExpediente(String exp) {
+			String sql = "SELECT COUNT(*) FROM datos WHERE EXP = ?";
+			try {
+				PreparedStatement pst = con.prepareStatement(sql);
+				pst.setString(1, exp);
+				ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					int datos = rs.getInt(1);
+					return datos>0;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
 }

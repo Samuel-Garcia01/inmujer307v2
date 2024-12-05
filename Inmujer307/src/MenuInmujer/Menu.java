@@ -10,7 +10,7 @@ import Informes.InformeAceptacion;
 import Informes.InformeBoletaPago;
 import Informes.InformePermanencia;
 import Informes.InformePrimercontacto;
-import MenuInmujer.MenuInmujer;
+import Informes.InformeSeguroVioleta;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -37,7 +37,6 @@ public class Menu extends JFrame {
 				try {
 					Menu frame = new Menu();
 					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -108,12 +107,12 @@ public class Menu extends JFrame {
 		});
 		btnPrimerContacto.setBackground(new Color(128, 0, 64));
 		btnPrimerContacto.setFont(new Font("Arial", Font.BOLD, 10));
-		btnPrimerContacto.setBounds(195, 299, 159, 21);
+		btnPrimerContacto.setBounds(55, 299, 159, 21);
 		contentPane.add(btnPrimerContacto);
 		
 		JLabel lblBoletaDePago = new JLabel("");
 		lblBoletaDePago.setIcon(new ImageIcon(Menu.class.getResource("/img/Recibo.png")));
-		lblBoletaDePago.setBounds(479, 86, 170, 203);
+		lblBoletaDePago.setBounds(317, 89, 170, 203);
 		contentPane.add(lblBoletaDePago);
 		
 		JButton btnBoletaDePago = new JButton("BOLETA DE PAGO");
@@ -127,12 +126,12 @@ public class Menu extends JFrame {
 		});
 		btnBoletaDePago.setBackground(new Color(128, 0, 64));
 		btnBoletaDePago.setFont(new Font("Arial", Font.BOLD, 10));
-		btnBoletaDePago.setBounds(479, 299, 170, 21);
+		btnBoletaDePago.setBounds(317, 299, 170, 21);
 		contentPane.add(btnBoletaDePago);
 		
 		JLabel lblCartaAceptacion = new JLabel("");
 		lblCartaAceptacion.setIcon(new ImageIcon(Menu.class.getResource("/img/Carta Aceptacion.png")));
-		lblCartaAceptacion.setBounds(185, 332, 183, 203);
+		lblCartaAceptacion.setBounds(586, 89, 183, 203);
 		contentPane.add(lblCartaAceptacion);
 		
 		JButton btnCartaAceptacion = new JButton("CARTA ACEPTACIAON");
@@ -146,12 +145,12 @@ public class Menu extends JFrame {
 		});
 		btnCartaAceptacion.setBackground(new Color(128, 0, 64));
 		btnCartaAceptacion.setFont(new Font("Arial", Font.BOLD, 10));
-		btnCartaAceptacion.setBounds(195, 540, 159, 21);
+		btnCartaAceptacion.setBounds(596, 299, 159, 21);
 		contentPane.add(btnCartaAceptacion);
 		
 		JLabel lblCartaPermanencia = new JLabel("");
 		lblCartaPermanencia.setIcon(new ImageIcon(Menu.class.getResource("/img/carta Permanencia.png")));
-		lblCartaPermanencia.setBounds(466, 330, 183, 203);
+		lblCartaPermanencia.setBounds(172, 331, 183, 203);
 		contentPane.add(lblCartaPermanencia);
 		
 		JButton btnCartaPermanencia = new JButton("CARTA PERMANENCIA");
@@ -165,15 +164,15 @@ public class Menu extends JFrame {
 		});
 		btnCartaPermanencia.setBackground(new Color(128, 0, 64));
 		btnCartaPermanencia.setFont(new Font("Arial", Font.BOLD, 10));
-		btnCartaPermanencia.setBounds(479, 540, 170, 21);
+		btnCartaPermanencia.setBounds(183, 540, 170, 21);
 		contentPane.add(btnCartaPermanencia);
 		
 		JButton btnRegresar = new JButton("REGRESAR");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuInmujer menu = new MenuInmujer();
-				menu.setVisible(true);
-				menu.setLocationRelativeTo(null);
+				MenuInmujer ventana = new MenuInmujer();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -184,7 +183,26 @@ public class Menu extends JFrame {
 		
 		JLabel lblBoletaDePago_1 = new JLabel("");
 		lblBoletaDePago_1.setIcon(new ImageIcon(Menu.class.getResource("/img/Primer Contacto1.png")));
-		lblBoletaDePago_1.setBounds(184, 88, 184, 203);
+		lblBoletaDePago_1.setBounds(42, 89, 184, 203);
 		contentPane.add(lblBoletaDePago_1);
+		
+		JLabel lblSeguroVioleta = new JLabel("");
+		lblSeguroVioleta.setIcon(new ImageIcon(Menu.class.getResource("/img/SeguroVioleta.png")));
+		lblSeguroVioleta.setBounds(434, 357, 177, 152);
+		contentPane.add(lblSeguroVioleta);
+		
+		JButton btnSeguroVioleta = new JButton("SEGURO VIOLETA");
+		btnSeguroVioleta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InformeSeguroVioleta ir = new InformeSeguroVioleta();
+				ir.setVisible(true);
+				ir.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
+		btnSeguroVioleta.setFont(new Font("Arial", Font.BOLD, 10));
+		btnSeguroVioleta.setBackground(new Color(128, 0, 64));
+		btnSeguroVioleta.setBounds(450, 540, 170, 21);
+		contentPane.add(btnSeguroVioleta);
 	}
 }

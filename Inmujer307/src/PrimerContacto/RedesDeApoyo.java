@@ -36,13 +36,22 @@ public class RedesDeApoyo extends JFrame {
 	Connection con = conexion.conectar();
 
 	public void Regresar() {
-		String sql = "";
+		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				
+				String sqlRedes = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Redes_de_apoyo,'\n',1),'Tipo de relacion: ','')) AS tipo_de_relacion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',2),'\n',-1),'Tipos de apoyo: ','')) AS tipos_de_apoyo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',3),'\n',-1),'Nombre: ','')) AS nombre, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',4),'\n',-1),'Dirección: ','')) AS direccion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',5),'\n',-1),'Telefono: ','')) AS telefono FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstRedes = con.prepareStatement(sqlRedes);
+				ResultSet rsRedes = pstRedes.executeQuery();
+				if (rsRedes.next()) {
+					txtTipoDeRealacion.setText(rsRedes.getString("tipo_de_relacion"));
+					txtTiposDeApoyo.setText(rsRedes.getString("tipos_de_apoyo"));
+					txtNombre.setText(rsRedes.getString("nombre"));
+					txtDireccion.setText(rsRedes.getString("direccion"));
+					txtTelefono.setText(rsRedes.getString("telefono"));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +73,7 @@ public class RedesDeApoyo extends JFrame {
 	}
 
 	public RedesDeApoyo() {
-		DatosGenerales.exp = 13;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -272,27 +281,27 @@ public class RedesDeApoyo extends JFrame {
 				if (!tipoDeRelacion.isEmpty()) {
 					RedesDeApoyo += "Tipo de relacion: "+tipoDeRelacion+"\n";
 				} else {
-					RedesDeApoyo += "Tipo de relacion: No dada";
+					RedesDeApoyo += "Tipo de relacion: \n";
 				}
 				if (!tiposDeApoyo.isEmpty()) {
 					RedesDeApoyo += "Tipos de apoyo: "+tiposDeApoyo+"\n";
 				} else {
-					RedesDeApoyo += "Tipos de apoyo: No dado";
+					RedesDeApoyo += "Tipos de apoyo: \n";
 				}
 				if (!nombre.isEmpty()) {
 					RedesDeApoyo += "Nombre: "+nombre+"\n";
 				} else {
-					RedesDeApoyo += "Nombre: No dado";
+					RedesDeApoyo += "Nombre: \n";
 				}
 				if (!direccion.isEmpty()) {
 					RedesDeApoyo += "Dirección: "+direccion+"\n";
 				} else {
-					RedesDeApoyo += "Dirección: No dado";
+					RedesDeApoyo += "Dirección: \n";
 				}
 				if (!telefono.isEmpty()) {
 					RedesDeApoyo += "Telefono: "+telefono+"\n";
 				} else {
-					RedesDeApoyo += "Telefono: No dado";
+					RedesDeApoyo += "Telefono: \n";
 				}
 
 				try (Connection conn = conexion.conectar()) {
