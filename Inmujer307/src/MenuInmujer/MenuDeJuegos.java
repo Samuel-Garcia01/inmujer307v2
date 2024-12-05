@@ -104,7 +104,7 @@ public class MenuDeJuegos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//INICIAR LA CONEXION ENTRE EL JUEGO DE MEMORIA Y EL MENU 
 				JuegoDeMemoria juego = new JuegoDeMemoria();
-				
+				juego.setLocationRelativeTo(null);
 				dispose();
 				
 			}
