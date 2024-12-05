@@ -19,6 +19,8 @@ public class RedesDeApoyo extends JFrame {
     private JTextField txtTelefono;
     private ConexionInmujer conexion;
     private Connection con;
+    private JTextField txtviabilidad;
+    private JTextField txtrelacion;
 
     public static void main(String[] args) {
        
@@ -38,8 +40,6 @@ public class RedesDeApoyo extends JFrame {
     }
 
     public RedesDeApoyo() {
-       ConexionInmujer conexion = new ConexionInmujer();
-      Connection con = conexion.conectar();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 823, 650);
@@ -128,6 +128,20 @@ public class RedesDeApoyo extends JFrame {
         lblViabilidad.setFont(new Font("Arial", Font.PLAIN, 12));
         lblViabilidad.setBounds(10, 109, 172, 14);
         panel_1_1.add(lblViabilidad);
+        
+        txtviabilidad = new JTextField();
+        txtviabilidad.setBounds(214, 106, 86, 20);
+        panel_1_1.add(txtviabilidad);
+        txtviabilidad.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("Tipo de Relacion");
+        lblNewLabel.setBounds(10, 62, 86, 19);
+        panel_1_1.add(lblNewLabel);
+        
+        txtrelacion = new JTextField();
+        txtrelacion.setBounds(121, 61, 86, 20);
+        panel_1_1.add(txtrelacion);
+        txtrelacion.setColumns(10);
 
        
         JButton btnSiguiente = new JButton("SIGUIENTE");
@@ -156,6 +170,7 @@ public class RedesDeApoyo extends JFrame {
         JButton btnNewButton_1 = new JButton("REGRESAR");
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         btnNewButton_1.setBackground(new Color(224, 167, 167));
@@ -163,9 +178,6 @@ public class RedesDeApoyo extends JFrame {
         btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnNewButton_1.setBounds(631, 471, 131, 29);
         contentPane.add(btnNewButton_1);
-
-        
-       
     }
 
     public void cargarDatos(int exp) {

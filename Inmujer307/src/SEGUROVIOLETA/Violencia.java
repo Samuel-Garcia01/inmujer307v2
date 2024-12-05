@@ -25,6 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
@@ -36,13 +39,79 @@ public class Violencia extends JFrame {
 	private JTextField textField_2;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
+	JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
+	JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
+	JCheckBox chckbxViolenciaEconomica = new JCheckBox("Violencia Económica");
+	JCheckBox chckbxViolenciaPatrimonial = new JCheckBox("Violencia Patrimonial");
+	JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
+	JCheckBox chckbxFamilia = new JCheckBox("Familia");
+	JCheckBox chckbxLaboral = new JCheckBox("Laboral");
+	JCheckBox chckbxDocente = new JCheckBox("Docente");
+	JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
+	JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
+	JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
+
+
+
+
+
+	
+	
+	public void cargarDatos(ResultSet rs) {
+	    try {
+	        // Obtener datos del ResultSet
+	        String tiposDeViolencia = rs.getString("Tipos_de_Violencia");
+	        String modalidades = rs.getString("Modalidades_de_violencia");
+	      
+	        // Validar datos nulos o vacíos
+	        tiposDeViolencia = (tiposDeViolencia == null) ? "" : tiposDeViolencia;
+	        modalidades = (modalidades == null) ? "" : modalidades;
+	        
+
+	        // Imprimir los datos obtenidos
+	        System.out.println("Tipo de violencia: " + tiposDeViolencia);
+	        System.out.println("Tipos de modalidades:  " + tiposDeViolencia);
+
+	        // Definir arreglos de JCheckBox
+	        JCheckBox[] tiposDeViolenciachckbx = { chckbxViolenciaFisica, chckbxViolenciaSexual, chckbxViolenciaPatrimonial, chckbxViolenciaVicaria, chckbxViolenciaPsicologica, chckbxViolenciaEconomica };
+	        JCheckBox[] modalidadeschckbx = { chckbxFamilia, chckbxDocente, chckbxInstitucional, chckbxComunitario, chckbxLaboral, chckbxCibernetica, };
+	        
+	        // Actualizar JCheckBox
+	        actualizarCheckboxes(tiposDeViolencia.split(","), tiposDeViolenciachckbx, "Físicos");
+	        actualizarCheckboxes(modalidades.split(","), modalidadeschckbx, "Psicológicos");
+	      
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private void actualizarCheckboxes(String[] efectosArray, JCheckBox[] checkboxes, String categoria) {
+	    for (JCheckBox checkBox : checkboxes) {
+	        boolean marcado = false;
+	        System.out.println("Evaluando JCheckBox: " + checkBox.getText());
+	        for (String efecto : efectosArray) {
+	            System.out.println("Comparando con efecto: " + efecto.trim());
+	            if (checkBox.getText().trim().equalsIgnoreCase(efecto.trim())) {
+	                marcado = true;
+	                System.out.println("Coincidencia encontrada para: " + checkBox.getText());
+	                break;
+	            }
+	        }
+	        checkBox.setSelected(marcado);
+	        if (!marcado) {
+	            System.out.println("No se encontró coincidencia para: " + checkBox.getText());
+	        }
+	    }
+	}
+	
+	
 
 	public void insertar(String tv, String md, String hm, String des) {
 
 		try {
 
-			// UPDATE datos SET Tipos_de_Violencia = "aaaa", Modalidades_de_violencia =
-			// "bbb", Hechos_y_motivos_de_la_atencion = "ccc", Descripcion = ""
+		
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
@@ -139,7 +208,7 @@ public class Violencia extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
+		
 		chckbxViolenciaFisica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaFisica);
 		chckbxViolenciaFisica.setBackground(new Color(243, 220, 220));
@@ -152,7 +221,7 @@ public class Violencia extends JFrame {
 		lblNewLabel.setBounds(138, 10, 113, 13);
 		panel_1.add(lblNewLabel);
 
-		JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
+		
 		chckbxViolenciaPsicologica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaPsicologica);
 		chckbxViolenciaPsicologica.setBackground(new Color(243, 220, 220));
@@ -160,7 +229,7 @@ public class Violencia extends JFrame {
 		chckbxViolenciaPsicologica.setBounds(198, 93, 149, 21);
 		panel_1.add(chckbxViolenciaPsicologica);
 
-		JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
+		
 		chckbxViolenciaSexual.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaSexual);
 		chckbxViolenciaSexual.setBackground(new Color(243, 220, 220));
@@ -168,7 +237,7 @@ public class Violencia extends JFrame {
 		chckbxViolenciaSexual.setBounds(20, 93, 149, 21);
 		panel_1.add(chckbxViolenciaSexual);
 
-		JCheckBox chckbxViolenciaEconomica = new JCheckBox("Violencia Económica");
+		
 		chckbxViolenciaEconomica.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaEconomica);
 		chckbxViolenciaEconomica.setBackground(new Color(243, 220, 220));
@@ -176,7 +245,7 @@ public class Violencia extends JFrame {
 		chckbxViolenciaEconomica.setBounds(198, 139, 149, 21);
 		panel_1.add(chckbxViolenciaEconomica);
 
-		JCheckBox chckbxViolenciaPatrimonial = new JCheckBox("Violencia Patrimonial");
+		
 		chckbxViolenciaPatrimonial.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaPatrimonial);
 		chckbxViolenciaPatrimonial.setBackground(new Color(243, 220, 220));
@@ -184,7 +253,6 @@ public class Violencia extends JFrame {
 		chckbxViolenciaPatrimonial.setBounds(20, 139, 149, 21);
 		panel_1.add(chckbxViolenciaPatrimonial);
 
-		JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
 		chckbxViolenciaVicaria.setForeground(new Color(47, 79, 79));
 		buttonGroup.add(chckbxViolenciaVicaria);
 		chckbxViolenciaVicaria.setBackground(new Color(243, 220, 220));
@@ -204,7 +272,7 @@ public class Violencia extends JFrame {
 		lblNewLabel_1.setBounds(115, 10, 155, 13);
 		panel_2.add(lblNewLabel_1);
 
-		JCheckBox chckbxFamilia = new JCheckBox("Familia");
+		
 		chckbxFamilia.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxFamilia);
 		chckbxFamilia.setBackground(new Color(243, 220, 220));
@@ -212,7 +280,6 @@ public class Violencia extends JFrame {
 		chckbxFamilia.setBounds(48, 42, 108, 21);
 		panel_2.add(chckbxFamilia);
 
-		JCheckBox chckbxDocente = new JCheckBox("Docente");
 		chckbxDocente.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxDocente);
 		chckbxDocente.setBackground(new Color(243, 220, 220));
@@ -220,7 +287,6 @@ public class Violencia extends JFrame {
 		chckbxDocente.setBounds(48, 91, 108, 21);
 		panel_2.add(chckbxDocente);
 
-		JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
 		chckbxInstitucional.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxInstitucional);
 		chckbxInstitucional.setBackground(new Color(243, 220, 220));
@@ -228,7 +294,6 @@ public class Violencia extends JFrame {
 		chckbxInstitucional.setBounds(48, 135, 108, 21);
 		panel_2.add(chckbxInstitucional);
 
-		JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
 		chckbxComunitario.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxComunitario);
 		chckbxComunitario.setBackground(new Color(243, 220, 220));
@@ -236,7 +301,6 @@ public class Violencia extends JFrame {
 		chckbxComunitario.setBounds(224, 91, 113, 21);
 		panel_2.add(chckbxComunitario);
 
-		JCheckBox chckbxLaboral = new JCheckBox("Laboral");
 		chckbxLaboral.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxLaboral);
 		chckbxLaboral.setBackground(new Color(243, 220, 220));
@@ -244,7 +308,6 @@ public class Violencia extends JFrame {
 		chckbxLaboral.setBounds(224, 135, 93, 21);
 		panel_2.add(chckbxLaboral);
 
-		JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
 		chckbxCibernetica.setForeground(new Color(47, 79, 79));
 		buttonGroup_1.add(chckbxCibernetica);
 		chckbxCibernetica.setBackground(new Color(243, 220, 220));
@@ -309,9 +372,6 @@ public class Violencia extends JFrame {
 				}
 				if (chckbxInstitucional.isSelected()) {
 					modalidades = chckbxInstitucional.getText();
-				}
-				if (chckbxComunitario.isSelected()) {
-					modalidades = chckbxComunitario.getText();
 				}
 				if (chckbxComunitario.isSelected()) {
 					modalidades = chckbxComunitario.getText();

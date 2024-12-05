@@ -383,7 +383,7 @@ import javax.swing.SwingConstants;
 					} else {
 						RedesDeApoyo += "Telefono: \n";
 					}
-
+					
 					try (Connection conn = conexion.conectar()) {
 						ConexionInmujer conexion = new ConexionInmujer();
 						Connection con = conexion.conectar();
@@ -393,7 +393,7 @@ import javax.swing.SwingConstants;
 
 							try (PreparedStatement pst = conn.prepareStatement(sql)) {
 								pst.setString(1, RedesDeApoyo);
-								pst.setInt(2, DatosGenerales.exp);
+								pst.setInt(2, DatosGenerales.exp);                   
 								
 								int rs = pst.executeUpdate();
 
