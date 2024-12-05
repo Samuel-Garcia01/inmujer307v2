@@ -246,7 +246,7 @@ public class Efectosfisicos extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(247, 231, 245));
-		panel.setBounds(0, 0, 807, 611);
+		panel.setBounds(0, 0, 807, 613);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -487,27 +487,17 @@ public class Efectosfisicos extends JFrame {
 		
 		JLabel lblNewLabel_5 = new JLabel("EFECTOS");
 		lblNewLabel_5.setForeground(Color.WHITE);
-		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 24));
-		lblNewLabel_5.setBounds(316, 22, 151, 21);
+		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_5.setBounds(345, 0, 150, 58);
 		panel.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_view_56.png")));
-		lblNewLabel.setBounds(251, 11, 55, 46);
-		panel.add(lblNewLabel);
-		
-		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/butterfly_side_espejo.png")));
-		lblNewLabel_6.setBounds(444, 11, 67, 46);
-		panel.add(lblNewLabel_6);
-		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/encabezadodatos.png")));
+		lblNewLabel_7.setIcon(new ImageIcon(Efectosfisicos.class.getResource("/img/EncabezadoJuegos.png")));
 		lblNewLabel_7.setBounds(0, 0, 807, 57);
 		panel.add(lblNewLabel_7);
 		
 		JButton btnSiguiente = new JButton("SIGUIENTE");
-		btnSiguiente.setForeground(Color.WHITE);
+		btnSiguiente.setForeground(new Color(0, 0, 0));
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertarDatosEfectos();
@@ -520,11 +510,11 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
 		btnSiguiente.setBackground(new Color(224, 167, 167));
-		btnSiguiente.setBounds(351, 577, 107, 23);
+		btnSiguiente.setBounds(690, 555, 107, 23);
 		panel.add(btnSiguiente);
 		
 		JButton btnInicio = new JButton("INICIO");
-		btnInicio.setForeground(Color.WHITE);
+		btnInicio.setForeground(new Color(0, 0, 0));
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String [] opciones = {"Aceptar","Cancelar"};
@@ -562,12 +552,12 @@ public class Efectosfisicos extends JFrame {
 		});
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 11));
 		btnInicio.setBackground(new Color(224, 167, 167));
-		btnInicio.setBounds(164, 577, 89, 23);
+		btnInicio.setBounds(345, 555, 89, 23);
 		panel.add(btnInicio);
-		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(224, 167, 167));
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
-		btnNewButton.setBounds(564, 577, 119, 23);
+		btnNewButton.setBounds(10, 555, 119, 23);
 		
 		panel.add(btnNewButton);
 	}

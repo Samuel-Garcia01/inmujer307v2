@@ -900,6 +900,7 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(lblNewLabel_29);
 
 		JButton btnNewButton = new JButton("SIGUIENTE");
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Se generan las variables para su almacenaciento, esto nos ayudara a guardar
@@ -957,7 +958,7 @@ public class DatosGenerales extends JFrame {
 				
 		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
-		btnNewButton.setBounds(698, 586, 99, 23);
+		btnNewButton.setBounds(697, 536, 99, 23);
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel_30 = new JLabel("Contacto De Emergencia (Numero y Nombre)");
@@ -1192,6 +1193,12 @@ public class DatosGenerales extends JFrame {
 		});
 		btnBuscar.setBounds(173, 67, 160, 23);
 		contentPane.add(btnBuscar);
+		
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnRegresar.setBackground(new Color(243, 220, 220));
+		btnRegresar.setBounds(588, 537, 99, 23);
+		contentPane.add(btnRegresar);
 		 
 	}
 	 }

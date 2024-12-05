@@ -123,8 +123,8 @@ public class Violencia extends JFrame {
 
 		JLabel lblNewLabel_7 = new JLabel("    Violencia");
 		lblNewLabel_7.setForeground(Color.WHITE);
-		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 25));
-		lblNewLabel_7.setBounds(311, 10, 173, 37);
+		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 26));
+		lblNewLabel_7.setBounds(305, 0, 165, 57);
 		panel.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("");
@@ -254,7 +254,7 @@ public class Violencia extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_4.setBackground(new Color(243, 220, 220));
-		panel_4.setBounds(10, 320, 787, 129);
+		panel_4.setBounds(10, 320, 787, 104);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 
@@ -262,7 +262,7 @@ public class Violencia extends JFrame {
 		textArea.setForeground(new Color(75, 0, 130));
 		textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		textArea.setBackground(new Color(243, 220, 220));
-		textArea.setBounds(10, 31, 769, 70);
+		textArea.setBounds(10, 31, 769, 67);
 		panel_4.add(textArea);
 
 		JLabel lblNewLabel_10 = new JLabel("Descripción de los Hechos del ultimo episodio de violencia");
@@ -271,9 +271,10 @@ public class Violencia extends JFrame {
 		lblNewLabel_10.setBounds(10, 9, 769, 13);
 		panel_4.add(lblNewLabel_10);
 
-		JButton btnGuardar = new JButton("SIGUIENTE");
-		btnGuardar.setForeground(Color.WHITE);
-		btnGuardar.addActionListener(new ActionListener() {
+		JButton btnSiguiente = new JButton("SIGUIENTE");
+		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
+		btnSiguiente.setForeground(new Color(0, 0, 0));
+		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConexionInmujer conMujer = new ConexionInmujer();
 
@@ -336,20 +337,28 @@ public class Violencia extends JFrame {
 				insertar(tiposDeViolencia, modalidades, hechosYMotivos, DescripcionDeLosHechos);
 			}
 		});
-		btnGuardar.setBackground(new Color(224, 167, 167));
-		btnGuardar.setBounds(141, 460, 108, 23);
-		contentPane.add(btnGuardar);
+		btnSiguiente.setBackground(new Color(224, 167, 167));
+		btnSiguiente.setBounds(685, 445, 108, 23);
+		contentPane.add(btnSiguiente);
 		
-		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.setBackground(new Color(224, 167, 167));
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(513, 460, 108, 23);
-		contentPane.add(btnNewButton);
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.setFont(new Font("Arial", Font.BOLD, 12));
+		btnRegresar.setBackground(new Color(224, 167, 167));
+		btnRegresar.setForeground(new Color(0, 0, 0));
+		btnRegresar.setBounds(10, 445, 108, 23);
+		contentPane.add(btnRegresar);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(128, 0, 128));
-		panel_3.setBounds(0, 507, 829, 57);
+		panel_3.setBounds(0, 486, 829, 57);
 		contentPane.add(panel_3);
+		
+		JButton btnInicio = new JButton("INICIO");
+		btnInicio.setFont(new Font("Arial", Font.BOLD, 12));
+		btnInicio.setForeground(Color.BLACK);
+		btnInicio.setBackground(new Color(224, 167, 167));
+		btnInicio.setBounds(350, 445, 108, 23);
+		contentPane.add(btnInicio);
 	}
 }
 

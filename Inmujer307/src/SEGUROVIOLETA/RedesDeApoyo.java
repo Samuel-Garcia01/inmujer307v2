@@ -79,29 +79,29 @@ public class RedesDeApoyo extends JFrame {
         JPanel panel_1 = new JPanel();
         panel_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
         panel_1.setBackground(new Color(243, 220, 220));
-        panel_1.setBounds(431, 77, 331, 153);
+        panel_1.setBounds(431, 77, 331, 364);
         contentPane.add(panel_1);
         panel_1.setLayout(null);
 
         JLabel lblNombre = new JLabel("Nombre:");
         lblNombre.setFont(new Font("Arial", Font.BOLD, 12));
-        lblNombre.setBounds(10, 56, 69, 13);
+        lblNombre.setBounds(10, 92, 69, 13);
         panel_1.add(lblNombre);
 
         txtNombre = new JTextField();
         txtNombre.setEditable(false);
-        txtNombre.setBounds(89, 53, 155, 19);
+        txtNombre.setBounds(105, 89, 155, 19);
         panel_1.add(txtNombre);
         txtNombre.setColumns(10);
 
         JLabel lblTelefono = new JLabel("Teléfono:");
         lblTelefono.setFont(new Font("Arial", Font.BOLD, 12));
-        lblTelefono.setBounds(10, 105, 69, 13);
+        lblTelefono.setBounds(10, 167, 69, 13);
         panel_1.add(lblTelefono);
 
         txtTelefono = new JTextField();
         txtTelefono.setEditable(false);
-        txtTelefono.setBounds(89, 101, 155, 19);
+        txtTelefono.setBounds(105, 164, 155, 19);
         panel_1.add(txtTelefono);
         txtTelefono.setColumns(10);
 
@@ -126,34 +126,42 @@ public class RedesDeApoyo extends JFrame {
 
         JLabel lblViabilidad = new JLabel("Viabilidad de la red de apoyo");
         lblViabilidad.setFont(new Font("Arial", Font.PLAIN, 12));
-        lblViabilidad.setBounds(10, 70, 172, 14);
+        lblViabilidad.setBounds(10, 109, 172, 14);
         panel_1_1.add(lblViabilidad);
 
        
         JButton btnSiguiente = new JButton("SIGUIENTE");
         btnSiguiente.setBackground(new Color(224, 167, 167));
-        btnSiguiente.setForeground(Color.WHITE);
+        btnSiguiente.setForeground(new Color(0, 0, 0));
         btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
-        btnSiguiente.setBounds(352, 469, 142, 34);
+        btnSiguiente.setBounds(341, 470, 142, 34);
         contentPane.add(btnSiguiente);
         
         JButton btnNewButton = new JButton("INICIO");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnNewButton.setBackground(new Color(224, 167, 167));
-        btnNewButton.setForeground(Color.WHITE);
+        btnNewButton.setForeground(new Color(0, 0, 0));
         btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnNewButton.setBounds(136, 468, 131, 34);
+        btnNewButton.setBounds(54, 469, 131, 34);
         contentPane.add(btnNewButton);
         
         JPanel panel_2 = new JPanel();
         panel_2.setBackground(new Color(128, 0, 128));
-        panel_2.setBounds(0, 568, 824, 57);
+        panel_2.setBounds(0, 556, 809, 57);
         contentPane.add(panel_2);
         
         JButton btnNewButton_1 = new JButton("REGRESAR");
+        btnNewButton_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnNewButton_1.setBackground(new Color(224, 167, 167));
-        btnNewButton_1.setForeground(Color.WHITE);
+        btnNewButton_1.setForeground(new Color(0, 0, 0));
         btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnNewButton_1.setBounds(571, 471, 131, 29);
+        btnNewButton_1.setBounds(631, 471, 131, 29);
         contentPane.add(btnNewButton_1);
 
         

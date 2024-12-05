@@ -157,26 +157,27 @@ public class DATOSDELAGRESOR extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_1.setBackground(new Color(243, 220, 220));
-		panel_1.setBounds(8, 92, 787, 127);
+		panel_1.setBounds(12, 94, 787, 166);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_4 = new JLabel("NOMBRE COMPLETO");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_4.setBounds(36, 47, 154, 14);
+		lblNewLabel_4.setBounds(36, 51, 154, 14);
 		panel_1.add(lblNewLabel_4);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(36, 72, 154, 20);
+		txtNombre.setBounds(200, 49, 230, 20);
 		panel_1.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("EDAD");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_5.setBounds(569, 47, 145, 14);
+		lblNewLabel_5.setBounds(480, 75, 79, 14);
 		panel_1.add(lblNewLabel_5);
+		comboEdad.setFont(new Font("Arial", Font.BOLD, 11));
 
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "seleccione una opcion", "1", "2", "3", "4", "5",
 				"6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
@@ -186,17 +187,17 @@ public class DATOSDELAGRESOR extends JFrame {
 				"75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91",
 				"92", "93", "94", "95", "96", "97", "98", "99", "" }));
 		comboEdad.setForeground(Color.BLACK);
-		comboEdad.setBounds(569, 71, 145, 22);
+		comboEdad.setBounds(569, 71, 188, 22);
 		panel_1.add(comboEdad);
 		
 				JLabel lblNewLabel_10 = new JLabel("RELACION O VINCULO");
-				lblNewLabel_10.setBounds(302, 47, 158, 14);
+				lblNewLabel_10.setBounds(36, 127, 158, 14);
 				panel_1.add(lblNewLabel_10);
 				lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
 				
 						txtRelacion = new JTextField();
-						txtRelacion.setBounds(302, 72, 158, 20);
+						txtRelacion.setBounds(200, 125, 230, 20);
 						panel_1.add(txtRelacion);
 						txtRelacion.setColumns(10);
 
@@ -204,37 +205,33 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1_1.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_1_1.setLayout(null);
 		panel_1_1.setBackground(new Color(243, 220, 220));
-		panel_1_1.setBounds(8, 240, 789, 140);
+		panel_1_1.setBounds(18, 335, 789, 140);
 		contentPane.add(panel_1_1);
 		
-				JLabel lblNewLabel_11 = new JLabel("DOMICILIO");
-				lblNewLabel_11.setBounds(116, 52, 67, 14);
+				JLabel lblNewLabel_11 = new JLabel("DOMICILIO COMPLETO :\r\n");
+				lblNewLabel_11.setBounds(38, 52, 158, 26);
 				panel_1_1.add(lblNewLabel_11);
 				lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
-				
-						JLabel lblNewLabel_12 = new JLabel("COMPLETO :");
-						lblNewLabel_12.setBounds(116, 70, 80, 14);
-						panel_1_1.add(lblNewLabel_12);
-						lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 						
 								txtDomicilio = new JTextField();
-								txtDomicilio.setBounds(206, 67, 158, 20);
+								txtDomicilio.setBounds(194, 56, 158, 20);
 								panel_1_1.add(txtDomicilio);
 								txtDomicilio.setColumns(10);
 								
 										JLabel lblNewLabel_15 = new JLabel("OCUPACION");
-										lblNewLabel_15.setBounds(447, 42, 158, 14);
+										lblNewLabel_15.setBounds(408, 58, 131, 14);
 										panel_1_1.add(lblNewLabel_15);
 										lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
 										lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
 										
 												txtOcupacion = new JTextField();
-												txtOcupacion.setBounds(447, 67, 158, 20);
+												txtOcupacion.setBounds(572, 56, 158, 20);
 												panel_1_1.add(txtOcupacion);
 												txtOcupacion.setColumns(10);
 
 		JButton btnInicio = new JButton("INICIO");
-		btnInicio.setForeground(Color.WHITE);
+		btnInicio.setFont(new Font("Arial", Font.BOLD, 10));
+		btnInicio.setForeground(new Color(0, 0, 0));
 		btnInicio.setBackground(new Color(224, 167, 167));
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -272,26 +269,26 @@ public class DATOSDELAGRESOR extends JFrame {
 
 			}
 		});
-		btnInicio.setBounds(124, 421, 101, 23);
+		btnInicio.setBounds(336, 518, 128, 23);
 		contentPane.add(btnInicio);
 		
-				JButton btnContinuar = new JButton("CONTINUAR");
-				btnContinuar.setForeground(Color.WHITE);
-				btnContinuar.setBackground(new Color(224, 167, 167));
-				btnContinuar.setBounds(323, 421, 128, 23);
-				contentPane.add(btnContinuar);
+				JButton btnSIGUIENTE = new JButton("SIGUIENTE");
+				btnSIGUIENTE.setForeground(new Color(0, 0, 0));
+				btnSIGUIENTE.setBackground(new Color(224, 167, 167));
+				btnSIGUIENTE.setBounds(671, 518, 128, 23);
+				contentPane.add(btnSIGUIENTE);
 				
 				JButton btnNewButton = new JButton("REGRESAR");
-				btnNewButton.setForeground(Color.WHITE);
+				btnNewButton.setForeground(new Color(0, 0, 0));
 				btnNewButton.setBackground(new Color(224, 167, 167));
-				btnNewButton.setBounds(561, 421, 111, 23);
+				btnNewButton.setBounds(8, 518, 111, 23);
 				contentPane.add(btnNewButton);
 				
 				JPanel panel_2 = new JPanel();
 				panel_2.setBackground(new Color(128, 0, 128));
-				panel_2.setBounds(0, 568, 849, 62);
+				panel_2.setBounds(0, 551, 809, 62);
 				contentPane.add(panel_2);
-				btnContinuar.addActionListener(new ActionListener() {
+				btnSIGUIENTE.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String edad = comboEdad.getSelectedItem().toString();
 						String RelacionoVinculo = txtRelacion.getText();
