@@ -223,7 +223,7 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
-		txtApellidopaterno.setForeground(new Color(43, 43, 43));
+		txtApellidopaterno.setForeground(new Color(53, 53, 53));
 		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtApellidopaterno.setBounds(23, 11, 138, 20);
 		panel_1.add(txtApellidopaterno);
@@ -948,7 +948,7 @@ public class DatosGenerales extends JFrame {
 
 		txtOcupacion = new JTextField();
 		txtOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtOcupacion.setForeground(new Color(64, 0, 128));
+		txtOcupacion.setForeground(new Color(53, 53, 53));
 		txtOcupacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -975,7 +975,7 @@ public class DatosGenerales extends JFrame {
 
 		txtIngresoFamiliar = new JTextField();
 		txtIngresoFamiliar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtIngresoFamiliar.setForeground(new Color(43, 43, 43));
+		txtIngresoFamiliar.setForeground(new Color(53, 53, 53));
 		txtIngresoFamiliar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -1012,7 +1012,7 @@ public class DatosGenerales extends JFrame {
 
 		txtNumeroCelular = new JTextField();
 		txtNumeroCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNumeroCelular.setForeground(new Color(43, 43, 43));
+		txtNumeroCelular.setForeground(new Color(53, 53, 53));
 		txtNumeroCelular.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ev) {
@@ -1053,7 +1053,7 @@ public class DatosGenerales extends JFrame {
 
 		txtnumeroDeCasa = new JTextField();
 		txtnumeroDeCasa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtnumeroDeCasa.setForeground(new Color(43, 43, 43));
+		txtnumeroDeCasa.setForeground(new Color(53, 53, 53));
 		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -1088,7 +1088,7 @@ public class DatosGenerales extends JFrame {
 
 		txtCanalizadPor = new JTextField();
 		txtCanalizadPor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCanalizadPor.setForeground(new Color(43, 43, 43));
+		txtCanalizadPor.setForeground(new Color(53, 53, 53));
 		txtCanalizadPor.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent ki) {
@@ -1128,7 +1128,7 @@ public class DatosGenerales extends JFrame {
 
 		txtPadecimientoCronico = new JTextField();
 		txtPadecimientoCronico.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtPadecimientoCronico.setForeground(new Color(43, 43, 43));
+		txtPadecimientoCronico.setForeground(new Color(53, 53, 53));
 		txtPadecimientoCronico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1161,7 +1161,7 @@ public class DatosGenerales extends JFrame {
 
 		txtDenuncia = new JTextField();
 		txtDenuncia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtDenuncia.setForeground(new Color(43, 43, 43));
+		txtDenuncia.setForeground(new Color(53, 53, 53));
 		txtDenuncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1180,7 +1180,7 @@ public class DatosGenerales extends JFrame {
 		area.setForeground(new Color(43, 43, 43));
 
 		area.setBackground(new Color(243, 220, 220));
-		area.setBounds(272, 312, 303, 271);
+		area.setBounds(275, 312, 303, 243);
 		contentPane.add(area);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
@@ -1464,6 +1464,13 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_10.setBounds(10, 159, 191, 14);
 		panel.add(lblNewLabel_10);
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
+		
+		JLabel lblNewLabel_23_1 = new JLabel("DEPENDIENTES ECONOMICOS");
+		lblNewLabel_23_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_23_1.setForeground(new Color(43, 43, 43));
+		lblNewLabel_23_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_23_1.setBounds(272, 569, 303, 14);
+		contentPane.add(lblNewLabel_23_1);
 		System.out.println(exp);
 	}
 }

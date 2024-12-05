@@ -23,7 +23,7 @@ public class JuegoDeMemoria extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ImageIcon reverso = cargarImagen("src/img2/reverso.png");
+        ImageIcon reverso = cargarImagen("src/img/reverso.png");
         ArrayList<String> listaImagenes = cargarYMezclarCartas();
 
         for (String imagenRuta : listaImagenes) {
@@ -40,10 +40,10 @@ public class JuegoDeMemoria extends JFrame {
 
     private ArrayList<String> cargarYMezclarCartas() {
         String[] imagenes = {
-            "src/img2/Inmujer1.jpg", "src/img2/Inmujer2.jpg", "src/img2/Inmujer3.jpg", "src/img2/Inmujer4.jpg",
-            "src/img2/Inmujer5.jpg", "src/img2/Inmujer6.jpg", "src/img2/inmer7.png", "src/img2/Inmujer8.jpg",
-            "src/img2/Inmujer1.jpg", "src/img2/Inmujer2.jpg", "src/img2/Inmujer3.jpg", "src/img2/Inmujer4.jpg",
-            "src/img2/Inmujer5.jpg", "src/img2/Inmujer6.jpg", "src/img2/inmer7.png", "src/img2/Inmujer8.jpg"
+            "src/img/Inmujer1.jpg", "src/img/Inmujer2.jpg", "src/img/Inmujer3.jpg", "src/img/Inmujer4.jpg",
+            "src/img/Inmujer5.jpg", "src/img/Inmujer6.jpg", "src/img/inmer7.png", "src/img/Inmujer8.jpg",
+            "src/img/Inmujer1.jpg", "src/img/Inmujer2.jpg", "src/img/Inmujer3.jpg", "src/img/Inmujer4.jpg",
+            "src/img/Inmujer5.jpg", "src/img/Inmujer6.jpg", "src/img/inmer7.png", "src/img/Inmujer8.jpg"
         };
         ArrayList<String> listaImagenes = new ArrayList<>();
         Collections.addAll(listaImagenes, imagenes);

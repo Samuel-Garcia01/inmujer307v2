@@ -155,6 +155,14 @@ public class MenuDeJuegos extends JFrame {
 		contentPane.add(btnAdivinaLaPalabra);
 		
 		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuInmujer ventana = new MenuInmujer();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnRegresar.setBorder(null);
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 10));
 		btnRegresar.setBackground(new Color(128, 0, 64));
