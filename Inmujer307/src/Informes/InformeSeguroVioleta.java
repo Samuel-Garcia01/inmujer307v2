@@ -96,7 +96,7 @@ public class InformeSeguroVioleta extends JFrame {
 				pst.setString(1, expediente);
 			    ResultSet rs = pst.executeQuery();
 				 while(rs.next()) {
-					PdfPCell celda1 = new PdfPCell(new Phrase("MES: "+rs.getString("MES"),letra_pequenia));
+					PdfPCell celda1 = new PdfPCell(new Phrase("FECHA: "+rs.getString("FECHA"),letra_pequenia));
 					PdfPCell celda2 = new PdfPCell(new Phrase("EXPEDIENTE: "+String.valueOf(rs.getInt("EXP")),letra_pequenia));
 					tabla1.addCell(celda1);
 					tabla1.addCell(celda2);

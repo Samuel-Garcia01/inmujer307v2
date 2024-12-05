@@ -1,4 +1,5 @@
 package SEGUROVIOLETA;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
@@ -22,6 +23,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import MenuInmujer.MenuInmujer;
 import PrimerContacto.Violencia;
 import clasesExternas.FechaHora;
 
@@ -44,11 +46,10 @@ public class DatosGenerales extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtApellidopaterno;
-	private JTextField txtDomicilio;
+	private JTextField txtCalle;
 	private JTextField txtOcupacion;
 	private JTextField txtNumeroCelular;
-	private JTextField txtnumeroDeCasa;
-	private JTextField txtEstado;
+	private JTextField txtMunicipio;
 	private JTextField txtExpediente;
 	private JTextField txtFecha;
 	JComboBox comboDia = new JComboBox();
@@ -60,60 +61,90 @@ public class DatosGenerales extends JFrame {
 	JComboBox comboNopersonas = new JComboBox();
 	JComboBox ComboEstadOCivil = new JComboBox();
 	JComboBox comboColonia = new JComboBox();
-	JTextArea areaContacto = new JTextArea();
+	JComboBox comboGradoestudios = new JComboBox();
+	JTextArea txtContacto = new JTextArea();
 	FechaHora fech = new FechaHora();
-	JTextArea areadenuncia = new JTextArea();
+	JTextArea txtEstructuraFamiliar = new JTextArea();
 
-	 JComboBox combotipodevivienda = new JComboBox();
+	JComboBox combotipodevivienda = new JComboBox();
 	
-	String NombreDeLaVictima;
 	private JTextField txtEstadodesalud;
-	private JTextField txtparentesco;
-	private JTextField txtestructurafamiliar;
-	 public void tiempo () {
-	 }
-	
+	private JTextField txtApellidoMaterno;
+	private JTextField txtNombres;
+	private JTextField txtDenuncia;
+	private JTextField txtNoCalle;
 
-
-
-	 
-
-	 
-	 public void EncontrarEXP(ResultSet rs) {
-	        try {
+	public void BuscarDatos() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "SELECT * FROM datos WHERE EXP = '"+exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				String nombreVic = "SELECT SUBSTRING_INDEX(Nombre_de_la_victima, ' ',1) AS apellido_paterno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',2),' ',-1) AS apellido_materno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',3),' ',-1) AS nombre FROM datos WHERE EXP = '"+exp+"'";
+				
+				PreparedStatement pstVic = con.prepareStatement(nombreVic);
+				ResultSet rsVic = pstVic.executeQuery();
+				if (rsVic.next()) {
+					txtApellidopaterno.setText(rsVic.getString("apellido_paterno"));
+					txtApellidoMaterno.setText(rsVic.getString("apellido_materno"));
+					txtNombres.setText(rsVic.getString("nombre"));
+				}
+				
+				comboCodigoPostal.setSelectedItem(rs.getString("Codigo_postal"));
+	            comboColonia.setSelectedItem(rs.getString("Colonia"));
+	            txtOcupacion.setText(rs.getString("Ocupacion"));
+	            txtNumeroCelular.setText(rs.getString("Telefono_Celular"));
+	            txtDenuncia.setText(rs.getString("Denuncia"));
+	            ComboEstadOCivil.setSelectedItem(rs.getString("Estado_Civil"));
+	            comboGradoestudios.setSelectedItem(rs.getString("Grado_de_Estudios"));
 	            
-	            String nombre = rs.getString("Nombre_de_la_victima");
-	            String codigoPostal = rs.getString("Codigo_postal");
-	            String colonia = rs.getString("Colonia");
-	            String Domicio = rs.getString("Domicilio");
-	            String Ocupacion = rs.getString("Ocupacion");
-	            String numCelu = rs.getString("Telefono_Celular");
-	            String NumCasa = rs.getString("Telefono_Casa");
-	            String Estadocivil = rs.getString("Estado_Civil");
-	            String Edad = rs.getString("Edad");	            
-	            String Vivienda = rs.getString("Vivienda");
-	   	        String noPersonas = rs.getString("No_Personas");
+	            String edad = rs.getString("Edad"),e = "";
+	            if (edad.length()==1) {
+					e = "0"+edad;
+				} else {
+					e = edad;
+				}
+	            comboEdad.setSelectedItem(e);
 	            
-	           
-	            txtApellidopaterno.setText(nombre);
-	            comboCodigoPostal.setSelectedItem(codigoPostal);
-	            comboColonia.setSelectedItem(colonia);
-	            txtDomicilio.setText(Domicio);
-	            txtOcupacion.setText(Ocupacion);
-	            txtNumeroCelular.setText(numCelu);
-	            txtnumeroDeCasa.setText(NumCasa);
-	            ComboEstadOCivil.setSelectedItem(Estadocivil);
-	            comboEdad.setSelectedItem(Edad);
-	            comboVivienda.setSelectedItem(Vivienda);
-	            comboNopersonas.setSelectedItem(noPersonas);
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-
+	            comboVivienda.setSelectedItem(rs.getString("Vivienda"));
+	            comboNopersonas.setSelectedItem(rs.getString("No_Personas"));
+	            
+	            String fechaNac = "SELECT Fecha_de_nacimiento, YEAR(Fecha_de_nacimiento) AS anio, MONTH(Fecha_de_nacimiento) AS mes, DAY(Fecha_de_nacimiento) AS dia FROM datos WHERE EXP = '"+exp+"'";
+				
+	            PreparedStatement pstNac = con.prepareStatement(fechaNac);
+				ResultSet rsNac = pstNac.executeQuery();
+				if (rsNac.next()) {
+					String mes = rsNac.getString("mes"), m = "";
+					String dia = rsNac.getString("dia"), d = "";
+					if (mes.length()==1) {
+						m = "0"+mes;
+					} else {
+						m = mes;
+					}
+					if (dia.length()==1) {
+						d = "0"+dia;
+					} else {
+						d = dia;
+					}
+					comboAnio.setSelectedItem(rsNac.getInt("anio"));
+					comboMes.setSelectedItem(m);
+					comboDia.setSelectedItem(d);
+				}
+			} else {
+				System.out.println("No se encontraron registros");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	 }
-	
-
 	/**
 	 * Launch the application.
 	 */
@@ -121,25 +152,25 @@ public class DatosGenerales extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					DatosGenerales frame = new DatosGenerales();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
-			
+
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
 	public DatosGenerales() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 823, 659);
+		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(247, 231, 245));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -165,13 +196,12 @@ public class DatosGenerales extends JFrame {
 		txtApellidopaterno.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtApellidopaterno.setEditable(false);
 		txtApellidopaterno.addKeyListener(new KeyAdapter() {
-		
-			
+
 		});
 		txtApellidopaterno.setBackground(new Color(243, 220, 220));
 		txtApellidopaterno.setForeground(new Color(75, 0, 130));
 		txtApellidopaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtApellidopaterno.setBounds(23, 11, 485, 20);
+		txtApellidopaterno.setBounds(23, 11, 138, 20);
 		panel_1.add(txtApellidopaterno);
 		txtApellidopaterno.setColumns(10);
 
@@ -186,27 +216,38 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_3.setForeground(new Color(47, 79, 79));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_3.setBounds(386, 35, 122, 14);
+		lblNewLabel_3.setBounds(386, 35, 142, 14);
 		panel_1.add(lblNewLabel_3);
+		
+		txtApellidoMaterno = new JTextField();
+		txtApellidoMaterno.setForeground(new Color(75, 0, 130));
+		txtApellidoMaterno.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtApellidoMaterno.setEditable(false);
+		txtApellidoMaterno.setColumns(10);
+		txtApellidoMaterno.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtApellidoMaterno.setBackground(new Color(243, 220, 220));
+		txtApellidoMaterno.setBounds(206, 11, 138, 20);
+		panel_1.add(txtApellidoMaterno);
+		
+		txtNombres = new JTextField();
+		txtNombres.setForeground(new Color(75, 0, 130));
+		txtNombres.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtNombres.setEditable(false);
+		txtNombres.setColumns(10);
+		txtNombres.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtNombres.setBackground(new Color(243, 220, 220));
+		txtNombres.setBounds(390, 11, 138, 20);
+		panel_1.add(txtNombres);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_2.setBackground(new Color(243, 220, 220));
-		panel_2.setBounds(588, 80, 211, 222);
+		panel_2.setBounds(588, 80, 211, 268);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-		ComboEstadOCivil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (ComboEstadOCivil.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				
-				}
-			}
-		});
-		ComboEstadOCivil.setModel(
-				new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
+		
+		ComboEstadOCivil.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
 		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
 		ComboEstadOCivil.setBounds(10, 11, 191, 22);
 		panel_2.add(ComboEstadOCivil);
@@ -218,16 +259,6 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_4.setBounds(10, 38, 191, 14);
 		panel_2.add(lblNewLabel_4);
 
-		comboEdad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboEdad.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboVivienda.showPopup();
-				}
-			}
-		});
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 99; i++) {
 			String E = String.valueOf(i);
@@ -251,17 +282,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(10, 85, 191, 14);
 		panel_2.add(lblNewLabel_7);
-		comboVivienda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboVivienda.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboNopersonas.showPopup();
-				}
-			}
-		});
-
+		
 		comboVivienda.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione una opcion", "Familiar", "Propia", "Rentada", "Prestada" }));
 		comboVivienda.setBackground(new Color(243, 220, 220));
@@ -275,15 +296,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_11.setBounds(10, 137, 191, 14);
 		panel_2.add(lblNewLabel_11);
 
-		comboNopersonas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboNopersonas.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				
-				}
-			}
-		});
+		
 
 		comboNopersonas.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
@@ -297,11 +310,24 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_12.setBounds(10, 195, 191, 14);
 		panel_2.add(lblNewLabel_12);
+		
+		
+		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Primaria trunca", "Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios"}));
+		comboGradoestudios.setBackground(new Color(243, 220, 220));
+		comboGradoestudios.setBounds(10, 218, 191, 22);
+		panel_2.add(comboGradoestudios);
+		
+		JLabel lblNewLabel_6 = new JLabel("GRADO DE ESTUDIOS");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setForeground(new Color(80, 80, 80));
+		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_6.setBounds(10, 243, 191, 14);
+		panel_2.add(lblNewLabel_6);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_3.setBackground(new Color(243, 220, 220));
-		panel_3.setBounds(10, 175, 568, 103);
+		panel_3.setBounds(10, 165, 568, 103);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
@@ -681,12 +707,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_14.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_14.setBounds(10, 36, 136, 14);
 		panel_3.add(lblNewLabel_14);
-		comboColonia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDomicilio.requestFocus();
-			}
-		});
-
+		
 		comboColonia.setBounds(190, 11, 149, 22);
 		panel_3.add(comboColonia);
 
@@ -697,45 +718,30 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_15.setBounds(200, 36, 139, 14);
 		panel_3.add(lblNewLabel_15);
 
-		txtDomicilio = new JTextField();
-		txtDomicilio.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtDomicilio.setForeground(new Color(75, 0, 130));
-		txtDomicilio.setEditable(false);
-		txtDomicilio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		txtDomicilio.setBackground(new Color(243, 220, 220));
-		txtDomicilio.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtDomicilio.setBounds(373, 12, 168, 20);
-		panel_3.add(txtDomicilio);
-		txtDomicilio.setColumns(10);
+		txtCalle = new JTextField();
+		txtCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtCalle.setForeground(new Color(75, 0, 130));
+		txtCalle.setEditable(false);
+		txtCalle.setBackground(new Color(243, 220, 220));
+		txtCalle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtCalle.setBounds(373, 12, 168, 20);
+		panel_3.add(txtCalle);
+		txtCalle.setColumns(10);
 
-		JLabel lblNewLabel_16 = new JLabel("DOMICILIO");
-		lblNewLabel_16.setForeground(new Color(47, 79, 79));
+		JLabel lblNewLabel_16 = new JLabel("CALLE");
+		lblNewLabel_16.setForeground(new Color(0, 0, 0));
 		lblNewLabel_16.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_16.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_16.setBounds(373, 36, 168, 14);
 		panel_3.add(lblNewLabel_16);
 
-		txtEstado = new JTextField("Tultitlan");
-		txtEstado.setEditable(false);
-		txtEstado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (txtEstado.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, " ¡¡NO PUEDES CONTINUAR NECESITAS LLENAR ESTE CAMPO !!");
-				} else {
-					txtOcupacion.requestFocus();
-				}
-			}
-		});
-		txtEstado.setBackground(new Color(243, 220, 220));
-		txtEstado.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtEstado.setBounds(10, 55, 136, 20);
-		panel_3.add(txtEstado);
-		txtEstado.setColumns(10);
+		txtMunicipio = new JTextField("Tultitlan");
+		txtMunicipio.setEditable(false);
+		txtMunicipio.setBackground(new Color(243, 220, 220));
+		txtMunicipio.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtMunicipio.setBounds(10, 55, 136, 20);
+		panel_3.add(txtMunicipio);
+		txtMunicipio.setColumns(10);
 
 		JLabel lblNewLabel_24 = new JLabel("ESTADO");
 		lblNewLabel_24.setForeground(new Color(47, 79, 79));
@@ -743,11 +749,28 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_24.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_24.setBounds(10, 78, 136, 14);
 		panel_3.add(lblNewLabel_24);
+		
+		txtNoCalle = new JTextField();
+		txtNoCalle.setForeground(new Color(75, 0, 130));
+		txtNoCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtNoCalle.setEditable(false);
+		txtNoCalle.setColumns(10);
+		txtNoCalle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtNoCalle.setBackground(new Color(243, 220, 220));
+		txtNoCalle.setBounds(373, 54, 168, 20);
+		panel_3.add(txtNoCalle);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("NUMERO DE CALLE");
+		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_2_1.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_2_1.setBounds(373, 78, 168, 14);
+		panel_3.add(lblNewLabel_2_1);
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_4.setBackground(new Color(243, 220, 220));
-		panel_4.setBounds(10, 289, 252, 167);
+		panel_4.setBounds(10, 280, 252, 221);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 
@@ -755,14 +778,6 @@ public class DatosGenerales extends JFrame {
 		txtOcupacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtOcupacion.setForeground(new Color(75, 0, 130));
 		txtOcupacion.setEditable(false);
-		txtOcupacion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-
-			
-			
-		});
 		txtOcupacion.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtOcupacion.setBackground(new Color(243, 220, 220));
 		txtOcupacion.setBounds(27, 11, 194, 20);
@@ -780,30 +795,9 @@ public class DatosGenerales extends JFrame {
 		txtNumeroCelular.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNumeroCelular.setForeground(new Color(75, 0, 130));
 		txtNumeroCelular.setEditable(false);
-		txtNumeroCelular.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent ev) {
-				int k = (int) ev.getKeyChar();
-				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
-					ev.setKeyChar((char) KeyEvent.VK_CLEAR);
-					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
-							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
-				}
-				if (txtNumeroCelular.getText().trim().length() == 10) {
-					ev.consume();
-
-				}
-			}
-		});
-		txtNumeroCelular.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				
-			}
-		});
 		txtNumeroCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtNumeroCelular.setBackground(new Color(243, 220, 220));
-		txtNumeroCelular.setBounds(27, 55, 194, 20);
+		txtNumeroCelular.setBounds(27, 70, 194, 20);
 		panel_4.add(txtNumeroCelular);
 		txtNumeroCelular.setColumns(10);
 
@@ -811,40 +805,30 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_19.setForeground(new Color(47, 79, 79));
 		lblNewLabel_19.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_19.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_19.setBounds(27, 86, 194, 14);
+		lblNewLabel_19.setBounds(27, 101, 194, 14);
 		panel_4.add(lblNewLabel_19);
-
-		txtnumeroDeCasa = new JTextField();
-		txtnumeroDeCasa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtnumeroDeCasa.setForeground(new Color(75, 0, 130));
-		txtnumeroDeCasa.setEditable(false);
-		txtnumeroDeCasa.addKeyListener(new KeyAdapter() {
 		
-			public void keyTyped(KeyEvent evt) {
-				
-			}
-		});
+		txtDenuncia = new JTextField();
+		txtDenuncia.setForeground(new Color(53, 53, 53));
+		txtDenuncia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDenuncia.setColumns(10);
+		txtDenuncia.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		txtDenuncia.setBackground(new Color(243, 220, 220));
+		txtDenuncia.setBounds(27, 137, 194, 20);
+		panel_4.add(txtDenuncia);
 		
-				
-			
-		txtnumeroDeCasa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtnumeroDeCasa.setBackground(new Color(243, 220, 220));
-		txtnumeroDeCasa.setBounds(27, 111, 194, 20);
-		panel_4.add(txtnumeroDeCasa);
-		txtnumeroDeCasa.setColumns(10);
+		JLabel lblNewLabel_23 = new JLabel("DENUNCIA");
+		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_23.setForeground(new Color(80, 80, 80));
+		lblNewLabel_23.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel_23.setBounds(27, 166, 194, 14);
+		panel_4.add(lblNewLabel_23);
+		txtContacto.setFont(new Font("Monospaced", Font.BOLD, 13));
+		txtContacto.setForeground(new Color(75, 0, 130));
 
-		JLabel lblNewLabel_20 = new JLabel("NUMERO CASA");
-		lblNewLabel_20.setForeground(new Color(47, 79, 79));
-		lblNewLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_20.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_20.setBounds(27, 142, 194, 14);
-		panel_4.add(lblNewLabel_20);
-		areaContacto.setFont(new Font("Monospaced", Font.BOLD, 13));
-		areaContacto.setForeground(new Color(75, 0, 130));
-
-		areaContacto.setBackground(new Color(243, 220, 220));
-		areaContacto.setBounds(272, 313, 303, 103);
-		contentPane.add(areaContacto);
+		txtContacto.setBackground(new Color(243, 220, 220));
+		txtContacto.setBounds(272, 397, 306, 104);
+		contentPane.add(txtContacto);
 
 		JLabel lblNewLabel_25 = new JLabel("EXP");
 		lblNewLabel_25.setFont(new Font("Arial", Font.BOLD, 12));
@@ -852,19 +836,6 @@ public class DatosGenerales extends JFrame {
 		contentPane.add(lblNewLabel_25);
 
 		txtExpediente = new JTextField();
-		txtExpediente.addKeyListener(new KeyAdapter() {
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String text = txtExpediente.getText();
-				}
-			}
-		});
-		txtExpediente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		txtExpediente.setBounds(56, 66, 96, 20);
 		contentPane.add(txtExpediente);
 		txtExpediente.setColumns(10);
@@ -906,44 +877,77 @@ public class DatosGenerales extends JFrame {
 				// Se generan las variables para su almacenaciento, esto nos ayudara a guardar
 				// los datos ingresado
 				// por el usuario
-				String Denuncia = areadenuncia.getText();
-				String Contacto = areaContacto.getText();
+				String fecha = txtFecha.getText();
+				String NombreDeLaVictima = txtApellidopaterno.getText() + " " + txtApellidoMaterno.getText() + " "
+						+ txtNombres.getText();
+				String FechaDeNacimiento = comboAnio.getSelectedItem().toString() + "-"
+						+ comboMes.getSelectedItem().toString() + "-" + comboDia.getSelectedItem().toString();
+				int edad = Integer.parseInt(comboEdad.getSelectedItem().toString());
+				String GradoDeEstudios = comboGradoestudios.getSelectedItem().toString();
+				String EstadoCivil = ComboEstadOCivil.getSelectedItem().toString();
+				String Ocupacion = txtOcupacion.getText();
+				String Calle = txtCalle.getText();
+				String NoCalle = txtNoCalle.getText();
+				String CodigoPostal = comboCodigoPostal.getSelectedItem().toString();
+				String colonia = comboColonia.getSelectedItem().toString();
+				String municipio = txtMunicipio.getText();
+				String telefonoCelular = txtNumeroCelular.getText();
+				String vivienda = comboVivienda.getSelectedItem().toString();
+				String nopersonas = comboNopersonas.getSelectedItem().toString();
+				String denuncia = txtDenuncia.getText();
+				
+
+				
+				String Contacto = txtContacto.getText();
 				String EstadoSalud = txtEstadodesalud.getText();
-				String parentesco = txtparentesco.getText();
 				String tipoVivienda = combotipodevivienda.getSelectedItem().toString();
-				String Estructura = txtestructurafamiliar.getText();
-	
+				String Estructura = txtEstructuraFamiliar.getText();
+
 				// En esta seccion se genera la conexion a la base de datos, la cual enviara la
 				// informacion almacenada
 				// en las variables creadas anteriormente.
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-				String sql = "INSERT INTO seguro_violeta (EXP,MES,Nombre_de_la_victima,Fecha_de_nacimiento,Edad,Grado_de_Estudios,Estado_Civil,Ocupacion,Calle,Numero_calle,Colonia,Municipio,Codigo_postal,Telefono_Celular,Contacto_Emerjencia,Vivienda,No_Personas,Estado_de_salud,Tipo_Vivienda,Denuncia_y/o_demanda,Estructura_familiar,Edad_Familiar,Escolaridad_y/o_Ocupacion,Parentesco VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String sql = "INSERT INTO seguro_violeta (EXP,FECHA,Nombre_de_la_victima,Fecha_de_nacimiento,Edad,Grado_de_Estudios,Estado_Civil,Ocupacion,Calle,Numero_calle,Colonia,Municipio,Codigo_postal,Telefono_Celular,Contacto_Emergencia,Vivienda,No_Personas,Estado_de_salud,Tipo_Vivienda,Denuncia_y/o_demanda,Estructura_familiar) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				try {
 					// Preparamos la sentencia sql para conectarlo en la base de datos
 					// comentamos anteriormente
 
 					PreparedStatement pst = con.prepareStatement(sql);
-					pst.setString(1, EstadoSalud);
-					pst.setString(2, Denuncia);
-					pst.setString(3, Estructura);
-					pst.setString(4, Contacto);
-					pst.setString(5, parentesco);
-					pst.setString(6, tipoVivienda);
-					
+					pst.setInt(1, exp);
+					pst.setString(2, fecha);
+					pst.setString(3, NombreDeLaVictima);
+					pst.setString(4, FechaDeNacimiento);
+					pst.setInt(5, edad);
+					pst.setString(6, GradoDeEstudios);
+					pst.setString(7, EstadoCivil);
+					pst.setString(8, Ocupacion);
+					pst.setString(9, Calle);
+					pst.setString(10, NoCalle);
+					pst.setString(11, colonia);
+					pst.setString(12, municipio);
+					pst.setString(13, CodigoPostal);
+					pst.setString(14, telefonoCelular);
+					pst.setString(15, Contacto);
+					pst.setString(16, vivienda);
+					pst.setString(17, nopersonas);
+					pst.setString(18, EstadoSalud);
+					pst.setString(19, tipoVivienda);
+					pst.setString(20, denuncia);
+					pst.setString(21, Estructura);
 
 					int valor = pst.executeUpdate();
 					if (valor == 1) {
 						System.out.println("Insertado correctamente");
 
-						//BuscarExpediente();
+						// BuscarExpediente();
 						// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
 						// campo
 						JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
 								"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
 						// Aqui generamos una instancia que lo mande automaticamente a la siguiente
 						// ventana despues del proceso antes mostrado
-						DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+						Violencia ventana = new Violencia();
 						dispose();
 						ventana.setVisible(true);
 						ventana.setLocationRelativeTo(null);
@@ -955,22 +959,22 @@ public class DatosGenerales extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-				
+
 		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
-		btnNewButton.setBounds(697, 536, 99, 23);
+		btnNewButton.setBounds(697, 571, 99, 23);
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel_30 = new JLabel("Contacto De Emergencia (Numero y Nombre)");
 		lblNewLabel_30.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_30.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_30.setBounds(272, 288, 303, 14);
+		lblNewLabel_30.setBounds(272, 372, 303, 14);
 		contentPane.add(lblNewLabel_30);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel.setBackground(new Color(243, 220, 220));
-		panel.setBounds(588, 317, 211, 184);
+		panel.setBounds(588, 359, 211, 184);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -982,16 +986,6 @@ public class DatosGenerales extends JFrame {
 		panel.add(lblNewLabel_31);
 		comboDia.setBounds(10, 43, 191, 22);
 		panel.add(comboDia);
-		comboDia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboDia.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboMes.showPopup();
-				}
-			}
-		});
 		comboDia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		comboDia.setBackground(new Color(243, 220, 220));
 		for (int i = 1; i <= 31; i++) {
@@ -1014,16 +1008,6 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
 		comboMes.setBounds(10, 85, 191, 22);
 		panel.add(comboMes);
-		comboMes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboMes.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					comboAnio.showPopup();
-				}
-			}
-		});
 		comboMes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		comboMes.setBackground(new Color(243, 220, 220));
 		for (int i = 1; i <= 12; i++) {
@@ -1047,16 +1031,6 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
 		comboAnio.setBounds(10, 132, 191, 22);
 		panel.add(comboAnio);
-		comboAnio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboAnio.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "¡Debe seleccionar una opcion!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					areaContacto.requestFocus();
-				}
-			}
-		});
 		comboAnio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		comboAnio.setBackground(new Color(243, 220, 220));
 		for (int i = 1940; i <= 2020; i++) {
@@ -1070,34 +1044,21 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_10.setBounds(10, 159, 191, 14);
 		panel.add(lblNewLabel_10);
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
-		
-		JLabel lblNewLabel_30_1 = new JLabel("Denuncia y/o demanda (tipo y numero)");
-		lblNewLabel_30_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_30_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_30_1.setBounds(10, 467, 235, 14);
-		contentPane.add(lblNewLabel_30_1);
-		areadenuncia.setFont(new Font("Monospaced", Font.BOLD, 13));
-		areadenuncia.setForeground(new Color(75, 0, 130));
-		
-		
-		areadenuncia.setBackground(new Color(243, 220, 220));
-		areadenuncia.setBounds(10, 492, 252, 103);
-		contentPane.add(areadenuncia);
-		
+
 		JPanel panel_5 = new JPanel();
 		panel_5.setLayout(null);
 		panel_5.setBorder(new LineBorder(new Color(233, 150, 122), 3));
 		panel_5.setBackground(new Color(243, 220, 220));
-		panel_5.setBounds(272, 425, 306, 184);
+		panel_5.setBounds(272, 280, 306, 68);
 		contentPane.add(panel_5);
-		
+
 		JLabel lblNewLabel_17_1 = new JLabel("Estado De Salud:");
-		lblNewLabel_17_1.setForeground(new Color(47, 79, 79));
+		lblNewLabel_17_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_17_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_17_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_17_1.setBounds(10, 11, 119, 14);
 		panel_5.add(lblNewLabel_17_1);
-		
+
 		txtEstadodesalud = new JTextField();
 		txtEstadodesalud.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtEstadodesalud.setForeground(new Color(75, 0, 130));
@@ -1106,99 +1067,68 @@ public class DatosGenerales extends JFrame {
 		txtEstadodesalud.setBackground(new Color(243, 220, 220));
 		txtEstadodesalud.setBounds(20, 36, 98, 20);
 		panel_5.add(txtEstadodesalud);
-		
-		JLabel lblNewLabel_17_1_1 = new JLabel("Parentesco");
-		lblNewLabel_17_1_1.setForeground(new Color(47, 79, 79));
-		lblNewLabel_17_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_17_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_17_1_1.setBounds(10, 67, 119, 14);
-		panel_5.add(lblNewLabel_17_1_1);
-		
-		txtparentesco = new JTextField();
-		txtparentesco.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtparentesco.setForeground(new Color(75, 0, 130));
-		txtparentesco.setColumns(10);
-		txtparentesco.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtparentesco.setBackground(new Color(243, 220, 220));
-		txtparentesco.setBounds(20, 92, 98, 20);
-		panel_5.add(txtparentesco);
-		
+
 		JLabel lblNewLabel_17_1_1_1 = new JLabel("Tipo de vivienda:");
-		lblNewLabel_17_1_1_1.setForeground(new Color(47, 79, 79));
+		lblNewLabel_17_1_1_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_17_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_17_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_17_1_1_1.setBounds(139, 11, 119, 14);
+		lblNewLabel_17_1_1_1.setBounds(149, 11, 131, 14);
 		panel_5.add(lblNewLabel_17_1_1_1);
-		
-		
-		combotipodevivienda.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "casa", "cuarto", "departamento"}));
+
+		combotipodevivienda.setModel(
+				new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "casa", "cuarto", "departamento" }));
 		combotipodevivienda.setBounds(149, 34, 131, 22);
 		panel_5.add(combotipodevivienda);
-		
-		JLabel lblNewLabel_17_1_1_1_1 = new JLabel("Estructura Familiar:");
-		lblNewLabel_17_1_1_1_1.setForeground(new Color(47, 79, 79));
-		lblNewLabel_17_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_17_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_17_1_1_1_1.setBounds(139, 67, 119, 14);
-		panel_5.add(lblNewLabel_17_1_1_1_1);
-		
-		txtestructurafamiliar = new JTextField();
-		txtestructurafamiliar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtestructurafamiliar.setForeground(new Color(75, 0, 130));
-		txtestructurafamiliar.setColumns(10);
-		txtestructurafamiliar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
-		txtestructurafamiliar.setBackground(new Color(243, 220, 220));
-		txtestructurafamiliar.setBounds(149, 91, 98, 20);
-		panel_5.add(txtestructurafamiliar);
-		
+
 		JButton btnBuscar = new JButton("BUSCAR EXPEDIENTE");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String EXP = txtExpediente.getText();
-				  int pro =  JOptionPane.showConfirmDialog(null, "ESTAS SEGURO QUE ES TU NUMERO DE EXPEDIENTE");
-                  if (pro == 0) {
-               	   // Realizar la consulta para obtener los datos del expediente
-                      String sql = "SELECT * FROM datos WHERE EXP = ?";
-                      ConexionInmujer conexion = new ConexionInmujer();
-                      Connection con = conexion.conectar();
-
-                      try {
-                          PreparedStatement pst = con.prepareStatement(sql);
-                          pst.setString(1, EXP);
-                          ResultSet rs = pst.executeQuery();
-                          if (rs.next()) {
-                          	DatosGenerales Ventana = new DatosGenerales();
-                          	Ventana.setVisible(true);
-                              Ventana.setLocationRelativeTo(null);
-                              Ventana.EncontrarEXP(rs);
-                              dispose(); 
-                        
-                          	
-                          }
-                          
-                          	
-                      } catch (SQLException e1) {
-                          e1.printStackTrace();
-                      }
-				}else if (pro ==1) {
+				exp = Integer.parseInt(txtExpediente.getText());
+				int pro = JOptionPane.showConfirmDialog(null, "ESTAS SEGURO QUE ES EL NUMERO DE EXPEDIENTE CORRECTO");
+				if (pro == 0) {
+					DatosGenerales datos = new DatosGenerales();
+					datos.setVisible(true);
+					datos.setLocationRelativeTo(null);
+					datos.BuscarDatos();
+					dispose();
+				} else if (pro == 1) {
 					JOptionPane.showMessageDialog(null, "CORROBORELO PORFAVOR");
-				}else if (pro == 2) {
+				} else if (pro == 2) {
 					JOptionPane.showMessageDialog(null, "Vuelva Pronto");
 				}
-                if (EXP.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Debe ingresar un número", "Error", JOptionPane.ERROR_MESSAGE);
-                 
-                }
+				
 			}
 		});
 		btnBuscar.setBounds(173, 67, 160, 23);
 		contentPane.add(btnBuscar);
-		
+
 		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuInmujer ventana = new MenuInmujer();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 11));
 		btnRegresar.setBackground(new Color(243, 220, 220));
-		btnRegresar.setBounds(588, 537, 99, 23);
+		btnRegresar.setBounds(588, 572, 99, 23);
 		contentPane.add(btnRegresar);
-		 
+
+		JLabel lblNewLabel_17_1_1_1_1 = new JLabel("Estructura Familiar (Nombre, edad, escolaridad/ocupacion, parentesco)");
+		lblNewLabel_17_1_1_1_1.setBounds(10, 516, 568, 14);
+		contentPane.add(lblNewLabel_17_1_1_1_1);
+		lblNewLabel_17_1_1_1_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_17_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_17_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
+
+		
+		txtEstructuraFamiliar.setForeground(new Color(75, 0, 130));
+		txtEstructuraFamiliar.setFont(new Font("Monospaced", Font.BOLD, 13));
+		txtEstructuraFamiliar.setBackground(new Color(243, 220, 220));
+		txtEstructuraFamiliar.setBounds(10, 541, 568, 68);
+		contentPane.add(txtEstructuraFamiliar);
+
 	}
-	 }
+}

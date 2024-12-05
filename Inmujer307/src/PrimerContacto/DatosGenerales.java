@@ -373,8 +373,7 @@ public class DatosGenerales extends JFrame {
 				}
 			}
 		});
-		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Primaria trunca",
-				"Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
+		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Primaria trunca", "Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios"}));
 		comboGradoestudios.setBackground(new Color(243, 220, 220));
 		comboGradoestudios.setBounds(10, 107, 191, 22);
 		panel_2.add(comboGradoestudios);
