@@ -7,12 +7,31 @@ public class VariablesJuego1 {
     private String palabraAdivinada;
     private int intentosRestantes;
     private int intentosMaximos;  // Nuevo campo para los intentos máximos
-    private String[] palabras = {"mujer", "igualdad", "derechos", "empoderamiento", "violencia"};
+    private String[] palabras = {
+    	    "mujer", 
+    	    "igualdad", 
+    	    "derechos", 
+    	    "liberación",
+    	    "violencia", 
+    	    "libertad", 
+    	    "respeto", 
+    	    "solidaridad", 
+    	    "equidad", 
+    	    "justicia", 
+    	    "lucha", 
+    	    "esperanza",
+    	    "valentía", 
+    	    "sueños", 
+    	    "dignidad", 
+    	    "igualdad", 
+    	    "fuerza", 
+    	    "resiliencia", 
+    	    "cambio", 
+    	    "union"
+    	};
 
     public VariablesJuego1() {
-        seleccionarPalabra();
-        intentosMaximos = 6;  // Valor por defecto de intentos máximos (Fácil)
-        intentosRestantes = intentosMaximos;  // Inicializar con el valor de intentos máximos
+        reiniciar();  // Llamar a reiniciar al inicializar
     }
 
     // Seleccionar una palabra aleatoria de la lista
@@ -20,6 +39,14 @@ public class VariablesJuego1 {
         Random rand = new Random();
         palabraSeleccionada = palabras[rand.nextInt(palabras.length)];
         palabraAdivinada = "_".repeat(palabraSeleccionada.length());  // Inicializar con guiones bajos
+    }
+
+    // Reiniciar todos los valores del juego
+    public void reiniciar() {
+        seleccionarPalabra();
+        intentosMaximos = 6;  // Establecer intentos máximos (por ejemplo, 6 intentos)
+        intentosRestantes = intentosMaximos;  // Inicializar con el valor de intentos máximos
+        palabraAdivinada = "_".repeat(palabraSeleccionada.length());  // Resetear palabra adivinada
     }
 
     // Obtener la palabra adivinada

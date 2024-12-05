@@ -4,75 +4,112 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import MenuInmujer.MenuDeJuegos;
 public class JuegoDeMemoria extends JFrame {
-    private ControladorDeJuego controlador;
+	private ControladorDeJuego controlador;
     private ArrayList<Carta> cartas;
+    private Timer temporizador;
+    private Timer temporizadorLimite;
+    private int segundos = 0;
+    private int tiempoLimite = 50;
 
-    
     public JuegoDeMemoria() {
-        controlador = new ControladorDeJuego(this); // Pasamos la referencia de la ventana
+        controlador = new ControladorDeJuego(this);
         cartas = new ArrayList<>();
 
-        // Configuración de la ventana
         setTitle("Juego de Memoria");
-        setLayout(new GridLayout(4, 4));
-        setSize(400, 400);
+        getContentPane().setLayout(new GridLayout(4, 4));
+        setPreferredSize(new Dimension(823, 650));
+        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Cargar la imagen de reverso (la imagen de fondo de las cartas)
-        ImageIcon reverso = new ImageIcon("src/img/reverso.png");
+        ImageIcon reverso = cargarImagen("src/img2/reverso.png");
+        ArrayList<String> listaImagenes = cargarYMezclarCartas();
 
-        // Cargar las rutas de las imágenes para las cartas (8 pares)
-        String[] imagenes = {
-            "src/img/Inmujer1.jpg", "src/img/Inmujer2.jpg", "src/img/Inmujer3.jpg", "src/img/Inmujer4.jpg",
-            "src/img/Inmujer5.jpg", "src/img/Inmujer6.jpg", "src/img/inmer7.png", "src/img/Inmujer8.jpg",
-            "src/img/Inmujer1.jpg", "src/img/Inmujer2.jpg", "src/img/Inmujer3.jpg", "src/img/Inmujer4.jpg",
-            "src/img/Inmujer5.jpg", "src/img/Inmujer6.jpg", "src/img/inmer7.png", "src/img/Inmujer8.jpg"
-        };
-
-        // Mezclar las cartas para que aparezcan en posiciones aleatorias
-        ArrayList<String> listaImagenes = new ArrayList<>();
-        Collections.addAll(listaImagenes, imagenes);
-        Collections.shuffle(listaImagenes);
-
-        // Crear y agregar cada carta con su imagen oculta
         for (String imagenRuta : listaImagenes) {
             Carta carta = new Carta(imagenRuta, reverso);
             carta.addActionListener(controlador);
             cartas.add(carta);
-            add(carta);
+            getContentPane().add(carta);
         }
 
+        iniciarTemporizador();
+        iniciarTemporizadorLimite();
         setVisible(true);
     }
 
-    // Método para verificar si el jugador ha ganado
+    private ArrayList<String> cargarYMezclarCartas() {
+        String[] imagenes = {
+            "src/img2/Inmujer1.jpg", "src/img2/Inmujer2.jpg", "src/img2/Inmujer3.jpg", "src/img2/Inmujer4.jpg",
+            "src/img2/Inmujer5.jpg", "src/img2/Inmujer6.jpg", "src/img2/inmer7.png", "src/img2/Inmujer8.jpg",
+            "src/img2/Inmujer1.jpg", "src/img2/Inmujer2.jpg", "src/img2/Inmujer3.jpg", "src/img2/Inmujer4.jpg",
+            "src/img2/Inmujer5.jpg", "src/img2/Inmujer6.jpg", "src/img2/inmer7.png", "src/img2/Inmujer8.jpg"
+        };
+        ArrayList<String> listaImagenes = new ArrayList<>();
+        Collections.addAll(listaImagenes, imagenes);
+        Collections.shuffle(listaImagenes);
+        return listaImagenes;
+    }
+
+    private ImageIcon cargarImagen(String ruta) {
+        return new ImageIcon(ruta);
+    }
+
+    private void iniciarTemporizador() {
+        temporizador = new Timer(1000, e -> segundos++);
+        temporizador.start();
+    }
+
+    private void iniciarTemporizadorLimite() {
+        temporizadorLimite = new Timer(1000, e -> {
+            tiempoLimite--;
+            String tiempoRestante = String.format("%02d:%02d", tiempoLimite / 60, tiempoLimite % 60);
+            setTitle("Juego de Memoria - Tiempo restante: " + tiempoRestante);
+
+            if (tiempoLimite <= 0) {
+                temporizadorLimite.stop();
+                mostrarDialogoFin("¡Tiempo agotado! 😱\n¿Quieres reiniciar el juego?");
+            }
+        });
+        temporizadorLimite.start();
+    }
+
     public void verificarVictoria() {
         boolean todasDescubiertas = cartas.stream().allMatch(Carta::isDescubierta);
         if (todasDescubiertas) {
-            int respuesta = JOptionPane.showOptionDialog(
-                this,
-                "¡Felicidades, has ganado! 🎉\n¿Quieres jugar de nuevo?",
-                "Juego Terminado",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                new String[]{"Reintentar", "Salir"},
-                "Reintentar"
-            );
-
-            if (respuesta == JOptionPane.YES_OPTION) {
-                // Reiniciar el juego
-                dispose();
-                iniciarJuego();
-            } else {
-                System.exit(0); // Salir del juego
-            }
+            mostrarDialogoFin("¡Felicidades, has ganado! 🎉\n¿Quieres jugar de nuevo?");
         }
     }
 
-    // Método para iniciar el juego
+    private void mostrarDialogoFin(String mensaje) {
+        int respuesta = JOptionPane.showOptionDialog(
+            this,
+            mensaje,
+            "Juego Terminado",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            new String[]{"Reintentar", "Pantalla Principal", "Salir"},
+            "Reintentar"
+        );
+
+        switch (respuesta) {
+        case JOptionPane.YES_OPTION:
+            dispose();
+            iniciarJuego();
+            break;
+        case JOptionPane.NO_OPTION:
+            // Aquí es donde el juego se va al menú principal
+            MenuDeJuegos menu = new MenuDeJuegos(); // Abre el menú principal
+            menu.setVisible(true); 
+            dispose();  // Cierra el juego de memoria
+            break;
+        case JOptionPane.CANCEL_OPTION:
+            System.exit(0);
+            break;
+    }
+}
+
     public static void iniciarJuego() {
         new JuegoDeMemoria();
     }
