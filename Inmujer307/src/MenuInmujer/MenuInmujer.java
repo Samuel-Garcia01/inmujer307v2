@@ -340,7 +340,23 @@ public class MenuInmujer extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(MenuInmujer.class.getResource("/menuimg/fondologo1.png")));
-		lblNewLabel_2.setBounds(0, 63, 821, 487);
+		lblNewLabel_2.setBounds(0, 63, 821, 466);
 		contentPane.add(lblNewLabel_2);
+		
+		JButton btnNewButton_6 = new JButton("Creditos");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Creditos cre = new Creditos();
+				cre.setVisible(true);
+				cre.setLocationRelativeTo(null);
+				dispose();
+				
+			}
+		});
+		btnNewButton_6.setBackground(new Color(199, 21, 133));
+		btnNewButton_6.setForeground(Color.BLACK);
+		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton_6.setBounds(666, 529, 143, 21);
+		contentPane.add(btnNewButton_6);
 	}
 }

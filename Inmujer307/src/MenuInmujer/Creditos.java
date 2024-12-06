@@ -1,4 +1,4 @@
-package clases;
+package MenuInmujer;
 
 import java.awt.EventQueue;
 
@@ -11,6 +11,9 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Creditos extends JFrame {
 
@@ -74,6 +77,22 @@ public class Creditos extends JFrame {
 		lblNewLabel_5_5.setBounds(10, 10, 427, 43);
 		panel_1.add(lblNewLabel_5_5);
 		lblNewLabel_5_5.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		JButton btnNewButton = new JButton("Regresar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuInmujer inm = new MenuInmujer();
+				inm.setVisible(true);
+				inm.setLocationRelativeTo(null);
+				dispose();
+				
+			}
+		});
+		btnNewButton.setBackground(new Color(238, 130, 238));
+		btnNewButton.setForeground(Color.BLACK);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.setBounds(542, 10, 124, 35);
+		panel_1.add(btnNewButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(233, 150, 122), 3));
