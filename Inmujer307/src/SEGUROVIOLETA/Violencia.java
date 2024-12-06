@@ -1,4 +1,5 @@
 package SEGUROVIOLETA;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -25,6 +26,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
@@ -34,34 +38,210 @@ public class Violencia extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_2;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	
+	JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
+	JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
+	JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
+	JCheckBox chckbxViolenciaEconomica = new JCheckBox("Violencia Económica");
+	JCheckBox chckbxViolenciaPatrimonial = new JCheckBox("Violencia Patrimonial");
+	JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
+	JCheckBox chckbxFamilia = new JCheckBox("Familia");
+	JCheckBox chckbxLaboral = new JCheckBox("Laboral");
+	JCheckBox chckbxDocente = new JCheckBox("Docente");
+	JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
+	JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
+	JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
+	JTextArea txtDescripcion = new JTextArea();
 
-	public void insertar(String tv, String md, String hm, String des) {
+	public void BuscarDatos() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+
+		String sql = "SELECT * FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
+
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				String sqlTipos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Tipos_de_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',6),',',-1),', ','')) AS sexto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',7),',',-1),', ','')) AS septimo_tipo FROM datos WHERE EXP = '"
+						+ DatosGenerales.exp + "'";
+				PreparedStatement pstTipos = con.prepareStatement(sqlTipos);
+				ResultSet rsTipos = pstTipos.executeQuery();
+				if (rsTipos.next()) {
+					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaFisica.setSelected(true);
+					}
+					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaPsicologica.setSelected(true);
+					}
+					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaSexual.setSelected(true);
+					}
+					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaVicaria.setSelected(true);
+					}
+					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaPatrimonial.setSelected(true);
+					}
+					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+						chckbxViolenciaEconomica.setSelected(true);
+					}
+
+				}
+
+				String sqlModalidades = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Tipos_de_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',6),',',-1),', ','')) AS sexto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_de_Violencia,',',7),',',-1),', ','')) AS septimo_tipo FROM datos WHERE EXP = '"+ DatosGenerales.exp + "'";
+				PreparedStatement pstModalidades = con.prepareStatement(sqlTipos);
+				ResultSet rsModalidades = pstModalidades.executeQuery();
+				if (rsModalidades.next()) {
+					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaFisica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaFisica.setSelected(true);
+					}
+					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaPsicologica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaPsicologica.setSelected(true);
+					}
+					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaSexual.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaSexual.setSelected(true);
+					}
+					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaVicaria.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaVicaria.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaVicaria.setSelected(true);
+					}
+					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaPatrimonial.setSelected(true);
+					}
+					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxViolenciaEconomica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxViolenciaEconomica.setSelected(true);
+					}
+
+				}
+
+				txtDescripcion.setText(rs.getString("Descripcion"));
+			} else {
+				System.out.println("No se encontraron registros");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void insertar(String tv, String md, String des) {
 
 		try {
 
-			// UPDATE datos SET Tipos_de_Violencia = "aaaa", Modalidades_de_violencia =
-			// "bbb", Hechos_y_motivos_de_la_atencion = "ccc", Descripcion = ""
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
-			String sql = "UPDATE datos SET Tipos_de_Violencia = ?, Modalidades_de_violencia = ?, Hechos_y_motivos_de_la_atencion = ?, Descripcion = ? WHERE EXP = ?";
+			String sql = "UPDATE seguro_violeta SET Tipos_Violencia = '" + tv + "', Modalidades_Violencia = '"
+					+ md + "', Descripcion_Hechos_UltimoEpisodio_Violencia = '"+des+"' WHERE id = '" + DatosGenerales.id+ "'";
 			PreparedStatement preparedStmt = con.prepareStatement(sql);
-			preparedStmt.setString(1, tv);
-			preparedStmt.setString(2, md);
-			preparedStmt.setString(3, hm);
-			preparedStmt.setString(4, des);
-			preparedStmt.setInt(5, DatosGenerales.exp);
 
 			int valor = preparedStmt.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
-				
+
 				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+				dispose();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
-				dispose();
+				ventana.BuscarDatos();
+				
 
 				con.close();
 			} else {
@@ -139,9 +319,7 @@ public class Violencia extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
 		chckbxViolenciaFisica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaFisica);
 		chckbxViolenciaFisica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaFisica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaFisica.setBounds(20, 42, 149, 21);
@@ -152,41 +330,31 @@ public class Violencia extends JFrame {
 		lblNewLabel.setBounds(138, 10, 113, 13);
 		panel_1.add(lblNewLabel);
 
-		JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
 		chckbxViolenciaPsicologica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaPsicologica);
 		chckbxViolenciaPsicologica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPsicologica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaPsicologica.setBounds(198, 93, 149, 21);
 		panel_1.add(chckbxViolenciaPsicologica);
 
-		JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
 		chckbxViolenciaSexual.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaSexual);
 		chckbxViolenciaSexual.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaSexual.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaSexual.setBounds(20, 93, 149, 21);
 		panel_1.add(chckbxViolenciaSexual);
 
-		JCheckBox chckbxViolenciaEconomica = new JCheckBox("Violencia Económica");
 		chckbxViolenciaEconomica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaEconomica);
 		chckbxViolenciaEconomica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaEconomica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaEconomica.setBounds(198, 139, 149, 21);
 		panel_1.add(chckbxViolenciaEconomica);
 
-		JCheckBox chckbxViolenciaPatrimonial = new JCheckBox("Violencia Patrimonial");
 		chckbxViolenciaPatrimonial.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaPatrimonial);
 		chckbxViolenciaPatrimonial.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPatrimonial.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaPatrimonial.setBounds(20, 139, 149, 21);
 		panel_1.add(chckbxViolenciaPatrimonial);
 
-		JCheckBox chckbxViolenciaVicaria = new JCheckBox("Violencia Vicaria");
 		chckbxViolenciaVicaria.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaVicaria);
 		chckbxViolenciaVicaria.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaVicaria.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaVicaria.setBounds(198, 42, 149, 21);
@@ -204,49 +372,37 @@ public class Violencia extends JFrame {
 		lblNewLabel_1.setBounds(115, 10, 155, 13);
 		panel_2.add(lblNewLabel_1);
 
-		JCheckBox chckbxFamilia = new JCheckBox("Familia");
 		chckbxFamilia.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxFamilia);
 		chckbxFamilia.setBackground(new Color(243, 220, 220));
 		chckbxFamilia.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxFamilia.setBounds(48, 42, 108, 21);
 		panel_2.add(chckbxFamilia);
 
-		JCheckBox chckbxDocente = new JCheckBox("Docente");
 		chckbxDocente.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxDocente);
 		chckbxDocente.setBackground(new Color(243, 220, 220));
 		chckbxDocente.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxDocente.setBounds(48, 91, 108, 21);
 		panel_2.add(chckbxDocente);
 
-		JCheckBox chckbxInstitucional = new JCheckBox("Institucional");
 		chckbxInstitucional.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxInstitucional);
 		chckbxInstitucional.setBackground(new Color(243, 220, 220));
 		chckbxInstitucional.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxInstitucional.setBounds(48, 135, 108, 21);
 		panel_2.add(chckbxInstitucional);
 
-		JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
 		chckbxComunitario.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxComunitario);
 		chckbxComunitario.setBackground(new Color(243, 220, 220));
 		chckbxComunitario.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxComunitario.setBounds(224, 91, 113, 21);
 		panel_2.add(chckbxComunitario);
 
-		JCheckBox chckbxLaboral = new JCheckBox("Laboral");
 		chckbxLaboral.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxLaboral);
 		chckbxLaboral.setBackground(new Color(243, 220, 220));
 		chckbxLaboral.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxLaboral.setBounds(224, 135, 93, 21);
 		panel_2.add(chckbxLaboral);
 
-		JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
 		chckbxCibernetica.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxCibernetica);
 		chckbxCibernetica.setBackground(new Color(243, 220, 220));
 		chckbxCibernetica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxCibernetica.setBounds(224, 42, 93, 21);
@@ -258,12 +414,11 @@ public class Violencia extends JFrame {
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setForeground(new Color(75, 0, 130));
-		textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
-		textArea.setBackground(new Color(243, 220, 220));
-		textArea.setBounds(10, 31, 769, 67);
-		panel_4.add(textArea);
+		txtDescripcion.setForeground(new Color(75, 0, 130));
+		txtDescripcion.setFont(new Font("Monospaced", Font.BOLD, 13));
+		txtDescripcion.setBackground(new Color(243, 220, 220));
+		txtDescripcion.setBounds(10, 31, 769, 67);
+		panel_4.add(txtDescripcion);
 
 		JLabel lblNewLabel_10 = new JLabel("Descripción de los Hechos del ultimo episodio de violencia");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
@@ -313,9 +468,6 @@ public class Violencia extends JFrame {
 				if (chckbxComunitario.isSelected()) {
 					modalidades = chckbxComunitario.getText();
 				}
-				if (chckbxComunitario.isSelected()) {
-					modalidades = chckbxComunitario.getText();
-				}
 				if (chckbxLaboral.isSelected()) {
 					modalidades = chckbxLaboral.getText();
 				}
@@ -323,36 +475,32 @@ public class Violencia extends JFrame {
 					modalidades = chckbxCibernetica.getText();
 				}
 
-				// Hechos y motivos
-				String hechosYMotivos = "";
-
-
 				// Descripcion de los hechos
 				String DescripcionDeLosHechos = "";
 
-				if (!textArea.getText().isEmpty()) {
-					DescripcionDeLosHechos += textArea.getText();
+				if (!txtDescripcion.getText().isEmpty()) {
+					DescripcionDeLosHechos += txtDescripcion.getText();
 				}
 
-				insertar(tiposDeViolencia, modalidades, hechosYMotivos, DescripcionDeLosHechos);
+				insertar(tiposDeViolencia, modalidades, DescripcionDeLosHechos);
 			}
 		});
 		btnSiguiente.setBackground(new Color(224, 167, 167));
 		btnSiguiente.setBounds(685, 445, 108, 23);
 		contentPane.add(btnSiguiente);
-		
+
 		JButton btnRegresar = new JButton("REGRESAR");
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 12));
 		btnRegresar.setBackground(new Color(224, 167, 167));
 		btnRegresar.setForeground(new Color(0, 0, 0));
 		btnRegresar.setBounds(10, 445, 108, 23);
 		contentPane.add(btnRegresar);
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(128, 0, 128));
 		panel_3.setBounds(0, 486, 829, 57);
 		contentPane.add(panel_3);
-		
+
 		JButton btnInicio = new JButton("INICIO");
 		btnInicio.setFont(new Font("Arial", Font.BOLD, 12));
 		btnInicio.setForeground(Color.BLACK);
@@ -361,5 +509,3 @@ public class Violencia extends JFrame {
 		contentPane.add(btnInicio);
 	}
 }
-
-

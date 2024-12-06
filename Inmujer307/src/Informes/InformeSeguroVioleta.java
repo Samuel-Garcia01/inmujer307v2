@@ -43,7 +43,6 @@ import ConexionBaseDeDatos.ConexionInmujer;
 import MenuInmujer.Menu;
 
 
-
 public class InformeSeguroVioleta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -66,7 +65,7 @@ public class InformeSeguroVioleta extends JFrame {
 		
 				
 			try {
-				writter = PdfWriter.getInstance(seguro_violeta, new FileOutputStream(ruta+"/desktop/SeguroVioleta.pdf"));
+				writter = PdfWriter.getInstance(seguro_violeta, new FileOutputStream(ruta+"/SeguroVioleta.pdf"));
 					
 				seguro_violeta.open();
 				PdfContentByte cb = writter.getDirectContentUnder();
@@ -96,7 +95,7 @@ public class InformeSeguroVioleta extends JFrame {
 				pst.setString(1, expediente);
 			    ResultSet rs = pst.executeQuery();
 				 while(rs.next()) {
-					PdfPCell celda1 = new PdfPCell(new Phrase("MES: "+rs.getString("MES"),letra_pequenia));
+					PdfPCell celda1 = new PdfPCell(new Phrase("MES: "+rs.getString("FECHA"),letra_pequenia));
 					PdfPCell celda2 = new PdfPCell(new Phrase("EXPEDIENTE: "+String.valueOf(rs.getInt("EXP")),letra_pequenia));
 					tabla1.addCell(celda1);
 					tabla1.addCell(celda2);
@@ -187,16 +186,15 @@ public class InformeSeguroVioleta extends JFrame {
 					String personasViviendo = rs.getInt("No_Personas")>0 ? String.valueOf(rs.getInt("No_Personas")): "";
 					String estadoSalud = rs.getString("Estado_de_salud") !=null ? rs.getString("Estado_de_salud"): "";
 					String tipoDeVivienda = rs.getString("Tipo_Vivienda") !=null ? rs.getString("Tipo_Vivienda"): "";
-					String denuncia =rs.getString("Denuncia_y/o_demanda")!=null ? rs.getString("Denuncia_y/o_demanda"): "";
+					String denuncia =rs.getString("Denuncia_o_demanda")!=null ? rs.getString("Denuncia_o_demanda"): "";
 					String estructuraFamiliar= rs.getString("Estructura_familiar")!=null ? rs.getString("Estructura_familiar"): "";
-					
 					
 					PdfPCell Vivienda = new PdfPCell(new Phrase("Vivienda: "+vivienda,letra_pequenia));
 					PdfPCell PersonasViviendo = new PdfPCell(new  Phrase("Número de personas que iven en el domicilio: "+personasViviendo,letra_pequenia));
 					PdfPCell EstadoSalud = new PdfPCell(new Phrase("Estado de Salud: "+estadoSalud,letra_pequenia));
 					PdfPCell TipoDeVivienda = new PdfPCell(new Phrase("Tipo de Vivienda"+tipoDeVivienda,letra_pequenia));
 					PdfPCell DenunciaODemanda = new PdfPCell(new Phrase("Denuncia(número) y/o Demanda(tipo): "+denuncia,letra_pequenia));
-					PdfPCell Estructura_Familiar =new PdfPCell(new Phrase("Estructura familiar/Edad/Ocupación o Escolaridad/Parentesco",letra_pequenia));
+					PdfPCell Estructura_Familiar =new PdfPCell(new Phrase("Estructura familiar:",letra_pequenia));
 					PdfPCell EstructuraFamiliar =new PdfPCell(new Phrase(estructuraFamiliar,letra_pequenia));
 					
 					Vivienda.setColspan(3);
@@ -211,6 +209,7 @@ public class InformeSeguroVioleta extends JFrame {
 					tabla2.addCell(DenunciaODemanda);
 					Estructura_Familiar.setColspan(6);
 					tabla2.addCell(Estructura_Familiar);
+					
 					EstructuraFamiliar.setColspan(6);
 					tabla2.addCell(EstructuraFamiliar);
 					
@@ -511,7 +510,7 @@ public class InformeSeguroVioleta extends JFrame {
 		lblNewLabel_3.setBounds(736, 0, 66, 58);
 		panel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("INFORME SEGURO VIOLETA");
+		JLabel lblNewLabel_4 = new JLabel("INFORME PRIMER CONTACTO");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		//lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 30));
