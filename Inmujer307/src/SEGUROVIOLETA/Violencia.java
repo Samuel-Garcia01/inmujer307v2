@@ -38,8 +38,7 @@ public class Violencia extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_2;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	
 	JCheckBox chckbxViolenciaPsicologica = new JCheckBox("Violencia Psicológica");
 	JCheckBox chckbxViolenciaFisica = new JCheckBox("Violencia Física");
 	JCheckBox chckbxViolenciaSexual = new JCheckBox("Volencia Sexual");
@@ -229,8 +228,8 @@ public class Violencia extends JFrame {
 			ConexionInmujer conexion = new ConexionInmujer();
 			Connection con = conexion.conectar();
 
-			String sql = "UPDATE seguro_violeta SET Tipos_de_Violencia = '" + tv + "', Modalidades_de_violencia = '"
-					+ md + "', Descripcion_Hechos_UltimoEpisodio_Violencia = '"+des+"', WHERE id = '" + DatosGenerales.id+ "'";
+			String sql = "UPDATE seguro_violeta SET Tipos_Violencia = '" + tv + "', Modalidades_Violencia = '"
+					+ md + "', Descripcion_Hechos_UltimoEpisodio_Violencia = '"+des+"' WHERE id = '" + DatosGenerales.id+ "'";
 			PreparedStatement preparedStmt = con.prepareStatement(sql);
 
 			int valor = preparedStmt.executeUpdate();
@@ -238,10 +237,11 @@ public class Violencia extends JFrame {
 				System.out.println("Insertado correctamente");
 
 				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
+				dispose();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
 				ventana.BuscarDatos();
-				dispose();
+				
 
 				con.close();
 			} else {
@@ -320,7 +320,6 @@ public class Violencia extends JFrame {
 		panel_1.setLayout(null);
 
 		chckbxViolenciaFisica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaFisica);
 		chckbxViolenciaFisica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaFisica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaFisica.setBounds(20, 42, 149, 21);
@@ -332,35 +331,30 @@ public class Violencia extends JFrame {
 		panel_1.add(lblNewLabel);
 
 		chckbxViolenciaPsicologica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaPsicologica);
 		chckbxViolenciaPsicologica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPsicologica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaPsicologica.setBounds(198, 93, 149, 21);
 		panel_1.add(chckbxViolenciaPsicologica);
 
 		chckbxViolenciaSexual.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaSexual);
 		chckbxViolenciaSexual.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaSexual.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaSexual.setBounds(20, 93, 149, 21);
 		panel_1.add(chckbxViolenciaSexual);
 
 		chckbxViolenciaEconomica.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaEconomica);
 		chckbxViolenciaEconomica.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaEconomica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaEconomica.setBounds(198, 139, 149, 21);
 		panel_1.add(chckbxViolenciaEconomica);
 
 		chckbxViolenciaPatrimonial.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaPatrimonial);
 		chckbxViolenciaPatrimonial.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaPatrimonial.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaPatrimonial.setBounds(20, 139, 149, 21);
 		panel_1.add(chckbxViolenciaPatrimonial);
 
 		chckbxViolenciaVicaria.setForeground(new Color(47, 79, 79));
-		buttonGroup.add(chckbxViolenciaVicaria);
 		chckbxViolenciaVicaria.setBackground(new Color(243, 220, 220));
 		chckbxViolenciaVicaria.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxViolenciaVicaria.setBounds(198, 42, 149, 21);
@@ -379,42 +373,36 @@ public class Violencia extends JFrame {
 		panel_2.add(lblNewLabel_1);
 
 		chckbxFamilia.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxFamilia);
 		chckbxFamilia.setBackground(new Color(243, 220, 220));
 		chckbxFamilia.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxFamilia.setBounds(48, 42, 108, 21);
 		panel_2.add(chckbxFamilia);
 
 		chckbxDocente.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxDocente);
 		chckbxDocente.setBackground(new Color(243, 220, 220));
 		chckbxDocente.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxDocente.setBounds(48, 91, 108, 21);
 		panel_2.add(chckbxDocente);
 
 		chckbxInstitucional.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxInstitucional);
 		chckbxInstitucional.setBackground(new Color(243, 220, 220));
 		chckbxInstitucional.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxInstitucional.setBounds(48, 135, 108, 21);
 		panel_2.add(chckbxInstitucional);
 
 		chckbxComunitario.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxComunitario);
 		chckbxComunitario.setBackground(new Color(243, 220, 220));
 		chckbxComunitario.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxComunitario.setBounds(224, 91, 113, 21);
 		panel_2.add(chckbxComunitario);
 
 		chckbxLaboral.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxLaboral);
 		chckbxLaboral.setBackground(new Color(243, 220, 220));
 		chckbxLaboral.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxLaboral.setBounds(224, 135, 93, 21);
 		panel_2.add(chckbxLaboral);
 
 		chckbxCibernetica.setForeground(new Color(47, 79, 79));
-		buttonGroup_1.add(chckbxCibernetica);
 		chckbxCibernetica.setBackground(new Color(243, 220, 220));
 		chckbxCibernetica.setFont(new Font("Arial", Font.BOLD, 12));
 		chckbxCibernetica.setBounds(224, 42, 93, 21);

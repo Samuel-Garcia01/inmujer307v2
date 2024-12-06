@@ -748,6 +748,17 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(lblNewLabel_24);
 
 		txtNoCalle = new JTextField();
+		txtNoCalle.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtNoCalle.setForeground(new Color(75, 0, 130));
 		txtNoCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtNoCalle.setColumns(10);
@@ -953,6 +964,7 @@ public class DatosGenerales extends JFrame {
 						ventana.BuscarDatos();
 					} else {
 						System.out.println("No se inserto");
+						JOptionPane.showMessageDialog(null,"No se pudo incertar, revise que todos los campos esten llenos", "Error",JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

@@ -233,7 +233,7 @@ public class DATOSDELAGRESOR extends JFrame {
 		panel_1.add(lblNewLabel_3_1);
 
 		comboNivel
-				.setModel(new DefaultComboBoxModel(new String[] { "selecciona una opcion", "Bajo", "Medio", "alto" }));
+				.setModel(new DefaultComboBoxModel(new String[] {"selecciona una opcion", "Bajo", "Medio", "alto"}));
 		comboNivel.setBounds(570, 40, 184, 29);
 		panel_1.add(comboNivel);
 

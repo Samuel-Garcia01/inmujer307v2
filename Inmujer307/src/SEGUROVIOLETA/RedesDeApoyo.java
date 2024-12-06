@@ -106,7 +106,6 @@ public class RedesDeApoyo extends JFrame {
 		panel_1.add(lblNombre);
 
 		txtNombre = new JTextField();
-		txtNombre.setEditable(false);
 		txtNombre.setBounds(105, 89, 155, 19);
 		panel_1.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -117,7 +116,6 @@ public class RedesDeApoyo extends JFrame {
 		panel_1.add(lblTelefono);
 
 		txtTelefono = new JTextField();
-		txtTelefono.setEditable(false);
 		txtTelefono.setBounds(105, 164, 155, 19);
 		panel_1.add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -135,7 +133,6 @@ public class RedesDeApoyo extends JFrame {
 		panel_1_1.add(lblTiposDeApoyo);
 
 		txtTiposDeApoyo = new JTextField();
-		txtTiposDeApoyo.setEditable(false);
 		txtTiposDeApoyo.setBounds(125, 21, 196, 19);
 		panel_1_1.add(txtTiposDeApoyo);
 		txtTiposDeApoyo.setColumns(10);
@@ -194,8 +191,7 @@ public class RedesDeApoyo extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 
-					String sql = "UPDATE seguro_violeta SET Redes_Apoyo = '" + RedesDeApoyo + "' WHERE id = '"
-							+ DatosGenerales.id + "'";
+					String sql = "UPDATE seguro_violeta SET Redes_Apoyo = '" + RedesDeApoyo + "' WHERE id = '"+ DatosGenerales.id + "'";
 
 					PreparedStatement pst = con.prepareStatement(sql);
 					int rs = pst.executeUpdate();
@@ -239,7 +235,7 @@ public class RedesDeApoyo extends JFrame {
 		JButton btnNewButton_1 = new JButton("REGRESAR");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 		});
 		btnNewButton_1.setBackground(new Color(224, 167, 167));

@@ -22,6 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SituacionEconomica extends JFrame {
 
@@ -41,51 +43,7 @@ public class SituacionEconomica extends JFrame {
 	private JTextField txtegresos;
 	private JTextField txtIngresosmensuales;
 
-	int ingresos=0,egresos=0;
-	
-	public void SumaIngresosyEgresos() {
-		int solicitante=0,RedDeApoyo=0;
-		if (!txtsolicitante.getText().isEmpty()) {
-			solicitante = Integer.parseInt(txtsolicitante.getText());
-		}
-		if (!txtRedDeApoyo.getText().isEmpty()) {
-			RedDeApoyo = Integer.parseInt(txtRedDeApoyo.getText());
-		}
-		
-		
-		ingresos = solicitante+RedDeApoyo;
-		txtIngresosmensuales.setText(String.valueOf(ingresos));
-		
-		int alimentacion=0,gas=0,renta=0,agua=0,servicioMedico=0,gastoEscolar=0,luz=0,telefono_internet=0;
-		if (!txtAlimentacion.getText().isEmpty()) {
-			alimentacion = Integer.parseInt(txtAlimentacion.getText());
-		}
-		if (!txtGas.getText().isEmpty()) {
-			gas = Integer.parseInt(txtGas.getText());			
-		}
-		if (!txtRenta.getText().isEmpty()) {	
-			renta = Integer.parseInt(txtRenta.getText());
-		}
-		if (!txtagua.getText().isEmpty()) {
-			agua = Integer.parseInt(txtagua.getText());
-		}
-		if (!txtserviciomedico.getText().isEmpty()) {
-			servicioMedico = Integer.parseInt(txtserviciomedico.getText());
-		}
-		if (!txtserviciomedico.getText().isEmpty()) {
-			gastoEscolar = Integer.parseInt(txtgastos.getText());
-		}
-		if (!txtluz.getText().isEmpty()) {
-			luz = Integer.parseInt(txtluz.getText());
-		}
-		if (!txtTelefono.getText().isEmpty()) {
-			telefono_internet = Integer.parseInt(txtTelefono.getText());
-		}
-		
-		
-		egresos = alimentacion+gas+renta+agua+servicioMedico+gastoEscolar+luz+telefono_internet;
-		txtegresos.setText(String.valueOf(egresos));
-	}
+	double ingresos=0,egresos=0;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -143,8 +101,21 @@ public class SituacionEconomica extends JFrame {
 		panel_1.setLayout(null);
 
 		txtAlimentacion = new JTextField();
+		txtAlimentacion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtAlimentacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				egresos += Double.parseDouble(txtAlimentacion.getText());
+				txtegresos.setText(String.valueOf(egresos));
 				txtGas.requestFocus();
 			}
 		});
@@ -158,8 +129,21 @@ public class SituacionEconomica extends JFrame {
 		panel_1.add(lblNewLabel_2);
 
 		txtGas = new JTextField();
+		txtGas.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtGas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				egresos += Double.parseDouble(txtGas.getText());
+				txtegresos.setText(String.valueOf(egresos));
 				txtRenta.requestFocus();
 			}
 		});
@@ -178,9 +162,22 @@ public class SituacionEconomica extends JFrame {
 		panel_1.add(lblNewLabel_4);
 
 		txtRenta = new JTextField();
+		txtRenta.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtRenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				egresos+= Double.parseDouble(txtRenta.getText());
+				txtegresos.setText(String.valueOf(egresos));
+				txtagua.requestFocus();
 			}
 		});
 		txtRenta.setBounds(192, 117, 110, 19);
@@ -216,26 +213,115 @@ public class SituacionEconomica extends JFrame {
 		panel_1.add(lblNewLabel_16);
 
 		txtagua = new JTextField();
+		txtagua.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		txtagua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				egresos+= Double.parseDouble(txtagua.getText());
+				txtegresos.setText(String.valueOf(egresos));
+				txtserviciomedico.requestFocus();
+			}
+		});
 		txtagua.setBounds(147, 147, 155, 20);
 		panel_1.add(txtagua);
 		txtagua.setColumns(10);
 
 		txtserviciomedico = new JTextField();
+		txtserviciomedico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		txtserviciomedico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				egresos+= Double.parseDouble(txtserviciomedico.getText());
+				txtegresos.setText(String.valueOf(egresos));
+				txtgastos.requestFocus();
+			}
+		});
 		txtserviciomedico.setBounds(147, 192, 155, 20);
 		panel_1.add(txtserviciomedico);
 		txtserviciomedico.setColumns(10);
 
 		txtgastos = new JTextField();
+		txtgastos.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		txtgastos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				egresos+= Double.parseDouble(txtgastos.getText());
+				txtegresos.setText(String.valueOf(egresos));
+				txtluz.requestFocus();
+			}
+		});
 		txtgastos.setBounds(147, 230, 155, 20);
 		panel_1.add(txtgastos);
 		txtgastos.setColumns(10);
 
 		txtluz = new JTextField();
+		txtluz.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		txtluz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				egresos+= Double.parseDouble(txtluz.getText());
+				txtegresos.setText(String.valueOf(egresos));
+				txtTelefono.requestFocus();
+			}
+		});
 		txtluz.setBounds(147, 263, 155, 20);
 		panel_1.add(txtluz);
 		txtluz.setColumns(10);
 
 		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		txtTelefono.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				egresos+= Double.parseDouble(txtTelefono.getText());
+				txtegresos.setText(String.valueOf(egresos));
+			}
+		});
 		txtTelefono.setBounds(147, 293, 155, 20);
 		panel_1.add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -268,9 +354,21 @@ public class SituacionEconomica extends JFrame {
 		panel_1_1.add(lblNewLabel);
 
 		txtsolicitante = new JTextField();
+		txtsolicitante.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtsolicitante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				ingresos += Double.parseDouble(txtsolicitante.getText());
+				txtIngresosmensuales.setText(String.valueOf(ingresos));
 				txtRedDeApoyo.requestFocus();
 
 			}
@@ -285,11 +383,22 @@ public class SituacionEconomica extends JFrame {
 		panel_1_1.add(lblNewLabel_1);
 
 		txtRedDeApoyo = new JTextField();
+		txtRedDeApoyo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int k = (int) e.getKeyChar();
+				if (k >= 97 && k <= 122 || k >= 65 && k <= 90) {
+					e.setKeyChar((char) KeyEvent.VK_CLEAR);
+					JOptionPane.showMessageDialog(null, "ERROR SOLO SE ACEPTAN NUMEROS EN ESTE CAMPO !!! ",
+							"INGRESE LOS DATOS NUEVAMENTE", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		txtRedDeApoyo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				ingresos += Double.parseDouble(txtRedDeApoyo.getText());
+				txtIngresosmensuales.setText(String.valueOf(ingresos));
 				txtAlimentacion.requestFocus();
-
 			}
 		});
 		txtRedDeApoyo.setBounds(125, 183, 196, 19);
@@ -320,7 +429,10 @@ public class SituacionEconomica extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-
+				
+				String ingresos = txtIngresosmensuales.getText();
+				String egresos = txtegresos.getText();
+				
 				String sql = "UPDATE seguro_violeta SET Ingresos_Mensuales = '"+ingresos+"', Egresos_Mensuales = '"+egresos+"' WHERE id = '"+DatosGenerales.id+"';";
 				try {
 					PreparedStatement pst = con.prepareStatement(sql);
@@ -396,8 +508,5 @@ public class SituacionEconomica extends JFrame {
 		panel_2.setBackground(new Color(133, 20, 121));
 		panel_2.setBounds(0, 566, 809, 47);
 		contentPane.add(panel_2);
-
-		
-		SumaIngresosyEgresos();
 	}
 }
