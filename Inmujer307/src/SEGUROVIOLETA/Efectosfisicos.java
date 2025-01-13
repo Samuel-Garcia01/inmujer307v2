@@ -59,13 +59,17 @@ public class Efectosfisicos extends JFrame {
 	JCheckBox chkDejoTrabajar = new JCheckBox("DEJO DE TRABAJAR");
 	JCheckBox chkNoRecibePensionAlimenticia = new JCheckBox("NO RECIBE PENSION ALIMENTICIA");
 	JCheckBox chkChantajeAportar = new JCheckBox("CHANTAJE PARA APORTAR");
-	JCheckBox chkNoRecibeGasto = new JCheckBox("NO RECIBE PEN");
+	JCheckBox chkNoRecibeGasto = new JCheckBox("NO RECIBE PENCION");
 	JCheckBox chkPerdidaPropiedades = new JCheckBox("PERDIDA DE PROPIEDADES");
 	JCheckBox chkPerdidaDocumentos = new JCheckBox("QUEMA/PERDIDA DE DOCUMENTOS");
 	JCheckBox chkSalirDomicilio = new JCheckBox("SALIR DEL DOMICILIO");
 	JCheckBox chkNoAplicaEconomico = new JCheckBox("NO APLICA");
 	
 	private final JButton btnNewButton = new JButton("REGRESAR");
+	
+	public void BuscarSeguroVioleta() {
+		
+	}
 
 	public void BuscarDatos() {
 		ConexionInmujer conexion = new ConexionInmujer();

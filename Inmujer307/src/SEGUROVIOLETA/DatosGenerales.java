@@ -73,6 +73,31 @@ public class DatosGenerales extends JFrame {
 	private JTextField txtDenuncia;
 	private JTextField txtNoCalle;
 
+	public void BuscarSeguroVioleta() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "SELECT * FROM seguro_violeta WHERE EXP = '"+exp+"'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				txtCalle.setText(rs.getString(""));
+				txtNoCalle.setText(rs.getString(""));
+				txtEstadodesalud.setText(rs.getString(""));
+				combotipodevivienda.setSelectedItem(rs.getString(""));
+				txtContacto.setText(rs.getString(""));
+				txtEstructuraFamiliar.setText(rs.getString(""));
+			} else {
+				System.out.println("No se encontraron registros");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void BuscarDatos() {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
@@ -245,9 +270,10 @@ public class DatosGenerales extends JFrame {
 		panel_2.setBounds(588, 80, 211, 268);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
+		ComboEstadOCivil.setEnabled(false);
 
 		ComboEstadOCivil.setModel(
-				new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada", "Viuda" }));
+				new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Divorciada", "Viuda", "Separada", "Union libre", "Comprometida"}));
 		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
 		ComboEstadOCivil.setBounds(10, 11, 191, 22);
 		panel_2.add(ComboEstadOCivil);
@@ -258,6 +284,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_4.setBounds(10, 38, 191, 14);
 		panel_2.add(lblNewLabel_4);
+		comboEdad.setEnabled(false);
 
 		comboEdad.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
 		for (int i = 1; i <= 99; i++) {
@@ -282,6 +309,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(10, 85, 191, 14);
 		panel_2.add(lblNewLabel_7);
+		comboVivienda.setEnabled(false);
 
 		comboVivienda.setModel(new DefaultComboBoxModel(
 				new String[] { "Seleccione una opcion", "Familiar", "Propia", "Rentada", "Prestada" }));
@@ -295,6 +323,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_11.setBounds(10, 137, 191, 14);
 		panel_2.add(lblNewLabel_11);
+		comboNopersonas.setEnabled(false);
 
 		comboNopersonas.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
@@ -308,6 +337,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_12.setBounds(10, 195, 191, 14);
 		panel_2.add(lblNewLabel_12);
+		comboGradoestudios.setEnabled(false);
 
 		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Primaria trunca",
 				"Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
@@ -733,6 +763,8 @@ public class DatosGenerales extends JFrame {
 		panel_3.add(lblNewLabel_16);
 
 		txtMunicipio = new JTextField("Tultitlan");
+		txtMunicipio.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtMunicipio.setForeground(new Color(75, 0, 130));
 		txtMunicipio.setEditable(false);
 		txtMunicipio.setBackground(new Color(243, 220, 220));
 		txtMunicipio.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -832,7 +864,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_23.setBounds(27, 166, 194, 14);
 		panel_4.add(lblNewLabel_23);
 		txtContacto.setFont(new Font("Monospaced", Font.BOLD, 13));
-		txtContacto.setForeground(new Color(75, 0, 130));
+		txtContacto.setForeground(new Color(0, 0, 0));
 
 		txtContacto.setBackground(new Color(243, 220, 220));
 		txtContacto.setBounds(272, 397, 306, 104);
@@ -912,63 +944,88 @@ public class DatosGenerales extends JFrame {
 				// En esta seccion se genera la conexion a la base de datos, la cual enviara la
 				// informacion almacenada
 				// en las variables creadas anteriormente.
-				ConexionInmujer conexion = new ConexionInmujer();
-				Connection con = conexion.conectar();
-				String sql = "INSERT INTO seguro_violeta (EXP,FECHA,Nombre_de_la_victima,Fecha_de_nacimiento,Edad,Grado_de_Estudios,Estado_Civil,Ocupacion,Calle,Numero_calle,Colonia,Municipio,Codigo_postal,Telefono_Celular,Contacto_Emergencia,Vivienda,No_Personas,Estado_de_salud,Tipo_Vivienda,Denuncia_o_demanda,Estructura_familiar) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-				try {
-					// Preparamos la sentencia sql para conectarlo en la base de datos
-					// comentamos anteriormente
+				if (id == 0) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+					String sql = "INSERT INTO seguro_violeta (EXP,FECHA,Nombre_de_la_victima,Fecha_de_nacimiento,Edad,Grado_de_Estudios,Estado_Civil,Ocupacion,Calle,Numero_calle,Colonia,Municipio,Codigo_postal,Telefono_Celular,Contacto_Emergencia,Vivienda,No_Personas,Estado_de_salud,Tipo_Vivienda,Denuncia_o_demanda,Estructura_familiar) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					try {
+						// Preparamos la sentencia sql para conectarlo en la base de datos
+						// comentamos anteriormente
 
-					PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-					pst.setInt(1, exp);
-					pst.setString(2, fecha);
-					pst.setString(3, NombreDeLaVictima);
-					pst.setString(4, FechaDeNacimiento);
-					pst.setInt(5, edad);
-					pst.setString(6, GradoDeEstudios);
-					pst.setString(7, EstadoCivil);
-					pst.setString(8, Ocupacion);
-					pst.setString(9, Calle);
-					pst.setInt(10, NoCalle);
-					pst.setString(11, colonia);
-					pst.setString(12, municipio);
-					pst.setString(13, CodigoPostal);
-					pst.setString(14, telefonoCelular);
-					pst.setString(15, Contacto);
-					pst.setString(16, vivienda);
-					pst.setString(17, nopersonas);
-					pst.setString(18, EstadoSalud);
-					pst.setString(19, tipoVivienda);
-					pst.setString(20, denuncia);
-					pst.setString(21, Estructura);
+						PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+						pst.setInt(1, exp);
+						pst.setString(2, fecha);
+						pst.setString(3, NombreDeLaVictima);
+						pst.setString(4, FechaDeNacimiento);
+						pst.setInt(5, edad);
+						pst.setString(6, GradoDeEstudios);
+						pst.setString(7, EstadoCivil);
+						pst.setString(8, Ocupacion);
+						pst.setString(9, Calle);
+						pst.setInt(10, NoCalle);
+						pst.setString(11, colonia);
+						pst.setString(12, municipio);
+						pst.setString(13, CodigoPostal);
+						pst.setString(14, telefonoCelular);
+						pst.setString(15, Contacto);
+						pst.setString(16, vivienda);
+						pst.setString(17, nopersonas);
+						pst.setString(18, EstadoSalud);
+						pst.setString(19, tipoVivienda);
+						pst.setString(20, denuncia);
+						pst.setString(21, Estructura);
 
-					int valor = pst.executeUpdate();
-					if (valor == 1) {
-						System.out.println("Insertado correctamente");
+						int valor = pst.executeUpdate();
+						if (valor == 1) {
+							System.out.println("Insertado correctamente");
 
-						ResultSet rs = pst.getGeneratedKeys();
-						if (rs.next()) {
-							id = rs.getInt(1);
-							System.out.println(id);
+							ResultSet rs = pst.getGeneratedKeys();
+							if (rs.next()) {
+								id = rs.getInt(1);
+								System.out.println(id);
+							}
+							// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
+							// campo
+							JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
+									"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
+							// Aqui generamos una instancia que lo mande automaticamente a la siguiente
+							// ventana despues del proceso antes mostrado
+							Violencia ventana = new Violencia();
+							dispose();
+							ventana.setVisible(true);
+							ventana.setLocationRelativeTo(null);
+							ventana.BuscarDatos();
+						} else {
+							System.out.println("No se inserto");
+							JOptionPane.showMessageDialog(null,"No se pudo incertar, revise que todos los campos esten llenos", "Error",JOptionPane.ERROR_MESSAGE);
 						}
-						// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
-						// campo
-						JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
-								"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
-						// Aqui generamos una instancia que lo mande automaticamente a la siguiente
-						// ventana despues del proceso antes mostrado
-						Violencia ventana = new Violencia();
-						dispose();
-						ventana.setVisible(true);
-						ventana.setLocationRelativeTo(null);
-						ventana.BuscarDatos();
-					} else {
-						System.out.println("No se inserto");
-						JOptionPane.showMessageDialog(null,"No se pudo incertar, revise que todos los campos esten llenos", "Error",JOptionPane.ERROR_MESSAGE);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+					
+					String sql = "UPDATE seguro_violeta SET Calle = '"+txtCalle.getText()+"', Numero_calle = '"+txtNoCalle.getText()+"', Estado_de_salud = '"+txtEstadodesalud.getText()+"', Tipo_Vivienda = '"+combotipodevivienda.getSelectedItem()+"', Contacto_Emergencia = '"+txtContacto.getText()+"', Estructura_familiar = '"+txtEstructuraFamiliar.getText()+"' WHERE EXP = '"+exp+"'";
+					
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor == 1) {
+							System.out.println("Insertado correctamente");
+							Violencia ventana = new Violencia();
+							dispose();
+							ventana.setVisible(true);
+							ventana.setLocationRelativeTo(null);
+							ventana.BuscarDatos();
+						} else {
+
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 
@@ -996,6 +1053,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_31.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_31.setBounds(10, 10, 191, 13);
 		panel.add(lblNewLabel_31);
+		comboDia.setEnabled(false);
 		comboDia.setBounds(10, 43, 191, 22);
 		panel.add(comboDia);
 		comboDia.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
@@ -1018,6 +1076,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_8.setBounds(10, 68, 191, 14);
 		panel.add(lblNewLabel_8);
 		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 12));
+		comboMes.setEnabled(false);
 		comboMes.setBounds(10, 85, 191, 22);
 		panel.add(comboMes);
 		comboMes.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
@@ -1041,6 +1100,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_9.setBounds(10, 111, 191, 14);
 		panel.add(lblNewLabel_9);
 		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 12));
+		comboAnio.setEnabled(false);
 		comboAnio.setBounds(10, 132, 191, 22);
 		panel.add(comboAnio);
 		comboAnio.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion" }));
@@ -1099,6 +1159,7 @@ public class DatosGenerales extends JFrame {
 				int pro = JOptionPane.showConfirmDialog(null, "ESTAS SEGURO QUE ES EL NUMERO DE EXPEDIENTE CORRECTO");
 				if (pro == 0) {
 					exp = Integer.parseInt(txtExpediente.getText());
+					id = 0;
 					BuscarDatos();
 				} else if (pro == 1) {
 					JOptionPane.showMessageDialog(null, "CORROBORELO PORFAVOR");
@@ -1133,7 +1194,7 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_17_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_17_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 12));
 
-		txtEstructuraFamiliar.setForeground(new Color(75, 0, 130));
+		txtEstructuraFamiliar.setForeground(new Color(0, 0, 0));
 		txtEstructuraFamiliar.setFont(new Font("Monospaced", Font.BOLD, 13));
 		txtEstructuraFamiliar.setBackground(new Color(243, 220, 220));
 		txtEstructuraFamiliar.setBounds(10, 541, 568, 68);

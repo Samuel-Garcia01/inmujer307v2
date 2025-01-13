@@ -42,8 +42,16 @@ public class SituacionEconomica extends JFrame {
 	private JTextField txtTelefono;
 	private JTextField txtegresos;
 	private JTextField txtIngresosmensuales;
-
 	double ingresos=0,egresos=0;
+
+	public void BuscarSeguroVioleta() {
+		
+	}
+	
+	public void BuscarDatos() {
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -443,10 +451,10 @@ public class SituacionEconomica extends JFrame {
 								"Registro de expediente con exito",
 								"Seguro violeta finalizado", JOptionPane.INFORMATION_MESSAGE);
 
-						MenuInmujer irAmenuInmujer = new MenuInmujer();
+						DiagnosticoSocial ventana = new DiagnosticoSocial();
 						dispose();
-						irAmenuInmujer.setVisible(true);
-						irAmenuInmujer.setLocationRelativeTo(null);
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
 					}
 
 				} catch (SQLException ex) {

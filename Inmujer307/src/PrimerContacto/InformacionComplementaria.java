@@ -45,7 +45,7 @@ public class InformacionComplementaria extends JFrame {
 	// Globales
 	JCheckBox checNoAutorizo = new JCheckBox("No autorizo");
 	JCheckBox checAutorizo = new JCheckBox("Autorizo");
-	JTextArea textObservaciones = new JTextArea();
+	JTextArea txtObservaciones = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -67,7 +67,6 @@ public class InformacionComplementaria extends JFrame {
 	 * Create the frame.
 	 */
 	public InformacionComplementaria() {
-		DatosGenerales.exp = 14;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -99,9 +98,9 @@ public class InformacionComplementaria extends JFrame {
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1.add(lblNewLabel_2);
 
-		textObservaciones.setBackground(new Color(243, 220, 220));
-		textObservaciones.setBounds(24, 27, 422, 115);
-		panel_1.add(textObservaciones);
+		txtObservaciones.setBackground(new Color(243, 220, 220));
+		txtObservaciones.setBounds(26, 32, 422, 115);
+		panel_1.add(txtObservaciones);
 
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 128, 128), new Color(255, 128, 128)));
@@ -117,7 +116,7 @@ public class InformacionComplementaria extends JFrame {
 		panel_1_1.add(checAutorizo);
 
 		JLabel lblNewLabel_3 = new JLabel("Autorización");
-		lblNewLabel_3.setBounds(200, 11, 71, 14);
+		lblNewLabel_3.setBounds(200, 11, 85, 14);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
 		panel_1_1.add(lblNewLabel_3);
 
@@ -149,6 +148,7 @@ public class InformacionComplementaria extends JFrame {
 						MenuInmujer ventana = new MenuInmujer();
 						ventana.setVisible(true);
 						ventana.setLocationRelativeTo(null);
+						DatosGenerales.exp = 0;
 						dispose();
 					} catch (Exception e1) {
 						// TODO: handle exception
@@ -167,7 +167,7 @@ public class InformacionComplementaria extends JFrame {
 		JButton btnFinalizar = new JButton("FINALIZAR");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String observaciones = textObservaciones.getText();
+				String observaciones = txtObservaciones.getText();
 				String autorizacion = "";
 
 				if (checAutorizo.isSelected()) {
@@ -195,14 +195,14 @@ public class InformacionComplementaria extends JFrame {
 					int valor = pst.executeUpdate();
 
 					if (valor == 1) {
-						JOptionPane.showMessageDialog(null,
-								"Registro de expediente con exito",
-								"Primer contacto finalizado", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Registro de expediente con exito",
+								"Primer contacto finalizado. No. de expediente: "+DatosGenerales.exp, JOptionPane.INFORMATION_MESSAGE);
 
 						MenuInmujer irAmenuInmujer = new MenuInmujer();
 						dispose();
 						irAmenuInmujer.setVisible(true);
 						irAmenuInmujer.setLocationRelativeTo(null);
+						DatosGenerales.exp = 0;
 					} else {
 						JOptionPane.showMessageDialog(null, "No se pudieron actualizar los datos.", "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -233,20 +233,20 @@ public class InformacionComplementaria extends JFrame {
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(InformacionComplementaria.class.getResource("/img/encabezadodatos.png")));
 
-		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RedesDeApoyo ventana = new RedesDeApoyo();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
-				ventana.Regresar();
+				ventana.MostrarDatos();
 				dispose();
 			}
 		});
-		btnNewButton.setBackground(new Color(128, 0, 225));
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnNewButton.setBounds(207, 529, 108, 23);
-		contentPane.add(btnNewButton);
+		btnRegresar.setBackground(new Color(128, 0, 225));
+		btnRegresar.setForeground(Color.WHITE);
+		btnRegresar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnRegresar.setBounds(207, 529, 108, 23);
+		contentPane.add(btnRegresar);
 	}
 }

@@ -927,13 +927,13 @@ public class InformePrimercontacto extends JFrame {
 	
 	private String obtenerCaso(String exp) {
 		String caso= "";
-		String sql = "SELECT Hechos_y_motivos_de_la_atencion FROM datos WHERE EXP LIKE ?";
+		String sql = "SELECT * FROM datos WHERE EXP = ?";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, exp);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				caso = rs.getString("Hechos_y_motivos_de_la_atencion");
+				caso = rs.getString("Hechos_y_motivos_de_la_atencion")+"Descripcion de los hechos: "+rs.getString("Descripcion");
 				if (caso == null) {
 					caso = "No se encontraron datos";
 				}

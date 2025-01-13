@@ -23,6 +23,10 @@ import GraficasPastel.Colonias;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Cursor;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class menuGraficas extends JFrame {
 
@@ -383,5 +387,20 @@ public class menuGraficas extends JFrame {
 		panel.setBackground(new Color(255, 250, 240));
 		panel.setBounds(0, 59, 807, 493);
 		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuInmujer menu = new MenuInmujer();
+				menu.setVisible(true);
+				menu.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
+		btnRegresar.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnRegresar.setBackground(new Color(249, 223, 224));
+		btnRegresar.setBounds(10, 459, 99, 23);
+		panel.add(btnRegresar);
 	}
 }

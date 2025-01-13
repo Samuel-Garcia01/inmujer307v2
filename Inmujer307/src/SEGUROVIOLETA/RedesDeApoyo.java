@@ -22,6 +22,10 @@ public class RedesDeApoyo extends JFrame {
 	private Connection con;
 	private JTextField txtviabilidad;
 	private JTextField txtTiposdeRelacion;
+	
+	public void BuscarSeguroVioleta() {
+		
+	}
 
 	public void BusquedaDeDatos() {
 		String sql = "SELECT * FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
@@ -138,21 +142,22 @@ public class RedesDeApoyo extends JFrame {
 		txtTiposDeApoyo.setColumns(10);
 
 		JLabel lblViabilidad = new JLabel("Viabilidad de la red de apoyo");
-		lblViabilidad.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblViabilidad.setBounds(10, 109, 172, 14);
+		lblViabilidad.setFont(new Font("Arial", Font.BOLD, 12));
+		lblViabilidad.setBounds(10, 109, 194, 14);
 		panel_1_1.add(lblViabilidad);
 
 		txtviabilidad = new JTextField();
-		txtviabilidad.setBounds(214, 106, 86, 20);
+		txtviabilidad.setBounds(214, 106, 107, 20);
 		panel_1_1.add(txtviabilidad);
 		txtviabilidad.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Tipo de Relacion");
-		lblNewLabel.setBounds(10, 62, 86, 19);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		lblNewLabel.setBounds(10, 62, 107, 19);
 		panel_1_1.add(lblNewLabel);
 
 		txtTiposdeRelacion = new JTextField();
-		txtTiposdeRelacion.setBounds(121, 61, 86, 20);
+		txtTiposdeRelacion.setBounds(125, 61, 196, 20);
 		panel_1_1.add(txtTiposdeRelacion);
 		txtTiposdeRelacion.setColumns(10);
 
@@ -213,7 +218,7 @@ public class RedesDeApoyo extends JFrame {
 		btnSiguiente.setBackground(new Color(224, 167, 167));
 		btnSiguiente.setForeground(new Color(0, 0, 0));
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
-		btnSiguiente.setBounds(341, 470, 142, 34);
+		btnSiguiente.setBounds(620, 469, 142, 34);
 		contentPane.add(btnSiguiente);
 
 		JButton btnNewButton = new JButton("INICIO");
@@ -224,7 +229,7 @@ public class RedesDeApoyo extends JFrame {
 		btnNewButton.setBackground(new Color(224, 167, 167));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton.setBounds(54, 469, 131, 34);
+		btnNewButton.setBounds(350, 468, 131, 34);
 		contentPane.add(btnNewButton);
 
 		JPanel panel_2 = new JPanel();
@@ -241,7 +246,7 @@ public class RedesDeApoyo extends JFrame {
 		btnNewButton_1.setBackground(new Color(224, 167, 167));
 		btnNewButton_1.setForeground(new Color(0, 0, 0));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnNewButton_1.setBounds(631, 471, 131, 29);
+		btnNewButton_1.setBounds(54, 471, 131, 29);
 		contentPane.add(btnNewButton_1);
 	}
 

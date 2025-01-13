@@ -52,6 +52,154 @@ public class Violencia extends JFrame {
 	JCheckBox chckbxCibernetica = new JCheckBox("Cibernética");
 	JCheckBox chckbxComunitario = new JCheckBox("Comunitaria");
 	JTextArea txtDescripcion = new JTextArea();
+	
+	public void BuscarSeguroVioleta() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
+		
+		String sql = "SELECT * FROM seguro_violeta WHERE EXP = '" + DatosGenerales.exp + "'";
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				String sqlTipos = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Tipos_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Tipos_Violencia,',',6),',',-1),', ','')) AS sexto_tipo FROM seguro_violeta WHERE EXP = '"+DatosGenerales.exp+"'";
+				PreparedStatement pstTipos = con.prepareStatement(sqlTipos);
+				ResultSet rsTipos = pstTipos.executeQuery();
+				if (rsTipos.next()) {
+					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaFisica.setSelected(true);
+					}
+					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaPsicologica.setSelected(true);
+					}
+					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaSexual.setSelected(true);
+					}
+					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaVicaria.setSelected(true);
+					}
+					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaPatrimonial.setSelected(true);
+					}
+					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("segundo_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("tercer_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
+							|| chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))) {
+						chckbxViolenciaEconomica.setSelected(true);
+					}
+
+				}
+
+				String sqlModalidades = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Modalidades_Violencia,',',1),', ','')) AS primer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',2),',',-1),', ','')) AS segundo_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',3),',',-1),', ','')) AS tercer_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',4),',',-1),', ','')) AS cuarto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',5),',',-1),', ','')) AS quinto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',6),',',-1),', ','')) AS sexto_tipo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Modalidades_Violencia,',',7),',',-1),', ','')) AS septimo_tipo FROM datos WHERE EXP = '"+ DatosGenerales.exp + "'";
+				PreparedStatement pstModalidades = con.prepareStatement(sqlModalidades);
+				ResultSet rsModalidades = pstModalidades.executeQuery();
+				if (rsModalidades.next()) {
+					if (chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxFamilia.setSelected(true);
+					}
+					if (chckbxCibernetica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxCibernetica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxCibernetica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxCibernetica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxCibernetica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxCibernetica.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxCibernetica.setSelected(true);
+					}
+					if (chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxDocente.setSelected(true);
+					}
+					if (chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxComunitario.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxComunitario.setSelected(true);
+					}
+					if (chckbxInstitucional.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxInstitucional.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxInstitucional.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxInstitucional.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxInstitucional.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxInstitucional.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxInstitucional.setSelected(true);
+					}
+					if (chckbxLaboral.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxLaboral.getText()
+									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxLaboral.getText()
+									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxLaboral.getText()
+									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxLaboral.getText()
+									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxLaboral.getText()
+									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))) {
+						chckbxLaboral.setSelected(true);
+					}
+
+				}
+			} else {
+				System.out.println("No se encontraron registros");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 
 	public void BuscarDatos() {
 		ConexionInmujer conexion = new ConexionInmujer();
@@ -112,8 +260,7 @@ public class Violencia extends JFrame {
 							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("cuarto_tipo"))
 							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("quinto_tipo"))
 							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("sexto_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
-									.equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
+							|| chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsTipos.getString("septimo_tipo"))) {
 						chckbxViolenciaPatrimonial.setSelected(true);
 					}
 					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsTipos.getString("primer_tipo"))
@@ -132,81 +279,77 @@ public class Violencia extends JFrame {
 				PreparedStatement pstModalidades = con.prepareStatement(sqlTipos);
 				ResultSet rsModalidades = pstModalidades.executeQuery();
 				if (rsModalidades.next()) {
-					if (chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaFisica.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaFisica.getText()
-									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
-						chckbxViolenciaFisica.setSelected(true);
+					if (chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxFamilia.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxFamilia.setSelected(true);
 					}
-					if (chckbxViolenciaPsicologica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+					if (chckbxCibernetica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaPsicologica.getText()
+							|| chckbxCibernetica.getText()
 									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
-						chckbxViolenciaPsicologica.setSelected(true);
+						chckbxCibernetica.setSelected(true);
 					}
-					if (chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaSexual.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaSexual.getText()
-									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
-						chckbxViolenciaSexual.setSelected(true);
+					if (chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxDocente.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+						chckbxDocente.setSelected(true);
 					}
-					if (chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaVicaria.getText()
-									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaVicaria.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaVicaria.getText()
-									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
+					if (chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
+							|| chckbxComunitario.getText().equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
 						chckbxViolenciaVicaria.setSelected(true);
 					}
-					if (chckbxViolenciaPatrimonial.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+					if (chckbxInstitucional.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaPatrimonial.getText()
+							|| chckbxInstitucional.getText()
 									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
-						chckbxViolenciaPatrimonial.setSelected(true);
+						chckbxInstitucional.setSelected(true);
 					}
-					if (chckbxViolenciaEconomica.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+					if (chckbxLaboral.getText().equalsIgnoreCase(rsModalidades.getString("primer_tipo"))
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("segundo_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("tercer_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("cuarto_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("quinto_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("sexto_tipo"))
-							|| chckbxViolenciaEconomica.getText()
+							|| chckbxLaboral.getText()
 									.equalsIgnoreCase(rsModalidades.getString("septimo_tipo"))) {
-						chckbxViolenciaEconomica.setSelected(true);
+						chckbxLaboral.setSelected(true);
 					}
 
 				}
@@ -235,12 +378,11 @@ public class Violencia extends JFrame {
 			int valor = preparedStmt.executeUpdate();
 			if (valor == 1) {
 				System.out.println("Insertado correctamente");
-
 				DATOSDELAGRESOR ventana = new DATOSDELAGRESOR();
-				dispose();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
 				ventana.BuscarDatos();
+				dispose();
 				
 
 				con.close();
@@ -413,8 +555,9 @@ public class Violencia extends JFrame {
 		panel_4.setBounds(10, 320, 787, 104);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
+		txtDescripcion.setEditable(false);
 
-		txtDescripcion.setForeground(new Color(75, 0, 130));
+		txtDescripcion.setForeground(new Color(0, 0, 0));
 		txtDescripcion.setFont(new Font("Monospaced", Font.BOLD, 13));
 		txtDescripcion.setBackground(new Color(243, 220, 220));
 		txtDescripcion.setBounds(10, 31, 769, 67);
@@ -490,6 +633,15 @@ public class Violencia extends JFrame {
 		contentPane.add(btnSiguiente);
 
 		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatosGenerales ventana = new DatosGenerales();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				ventana.BuscarDatos();
+				dispose();
+			}
+		});
 		btnRegresar.setFont(new Font("Arial", Font.BOLD, 12));
 		btnRegresar.setBackground(new Color(224, 167, 167));
 		btnRegresar.setForeground(new Color(0, 0, 0));

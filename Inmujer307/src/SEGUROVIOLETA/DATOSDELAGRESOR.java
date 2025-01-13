@@ -42,6 +42,17 @@ public class DATOSDELAGRESOR extends JFrame {
 	private JTextField txtDomicilio;
 	private JTextField txtOcupacion;
 	JComboBox comboNivel = new JComboBox();
+	
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
+	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
+	JComboBox comboEdad = new JComboBox();
+	
+	public void BuscarSeguroVioleta() {
+		
+	}
 
 	public void BuscarDatos() {
 		ConexionInmujer conexion = new ConexionInmujer();
@@ -81,29 +92,6 @@ public class DATOSDELAGRESOR extends JFrame {
 
 	}
 
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
-	private final ButtonGroup buttonGroup_3 = new ButtonGroup();
-	private final ButtonGroup buttonGroup_4 = new ButtonGroup();
-	JComboBox comboEdad = new JComboBox();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DATOSDELAGRESOR frame = new DATOSDELAGRESOR();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public void InsertarEnBase(String NivelRiesgo, String Nombre, String Domicilio, String Edad,
 			String RelacionoVinculo, String Ocupacion) {
 
@@ -132,6 +120,22 @@ public class DATOSDELAGRESOR extends JFrame {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DATOSDELAGRESOR frame = new DATOSDELAGRESOR();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
@@ -279,7 +283,7 @@ public class DATOSDELAGRESOR extends JFrame {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
 
-					String sql = "DELETE FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
+					String sql = "DELETE FROM seguro_violeta WHERE EXP = '" + DatosGenerales.exp + "'";
 
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
@@ -310,6 +314,15 @@ public class DATOSDELAGRESOR extends JFrame {
 		contentPane.add(btnSIGUIENTE);
 
 		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Violencia ventana = new Violencia();
+				ventana.setVisible(true);
+				ventana.setLocationRelativeTo(null);
+				ventana.BuscarDatos();
+				dispose();
+			}
+		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(224, 167, 167));
 		btnNewButton.setBounds(8, 518, 111, 23);

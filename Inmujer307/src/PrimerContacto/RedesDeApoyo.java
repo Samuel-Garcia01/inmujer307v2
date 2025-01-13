@@ -32,17 +32,18 @@ public class RedesDeApoyo extends JFrame {
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 
-	ConexionInmujer conexion = new ConexionInmujer();
-	Connection con = conexion.conectar();
+	public void MostrarDatos() {
+		ConexionInmujer conexion = new ConexionInmujer();
+		Connection con = conexion.conectar();
 
-	public void Regresar() {
-		String sql = "SELECT * FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
-		
+		String sql = "SELECT * FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
+
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				String sqlRedes = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Redes_de_apoyo,'\n',1),'Tipo de relacion: ','')) AS tipo_de_relacion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',2),'\n',-1),'Tipos de apoyo: ','')) AS tipos_de_apoyo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',3),'\n',-1),'Nombre: ','')) AS nombre, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',4),'\n',-1),'Dirección: ','')) AS direccion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',5),'\n',-1),'Telefono: ','')) AS telefono FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
+				String sqlRedes = "SELECT TRIM(REPLACE(SUBSTRING_INDEX(Redes_de_apoyo,'\n',1),'Tipo de relacion: ','')) AS tipo_de_relacion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',2),'\n',-1),'Tipos de apoyo: ','')) AS tipos_de_apoyo, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',3),'\n',-1),'Nombre: ','')) AS nombre, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',4),'\n',-1),'Dirección: ','')) AS direccion, TRIM(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(Redes_de_apoyo,'\n',5),'\n',-1),'Telefono: ','')) AS telefono FROM datos WHERE EXP = '"
+						+ DatosGenerales.exp + "'";
 				PreparedStatement pstRedes = con.prepareStatement(sqlRedes);
 				ResultSet rsRedes = pstRedes.executeQuery();
 				if (rsRedes.next()) {
@@ -58,7 +59,10 @@ public class RedesDeApoyo extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -72,8 +76,10 @@ public class RedesDeApoyo extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public RedesDeApoyo() {
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 650);
 		contentPane = new JPanel();
@@ -150,11 +156,6 @@ public class RedesDeApoyo extends JFrame {
 		panel_1.add(lblNewLabel_4);
 
 		txtTelefono = new JTextField();
-		txtTelefono.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 		txtTelefono.setBounds(89, 218, 155, 19);
 		panel_1.add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -174,9 +175,7 @@ public class RedesDeApoyo extends JFrame {
 		txtTipoDeRealacion = new JTextField();
 		txtTipoDeRealacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				txtTiposDeApoyo.requestFocus();
-
 			}
 		});
 		txtTipoDeRealacion.setBounds(125, 114, 196, 19);
@@ -191,9 +190,7 @@ public class RedesDeApoyo extends JFrame {
 		txtTiposDeApoyo = new JTextField();
 		txtTiposDeApoyo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				txtNombre.requestFocus();
-
 			}
 		});
 		txtTiposDeApoyo.setBounds(125, 183, 196, 19);
@@ -203,71 +200,6 @@ public class RedesDeApoyo extends JFrame {
 		JButton btnSiguiente = new JButton("SIGUIENTE");
 		btnSiguiente.setBackground(new Color(222, 158, 158));
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 12));
-		btnSiguiente.setBounds(533, 510, 142, 34);
-		contentPane.add(btnSiguiente);
-
-		JButton btnInicio = new JButton("INICIO");
-		btnInicio.setBackground(new Color(222, 158, 158));
-		btnInicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String [] opciones = {"Aceptar","Cancelar"};
-				int opcion = JOptionPane.showOptionDialog(null,
-						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán",
-						"Confirmación",
-						JOptionPane.YES_NO_OPTION, 
-						JOptionPane.QUESTION_MESSAGE,
-						null,
-						opciones,
-						opciones[0]);
-				if (opcion== JOptionPane.YES_OPTION) {
-					ConexionInmujer conexion = new ConexionInmujer();
-					Connection con = conexion.conectar();
-					
-					String sql = "DELETE FROM datos WHERE EXP = '"+DatosGenerales.exp+"'";
-					
-					try {
-						PreparedStatement pst = con.prepareStatement(sql);
-						int valor = pst.executeUpdate();
-						if (valor==1) {
-							System.out.println("Éxito en eliminar expediente");
-						}
-						MenuInmujer ventana = new MenuInmujer();
-						ventana.setVisible(true);
-						ventana.setLocationRelativeTo(null);
-						dispose();
-					} catch (Exception e1) {
-						// TODO: handle exception
-					}
-				} else if (opcion == JOptionPane.NO_OPTION) {
-					
-				}
-			}
-		});
-		btnInicio.setForeground(Color.BLACK);
-		btnInicio.setFont(new Font("Arial", Font.BOLD, 12));
-		btnInicio.setBounds(162, 510, 135, 34);
-		contentPane.add(btnInicio);
-		
-		JButton btnNewButton = new JButton("REGRESAR");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Efectosfisicos ventana = new Efectosfisicos();
-				ventana.setVisible(true);
-				ventana.setLocationRelativeTo(null);
-				ventana.Regresar();
-				dispose();
-			}
-		});
-		btnNewButton.setBackground(new Color(222, 158, 158));
-		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
-		btnNewButton.setBounds(362, 510, 112, 34);
-		contentPane.add(btnNewButton);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(133, 20, 121));
-		panel_2.setBounds(0, 566, 809, 47);
-		contentPane.add(panel_2);
-
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -279,58 +211,116 @@ public class RedesDeApoyo extends JFrame {
 
 				String RedesDeApoyo = "";
 				if (!tipoDeRelacion.isEmpty()) {
-					RedesDeApoyo += "Tipo de relacion: "+tipoDeRelacion+"\n";
+					RedesDeApoyo += "Tipo de relacion: " + tipoDeRelacion + "\n";
 				} else {
 					RedesDeApoyo += "Tipo de relacion: \n";
 				}
 				if (!tiposDeApoyo.isEmpty()) {
-					RedesDeApoyo += "Tipos de apoyo: "+tiposDeApoyo+"\n";
+					RedesDeApoyo += "Tipos de apoyo: " + tiposDeApoyo + "\n";
 				} else {
 					RedesDeApoyo += "Tipos de apoyo: \n";
 				}
 				if (!nombre.isEmpty()) {
-					RedesDeApoyo += "Nombre: "+nombre+"\n";
+					RedesDeApoyo += "Nombre: " + nombre + "\n";
 				} else {
 					RedesDeApoyo += "Nombre: \n";
 				}
 				if (!direccion.isEmpty()) {
-					RedesDeApoyo += "Dirección: "+direccion+"\n";
+					RedesDeApoyo += "Dirección: " + direccion + "\n";
 				} else {
 					RedesDeApoyo += "Dirección: \n";
 				}
 				if (!telefono.isEmpty()) {
-					RedesDeApoyo += "Telefono: "+telefono+"\n";
+					RedesDeApoyo += "Telefono: " + telefono + "\n";
 				} else {
 					RedesDeApoyo += "Telefono: \n";
 				}
+				ConexionInmujer conexion = new ConexionInmujer();
+				Connection con = conexion.conectar();
 
-				try (Connection conn = conexion.conectar()) {
+				String sql = "UPDATE datos SET Redes_de_apoyo = ? WHERE EXP = ?";
+
+				try {
+					PreparedStatement pst = con.prepareStatement(sql);
+					pst.setString(1, RedesDeApoyo);
+					pst.setInt(2, DatosGenerales.exp);
+
+					int rs = pst.executeUpdate();
+
+					if (rs == 1) {
+						System.out.println("¡Datos insertados correctamente!");
+						InformacionComplementaria ventana = new InformacionComplementaria();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						dispose();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		btnSiguiente.setBounds(533, 510, 142, 34);
+		contentPane.add(btnSiguiente);
+
+		JButton btnInicio = new JButton("INICIO");
+		btnInicio.setBackground(new Color(222, 158, 158));
+		btnInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] opciones = { "Aceptar", "Cancelar" };
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán", "Confirmación",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+				if (opcion == JOptionPane.YES_OPTION) {
 					ConexionInmujer conexion = new ConexionInmujer();
 					Connection con = conexion.conectar();
-					if (conn != null) {
 
-						String sql = "UPDATE datos SET Redes_de_apoyo = ? WHERE EXP = ?";
+					String sql = "DELETE FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
 
-						try (PreparedStatement pst = conn.prepareStatement(sql)) {
-							pst.setString(1, RedesDeApoyo);
-							pst.setInt(2, DatosGenerales.exp);
-							
-							int rs = pst.executeUpdate();
-
-							if (rs == 1) {
-								System.out.println("¡Datos insertados correctamente!");
-							}
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor == 1) {
+							System.out.println("Éxito en eliminar expediente");
 						}
+						MenuInmujer ventana = new MenuInmujer();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						DatosGenerales.exp = 0;
+						dispose();
+					} catch (Exception e1) {
+						// TODO: handle exception
 					}
-				} catch (SQLException ex) {
-					ex.printStackTrace();
+				} else if (opcion == JOptionPane.NO_OPTION) {
 
 				}
-				InformacionComplementaria ventana = new InformacionComplementaria();
+			}
+		});
+		btnInicio.setForeground(Color.BLACK);
+		btnInicio.setFont(new Font("Arial", Font.BOLD, 12));
+		btnInicio.setBounds(162, 510, 135, 34);
+		contentPane.add(btnInicio);
+
+		JButton btnNewButton = new JButton("REGRESAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Efectosfisicos ventana = new Efectosfisicos();
 				ventana.setVisible(true);
 				ventana.setLocationRelativeTo(null);
+				ventana.MostrarDatos();
 				dispose();
 			}
 		});
+		btnNewButton.setBackground(new Color(222, 158, 158));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 11));
+		btnNewButton.setBounds(362, 510, 112, 34);
+		contentPane.add(btnNewButton);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(133, 20, 121));
+		panel_2.setBounds(0, 566, 809, 47);
+		contentPane.add(panel_2);
+
 	}
 }

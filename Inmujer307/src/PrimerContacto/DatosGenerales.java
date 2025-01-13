@@ -23,6 +23,7 @@ import javax.swing.border.MatteBorder;
 import com.mysql.cj.xdevapi.Statement;
 
 import ConexionBaseDeDatos.ConexionInmujer;
+import MenuInmujer.MenuInmujer;
 import clasesExternas.FechaHora;
 
 import javax.swing.JComboBox;
@@ -74,19 +75,20 @@ public class DatosGenerales extends JFrame {
 	FechaHora fech = new FechaHora();
 	String NombreDeLaVictima;
 
-	public void Regresar() {
+	public void MostrarDatos() {
 		ConexionInmujer conexion = new ConexionInmujer();
 		Connection con = conexion.conectar();
-		
-		String sql = "SELECT * FROM datos WHERE EXP = '"+exp+"'";
-		
+
+		String sql = "SELECT * FROM datos WHERE EXP = '" + exp + "'";
+
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
-			
+
 			if (rs.next()) {
-				String nombreVic = "SELECT SUBSTRING_INDEX(Nombre_de_la_victima, ' ',1) AS apellido_paterno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',2),' ',-1) AS apellido_materno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',3),' ',-1) AS nombre FROM datos WHERE EXP = '"+exp+"'";
-				
+				String nombreVic = "SELECT SUBSTRING_INDEX(Nombre_de_la_victima, ' ',1) AS apellido_paterno, SUBSTRING_INDEX(SUBSTRING_INDEX(Nombre_de_la_victima,' ',2),' ',-1) AS apellido_materno, TRIM(SUBSTR(Nombre_de_la_victima, CHAR_LENGTH(SUBSTRING_INDEX(Nombre_de_la_victima, ' ', 2)) + 2)) AS nombre FROM datos WHERE EXP = '"
+						+ exp + "'";
+
 				PreparedStatement pstVic = con.prepareStatement(nombreVic);
 				ResultSet rsVic = pstVic.executeQuery();
 				if (rsVic.next()) {
@@ -94,47 +96,48 @@ public class DatosGenerales extends JFrame {
 					txtApellidoMaterno.setText(rsVic.getString("apellido_materno"));
 					txtNombres.setText(rsVic.getString("nombre"));
 				}
-				
+
 				comboCodigoPostal.setSelectedItem(rs.getString("Codigo_postal"));
-	            comboColonia.setSelectedItem(rs.getString("Colonia"));
-	            txtDomicilio.setText(rs.getString("Domicilio"));
-	            txtOcupacion.setText(rs.getString("Ocupacion"));
-	            txtIngresoFamiliar.setText(rs.getString("Ingreso_familiar"));
-	            txtNumeroCelular.setText(rs.getString("Telefono_Celular"));
-	            txtnumeroDeCasa.setText(rs.getString("Telefono_Casa"));
-	            txtCanalizadPor.setText(rs.getString("Canalizada_por"));
-	            txtPadecimientoCronico.setText(rs.getString("Padecimiento_y_o_Enfermedad_cronica"));
-	            txtDenuncia.setText(rs.getString("Denuncia"));
-	            ComboEstadOCivil.setSelectedItem(rs.getString("Estado_Civil"));
-	            comboServiciomedico.setSelectedItem(rs.getString("Servicio_Medico"));
-	            comboGradoestudios.setSelectedItem(rs.getString("Grado_de_Estudios"));
-	            
-	            String edad = rs.getString("Edad"),e = "";
-	            if (edad.length()==1) {
-					e = "0"+edad;
+				comboColonia.setSelectedItem(rs.getString("Colonia"));
+				txtDomicilio.setText(rs.getString("Domicilio"));
+				txtOcupacion.setText(rs.getString("Ocupacion"));
+				txtIngresoFamiliar.setText(rs.getString("Ingreso_familiar"));
+				txtNumeroCelular.setText(rs.getString("Telefono_Celular"));
+				txtnumeroDeCasa.setText(rs.getString("Telefono_Casa"));
+				txtCanalizadPor.setText(rs.getString("Canalizada_por"));
+				txtPadecimientoCronico.setText(rs.getString("Padecimiento_y_o_Enfermedad_cronica"));
+				txtDenuncia.setText(rs.getString("Denuncia"));
+				ComboEstadOCivil.setSelectedItem(rs.getString("Estado_Civil"));
+				comboServiciomedico.setSelectedItem(rs.getString("Servicio_Medico"));
+				comboGradoestudios.setSelectedItem(rs.getString("Grado_de_Estudios"));
+
+				String edad = rs.getString("Edad"), e = "";
+				if (edad.length() == 1) {
+					e = "0" + edad;
 				} else {
 					e = edad;
 				}
-	            comboEdad.setSelectedItem(e);
-	            
-	            comboVivienda.setSelectedItem(rs.getString("Vivienda"));
-	            comboNopersonas.setSelectedItem(rs.getString("No_Personas"));
-	            comboContribuyentealgasto.setSelectedItem(rs.getString("Contribuyente_al_gasto"));
-	            
-	            String fechaNac = "SELECT Fecha_de_nacimiento, YEAR(Fecha_de_nacimiento) AS anio, MONTH(Fecha_de_nacimiento) AS mes, DAY(Fecha_de_nacimiento) AS dia FROM datos WHERE EXP = '"+exp+"'";
-				
-	            PreparedStatement pstNac = con.prepareStatement(fechaNac);
+				comboEdad.setSelectedItem(e);
+
+				comboVivienda.setSelectedItem(rs.getString("Vivienda"));
+				comboNopersonas.setSelectedItem(rs.getString("No_Personas"));
+				comboContribuyentealgasto.setSelectedItem(rs.getString("Contribuyente_al_gasto"));
+
+				String fechaNac = "SELECT Fecha_de_nacimiento, YEAR(Fecha_de_nacimiento) AS anio, MONTH(Fecha_de_nacimiento) AS mes, DAY(Fecha_de_nacimiento) AS dia FROM datos WHERE EXP = '"
+						+ exp + "'";
+
+				PreparedStatement pstNac = con.prepareStatement(fechaNac);
 				ResultSet rsNac = pstNac.executeQuery();
 				if (rsNac.next()) {
 					String mes = rsNac.getString("mes"), m = "";
 					String dia = rsNac.getString("dia"), d = "";
-					if (mes.length()==1) {
-						m = "0"+mes;
+					if (mes.length() == 1) {
+						m = "0" + mes;
 					} else {
 						m = mes;
 					}
-					if (dia.length()==1) {
-						d = "0"+dia;
+					if (dia.length() == 1) {
+						d = "0" + dia;
 					} else {
 						d = dia;
 					}
@@ -142,12 +145,12 @@ public class DatosGenerales extends JFrame {
 					comboMes.setSelectedItem(m);
 					comboDia.setSelectedItem(d);
 				}
-				
+
 				area.setText(rs.getString("Dependientes_Economicos"));
 			} else {
 				System.out.println("No se encontraron registros");
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -326,8 +329,8 @@ public class DatosGenerales extends JFrame {
 				}
 			}
 		});
-		ComboEstadOCivil.setModel(
-				new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Soltera", "Casada", "Divorciada", "Viuda", "Separada", "Union libre", "Comprometida"}));
+		ComboEstadOCivil.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Soltera", "Casada",
+				"Divorciada", "Viuda", "Separada", "Union libre", "Comprometida" }));
 		ComboEstadOCivil.setBackground(new Color(243, 220, 220));
 		ComboEstadOCivil.setBounds(10, 11, 191, 22);
 		panel_2.add(ComboEstadOCivil);
@@ -373,7 +376,8 @@ public class DatosGenerales extends JFrame {
 				}
 			}
 		});
-		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] {"Seleccione una opcion", "Primaria trunca", "Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios"}));
+		comboGradoestudios.setModel(new DefaultComboBoxModel(new String[] { "Seleccione una opcion", "Primaria trunca",
+				"Primaria terminada", "Secundaria", "Bachillerato", "Licenciatura", "Posgrado", "Sin estudios" }));
 		comboGradoestudios.setBackground(new Color(243, 220, 220));
 		comboGradoestudios.setBounds(10, 107, 191, 22);
 		panel_2.add(comboGradoestudios);
@@ -1268,8 +1272,8 @@ public class DatosGenerales extends JFrame {
 
 				ConexionInmujer conexion = new ConexionInmujer();
 				Connection con = conexion.conectar();
-				String sql="";
-				if (exp==0) {
+				String sql = "";
+				if (exp == 0) {
 					sql = "INSERT INTO datos(FECHA,HORA,Nombre_de_la_victima,Estado_Civil,Ocupacion,Servicio_Medico,Grado_de_Estudios,Edad,Fecha_de_nacimiento,Ingreso_familiar,Domicilio,Codigo_postal,Colonia,Estado,Telefono_Celular,Telefono_Casa,Vivienda,No_Personas,Contribuyente_al_gasto,Canalizada_por,Padecimiento_y_o_Enfermedad_cronica,Denuncia,Dependientes_Economicos) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 					try {
 						// Preparamos la sentencia sql para conectarlo en la base de datos
@@ -1311,7 +1315,8 @@ public class DatosGenerales extends JFrame {
 							}
 							// En esta seccion le mostrara un mensaje inmformando que paso al siguiente
 							// campo
-							JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
+							JOptionPane.showMessageDialog(null,
+									"Primera etapa cumplida, le enviaremos al siguiente campo",
 									"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
 							// Aqui generamos una instancia que lo mande automaticamente a la siguiente
 							// ventana despues del proceso antes mostrado
@@ -1327,20 +1332,28 @@ public class DatosGenerales extends JFrame {
 						e1.printStackTrace();
 					}
 				} else {
-					sql = "UPDATE datos SET FECHA = '"+fecha+"', HORA = '"+Hora+"',Nombre_de_la_victima = '"+NombreDeLaVictima+"',Estado_Civil = '"+EstadoCivil+"',Ocupacion = '"+Ocupacion+"',Servicio_Medico = '"+servicioMedico+"',Grado_de_Estudios = '"+GradoDeEstudios+"',Edad = '"+edad+"',Fecha_de_nacimiento = '"+fecha+"',Ingreso_familiar = '"+IngresoFamiliar+"',Domicilio = '"+Domicilio+"',Codigo_postal = '"+CodigoPostal+"',Colonia = '"+colonia+"',Estado = '"+Estado+"',Telefono_Celular = '"+telefonoCelular+"',Telefono_Casa = '"+telefonoCasa+"',Vivienda = '"+vivienda+"',No_Personas = '"+nopersonas+"',Contribuyente_al_gasto = '"+contribuyente+"',Canalizada_por = '"+canalizadaPor+"',Padecimiento_y_o_Enfermedad_cronica = '"+padecimiento+"',Denuncia = '"+denuncia+"',Dependientes_Economicos = '"+dependientes+"' WHERE EXP = '"+DatosGenerales.exp+"'";
+					sql = "UPDATE datos SET Nombre_de_la_victima = '"
+							+ NombreDeLaVictima + "',Estado_Civil = '" + EstadoCivil + "',Ocupacion = '" + Ocupacion
+							+ "',Servicio_Medico = '" + servicioMedico + "',Grado_de_Estudios = '" + GradoDeEstudios
+							+ "',Edad = '" + edad + "',Fecha_de_nacimiento = '" + FechaDeNacimiento
+							+ "',Ingreso_familiar = '" + IngresoFamiliar + "',Domicilio = '" + Domicilio
+							+ "',Codigo_postal = '" + CodigoPostal + "',Colonia = '" + colonia + "',Estado = '" + Estado
+							+ "',Telefono_Celular = '" + telefonoCelular + "',Telefono_Casa = '" + telefonoCasa
+							+ "',Vivienda = '" + vivienda + "',No_Personas = '" + nopersonas
+							+ "',Contribuyente_al_gasto = '" + contribuyente + "',Canalizada_por = '" + canalizadaPor
+							+ "',Padecimiento_y_o_Enfermedad_cronica = '" + padecimiento + "',Denuncia = '" + denuncia
+							+ "',Dependientes_Economicos = '" + dependientes + "' WHERE EXP = '" + DatosGenerales.exp
+							+ "'";
 					try {
 						PreparedStatement pst = con.prepareStatement(sql);
 						int valor = pst.executeUpdate();
 						if (rootPaneCheckingEnabled) {
 							System.out.println("Insertado correctamente");
-							JOptionPane.showMessageDialog(null, "Primera etapa cumplida, le enviaremos al siguiente campo",
-									"Para una mejor informacion del caso", JOptionPane.INFORMATION_MESSAGE);
-							// Aqui generamos una instancia que lo mande automaticamente a la siguiente
-							// ventana despues del proceso antes mostrado
 							Violencia ventana = new Violencia();
 							dispose();
 							ventana.setVisible(true);
 							ventana.setLocationRelativeTo(null);
+							ventana.MostrarDatos();
 						} else {
 							System.out.println("No se inserto");
 						}
@@ -1352,7 +1365,7 @@ public class DatosGenerales extends JFrame {
 			}
 		});
 		btnNewButton.setBackground(new Color(243, 220, 220));
-		btnNewButton.setBounds(371, 594, 99, 23);
+		btnNewButton.setBounds(449, 594, 116, 23);
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel_30 = new JLabel("Nombre, Edad y Escolaridad/ Ocupacion");
@@ -1454,7 +1467,6 @@ public class DatosGenerales extends JFrame {
 		comboAnio.setBackground(new Color(243, 220, 220));
 		for (int i = 1940; i <= 2020; i++) {
 			comboAnio.addItem(i);
-
 		}
 
 		JLabel lblNewLabel_10 = new JLabel("AÑO");
@@ -1463,13 +1475,49 @@ public class DatosGenerales extends JFrame {
 		lblNewLabel_10.setBounds(10, 159, 191, 14);
 		panel.add(lblNewLabel_10);
 		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 12));
-		
+
 		JLabel lblNewLabel_23_1 = new JLabel("DEPENDIENTES ECONOMICOS");
 		lblNewLabel_23_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_23_1.setForeground(new Color(43, 43, 43));
 		lblNewLabel_23_1.setFont(new Font("Arial", Font.BOLD, 12));
 		lblNewLabel_23_1.setBounds(272, 569, 303, 14);
 		contentPane.add(lblNewLabel_23_1);
+
+		JButton btnRegresar = new JButton("REGRESAR");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] opciones = { "Aceptar", "Cancelar" };
+				int opcion = JOptionPane.showOptionDialog(null,
+						"¿Está seguro de que quiere regresar? Todos los datos ingresados se perderán", "Confirmación",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+				if (opcion == JOptionPane.YES_OPTION) {
+					ConexionInmujer conexion = new ConexionInmujer();
+					Connection con = conexion.conectar();
+
+					String sql = "DELETE FROM datos WHERE EXP = '" + DatosGenerales.exp + "'";
+
+					try {
+						PreparedStatement pst = con.prepareStatement(sql);
+						int valor = pst.executeUpdate();
+						if (valor == 1) {
+							System.out.println("Éxito en eliminar expediente");
+						}
+						MenuInmujer ventana = new MenuInmujer();
+						ventana.setVisible(true);
+						ventana.setLocationRelativeTo(null);
+						exp = 0;
+						dispose();
+					} catch (Exception e1) {
+						// TODO: handle exception
+					}
+				} else if (opcion == JOptionPane.NO_OPTION) {
+
+				}
+			}
+		});
+		btnRegresar.setBackground(new Color(243, 220, 220));
+		btnRegresar.setBounds(282, 594, 116, 23);
+		contentPane.add(btnRegresar);
 		System.out.println(exp);
 	}
 }
